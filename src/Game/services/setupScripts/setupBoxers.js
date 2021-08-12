@@ -1,6 +1,6 @@
 import { SkeletonUtils } from 'three-stdlib';
 
-import { loadModel, loadAnimation } from '../algorithms/assetsLoaders';
+import { loadFBX } from '../algorithms/assetsLoaders';
 
 import webGLParameters from '../constants/webGLParameters';
 import ringParameters from '../constants/ringParameters';
@@ -13,7 +13,7 @@ const setupBoxers = async (scene) => {
   const models = [];
   const animations = [{}, {}];
 
-  const modelsLoadingPromise = loadModel('../../../../assets/models/ybot.fbx').then((model) => {
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/ybot.fbx').then((model) => {
     const scaleCoefficient = ringParameters.ropes.height * 0.0075;
 
     model.traverse((obj) => {
@@ -40,15 +40,9 @@ const setupBoxers = async (scene) => {
   });
 
   const animationsLoadingPromises = [];
-  animationsLoadingPromises.push(loadAnimation('../../../../assets/animations/warming-up.fbx').then((animation) => {
+  animationsLoadingPromises.push(loadFBX('../../../../assets/animations/warming-up.fbx').then((animation) => {
     animations[0]['warming-up'] = animation.animations[0];
     animations[1]['warming-up'] = animation.animations[0];
-  }).catch((error) => {
-    console.log(error);
-  }));
-  animationsLoadingPromises.push(loadAnimation('../../../../assets/animations/jab-cross.fbx').then((animation) => {
-    animations[0]['jab-cross'] = animation.animations[0];
-    animations[1]['jab-cross'] = animation.animations[0];
   }).catch((error) => {
     console.log(error);
   }));

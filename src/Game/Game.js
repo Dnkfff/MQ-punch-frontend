@@ -31,7 +31,7 @@ const Game = () => {
 
       boxers = await setupBoxers(scene);
 
-      const skybox = setupSkybox(scene);
+      const skybox = await setupSkybox(scene);
       cameraController = new CameraController(camera, skybox);
 
       controls = new OrbitControls(cameraController.camera, renderer.domElement);

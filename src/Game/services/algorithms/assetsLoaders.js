@@ -1,16 +1,17 @@
+import { TextureLoader } from 'three';
 import { FBXLoader } from 'three-stdlib';
 
 
-export const loadAnimation = (url) => {
+export const loadTexture = (url) => {
   return new Promise((resolve) => {
-    const animationLoader = new FBXLoader();
-    animationLoader.load(url, resolve);
+    const textureLoader = new TextureLoader();
+    textureLoader.load(url, resolve);
   });
 };
 
-export const loadModel = (url) => {
+export const loadFBX = (url) => {
   return new Promise((resolve) => {
-    const modelLoader = new FBXLoader();
-    modelLoader.load(url, resolve);
+    const fbxLoader = new FBXLoader();
+    fbxLoader.load(url, resolve);
   });
 };
