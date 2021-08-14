@@ -1,0 +1,53 @@
+.app-container-big-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .main-picture {
+    width: 100%;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+  }
+
+  .main-big-logo {
+    width: 400px;
+  }
+
+  .big-header-menu {
+    width: 100%;
+    background-color: rgba(37, 40, 48, 1);
+    box-shadow: 0px 5.62567px 5.62567px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    a {
+      padding: 10px 35px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 400;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    a.active {
+      font-weight: 500;
+      background-color: rgb(206, 13, 13);
+      text-shadow: 2px 2px 2px rgba(58, 47, 47, 0.99);
+      border-bottom: 4px solid rgb(134, 8, 8);
+    }
+
+    a.no-active {
+      color: white;
+    }
+
+    a.no-active:hover {
+      background-color: hsla(350, 83%, 56%, 0.432);
+    }
+  }
+}

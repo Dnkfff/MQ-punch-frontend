@@ -3,3 +3,10 @@
 
 // глобальные стили
 @import "./global.scss";
+
+// цвета
+@import "./colors.scss";
+
+// layout
+@import "../components/Wrappers/Layout/layout.scss";
+@import "../components/Wrappers/BigHeader/big-header.scss";
