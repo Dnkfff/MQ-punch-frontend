@@ -1,17 +1,11 @@
-import React from "react";
-import * as THREE from "three";
+import React from 'react';
 
-// Import loaders from three-stdlib instead of /examples folder
-// import { OrbitControls, FBXLoader } from "three-stdlib";
- 
- 
-function App() {
-
+const App = () => {
   return (
     <div>
-      <div id="container"></div>
+      <p>hello next</p>
     </div>
   );
-}
- 
+};
+
 export default App;
