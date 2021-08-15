@@ -6,14 +6,34 @@
 
   .main-picture {
     width: 100%;
+    background-color: #100406;
     padding: 5px 20px;
-    height: 180px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    background-color: #eee;
     position: relative;
+
+    .boxing-ring-pict {
+      position: absolute;
+      max-width: 1500px;
+      width: 100%;
+      overflow: hidden;
+      max-height: 100%;
+      object-fit: cover;
+      z-index: 100;
+
+      @media screen and (max-width: 1300px) {
+        top: 0;
+        left: 0;
+      }
+
+      @media screen and (min-width: 1500px) {
+        top: 0;
+        left: calc(50% - 750px);
+      }
+    }
 
     .under-picture-info {
       position: absolute;
@@ -21,10 +41,11 @@
       height: 70px;
       bottom: 0;
       left: 0;
-      background-color: rgba(212, 212, 212, 0.603);
+      background-color: #310b0b81;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 101;
 
       button.start {
         border-radius: 3px;
@@ -32,7 +53,7 @@
         font-weight: 600;
         background-color: transparent;
         color: rgb(206, 13, 13);
-        font-size: 20px;
+        font-size: 22px;
         border: 3px solid rgb(206, 13, 13);
         padding: 5px 25px;
         cursor: pointer;
@@ -49,11 +70,13 @@
 
   .main-big-logo {
     width: 400px;
+    z-index: 101;
+    margin-top: 20px;
   }
 
   .big-header-menu {
     width: 100%;
-    background-color: rgba(37, 40, 48, 1);
+    background-color: rgb(143, 29, 29);
     box-shadow: 0px 5.62567px 5.62567px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: row;
@@ -77,11 +100,11 @@
     }
 
     a.no-active {
-      color: rgb(211, 211, 211);
+      color: white;
     }
 
     a.no-active:hover {
-      background-color: rgba(206, 13, 13, 0.6);
+      background-color: rgb(179, 13, 13);
       color: white;
     }
   }

@@ -15,3 +15,5 @@ export const bigHeaderMenuLinks = [
   },
   { label: 'Learn', id: getUUID(), pathname: '/learn' },
 ];
+
+export const scrollStickyHeaderLength = 270;
