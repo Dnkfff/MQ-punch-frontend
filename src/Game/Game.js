@@ -41,7 +41,7 @@ const Game = () => {
 
       clock.start();
 
-      render();
+      setTimeout(render, 1);
     }
 
     function render() {
