@@ -94,7 +94,7 @@ const setupBoxers = async (scene) => {
   ];
 
   const animationsLoadingPromises = animationsNames.map((name) => {
-    loadFBX('../../../../assets/animations/' + name + '.fbx').then((animation) => {
+    return loadFBX('../../../../assets/animations/' + name + '.fbx').then((animation) => {
       animationActions[0][name] = animationMixers[0].clipAction(animation.animations[0]);
       animationActions[0][name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
       animationActions[0][name].clampWhenFinished = true;
