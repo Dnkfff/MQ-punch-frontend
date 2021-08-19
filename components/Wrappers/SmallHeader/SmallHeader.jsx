@@ -1,7 +1,7 @@
 import React from 'react';
 
 // assets
-import logotype from '../../../assets/mq-punch-logo-small.png';
+import logotype from '../../../assets/website/mq-punch-logo-small.png';
 import { HiMenuAlt2 } from 'react-icons/hi';
 
 const SmallHeader = (props) => {

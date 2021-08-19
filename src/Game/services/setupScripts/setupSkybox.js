@@ -5,15 +5,18 @@ import { loadTexture } from '../algorithms/assetsLoaders';
 import webGLParameters from '../constants/webGLParameters';
 import cameraParameters from '../constants/cameraParameters';
 
+import skyboxTexture from '../../../../assets/game/textures/skybox/skybox.jpg';
 
 const setupSkybox = async (scene) => {
   let texture;
 
-  const texturePromise = loadTexture('../../../../assets/textures/skybox/skybox.jpg').then((jpeg) => {
-    texture = jpeg;
-  }).catch((error) => {
-    console.log(error);
-  });
+  const texturePromise = loadTexture(skyboxTexture.src)
+    .then((jpeg) => {
+      texture = jpeg;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   await texturePromise.catch((error) => {
     console.log(error);

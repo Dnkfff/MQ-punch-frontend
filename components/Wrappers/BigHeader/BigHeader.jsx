@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 // constants
 import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
 
-import mainBigLogoPath from '../../../assets/mq-rect-punch-logo-white.png';
-import boxingRingPict from '../../../assets/boxing-ring.png';
+import mainBigLogoPath from '../../../assets/website/mq-rect-punch-logo-white.png';
+import boxingRingPict from '../../../assets/website/boxing-ring.png';
 
 const BigHeader = (props) => {
   const router = useRouter();
