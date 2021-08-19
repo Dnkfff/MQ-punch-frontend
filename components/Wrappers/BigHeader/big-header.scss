@@ -7,7 +7,7 @@
   .main-picture {
     width: 100%;
     background-color: #100406;
-    padding: 5px 20px;
+    padding: 0 20px;
     height: 220px;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
       overflow: hidden;
       max-height: 100%;
       object-fit: cover;
-      z-index: 100;
+      z-index: 1;
 
       @media screen and (max-width: 1300px) {
         top: 0;
@@ -45,7 +45,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 101;
+      z-index: 2;
 
       button.start {
         border-radius: 3px;
@@ -70,7 +70,7 @@
 
   .main-big-logo {
     width: 400px;
-    z-index: 101;
+    z-index: 2;
     margin-top: 20px;
   }
 
@@ -82,30 +82,52 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: fit-content;
 
-    a {
-      padding: 10px 35px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 400;
-      color: white;
-      transition: background-color 0.3s ease;
-      border-bottom: 4px solid transparent;
+    .links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      a {
+        padding: 10px 35px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 400;
+        color: white;
+        transition: background-color 0.3s ease;
+        border-bottom: 4px solid transparent;
+      }
+
+      a.active {
+        background-color: rgb(206, 13, 13);
+        text-shadow: 2px 2px 2px rgba(58, 47, 47, 0.99);
+        border-bottom: 4px solid rgb(134, 8, 8);
+      }
+
+      a.no-active {
+        color: white;
+      }
+
+      a.no-active:hover {
+        background-color: rgb(179, 13, 13);
+        color: white;
+      }
     }
+  }
 
-    a.active {
-      background-color: rgb(206, 13, 13);
-      text-shadow: 2px 2px 2px rgba(58, 47, 47, 0.99);
-      border-bottom: 4px solid rgb(134, 8, 8);
-    }
+  .big-header-menu .user-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    a.no-active {
-      color: white;
-    }
+    .balance {}
+  }
 
-    a.no-active:hover {
-      background-color: rgb(179, 13, 13);
-      color: white;
+  @media screen and (max-width: 1300px) {
+    .big-header-menu {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
