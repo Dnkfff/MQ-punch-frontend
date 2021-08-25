@@ -3,3 +3,16 @@
 
 // глобальные стили
 @import "./global.scss";
+
+// colors
+@import "./colors.scss";
+
+// modal
+@import "../components/UI/Modal/modal.scss";
+// modal templates
+@import "../components/UI/Modal/ModalTemplates/templates/Auth/auth.scss";
+
+// layout
+@import "../components/Wrappers/Layout/layout.scss";
+@import "../components/Wrappers/BigHeader/big-header.scss";
+@import "../components/Wrappers/SmallHeader/small-header.scss";
