@@ -1,6 +1,10 @@
 import { LoopRepeat } from 'three';
 
 import boxerParameters from '../../constants/boxerParameters';
+import animationsNames from '../../constants/animationsNames';
+
+
+const ANIMATION_TRANSITION_DURATION = 0.1;
 
 
 class Boxer {
@@ -8,31 +12,37 @@ class Boxer {
     this.model = model;
     this.animationMixer = animationMixer;
     this.animationActions = animationActions;
-    this.currentAnimationName = 'warming-up';
+    this.currentAnimationName = animationsNames[0];
     this.animationQueue = [];
   }
 
   animate(deltaTime) {
     this.animationMixer.update(deltaTime);
-    if (this.animationActions[this.currentAnimationName].isRunning()) {
-      if (this.animationActions[this.currentAnimationName].loop === LoopRepeat && this.animationQueue.length !== 0) {
-        this.requestImmediateAnimation(this.animationQueue.shift());
-      }
-    } else {
-      this.requestImmediateAnimation(this.animationQueue.length === 0 ? 'fighting-idle' : this.animationQueue.shift());
+
+    const currentAnimationIsRunning = this.animationActions[this.currentAnimationName].isRunning();
+    if (!currentAnimationIsRunning) {
+      this.requestImmediateAnimation(this.animationQueue.length === 0 ? animationsNames[0] : this.animationQueue.shift());
+    } else if (this.animationActions[this.currentAnimationName].loop === LoopRepeat && this.animationQueue.length !== 0) {
+      this.requestImmediateAnimation(this.animationQueue.shift());
     }
   }
 
   requestImmediateAnimation(name) {
+    const prepareAnimationClip = (name, enableAnimationTransition = false) => {
+      this.animationActions[name].reset();
+      if (enableAnimationTransition) {
+        this.animationActions[name].crossFadeFrom(this.animationActions[this.currentAnimationName], ANIMATION_TRANSITION_DURATION);
+      }
+      this.animationActions[name].play();
+    }
+
     if (name in this.animationActions) {
+      const currentAnimationIsRunning = this.animationActions[this.currentAnimationName].isRunning();
       if (name !== this.currentAnimationName) {
-        this.animationActions[name].reset();
-        this.animationActions[name].crossFadeFrom(this.animationActions[this.currentAnimationName], 0.1);
-        this.animationActions[name].play();
+        prepareAnimationClip(name, true);
         this.currentAnimationName = name;
-      } else if (!this.animationActions[this.currentAnimationName].isRunning()) {
-        this.animationActions[name].reset();
-        this.animationActions[name].play();
+      } else if (!currentAnimationIsRunning) {
+        prepareAnimationClip(name, false);
       }
     }
   }

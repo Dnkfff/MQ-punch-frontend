@@ -18,10 +18,10 @@ const Game = () => {
   useEffect(() => {
     let scene, renderer, composer;
     let cameraController;
-    let boxers;
     let controls;
     const clock = new THREE.Clock();
     let deltaTime = 0;
+    let leftBoxer, rightBoxer;
 
     async function init() {
       const container = document.getElementById('container');
@@ -29,7 +29,7 @@ const Game = () => {
       let camera;
       [ scene, camera, renderer, composer ] = setupWebGL({ container, window });
 
-      boxers = await setupBoxers(scene);
+      ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
 
       const skybox = await setupSkybox(scene);
       cameraController = new CameraController(camera, skybox);
@@ -51,9 +51,8 @@ const Game = () => {
 
       deltaTime = clock.getDelta();
       if (deltaTime > 0) {
-        boxers.forEach((boxer) => {
-          boxer.animate(deltaTime);
-        });
+        leftBoxer.animate(deltaTime);
+        rightBoxer.animate(deltaTime);
       }
 
       const cameraLookAtPosition = new THREE.Vector3(ringParameters.canvas.width / 2, -ringParameters.canvas.height / 2, ringParameters.canvas.width / 2);

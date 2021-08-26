@@ -1,7 +1,8 @@
+import ringParameters from './ringParameters';
+
+
 const boxerParameters = {
-  minVelocity: 5,
-  maxVelocity: 25,
-  wheelRadius: 0.01,
+  scale: ringParameters.ropes.height * 0.0075,
 };
 
 export default boxerParameters;
