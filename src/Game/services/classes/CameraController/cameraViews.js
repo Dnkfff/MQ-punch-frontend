@@ -40,7 +40,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y - Math.PI / 6), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y - Math.PI / 6));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-20);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -50,7 +50,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-20);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -60,7 +60,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y + Math.PI / 6), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y + Math.PI / 6));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-20);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -74,7 +74,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y - Math.PI / 2), 0, Math.cos(parentRotation.y - Math.PI / 2));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-20);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -88,7 +88,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y + Math.PI / 2), 0, Math.cos(parentRotation.y + Math.PI / 2));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-20);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -102,7 +102,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), -10, Math.cos(parentRotation.y));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-2);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -2);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -116,7 +116,7 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 10, Math.cos(parentRotation.y));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.multiplyScalar(-2);
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -2);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -129,6 +129,8 @@ const cameraViews = {
     positionOffsetVector.applyQuaternion(childQuaternion);
     lookAtVector.applyQuaternion(childQuaternion);
 
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -5);
+
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
   'forearm-right': (model) => {
@@ -139,6 +141,8 @@ const cameraViews = {
 
     positionOffsetVector.applyQuaternion(childQuaternion);
     lookAtVector.applyQuaternion(childQuaternion);
+
+    positionOffsetVector.multiplyScalar(boxerParameters.scale * -5);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },

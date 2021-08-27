@@ -19,7 +19,8 @@ const setupBoxers = async (scene) => {
   let leftAnimationMixer, rightAnimationMixer;
   const leftAnimationActions = {}, rightAnimationActions = {};
 
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx').then((model) => {
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx')
+  .then((model) => {
     model.traverse((obj) => {
       obj.layers.set(webGLParameters.layers.NORMAL);
     });
@@ -46,8 +47,9 @@ const setupBoxers = async (scene) => {
 
   await modelsLoadingPromise;
 
-  const animationsLoadingPromises = animationsNames.map((name) => {
-    return loadFBX('../../../../assets/animations/' + name + '.fbx').then((animation) => {
+  const animationsLoadingPromises =
+    animationsNames.map((name) => loadFBX('../../../../assets/animations/' + name + '.fbx')
+    .then((animation) => {
       leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
       leftAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
       leftAnimationActions[name].clampWhenFinished = true;
@@ -56,8 +58,8 @@ const setupBoxers = async (scene) => {
       rightAnimationActions[name].clampWhenFinished = true;
     }).catch((error) => {
       console.log(error);
-    });
-  });
+    })
+  );
 
   await Promise.all(animationsLoadingPromises);
 
