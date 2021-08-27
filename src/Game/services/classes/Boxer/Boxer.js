@@ -1,6 +1,5 @@
 import { LoopRepeat } from 'three';
 
-import boxerParameters from '../../constants/boxerParameters';
 import animationsNames from '../../constants/animationsNames';
 
 

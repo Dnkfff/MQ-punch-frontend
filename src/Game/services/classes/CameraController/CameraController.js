@@ -1,74 +1,52 @@
-import * as THREE from 'three';
+import cameraViews from './cameraViews';
 
-import cameraModes from '../../algorithms/cameraModes';
+import ringParameters from '../../constants/ringParameters';
 
 
 class CameraController {
-  constructor(camera, skybox) {
+  constructor(camera, skybox, targetModel) {
     this.camera = camera;
-    this.camera.position.set(0, 0, 0);
-    this.currentPosition = new THREE.Vector3();
-    this.currentLookAt = new THREE.Vector3();
-
-    this.modeSwitchingMethod = 'auto';
-    this.mode = 0;
-    this.modeTime = 0;
 
     this.skybox = skybox;
+
+    this.mode = 'automatic';
+    this.view = 'first-person';
+    this.targetModel = targetModel;
   }
 
-  cameraModeHandler(deltaTime, requestedMode) {
-    switch (this.modeSwitchingMethod) {
-      case 'auto':
-        this.modeTime += deltaTime;
-        if (this.modeTime >= cameraModes[this.mode].duration) {
-          this.mode = (this.mode + 1) % cameraModes.length;
-          this.modeTime = 0;
-        }
-        return cameraModes[this.mode].equation(this.modeTime);
-      case 'random':
-        this.modeTime += deltaTime;
-        if (this.modeTime >= cameraModes[this.mode].duration) {
-          const previousMode = this.mode;
-          this.mode = Math.floor(Math.random() * cameraModes.length);
-          if (previousMode !== this.mode) {
-            this.modeTime = 0;
-          }
-        }
-        return cameraModes[this.mode].equation(this.modeTime);
-      case 'manual':
-        this.modeTime += deltaTime;
-        if (requestedMode !== this.mode) {
-          this.mode = requestedMode % cameraModes.length;
-          this.modeTime = 0;
-        }
-        return cameraModes[this.mode].equation(this.modeTime);
-      case 'free':
-        return cameraModes[this.mode].equation(this.modeTime);
+  setMode(mode) {
+    this.mode = mode;
+    if (this.mode === 'free') {
+      this.camera.position.set(ringParameters.canvas.width, ringParameters.canvas.height, ringParameters.canvas.width);
+      this.camera.lookAt(ringParameters.canvas.width / 2, 0, ringParameters.canvas.width / 2);
     }
   }
 
-  calculateNewCameraParameters(cameraLookAtPosition, deltaTime, requestedMode) {
-    const relativeCameraPosition = this.cameraModeHandler(deltaTime, requestedMode);
-    const idealOffset = new THREE.Vector3(relativeCameraPosition.x, relativeCameraPosition.y, relativeCameraPosition.z);
-    idealOffset.add(cameraLookAtPosition);
-    const idealLookAt = new THREE.Vector3(0, 0, 0);
-    idealLookAt.add(cameraLookAtPosition);
-    return [idealOffset, idealLookAt];
+  setView(view) {
+    this.view = view;
   }
 
-  updateCamera({ cameraLookAtPosition, deltaTime, requestedMode }) {
-    const [idealOffset, idealLookAt] = this.calculateNewCameraParameters(cameraLookAtPosition, deltaTime, requestedMode);
-    this.currentPosition.copy(idealOffset);
-    this.currentLookAt.copy(idealLookAt);
-
-    this.camera.position.copy(this.currentPosition);
-    this.camera.lookAt(this.currentLookAt);
-
-    this.updateSkybox();
+  setTargetModel(targetModel) {
+    this.targetModel = targetModel;
   }
 
-  updateSkybox() {
+  modesHandler(deltaTime) {
+    const { cameraPosition, cameraLookAt } = cameraViews[this.view](this.targetModel);
+    this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    this.camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
+  }
+
+  update(deltaTime) {
+    switch (this.mode) {
+      case 'automatic':
+        break;
+      case 'fixed':
+        this.modesHandler(deltaTime);
+        break;
+      case 'free':
+        break;
+    }
+
     this.skybox.position.copy(this.camera.position);
   }
 }
