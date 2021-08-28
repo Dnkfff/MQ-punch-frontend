@@ -24,7 +24,7 @@ const Game = () => {
       const container = document.getElementById('container');
 
       let camera;
-      [scene, camera, renderer, composer] = setupWebGL({ container, window });
+      ({ scene, camera, renderer, composer } = setupWebGL({ container, window }));
 
       ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
 

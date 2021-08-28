@@ -35,14 +35,12 @@ class Boxer {
       this.animationActions[name].play();
     }
 
-    if (name in this.animationActions) {
-      const currentAnimationIsRunning = this.animationActions[this.currentAnimationName].isRunning();
-      if (name !== this.currentAnimationName) {
-        prepareAnimationClip(name, true);
-        this.currentAnimationName = name;
-      } else if (!currentAnimationIsRunning) {
-        prepareAnimationClip(name, false);
-      }
+    const currentAnimationIsRunning = this.animationActions[this.currentAnimationName].isRunning();
+    if (name !== this.currentAnimationName) {
+      prepareAnimationClip(name, true);
+      this.currentAnimationName = name;
+    } else if (!currentAnimationIsRunning) {
+      prepareAnimationClip(name, false);
     }
   }
 

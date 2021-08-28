@@ -29,8 +29,9 @@ const cameraViews = {
     const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0, Math.cos(parentRotation.y));
     const lookAtVector = positionOffsetVector.clone();
 
-    positionOffsetVector.applyQuaternion(childQuaternion);
     lookAtVector.applyQuaternion(childQuaternion);
+
+    positionOffsetVector.multiplyScalar(0);
 
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
@@ -93,7 +94,7 @@ const cameraViews = {
     return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
   },
   'above': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigNeck');
+    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigSpine');
 
     const childPositionOffset = new THREE.Vector3(Math.sin(parentRotation.y), 0.6, Math.cos(parentRotation.y));
     childPositionOffset.multiplyScalar(boxerParameters.scale * 5);
