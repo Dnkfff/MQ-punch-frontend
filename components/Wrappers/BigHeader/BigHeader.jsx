@@ -1,33 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import Modal from '../../UI/Modal/Modal';
-
-// constants
-import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
+import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
 
 import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
 import { changeHeaderHeight } from '../../../redux/reducers/GlobalManager/slice';
 
 import mainBigLogoPath from '../../../assets/website/mq-rect-punch-logo-white.png';
 import boxingRingPict from '../../../assets/website/boxing-ring.png';
-
-const BigHeaderMenuLinks = () => {
-  const router = useRouter();
-
-  return bigHeaderMenuLinks.map((el) => (
-    <Link
-      key={el.id}
-      href={{
-        pathname: el.pathname,
-      }}
-    >
-      <a className={router.pathname.includes(el.pathname) ? 'active' : 'no-active'}>{el.label}</a>
-    </Link>
-  ));
-};
 
 const BigHeader = (props) => {
   const { header_height } = props;

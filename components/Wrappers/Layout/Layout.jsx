@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import BigHeader from '../BigHeader/BigHeader';
-import SmallHeader from '../SmallHeader/SmallHeader';
+import StickyHeader from '../StickyHeader/StickyHeader';
 import BottomButtonWithUpArrow from '../BottomButtonWithUpArrow/BottomButtonWithUpArrow';
 
 const Layout = ({ children }) => {
@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
   return (
     <div className='app-container'>
       <BigHeader />
-      <SmallHeader showStickyHeader={showStickyHeader} />
+      <StickyHeader showStickyHeader={showStickyHeader} />
       <div className='content'>{children}</div>
       <BottomButtonWithUpArrow />
     </div>

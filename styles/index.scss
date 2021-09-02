@@ -15,10 +15,10 @@
 // layout
 @import "../components/Wrappers/Layout/layout.scss";
 @import "../components/Wrappers/BigHeader/big-header.scss";
-@import "../components/Wrappers/SmallHeader/small-header.scss";
+@import "../components/Wrappers/StickyHeader/sticky-header.scss";
 @import "../components/Wrappers/BottomButtonWithUpArrow/bottomButtonWithUpArrow.scss";
 
 // --- pages
 
-// index ( main )
+// index ( main )s
 @import "../pages/index.scss";
