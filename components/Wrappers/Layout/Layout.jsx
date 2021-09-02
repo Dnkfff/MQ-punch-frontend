@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import BigHeader from '../BigHeader/BigHeader';
 import SmallHeader from '../SmallHeader/SmallHeader';
+import BottomButtonWithUpArrow from '../BottomButtonWithUpArrow/BottomButtonWithUpArrow';
 
 const Layout = ({ children }) => {
   const [showStickyHeader, setShowStickyHeader] = useState(false);
@@ -21,6 +22,7 @@ const Layout = ({ children }) => {
       <BigHeader />
       <SmallHeader showStickyHeader={showStickyHeader} />
       <div className='content'>{children}</div>
+      <BottomButtonWithUpArrow />
     </div>
   );
 };
