@@ -5,6 +5,7 @@ export const slice = createSlice({
   initialState: {
     header_height: 0,
     mobile_menu_is_opened: false,
+    user: false,
   },
   reducers: {
     changeHeaderHeight: (state, action) => {

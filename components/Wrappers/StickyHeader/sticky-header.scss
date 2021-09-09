@@ -27,7 +27,6 @@
 }
 
 .app-container-sticky-header {
-
   .left {
     display: flex;
     align-items: center;
@@ -101,7 +100,6 @@
     .menu-icon:hover {
       background-color: rgb(114, 23, 23);
     }
-
   }
 
   .right {
@@ -120,7 +118,7 @@
 
       span {
         font-size: 16px;
-        color: white
+        color: white;
       }
     }
 
@@ -136,7 +134,6 @@
       }
     }
   }
-
 }
 
 @media screen and (max-width: 600px) {
@@ -152,6 +149,9 @@
 
       .menu-icon {
         margin-left: 10px !important;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
       }
     }
 

@@ -1,7 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
 
+// components
 import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
+
+// functions
+import { changeMobileMenuOpened } from '../../../redux/reducers/GlobalManager/slice';
 
 // assets
 import logotype from '../../../assets/website/mq-punch-logo-small.png';
@@ -10,9 +15,14 @@ import profileIconSVG from '../../../assets/website/icons/profile_icon.svg';
 import { HiMenuAlt2 } from 'react-icons/hi';
 
 const StickyHeader = (props) => {
+  const dispatch = useDispatch();
   const { showStickyHeader } = props;
 
   const smallHeaderClassName = `app-container-sticky-header ${showStickyHeader ? 'opened' : 'closed'}`;
+
+  const onOpenMobileMenu = () => {
+    dispatch(changeMobileMenuOpened(true));
+  };
 
   return (
     <div className={smallHeaderClassName}>
@@ -21,7 +31,7 @@ const StickyHeader = (props) => {
           <img src={logotype.src} alt='MQPUNCH' />
         </div>
 
-        <div className='menu-icon'>
+        <div className='menu-icon' onClick={onOpenMobileMenu}>
           <HiMenuAlt2 />
         </div>
 

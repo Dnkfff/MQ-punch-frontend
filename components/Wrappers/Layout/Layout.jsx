@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import BigHeader from '../BigHeader/BigHeader';
 import StickyHeader from '../StickyHeader/StickyHeader';
+import MobileMenu from '../MobileMenu/MobileMenu';
 import BottomButtonWithUpArrow from '../BottomButtonWithUpArrow/BottomButtonWithUpArrow';
 
 const Layout = ({ children }) => {
@@ -20,6 +21,7 @@ const Layout = ({ children }) => {
   return (
     <div className='app-container'>
       <BigHeader />
+      <MobileMenu />
       <StickyHeader showStickyHeader={showStickyHeader} />
       <div className='content'>{children}</div>
       <BottomButtonWithUpArrow />
