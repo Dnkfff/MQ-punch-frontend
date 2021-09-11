@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
 import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
@@ -18,7 +18,10 @@ const StickyHeader = (props) => {
   const dispatch = useDispatch();
   const { showStickyHeader } = props;
 
-  const smallHeaderClassName = `app-container-sticky-header ${showStickyHeader ? 'opened' : 'closed'}`;
+  const userIsAuth = useSelector((state) => state.global_manager.user);
+  const smallHeaderClassName = `app-container-sticky-header ${
+    showStickyHeader ? 'opened' : 'closed'
+  }`;
 
   const onOpenMobileMenu = () => {
     dispatch(changeMobileMenuOpened(true));
@@ -39,17 +42,19 @@ const StickyHeader = (props) => {
           <BigHeaderMenuLinks />
         </nav>
       </div>
-      <div className='right'>
-        <div className='balance'>
-          <img src={creditCardSVG.src} alt='credit_card' />
-          <span>{'300.00 $'}</span>
-        </div>
-        <Link href={'/profile'}>
-          <div className='profile'>
-            <img src={profileIconSVG.src} alt='profile' />
+      {userIsAuth && (
+        <div className='right'>
+          <div className='balance'>
+            <img src={creditCardSVG.src} alt='credit_card' />
+            <span>{'300.00 $'}</span>
           </div>
-        </Link>
-      </div>
+          <Link href={'/profile'}>
+            <div className='profile'>
+              <img src={profileIconSVG.src} alt='profile' />
+            </div>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

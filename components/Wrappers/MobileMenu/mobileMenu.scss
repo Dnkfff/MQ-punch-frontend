@@ -54,6 +54,10 @@
       cursor: default;
       background-color: rgb(255, 236, 236);
       border-top: 1px solid rgb(206, 13, 13);
+      border-bottom: 1px solid rgb(206, 13, 13);
+    }
+    li.active + li {
+      border-top: 0px;
     }
   }
 

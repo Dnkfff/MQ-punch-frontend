@@ -133,6 +133,19 @@
         width: 30px;
       }
     }
+
+    @media screen and (max-width: 600px) {
+      .balance {
+        img {
+          width: 20px;
+        }
+      }
+      .profile {
+        img {
+          width: 20px;
+        }
+      }
+    }
   }
 }
 
@@ -157,11 +170,6 @@
 
     .right {
       .balance {
-        margin-right: 10px;
-      }
-
-      img {
-        width: 25px !important;
         margin-right: 10px;
       }
     }

@@ -9,10 +9,9 @@ import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants
 import { changeMobileMenuOpened } from '../../../redux/reducers/GlobalManager/slice';
 
 import { GrClose } from 'react-icons/gr';
-import logoIMG from '../../../assets/website/mq-rect-punch-logo-white.png';
-import router from 'next/router';
+import logoIMG from '../../../assets/website/mq-rect-punch-logo-black.png';
 
-const MobileMenu = (props) => {
+const MobileMenu = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isMobilemenuOpened = useSelector((state) => state.global_manager.mobile_menu_is_opened);
@@ -43,7 +42,10 @@ const MobileMenu = (props) => {
           <ul>
             {bigHeaderMenuLinks.map((el) => (
               <Link href={el.pathname} key={el.id}>
-                <li onClick={onCloseMobileMenu} className={cn({ active: router.pathname === el.pathname })}>
+                <li
+                  onClick={onCloseMobileMenu}
+                  className={cn({ active: router.pathname === el.pathname })}
+                >
                   {el.label}
                 </li>
               </Link>
