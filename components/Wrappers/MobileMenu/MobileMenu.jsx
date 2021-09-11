@@ -8,6 +8,8 @@ import cn from 'classnames';
 import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
 import { changeMobileMenuOpened } from '../../../redux/reducers/GlobalManager/slice';
 
+import creditCardSVG from '../../../assets/website/icons/credit_card_black.svg';
+import profileIconSVG from '../../../assets/website/icons/profile_icon_black.svg';
 import { GrClose } from 'react-icons/gr';
 import logoIMG from '../../../assets/website/mq-rect-punch-logo-black.png';
 
@@ -29,7 +31,18 @@ const MobileMenu = () => {
       })}
     >
       <div className='content'>
-        <div className='global-mobile-menu-header'>
+        <div className={cn('global-mobile-menu-header', { multiplied: userIsAuth })}>
+          {userIsAuth && (
+            <div className='user-info'>
+              <div className='profile'>
+                <img src={profileIconSVG.src} alt='profile' />
+              </div>
+              <div className='balance'>
+                <span>{'300.00 $'}</span>
+                <img src={creditCardSVG.src} alt='credit_card' />
+              </div>
+            </div>
+          )}
           <div className='close-button' onClick={onCloseMobileMenu}>
             <GrClose />
           </div>

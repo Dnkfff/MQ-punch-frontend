@@ -6,7 +6,7 @@
   z-index: 10001;
   transition: width 0.3s ease;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #fff !important;
 
   .content {
     width: 100vw;
@@ -22,6 +22,64 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    .user-info {
+      display: none;
+    }
+
+    &.multiplied {
+      background-color: rgb(240, 237, 237);
+      padding: 10px 20px;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        .balance {
+          display: flex;
+          align-items: center;
+          margin-left: 13px;
+
+          img {
+            width: 30px;
+            margin-left: 15px;
+          }
+
+          span {
+            font-size: 16px;
+            color: #251818;
+          }
+        }
+
+        .profile {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          padding-right: 13px;
+          border-right: 2px solid #251818;
+
+          img {
+            width: 30px;
+          }
+        }
+
+        @media screen and (max-width: 600px) {
+          .balance {
+            img {
+              width: 25px;
+            }
+          }
+          .profile {
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
+    }
   }
 
   .global-mobile-menu-links {
