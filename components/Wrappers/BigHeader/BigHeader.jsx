@@ -49,7 +49,9 @@ const BigHeader = (props) => {
       <header className='app-container-big-header' ref={headerRef}>
         <div className='main-picture'>
           <img src={boxingRingPict.src} alt='boxing-ring' className='boxing-ring-pict' />
-          <img src={mainBigLogoPath.src} alt='MQPUNCH' className='main-big-logo' />
+          <Link href={'/'}>
+            <img src={mainBigLogoPath.src} alt='MQPUNCH' className='main-big-logo' />
+          </Link>
           {!userIsAuth && (
             <div className='under-picture-info'>
               <button className='start' onClick={onOpenAuthModal}>

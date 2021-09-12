@@ -1,0 +1,11 @@
+.global-main-page {
+  .twitch-stream {
+    height: 500px;
+    width: 1000px;
+    margin-top: 40px;
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

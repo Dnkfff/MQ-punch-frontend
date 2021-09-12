@@ -1,0 +1,58 @@
+.global-main-page {
+  .welcome-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome-slogan {
+    margin: 5px 0;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .welcome-start-button {
+    margin-top: 10px;
+    width: 500px;
+    height: 100px;
+    border-radius: 18px;
+    border: 3px solid #ce0d0d;
+    background: rgb(207, 57, 57);
+    background: linear-gradient(90deg, rgba(207, 57, 57, 1) 0%, rgba(120, 10, 10, 1) 100%);
+    padding: 20px 40px;
+    cursor: pointer;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    span {
+      z-index: 10;
+      color: white !important;
+      position: absolute;
+      top: calc(50% - 28px);
+      left: calc(50% - 67.5px);
+    }
+    .bg-image {
+      position: absolute;
+      opacity: 0.15;
+      top: -90px;
+      left: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2;
+    }
+    &:hover {
+      span {
+        text-shadow: 2px 2px 2px rgba(58, 47, 47, 0.99);
+      }
+      .bg-image {
+        opacity: 0.3;
+      }
+    }
+    // border-bottom: 7px solid #583232;
+  }
+}

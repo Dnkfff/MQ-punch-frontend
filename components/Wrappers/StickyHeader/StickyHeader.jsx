@@ -30,9 +30,11 @@ const StickyHeader = (props) => {
   return (
     <div className={smallHeaderClassName}>
       <div className='left'>
-        <div className='logotype'>
-          <img src={logotype.src} alt='MQPUNCH' />
-        </div>
+        <Link href='/'>
+          <div className='logotype'>
+            <img src={logotype.src} alt='MQPUNCH' />
+          </div>
+        </Link>
 
         <div className='menu-icon' onClick={onOpenMobileMenu}>
           <HiMenuAlt2 />

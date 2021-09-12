@@ -47,9 +47,11 @@ const MobileMenu = () => {
             <GrClose />
           </div>
         </div>
-        <div className='logo-area'>
-          <img src={logoIMG.src} alt='logo' />
-        </div>
+        <Link href={'/'}>
+          <div className='logo-area' onClick={onCloseMobileMenu}>
+            <img src={logoIMG.src} alt='logo' />
+          </div>
+        </Link>
         {!userIsAuth && <button className='start-button'>start</button>}
         <nav className='global-mobile-menu-links'>
           <ul>

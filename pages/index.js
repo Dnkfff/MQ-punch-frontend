@@ -1,9 +1,13 @@
 import React from 'react';
 
+import WelcomeBlock from '../components/page-components/main-page/WelcomeBlock/WelcomeBlock';
+import StreamArea from '../components/page-components/main-page/StreamArea/StreamArea';
+
 const App = () => {
   return (
-    <div>
-      <p className='some_style'>hello next</p>
+    <div className='global-main-page'>
+      <WelcomeBlock />
+      <StreamArea />
     </div>
   );
 };
