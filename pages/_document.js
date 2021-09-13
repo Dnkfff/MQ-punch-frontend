@@ -1,5 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
+// import importSvgMin from '../inside-services/import-svg-min/import-svg-min';
+
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -26,6 +28,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          {/* <script src={importSvgMin} /> */}
         </body>
       </Html>
     );
