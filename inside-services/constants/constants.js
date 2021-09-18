@@ -15,3 +15,5 @@ export const bigHeaderMenuLinks = [
   },
   { label: 'Learn', id: getUUID(), pathname: '/learn' },
 ];
+
+export const web3Provider = 'ws://127.0.0.1:8545';

@@ -7,7 +7,7 @@ const StreamArea = () => {
       <iframe
         src='https://player.twitch.tv/?channel=zed_run&parent=localhost'
         allowFullScreen={true}
-        frameborder={0}
+        frameBorder={0}
       ></iframe>
     </div>
   );

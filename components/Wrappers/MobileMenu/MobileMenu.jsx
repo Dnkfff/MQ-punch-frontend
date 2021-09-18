@@ -89,10 +89,6 @@ const MobileMenu = () => {
     setModalData({
       template: 'auth-modal',
       onClose: () => setModalData(null),
-      onLogin: () => {
-        setModalData(null);
-        dispatch(onLogIn());
-      },
     });
   }
 };
