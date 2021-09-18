@@ -28,7 +28,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {/* <script src={importSvgMin} /> */}
+          <script type='text/javascript' src='/static/import-svg-min.js' />
         </body>
       </Html>
     );
