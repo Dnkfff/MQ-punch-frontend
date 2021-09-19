@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import { CSSTransition } from 'react-transition-group';
 
@@ -7,6 +7,7 @@ import modalSelectTemplateByData from './ModalTemplates/modalSelectTemplateByDat
 const Modal = memo((props) => {
   const { data } = props;
 
+  const nodeRef = useRef(null);
   const ModalContentTemplate = data ? modalSelectTemplateByData(data) : <></>;
 
   // for normal animation
@@ -18,9 +19,20 @@ const Modal = memo((props) => {
 
   return (
     <>
-      <div className={cn('global-modal-backdrop', { show: show, hidden: !show })} onClick={data?.onClose} />
-      <CSSTransition in={show} timeout={500} classNames='global-modal-anim' unmountOnExit>
-        <div className={cn('global-modal-window-content', data?.template)}>{ModalContentTemplate}</div>
+      <div
+        className={cn('global-modal-backdrop', { show: show, hidden: !show })}
+        onClick={data?.onClose}
+      />
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={show}
+        timeout={500}
+        classNames='global-modal-anim'
+        unmountOnExit
+      >
+        <div className={cn('global-modal-window-content', data?.template)}>
+          {ModalContentTemplate}
+        </div>
       </CSSTransition>
     </>
   );

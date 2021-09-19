@@ -19,7 +19,7 @@ export const slice = createSlice({
       state.mobile_menu_is_opened = newMobileMenuOpenedState;
     },
     onLogIn: (state, action) => {
-      state.user = true;
+      state.user = { ...action.payload };
     },
   },
 });

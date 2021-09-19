@@ -50,7 +50,7 @@ const AuthModal = ({ data }) => {
       <img src={metamaskIcon.src} className='metamask-icon' />
       {metamaskDoesntExist && (
         <span className='metamask-doenst-exist'>
-          <i class='fas fa-times-hexagon'></i>
+          <i className='fas fa-times-hexagon'></i>
           <span>{metamaskDoesntExist.text}</span>
         </span>
       )}
@@ -61,14 +61,14 @@ const AuthModal = ({ data }) => {
           </button>
           {warningMessage && (
             <span className='warning-message'>
-              <i class='fas fa-exclamation-circle' />
+              <i className='fas fa-exclamation-circle' />
               {warningMessage}
             </span>
           )}
         </>
       )}
       <a className='tooltip-learn' href='https://metamask.io/' target='_blank'>
-        <i class='fas fa-question-circle' />
+        <i className='fas fa-question-circle' />
         <span>{'learn about Metamask'}</span>
       </a>
     </div>
