@@ -1,152 +1,28 @@
-import * as THREE from 'three';
+import firstPersonView from './views/firstPersonView';
+import thirdPersonLeftView from './views/thirdPersonLeftView';
+import thirdPersonCenterView from './views/thirdPersonCenterView';
+import thirdPersonRightView from './views/thirdPersonRightView';
+import sideLeftView from './views/sideLeftView';
+import sideRightView from './views/sideRightView';
+import aboveView from './views/aboveView';
+import belowView from './views/belowView';
+import forearmLeftView from './views/forearmLeftView';
+import forearmRightView from './views/forearmRightView';
 
-import boxerParameters from '../../constants/boxerParameters';
+import viewsNames from '../../constants/viewsNames';
 
-
-export const getGeometricAttributesOfModelChildByName = (model, name) => {
-  const modelChildClone = model.getObjectByName(name).clone();
-  return {
-    childPosition: modelChildClone.localToWorld(modelChildClone.position),
-    parentRotation: model.rotation.clone(),
-    childQuaternion: modelChildClone.quaternion,
-  };
-};
-
-const calculateCameraParameters = ({ childPosition, positionOffsetVector, lookAtVector }) => {
-  const cameraPosition = childPosition.clone();
-  cameraPosition.add(positionOffsetVector);
-
-  const cameraLookAt = cameraPosition.clone();
-  cameraLookAt.add(lookAtVector);
-
-  return { cameraPosition, cameraLookAt };
-};
 
 const cameraViews = {
-  'first-person': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigHead');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0, Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    lookAtVector.applyQuaternion(childQuaternion);
-
-    positionOffsetVector.multiplyScalar(0);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'third-person-left': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigNeck');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y - Math.PI / 6), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y - Math.PI / 6));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'third-person-center': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigNeck');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'third-person-right': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigNeck');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y + Math.PI / 6), Math.sin(-Math.PI / 12), Math.cos(parentRotation.y + Math.PI / 6));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'side-left': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigSpine');
-
-    const childPositionOffset = new THREE.Vector3(Math.sin(parentRotation.y), 0.6, Math.cos(parentRotation.y));
-    childPositionOffset.multiplyScalar(boxerParameters.scale * 5);
-    childPosition.add(childPositionOffset);
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y - Math.PI / 2), 0, Math.cos(parentRotation.y - Math.PI / 2));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'side-right': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigSpine');
-
-    const childPositionOffset = new THREE.Vector3(Math.sin(parentRotation.y), 0.6, Math.cos(parentRotation.y));
-    childPositionOffset.multiplyScalar(boxerParameters.scale * 5);
-    childPosition.add(childPositionOffset);
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y + Math.PI / 2), 0, Math.cos(parentRotation.y + Math.PI / 2));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -20);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'above': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigSpine');
-
-    const childPositionOffset = new THREE.Vector3(Math.sin(parentRotation.y), 0.6, Math.cos(parentRotation.y));
-    childPositionOffset.multiplyScalar(boxerParameters.scale * 5);
-    childPosition.add(childPositionOffset);
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), -10, Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -2);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'below': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigSpine');
-
-    const childPositionOffset = new THREE.Vector3(Math.sin(parentRotation.y), 0.6, Math.cos(parentRotation.y));
-    childPositionOffset.multiplyScalar(boxerParameters.scale * 5);
-    childPosition.add(childPositionOffset);
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 10, Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -2);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'forearm-left': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigLeftForeArm');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0, Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.applyQuaternion(childQuaternion);
-    lookAtVector.applyQuaternion(childQuaternion);
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -5);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
-  'forearm-right': (model) => {
-    const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, 'mixamorigRightForeArm');
-
-    const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0, Math.cos(parentRotation.y));
-    const lookAtVector = positionOffsetVector.clone();
-
-    positionOffsetVector.applyQuaternion(childQuaternion);
-    lookAtVector.applyQuaternion(childQuaternion);
-
-    positionOffsetVector.multiplyScalar(boxerParameters.scale * -5);
-
-    return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
-  },
+  [viewsNames[0]]: firstPersonView,
+  [viewsNames[1]]: thirdPersonLeftView,
+  [viewsNames[2]]: thirdPersonCenterView,
+  [viewsNames[3]]: thirdPersonRightView,
+  [viewsNames[4]]: sideLeftView,
+  [viewsNames[5]]: sideRightView,
+  [viewsNames[6]]: aboveView,
+  [viewsNames[7]]: belowView,
+  [viewsNames[8]]: forearmLeftView,
+  [viewsNames[9]]: forearmRightView,
 };
 
 export default cameraViews;

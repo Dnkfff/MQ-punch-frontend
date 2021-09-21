@@ -1,5 +1,7 @@
 import cameraViews from './cameraViews';
 
+import viewsNames from '../../constants/viewsNames';
+
 
 class CameraController {
   constructor(camera, skybox, targetModel) {
@@ -9,7 +11,7 @@ class CameraController {
 
     this.targetModel = targetModel;
     this.automaticModeEnabled = true;
-    this.view = 'first-person';
+    this.view = viewsNames[0];
   }
 
   setTargetModel(targetModel) {
