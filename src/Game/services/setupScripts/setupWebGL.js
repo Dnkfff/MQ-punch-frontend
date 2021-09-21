@@ -58,7 +58,7 @@ const setupWebGL = ({ container, window }) => {
   const camera = setupCamera(window);
   const renderer = setupRenderer(container, window);
   const composer = setupComposer(window, scene, camera, renderer);
-  return [scene, camera, renderer, composer];
+  return { scene, camera, renderer, composer };
 };
 
 export default setupWebGL;

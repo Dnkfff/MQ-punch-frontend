@@ -1,8 +1,5 @@
-import ringParameters from './ringParameters';
-
-
 const boxerParameters = {
-  scale: ringParameters.ropes.height * 0.0075,
+  scale: 1,
 };
 
 export default boxerParameters;
