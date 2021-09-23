@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
-import { GlobalManager } from './reducers';
+import { globalManager, Auth } from './reducers';
 
 export default configureStore({
   reducer: {
-    global_manager: GlobalManager,
+    global_manager: globalManager,
+    auth: Auth,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

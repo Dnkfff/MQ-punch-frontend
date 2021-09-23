@@ -5,7 +5,6 @@ export const slice = createSlice({
   initialState: {
     header_height: 0,
     mobile_menu_is_opened: false,
-    user: false,
   },
   reducers: {
     changeHeaderHeight: (state, action) => {
@@ -18,12 +17,9 @@ export const slice = createSlice({
 
       state.mobile_menu_is_opened = newMobileMenuOpenedState;
     },
-    onLogIn: (state, action) => {
-      state.user = { ...action.payload };
-    },
   },
 });
 
-export const { changeHeaderHeight, changeMobileMenuOpened, onLogIn } = slice.actions;
+export const { changeHeaderHeight, changeMobileMenuOpened } = slice.actions;
 
 export default slice.reducer;

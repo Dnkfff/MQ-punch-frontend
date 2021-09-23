@@ -9,7 +9,7 @@ import Modal from '../../UI/Modal/Modal';
 
 // functions and constants
 import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
-import { changeMobileMenuOpened } from '../../../redux/reducers/GlobalManager/slice';
+import { changeMobileMenuOpened } from '../../../redux/reducers/globalManager/slice';
 
 import creditCardSVG from '../../../assets/website/icons/credit_card_black.svg';
 import profileIconSVG from '../../../assets/website/icons/profile_icon_black.svg';
@@ -20,7 +20,7 @@ const MobileMenu = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const isMobilemenuOpened = useSelector((state) => state.global_manager.mobile_menu_is_opened);
-  const userIsAuth = useSelector((state) => state.global_manager.user);
+  const userIsAuth = !!useSelector((state) => state.auth.user);
 
   const [modalData, setModalData] = useState(null);
 

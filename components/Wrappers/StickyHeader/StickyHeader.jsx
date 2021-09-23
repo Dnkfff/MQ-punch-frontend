@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
 
 // functions
-import { changeMobileMenuOpened } from '../../../redux/reducers/GlobalManager/slice';
+import { changeMobileMenuOpened } from '../../../redux/reducers/globalManager/slice';
 
 // assets
 import logotype from '../../../assets/website/mq-punch-logo-small.png';
@@ -18,7 +18,7 @@ const StickyHeader = (props) => {
   const dispatch = useDispatch();
   const { showStickyHeader } = props;
 
-  const userIsAuth = useSelector((state) => state.global_manager.user);
+  const userIsAuth = !!useSelector((state) => state.auth.user);
   const smallHeaderClassName = `app-container-sticky-header ${
     showStickyHeader ? 'opened' : 'closed'
   }`;

@@ -19,9 +19,13 @@
 @import '../components/Wrappers/BottomButtonWithUpArrow/bottomButtonWithUpArrow.scss';
 @import '../components/Wrappers/Mobilemenu/mobileMenu.scss';
 
+// UI
+@import '../components/UI/GlobalLoader/globalLoader.scss';
+
 // --- pages
 
 // index ( main )s
 @import '../pages/index.scss';
 @import '../components/page-components/main-page/WelcomeBlock/welcomeBlock.scss';
 @import '../components/page-components/main-page/StreamArea/streamArea.scss';
+@import '../components/page-components/main-page/LiveEvents/liveEvents.scss';

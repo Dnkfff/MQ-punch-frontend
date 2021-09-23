@@ -11,7 +11,7 @@ import {
   changeHeaderHeight,
   onLogIn,
   changeMobileMenuOpened,
-} from '../../../redux/reducers/GlobalManager/slice';
+} from '../../../redux/reducers/globalManager/slice';
 
 import mainBigLogoPath from '../../../assets/website/mq-rect-punch-logo-white.png';
 import boxingRingPict from '../../../assets/website/boxing-ring.png';
@@ -22,7 +22,7 @@ import { HiMenuAlt2 } from 'react-icons/hi';
 const BigHeader = (props) => {
   const { header_height } = props;
   const dispatch = useDispatch();
-  const userIsAuth = useSelector((state) => state.global_manager.user);
+  const userIsAuth = !!useSelector((state) => state.auth.user);
   const headerRef = useRef(getUUID());
 
   const [modalData, setModalData] = useState(null);

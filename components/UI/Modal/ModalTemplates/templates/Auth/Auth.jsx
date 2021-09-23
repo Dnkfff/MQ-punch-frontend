@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Web3 from 'web3';
-import { service as axios } from '../../../../../../requests/axiosProvider';
 
 // functions & constants
-import { web3Provider } from '../../../../../../inside-services/constants/constants';
+import { onLogIn } from '../../../../../../redux/reducers/auth/slice';
 
 // assets
 import metamaskIcon from '../../../../../../assets/website/icons/metamask.svg';
@@ -11,6 +11,7 @@ import { GrClose } from 'react-icons/gr';
 
 const AuthModal = ({ data }) => {
   const { onClose } = data;
+  const dispatch = useDispatch();
 
   const [warningMessage, setWarningMessage] = useState(null);
   const [metamaskDoesntExist, setMetamaskDoenstExist] = useState(null);
@@ -21,10 +22,11 @@ const AuthModal = ({ data }) => {
 
       const accounts = await web3.eth.requestAccounts();
 
-      console.log(accounts);
-    } catch (error) {
-      console.log(error.toString(), error.response);
+      const signature = await web3.eth.personal.sign('MQ PUNCH', accounts[0], '');
 
+      onClose();
+      dispatch(onLogIn({ signature, metamaskAddress: accounts[0] }));
+    } catch (error) {
       if (error.code === 4001) {
         return accountNotSelected();
       }
