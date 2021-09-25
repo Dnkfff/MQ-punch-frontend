@@ -6,9 +6,6 @@ import LiveEventItem from '../LiveEventItem/LiveEventItem';
 // functions & constants
 import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
 
-// assets
-import glodenDivision from '../../../../assets/website/division_icons/preview_first/golden.svg';
-
 const LiveEvents = () => {
   const liveEvensArray = [
     {
