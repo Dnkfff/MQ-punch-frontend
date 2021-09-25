@@ -16,7 +16,19 @@ const LiveEventItem = ({ event }) => {
           <img src={bronzeCup.src} />
         </div>
       </div>
-      <span>{event.prizePool}</span>
+      <div className='live-event-single-event_content'>
+        <span className='final-part'>1/4 final</span>
+        <div className='timer-to-start'>
+          <span>10:00</span>
+        </div>
+        <span className='prize-pool'>
+          <b>$</b>
+          {event.prizePool}
+        </span>
+      </div>
+      <div className='live-label'>
+        <span>live</span>
+      </div>
     </div>
   );
 };
