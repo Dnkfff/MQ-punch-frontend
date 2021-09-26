@@ -17,7 +17,25 @@ const App = () => {
         <StreamArea />
       </div>
       <LiveEvents />
-      <LeaderBoard />
+      <div className='leaderboard-container'>
+        <div className='first-left-shape'>
+          <div />
+          <div />
+        </div>
+        <div className='second-left-shape'>
+          <div />
+          <div />
+        </div>
+        <div className='first-right-shape'>
+          <div />
+          <div />
+        </div>
+        <div className='second-right-shape'>
+          <div />
+          <div />
+        </div>
+        <LeaderBoard />
+      </div>
     </div>
   );
 };

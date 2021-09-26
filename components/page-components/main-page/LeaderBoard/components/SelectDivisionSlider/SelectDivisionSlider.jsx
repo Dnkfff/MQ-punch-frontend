@@ -42,7 +42,6 @@ const SelectDivisionSlider = () => {
     dots: true,
     focusOnSelect: true,
     centerMode: true,
-    centerPadding: '30px',
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,

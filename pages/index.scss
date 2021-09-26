@@ -7,7 +7,6 @@
 
   .boxers-picture-container {
     width: 100%;
-    //background: linear-gradient(0deg, #c4adb5 0%, #eee 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,6 +34,73 @@
       transform: skew(-20deg);
       background: rgba(211, 198, 198, 0.466);
       z-index: 0;
+    }
+  }
+
+  .leaderboard-container {
+    width: 100%;
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .first-left-shape {
+      top: 30px;
+      left: -50px;
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      transform: skew(-20deg);
+      background: rgba(211, 198, 198, 0.466);
+      z-index: 0;
+    }
+    .second-left-shape {
+      top: 330px;
+      left: -50px;
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      transform: skew(-20deg);
+      background: rgba(211, 198, 198, 0.466);
+      z-index: 0;
+    }
+
+    .first-right-shape {
+      bottom: 30px;
+      right: -50px;
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      transform: skew(-20deg);
+      background: rgba(211, 198, 198, 0.466);
+      z-index: 0;
+    }
+    .second-right-shape {
+      bottom: 330px;
+      right: -50px;
+      position: absolute;
+      width: 300px;
+      height: 100px;
+      transform: skew(-20deg);
+      background: rgba(211, 198, 198, 0.466);
+      z-index: 0;
+    }
+
+    .first-left-shape,
+    .second-left-shape,
+    .first-right-shape,
+    .second-right-shape {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      > div {
+        width: 80%;
+        margin: 10px 0;
+        height: 10px;
+        background-color: #eee;
+      }
     }
   }
 }

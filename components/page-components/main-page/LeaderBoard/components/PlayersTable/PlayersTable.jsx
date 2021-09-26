@@ -3,7 +3,10 @@ import React from 'react';
 const PlayersTable = () => {
   return (
     <div className='players-table'>
-      <div style={{ width: '800px', height: '1000px', backgroundColor: 'red' }} />
+      <div className='table'>
+        <div className='table-head'></div>
+        <div className='table-body'></div>
+      </div>
     </div>
   );
 };
