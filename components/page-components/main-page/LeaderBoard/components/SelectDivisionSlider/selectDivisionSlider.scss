@@ -16,6 +16,29 @@
         }
       }
 
+      .division-slider-prev-arrow,
+      .division-slider-next-arrow {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: calc(50% - 23px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: rgb(226, 226, 226);
+        }
+      }
+      .division-slider-prev-arrow {
+        left: -25px;
+      }
+      .division-slider-next-arrow {
+        right: -25px;
+      }
+
       .division-item {
         background-color: rgb(223, 223, 223);
         display: flex;

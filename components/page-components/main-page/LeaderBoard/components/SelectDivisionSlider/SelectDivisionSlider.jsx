@@ -23,12 +23,16 @@ const DivisionItem = ({ item, activeSlide }) => {
   );
 };
 
-const PrevArrow = ({ className, style, onClick }) => (
-  <div className={className} style={{ ...style }} onClick={onClick}></div>
+const PrevArrow = ({ onClick }) => (
+  <div className='division-slider-prev-arrow' onClick={onClick}>
+    <i className='fas fa-chevron-left'></i>
+  </div>
 );
 
-const NextArrow = ({ className, style, onClick }) => (
-  <div className={className} style={{ ...style }} onClick={onClick}></div>
+const NextArrow = ({ onClick }) => (
+  <div className='division-slider-next-arrow' onClick={onClick}>
+    <i className='fas fa-chevron-right'></i>
+  </div>
 );
 
 const SelectDivisionSlider = () => {
@@ -39,7 +43,7 @@ const SelectDivisionSlider = () => {
     focusOnSelect: true,
     centerMode: true,
     centerPadding: '30px',
-    speed: 1200,
+    speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
