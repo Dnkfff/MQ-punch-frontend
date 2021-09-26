@@ -142,7 +142,7 @@ $live-event-2: rgba(54, 5, 22, 0.1);
             font-weight: 800;
             span {
               background: -webkit-linear-gradient(145deg, rgb(247, 152, 152), rgb(255, 198, 198));
-              -webkit-background-clip: text;
+              background-clip: text;
               -webkit-text-fill-color: transparent;
             }
           }
