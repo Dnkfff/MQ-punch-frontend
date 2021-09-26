@@ -1,63 +1,71 @@
+import { AnimationMixer, LoopOnce, LoopRepeat } from 'three';
 import { SkeletonUtils } from 'three-stdlib';
 
 import { loadFBX } from '../algorithms/assetsLoaders';
 
 import webGLParameters from '../constants/webGLParameters';
+import boxerParameters from '../constants/boxerParameters';
 import ringParameters from '../constants/ringParameters';
+import animationsNames, { loopedAnimationsNames } from '../constants/animationsNames';
 
 import Boxer from '../classes/Boxer/Boxer';
 
 
+const MODEL_NAME = 'ybot';
+
+
 const setupBoxers = async (scene) => {
-  const boxers = [];
-  const models = [];
-  const animations = [{}, {}];
+  let leftModel, rightModel;
+  let leftAnimationMixer, rightAnimationMixer;
+  const leftAnimationActions = {}, rightAnimationActions = {};
 
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/ybot.fbx').then((model) => {
-    const scaleCoefficient = ringParameters.ropes.height * 0.0075;
-
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx')
+  .then((model) => {
     model.traverse((obj) => {
       obj.layers.set(webGLParameters.layers.NORMAL);
     });
 
-    models[0] = SkeletonUtils.clone(model);
-    models[0].scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
-    models[0].rotation.y = Math.PI / 2;
-    models[0].position.set(ringParameters.canvas.width / 4, 0, ringParameters.canvas.width / 2);
+    const scaleCoefficient = boxerParameters.scale * 0.15;
+    model.scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
 
-    models[1] = SkeletonUtils.clone(model);
-    models[1].scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
-    models[1].rotation.y = -Math.PI / 2;
-    models[1].position.set(ringParameters.canvas.width * 3 / 4, 0, ringParameters.canvas.width / 2);
+    leftModel = SkeletonUtils.clone(model);
+    leftModel.rotation.y = Math.PI / 2;
+    leftModel.position.set(ringParameters.canvas.width / 4, 0, ringParameters.canvas.width / 2);
+
+    rightModel = SkeletonUtils.clone(model);
+    rightModel.rotation.y = -Math.PI / 2;
+    rightModel.position.set(ringParameters.canvas.width * 3 / 4, 0, ringParameters.canvas.width / 2);
+
+    scene.add(leftModel, rightModel);
+
+    leftAnimationMixer = new AnimationMixer(leftModel);
+    rightAnimationMixer = new AnimationMixer(rightModel);
   }).catch((error) => {
     console.log(error);
   });
 
-  await modelsLoadingPromise.then(() => {
-    scene.add(...models);
-  }).catch((error) => {
-    console.log(error);
-  });
+  await modelsLoadingPromise;
 
-  const animationsLoadingPromises = [];
-  animationsLoadingPromises.push(loadFBX('../../../../assets/animations/warming-up.fbx').then((animation) => {
-    animations[0]['warming-up'] = animation.animations[0];
-    animations[1]['warming-up'] = animation.animations[0];
-  }).catch((error) => {
-    console.log(error);
-  }));
+  const animationsLoadingPromises =
+    animationsNames.map((name) => loadFBX('../../../../assets/animations/' + name + '.fbx')
+    .then((animation) => {
+      leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
+      leftAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+      leftAnimationActions[name].clampWhenFinished = true;
+      rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
+      rightAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+      rightAnimationActions[name].clampWhenFinished = true;
+    }).catch((error) => {
+      console.log(error);
+    })
+  );
 
-  await Promise.all(animationsLoadingPromises).catch((error) => {
-    console.log(error);
-  });
+  await Promise.all(animationsLoadingPromises);
 
-  boxers[0] = new Boxer(models[0], animations[0]);
-  boxers[1] = new Boxer(models[1], animations[1]);
-
-  boxers[1].requestAnimation('warming-up');
-  boxers[0].requestAnimation('warming-up');
-
-  return boxers;
+  return {
+    leftBoxer: new Boxer(leftModel, leftAnimationMixer, leftAnimationActions),
+    rightBoxer: new Boxer(rightModel, rightAnimationMixer, rightAnimationActions),
+  };
 };
 
 export default setupBoxers;

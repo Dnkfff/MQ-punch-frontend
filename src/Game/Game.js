@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import * as THREE from 'three';
-import { OrbitControls } from 'three-stdlib';
 
 import setupWebGL from './services/setupScripts/setupWebGL';
 import setupRing from './services/setupScripts/setupRing';
@@ -9,7 +8,6 @@ import setupSkybox from './services/setupScripts/setupSkybox';
 import setupBoxers from './services/setupScripts/setupBoxers';
 
 import webGLParameters from './services/constants/webGLParameters';
-import ringParameters from './services/constants/ringParameters';
 
 import CameraController from './services/classes/CameraController/CameraController';
 
@@ -18,24 +16,20 @@ const Game = () => {
   useEffect(() => {
     let scene, renderer, composer;
     let cameraController;
-    let boxers;
-    let controls;
     const clock = new THREE.Clock();
     let deltaTime = 0;
+    let leftBoxer, rightBoxer;
 
     async function init() {
       const container = document.getElementById('container');
 
       let camera;
-      [ scene, camera, renderer, composer ] = setupWebGL({ container, window });
+      ({ scene, camera, renderer, composer } = setupWebGL({ container, window }));
 
-      boxers = await setupBoxers(scene);
+      ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
 
       const skybox = await setupSkybox(scene);
-      cameraController = new CameraController(camera, skybox);
-
-      controls = new OrbitControls(cameraController.camera, renderer.domElement);
-      controls.update();
+      cameraController = new CameraController(camera, skybox, leftBoxer.model);
 
       setupRing(scene);
 
@@ -51,17 +45,11 @@ const Game = () => {
 
       deltaTime = clock.getDelta();
       if (deltaTime > 0) {
-        boxers.forEach((boxer) => {
-          boxer.animate(deltaTime);
-        });
+        leftBoxer.animate(deltaTime);
+        rightBoxer.animate(deltaTime);
       }
 
-      const cameraLookAtPosition = new THREE.Vector3(ringParameters.canvas.width / 2, -ringParameters.canvas.height / 2, ringParameters.canvas.width / 2);
-      cameraController.updateCamera({
-        cameraLookAtPosition,
-        deltaTime,
-        requestedMode: 0,
-      });
+      cameraController.update(deltaTime);
 
       renderer.clear();
 
