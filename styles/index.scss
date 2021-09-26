@@ -1,18 +1,31 @@
 // обнуляющие стили
-@import "./zeroing.scss";
+@import './zeroing.scss';
 
 // глобальные стили
-@import "./global.scss";
+@import './global.scss';
 
 // colors
-@import "./colors.scss";
+@import './colors.scss';
 
 // modal
-@import "../components/UI/Modal/modal.scss";
+@import '../components/UI/Modal/modal.scss';
 // modal templates
-@import "../components/UI/Modal/ModalTemplates/templates/Auth/auth.scss";
+@import '../components/UI/Modal/ModalTemplates/templates/Auth/auth.scss';
 
 // layout
-@import "../components/Wrappers/Layout/layout.scss";
-@import "../components/Wrappers/BigHeader/big-header.scss";
-@import "../components/Wrappers/SmallHeader/small-header.scss";
+@import '../components/Wrappers/Layout/layout.scss';
+@import '../components/Wrappers/BigHeader/big-header.scss';
+@import '../components/Wrappers/StickyHeader/sticky-header.scss';
+@import '../components/Wrappers/BottomButtonWithUpArrow/bottomButtonWithUpArrow.scss';
+@import '../components/Wrappers/Mobilemenu/mobileMenu.scss';
+
+// UI
+@import '../components/UI/GlobalLoader/globalLoader.scss';
+
+// --- pages
+
+// index ( main )s
+@import '../pages/index.scss';
+@import '../components/page-components/main-page/WelcomeBlock/welcomeBlock.scss';
+@import '../components/page-components/main-page/StreamArea/streamArea.scss';
+@import '../components/page-components/main-page/LiveEvents/liveEvents.scss';

@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
     "@reduxjs/toolkit": "^1.6.1",
+    "axios": "^0.21.4",
     "classnames": "^2.3.1",
     "moment": "^2.29.1",
     "next": "^11.1.0",
@@ -22,9 +24,11 @@
     "react-notifications": "^1.7.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "react-slick": "^0.28.1",
     "react-transition-group": "^4.4.2",
     "three": "^0.131.2",
-    "three-stdlib": "^2.4.0"
+    "three-stdlib": "^2.4.0",
+    "web3": "^1.5.2"
   },
   "devDependencies": {
     "eslint": "7.32.0",

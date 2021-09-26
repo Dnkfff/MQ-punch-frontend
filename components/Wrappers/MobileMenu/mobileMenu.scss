@@ -1,0 +1,184 @@
+.global-mobile-menu {
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 100001;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  background-color: #fff !important;
+
+  .content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .global-mobile-menu-header {
+    width: 100%;
+    padding: 10px 20px;
+    padding-bottom: 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .user-info {
+      display: none;
+    }
+
+    &.multiplied {
+      background-color: rgb(240, 237, 237);
+      padding: 10px 20px;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+
+        .balance {
+          display: flex;
+          align-items: center;
+          margin-left: 13px;
+
+          img {
+            width: 30px;
+            margin-left: 15px;
+          }
+
+          span {
+            font-size: 16px;
+            color: #251818;
+          }
+        }
+
+        .profile {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          padding-right: 13px;
+          border-right: 2px solid #251818;
+
+          img {
+            width: 30px;
+          }
+        }
+
+        @media screen and (max-width: 600px) {
+          .balance {
+            img {
+              width: 25px;
+            }
+          }
+          .profile {
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .global-mobile-menu-links {
+    width: calc(100% - 60px);
+    min-width: 260px;
+    max-width: 500px;
+    align-self: center;
+    margin-top: 20px;
+    li {
+      list-style-type: none;
+      width: 100%;
+      padding: 10px 20px;
+      border-top: 1px solid rgb(37, 24, 24);
+      font-size: 18px;
+      font-weight: 600;
+      color: rgb(119, 119, 119);
+      cursor: pointer;
+      transition: background-color 0.4s ease, color 0.3s ease;
+    }
+    li:last-child {
+      border-bottom: 1px solid rgb(37, 24, 24);
+    }
+    li:not(.active):hover {
+      background-color: rgb(212, 212, 212);
+      color: rgb(37, 24, 24);
+    }
+
+    li.active {
+      color: rgb(206, 13, 13);
+      cursor: default;
+      background-color: rgb(255, 236, 236);
+      border-top: 1px solid rgb(206, 13, 13);
+      border-bottom: 1px solid rgb(206, 13, 13);
+    }
+    li.active + li {
+      border-top: 0px;
+    }
+  }
+
+  .logo-area {
+    align-self: center;
+    max-width: 300px;
+    width: calc(100% - 120px);
+    cursor: pointer;
+  }
+
+  .start-button {
+    border-radius: 3px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: transparent;
+    color: rgb(206, 13, 13);
+    font-size: 18px;
+    border: 2px solid rgb(206, 13, 13);
+    padding: 5px 20px;
+    width: auto;
+    align-self: center;
+    cursor: pointer;
+    transition: box-shadow 0.7s ease, color 0.7s ease;
+    &:hover,
+    &:focus {
+      box-shadow: inset 0 0 0 2em rgb(206, 13, 13);
+      color: white;
+    }
+
+    @media screen and (max-width: 350px) {
+      padding: 3px 15px;
+      font-size: 16px;
+    }
+  }
+
+  .close-button {
+    border-radius: 50%;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    svg {
+      path {
+        stroke: rgb(37, 24, 24);
+      }
+    }
+
+    &:hover {
+      background-color: rgb(223, 223, 223);
+    }
+  }
+}
+
+.global-mobile-menu.opened {
+  width: 100vw;
+}
+
+.global-mobile-menu.closed {
+  width: 0px;
+}
