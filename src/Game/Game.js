@@ -10,12 +10,15 @@ import setupBoxers from './services/setupScripts/setupBoxers';
 import webGLParameters from './services/constants/webGLParameters';
 
 import CameraController from './services/classes/CameraController/CameraController';
+import DuelController from './services/classes/DuelController/DuelController';
+
+import calculateDuelScenario from './services/algorithms/calculateDuelScenario';
 
 
 const Game = () => {
   useEffect(() => {
     let scene, renderer, composer;
-    let cameraController;
+    let cameraController, duelController;
     const clock = new THREE.Clock();
     let deltaTime = 0;
     let leftBoxer, rightBoxer;
@@ -33,6 +36,9 @@ const Game = () => {
 
       setupRing(scene);
 
+      const duelScenario = calculateDuelScenario(leftBoxersStats, rightBoxersStats);
+      duelController = new DuelController(leftBoxer, rightBoxer, duelScenario);
+
       clock.start();
 
       render();
@@ -45,6 +51,7 @@ const Game = () => {
 
       deltaTime = clock.getDelta();
       if (deltaTime > 0) {
+        duelController.act(deltaTime);
         leftBoxer.animate(deltaTime);
         rightBoxer.animate(deltaTime);
       }

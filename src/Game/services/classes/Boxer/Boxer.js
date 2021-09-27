@@ -27,7 +27,7 @@ class Boxer {
   }
 
   requestImmediateAnimation(name) {
-    const prepareAnimationClip = (name, enableAnimationTransition = false) => {
+    const prepareAnimationClip = (name, enableAnimationTransition) => {
       this.animationActions[name].reset();
       if (enableAnimationTransition) {
         this.animationActions[name].crossFadeFrom(this.animationActions[this.currentAnimationName], ANIMATION_TRANSITION_DURATION);
