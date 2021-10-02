@@ -18,6 +18,7 @@ const App = () => {
       </div>
       <LiveEvents />
       <div className='leaderboard-container'>
+        <LeaderBoard />
         <div className='first-left-shape'>
           <div />
           <div />
@@ -34,7 +35,6 @@ const App = () => {
           <div />
           <div />
         </div>
-        <LeaderBoard />
       </div>
     </div>
   );
