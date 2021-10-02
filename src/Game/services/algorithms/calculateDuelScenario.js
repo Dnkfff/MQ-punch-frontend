@@ -1,11 +1,16 @@
+import duelEconomics from '../constants/duelEconomics';
 import duelParameters from '../constants/duelParameters';
 import duelAnimationsNames from '../constants/duelAnimationsNames';
 
 
 const calculateChancesOfOffensiveMoves = (boxersStats) => {
-  const bruteForceAttackCoefficient = (boxersStats.strength * 2 + boxersStats.endurance * 1) * (0.9 + 0.2 * Math.random());
-  const deceptiveAttackCoefficient = (boxersStats.agility * 2 + boxersStats.strength * 1) * (0.9 + 0.2 * Math.random());
-  const effectiveAttackCoefficient = (boxersStats.endurance * 2 + boxersStats.agility * 1) * (0.9 + 0.2 * Math.random());
+  let randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const bruteForceAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const deceptiveAttackCoefficient = (boxersStats.agility * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const effectiveAttackCoefficient = (boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
 
   const sumOfCoefficients = bruteForceAttackCoefficient + deceptiveAttackCoefficient + effectiveAttackCoefficient;
 
@@ -17,9 +22,13 @@ const calculateChancesOfOffensiveMoves = (boxersStats) => {
 };
 
 const calculateChancesOfDefensiveMoves = (boxersStats) => {
-  const blockCoefficient = (boxersStats.endurance * 2 + boxersStats.strength * 1) * (0.9 + 0.2 * Math.random());
-  const dodgeCoefficient = (boxersStats.agility * 2 + boxersStats.endurance * 1) * (0.9 + 0.2 * Math.random());
-  const counterAttackCoefficient = (boxersStats.strength * 2 + boxersStats.agility * 1) * (0.9 + 0.2 * Math.random());
+  let randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const blockCoefficient = (boxersStats.endurance * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const dodgeCoefficient = (boxersStats.agility * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
+  const counterAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
 
   const sumOfCoefficients = blockCoefficient + dodgeCoefficient + counterAttackCoefficient;
 
@@ -31,8 +40,11 @@ const calculateChancesOfDefensiveMoves = (boxersStats) => {
 };
 
 const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
-  const sumOfLeftBoxersStats = (leftBoxersStats.strength + leftBoxersStats.agility + leftBoxersStats.endurance) * (0.9 + 0.2 * Math.random());
-  const sumOfRightBoxersStats = (rightBoxersStats.strength + rightBoxersStats.agility + rightBoxersStats.endurance) * (0.9 + 0.2 * Math.random());
+  let randomMultiplier;
+  randomMultiplier = 1.0 + duelEconomics.chancesToWinBooster * (-1.0 + 2.0 * Math.random());
+  const sumOfLeftBoxersStats = (leftBoxersStats.strength + leftBoxersStats.agility + leftBoxersStats.endurance) * randomMultiplier;
+  randomMultiplier = 1.0 + duelEconomics.chancesToWinBooster * (-1.0 + 2.0 * Math.random());
+  const sumOfRightBoxersStats = (rightBoxersStats.strength + rightBoxersStats.agility + rightBoxersStats.endurance) * randomMultiplier;
 
   const sumOfStats = sumOfLeftBoxersStats + sumOfRightBoxersStats;
 
@@ -43,25 +55,36 @@ const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
 };
 
 const fitAttackIntervalsInTime = (attackIntervals) => {
-  const lastAttackInterval = attackIntervals[attackIntervals.length - 1];
-  const currentDurationOfAttackIntervals = lastAttackInterval.startTime + lastAttackInterval.duration;
-  const fitCoefficient = duelParameters.duelDuration / currentDurationOfAttackIntervals;
+  const fittedAttackIntervals = attackIntervals.map(attackInterval => {return {
+    startTime: attackInterval.startTime,
+    duration: attackInterval.duration,
+  }});
 
-  attackIntervals.forEach(attackInterval => {
-    attackInterval.startTime *= fitCoefficient;
-    attackInterval.duration *= fitCoefficient;
+  const lastAttackInterval = fittedAttackIntervals[fittedAttackIntervals.length - 1];
+  const currentDurationOfAttackIntervals = lastAttackInterval.startTime + lastAttackInterval.duration;
+  const lastMoveDeltaTime = duelParameters.moveDuration * (1.0 + duelParameters.probeRestDurationCoefficient) + duelParameters.reactionTime;
+  const fitCoefficient = (duelParameters.duelDuration - lastMoveDeltaTime) / currentDurationOfAttackIntervals;
+
+  fittedAttackIntervals.forEach(fittedAttackInterval => {
+    fittedAttackInterval.startTime *= fitCoefficient;
+    fittedAttackInterval.duration *= fitCoefficient;
   });
 
-  return attackIntervals;
+  return fittedAttackIntervals;
 };
 
 const calculateAttackIntervals = () => {
   let attackIntervals = [];
 
-  let previousAttackIntervalEndTime = 0;
+  let randomMultiplier;
+
+  randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+  let previousAttackIntervalEndTime = duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
   for (let i = 0; i < duelParameters.numberOfAttackIntervals; i++) {
-    const attackIntervalStartTime = previousAttackIntervalEndTime + duelParameters.probeIntervalDurationCoefficient * Math.random();
-    const attackIntervalDuration = duelParameters.attackIntervalDurationCoefficient * Math.random();
+    randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+    const attackIntervalStartTime = previousAttackIntervalEndTime + duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
+    randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+    const attackIntervalDuration = duelParameters.attackIntervalDurationCoefficient * randomMultiplier;
 
     attackIntervals.push({
       startTime: attackIntervalStartTime,
@@ -84,6 +107,8 @@ const calculateWinnerMovesTimings = () => {
   attackIntervals.forEach((attackInterval, index) => {
     let time;
 
+    let randomMultiplier;
+
     if (index == 0) {
       time = 0;
     } else {
@@ -95,11 +120,13 @@ const calculateWinnerMovesTimings = () => {
         type: 'probe',
       });
 
-      time += duelParameters.moveDuration * (1 + 2 * duelParameters.restDurationCoefficient * Math.random());
+      randomMultiplier = duelParameters.probeRestDurationCoefficient * Math.random();
+      time += duelParameters.moveDuration * (1.0 + randomMultiplier);
     }
 
     time = attackInterval.startTime;
-    while (time < attackInterval.startTime + attackInterval.duration) {
+    const endTime = attackInterval.startTime + attackInterval.duration;
+    while (time + duelParameters.reactionTime < endTime) {
       let moveType;
 
       let chance = Math.random();
@@ -116,8 +143,14 @@ const calculateWinnerMovesTimings = () => {
         type: moveType,
       });
 
-      time += duelParameters.moveDuration * (1 + duelParameters.restDurationCoefficient * Math.random());
+      randomMultiplier = duelParameters.attackRestDurationCoefficient * Math.random();
+      time += duelParameters.moveDuration * (1.0 + randomMultiplier);
     }
+
+    winnerMovesTimings.push({
+      startTime: time,
+      type: 'offensive',
+    });
   });
 
   return winnerMovesTimings;
@@ -130,82 +163,82 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
 
   winnerMovesTimings.forEach(winnerMoveTiming => {
     let offensiveMove, defensiveMove, probeMove;
-    let chance;
-    let index;
+    let randomChance;
+    let randomIndex;
 
     if (winnerMoveTiming.type == 'probe') {
-      index = Math.floor(Math.random() * duelAnimationsNames.probe.length);
-      probeMove = duelAnimationsNames.probe[index];
+      randomIndex = Math.floor(Math.random() * duelAnimationsNames.probe.length);
+      probeMove = duelAnimationsNames.probe[randomIndex];
       winnerMoves.push({
         startTime: winnerMoveTiming.startTime,
         move: probeMove,
       });
 
-      index = Math.floor(Math.random() * duelAnimationsNames.probe.length);
-      probeMove = duelAnimationsNames.probe[index];
+      randomIndex = Math.floor(Math.random() * duelAnimationsNames.probe.length);
+      probeMove = duelAnimationsNames.probe[randomIndex];
       loserMoves.push({
         startTime: winnerMoveTiming.startTime,
         move: probeMove,
       });
     } else if ((winnerMoveTiming.type == 'attack') == (winner == 'left')) {
-      chance = Math.random();
-      if (chance < leftBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack) {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.bruteForceAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.bruteForceAttack[index];
-      } else if (chance < leftBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack + leftBoxersChancesOfMoves.offensive.chanceOfDeceptiveAttack) {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.deceptiveAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.deceptiveAttack[index];
+      randomChance = Math.random();
+      if (randomChance < leftBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.bruteForceAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.bruteForceAttack[randomIndex];
+      } else if (randomChance < leftBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack + leftBoxersChancesOfMoves.offensive.chanceOfDeceptiveAttack) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.deceptiveAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.deceptiveAttack[randomIndex];
       } else {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.effectiveAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.effectiveAttack[index];
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.effectiveAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.effectiveAttack[randomIndex];
       }
       winnerMoves.push({
         startTime: winnerMoveTiming.startTime,
         move: offensiveMove,
       });
 
-      chance = Math.random();
-      if (chance < rightBoxersChancesOfMoves.defensive.chanceOfBlock) {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.block.length);
-        defensiveMove = duelAnimationsNames.defensive.block[index];
-      } else if (chance < rightBoxersChancesOfMoves.defensive.chanceOfBlock + rightBoxersChancesOfMoves.defensive.chanceOfDodge) {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.dodge.length);
-        defensiveMove = duelAnimationsNames.defensive.dodge[index];
+      randomChance = Math.random();
+      if (randomChance < rightBoxersChancesOfMoves.defensive.chanceOfBlock) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.block.length);
+        defensiveMove = duelAnimationsNames.defensive.block[randomIndex];
+      } else if (randomChance < rightBoxersChancesOfMoves.defensive.chanceOfBlock + rightBoxersChancesOfMoves.defensive.chanceOfDodge) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.dodge.length);
+        defensiveMove = duelAnimationsNames.defensive.dodge[randomIndex];
       } else {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
-        defensiveMove = duelAnimationsNames.defensive.counterAttack[index];
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
+        defensiveMove = duelAnimationsNames.defensive.counterAttack[randomIndex];
       }
       loserMoves.push({
         startTime: winnerMoveTiming.startTime + duelParameters.reactionTime,
         move: defensiveMove,
       });
     } else {
-      chance = Math.random();
-      if (chance < rightBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack) {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.bruteForceAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.bruteForceAttack[index];
-      } else if (chance < rightBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack + rightBoxersChancesOfMoves.offensive.chanceOfDeceptiveAttack) {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.deceptiveAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.deceptiveAttack[index];
+      randomChance = Math.random();
+      if (randomChance < rightBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.bruteForceAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.bruteForceAttack[randomIndex];
+      } else if (randomChance < rightBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack + rightBoxersChancesOfMoves.offensive.chanceOfDeceptiveAttack) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.deceptiveAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.deceptiveAttack[randomIndex];
       } else {
-        index = Math.floor(Math.random() * duelAnimationsNames.offensive.effectiveAttack.length);
-        offensiveMove = duelAnimationsNames.offensive.effectiveAttack[index];
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.effectiveAttack.length);
+        offensiveMove = duelAnimationsNames.offensive.effectiveAttack[randomIndex];
       }
       winnerMoves.push({
         startTime: winnerMoveTiming.startTime,
         move: offensiveMove,
       });
 
-      chance = Math.random();
-      if (chance < leftBoxersChancesOfMoves.defensive.chanceOfBlock) {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.block.length);
-        defensiveMove = duelAnimationsNames.defensive.block[index];
-      } else if (chance < leftBoxersChancesOfMoves.defensive.chanceOfBlock + leftBoxersChancesOfMoves.defensive.chanceOfDodge) {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.dodge.length);
-        defensiveMove = duelAnimationsNames.defensive.dodge[index];
+      randomChance = Math.random();
+      if (randomChance < leftBoxersChancesOfMoves.defensive.chanceOfBlock) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.block.length);
+        defensiveMove = duelAnimationsNames.defensive.block[randomIndex];
+      } else if (randomChance < leftBoxersChancesOfMoves.defensive.chanceOfBlock + leftBoxersChancesOfMoves.defensive.chanceOfDodge) {
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.dodge.length);
+        defensiveMove = duelAnimationsNames.defensive.dodge[randomIndex];
       } else {
-        index = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
-        defensiveMove = duelAnimationsNames.defensive.counterAttack[index];
+        randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
+        defensiveMove = duelAnimationsNames.defensive.counterAttack[randomIndex];
       }
       loserMoves.push({
         startTime: winnerMoveTiming.startTime + duelParameters.reactionTime,
@@ -230,7 +263,8 @@ const calculateDuelScenario = (leftBoxersStats, rightBoxersStats) => {
     defensive: calculateChancesOfDefensiveMoves(rightBoxersStats),
   };
   const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(leftBoxersStats, rightBoxersStats);
-  const winner = (Math.random() < chanceForLeftBoxerToWin ? 'left' : 'right');
+  const randomChance = Math.random();
+  const winner = (randomChance < chanceForLeftBoxerToWin ? 'left' : 'right');
 
   const duelScenario = calculateMoves(leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, winner);
 

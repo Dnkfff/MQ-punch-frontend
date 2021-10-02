@@ -5,8 +5,8 @@ class DuelController {
     constructor(leftBoxer, rightBoxer, duelScenario) {
       this.leftBoxer = leftBoxer;
       this.rightBoxer = rightBoxer;
-      this.leftBoxersMoves = duelScenario.leftBoxersMoves;
-      this.rightBoxersMoves = duelScenario.rightBoxersMoves;
+      this.leftBoxersMoves = duelScenario.leftBoxersMoves.slice();
+      this.rightBoxersMoves = duelScenario.rightBoxersMoves.slice();
       this.currentTime = 0;
     }
 
