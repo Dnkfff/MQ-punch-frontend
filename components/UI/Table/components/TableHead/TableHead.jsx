@@ -9,6 +9,7 @@ const TableHead = (props) => {
       <div className='tr'>
         {config.head.map((headCell) => (
           <div className={cn('th', headCell.className)} key={headCell.id} style={headCell.style}>
+            {headCell.icon}
             <span>{headCell.caption}</span>
           </div>
         ))}

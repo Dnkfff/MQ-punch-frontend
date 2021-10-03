@@ -1,22 +1,19 @@
 import React from 'react';
 
+// table templates
+import { LeaderboardTableBody } from './TableBodyTemplates';
+
+const tableBodyRowsTemplate = (config) =>
+  ({
+    leaderboard: <LeaderboardTableBody config={config} />,
+  }[config.name]);
+
 const TableBody = (props) => {
   const { config } = props;
-  const { head, body } = config;
 
-  return (
-    <div className='tbody'>
-      {body.map((bodyCell) => (
-        <div className='tr' key={bodyCell.id}>
-          {head.map((headCell) => (
-            <div className='th' key={headCell.id + bodyCell.id} style={headCell.style}>
-              <span>{bodyCell[headCell.field].caption}</span>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+  const tableBodyRows = tableBodyRowsTemplate(config);
+
+  return <div className='tbody'>{tableBodyRows}</div>;
 };
 
 export default TableBody;

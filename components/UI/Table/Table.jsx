@@ -6,7 +6,7 @@ import { TableHead, TableBody } from './components';
 
 const Table = (props) => {
   const { config } = props;
-  const tableClassName = config ? config.type : '';
+  const tableClassName = config ? `${config.type} ${config.name}` : '';
 
   return (
     <div className={cn('mq-punch-table', tableClassName)}>

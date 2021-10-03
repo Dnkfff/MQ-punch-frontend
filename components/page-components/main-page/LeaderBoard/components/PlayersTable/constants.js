@@ -2,23 +2,16 @@ import { getUUID } from '../../../../../../inside-services/get-uuid/get-uuid';
 
 export const playersTableHead = [
   {
-    caption: '',
+    caption: 'PLACEMENT',
     id: getUUID(),
-    style: { width: '10%', padding: '20px 20px' },
+    style: { width: '15%', padding: '20px 20px' },
     field: 'number',
     className: 'number',
   },
   {
-    caption: 'LOGO',
-    id: getUUID(),
-    style: { width: '20%', padding: '20px 20px' },
-    field: 'logo',
-    className: 'logo',
-  },
-  {
     caption: 'NAME',
     id: getUUID(),
-    style: { width: '30%', padding: '20px 20px' },
+    style: { width: '40%', padding: '20px 20px' },
     field: 'name',
     className: 'name',
   },
@@ -28,13 +21,15 @@ export const playersTableHead = [
     style: { width: '20%', padding: '20px 20px' },
     field: 'winrate',
     className: 'winrate',
+    icon: <i class='fad fa-angle-double-up' />,
   },
   {
-    caption: 'TROFIES',
+    caption: 'TROPHIES',
     id: getUUID(),
     style: { width: '20%', padding: '20px 20px' },
-    field: 'trofies',
-    className: 'trofies',
+    field: 'trophies',
+    className: 'trophies',
+    icon: <i class='fad fa-trophy-alt' />,
   },
   {
     caption: 'PRIZE',
@@ -42,6 +37,7 @@ export const playersTableHead = [
     style: { width: '20%', padding: '20px 20px' },
     field: 'prize',
     className: 'prize',
+    icon: <i class='fad fa-usd-circle' />,
   },
 ];
 
@@ -51,16 +47,13 @@ export const playersTableBody = [
     number: {
       caption: '1',
     },
-    logo: {
-      caption: '123',
-    },
     name: {
-      caption: 'Petro',
+      caption: 'Дамочка №3547 Дамочка №3547',
     },
     winrate: {
       caption: '100%',
     },
-    trofies: {
+    trophies: {
       caption: '1499',
     },
     prize: {
@@ -72,16 +65,13 @@ export const playersTableBody = [
     number: {
       caption: '1',
     },
-    logo: {
-      caption: '123',
-    },
     name: {
-      caption: 'Petro',
+      caption: 'Дамочка №3547',
     },
     winrate: {
       caption: '100%',
     },
-    trofies: {
+    trophies: {
       caption: '1499',
     },
     prize: {
@@ -93,16 +83,13 @@ export const playersTableBody = [
     number: {
       caption: '1',
     },
-    logo: {
-      caption: '123',
-    },
     name: {
-      caption: 'Petro',
+      caption: 'Дамочка №3547',
     },
     winrate: {
       caption: '100%',
     },
-    trofies: {
+    trophies: {
       caption: '1499',
     },
     prize: {
@@ -114,16 +101,13 @@ export const playersTableBody = [
     number: {
       caption: '1',
     },
-    logo: {
-      caption: '123',
-    },
     name: {
-      caption: 'Petro',
+      caption: 'Дамочка №3547',
     },
     winrate: {
       caption: '100%',
     },
-    trofies: {
+    trophies: {
       caption: '1499',
     },
     prize: {

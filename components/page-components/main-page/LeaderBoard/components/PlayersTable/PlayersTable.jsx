@@ -4,7 +4,7 @@ import React from 'react';
 import Table from '../../../../../UI/Table/Table';
 
 // constants
-import { playersTableHead, playersTableBody } from './contants';
+import { playersTableHead, playersTableBody } from './constants';
 
 const PlayersTable = () => {
   return (
@@ -12,6 +12,7 @@ const PlayersTable = () => {
       <Table
         config={{
           type: 'black-head-table',
+          name: 'leaderboard',
           head: playersTableHead,
           body: playersTableBody,
         }}

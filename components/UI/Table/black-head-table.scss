@@ -3,6 +3,11 @@
     background-color: #252830;
 
     .th {
+      i {
+        color: #fff;
+        margin-right: 10px;
+        font-size: 20px;
+      }
       span {
         color: #fff;
         text-transform: uppercase;
@@ -14,8 +19,6 @@
   .tbody {
     .tr {
       background-color: #eee;
-      height: 30px;
-      padding: 30px;
     }
     .tr:nth-child(2n) {
       background-color: #e2e2e2;

@@ -1,0 +1,42 @@
+.mq-punch-table.leaderboard {
+  .tbody {
+    max-height: 512px;
+    overflow-y: auto;
+    border-bottom: 4px solid #252830;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bababa;
+      border-radius: 3px;
+    }
+
+    .th.leaderboard-number {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .th.leaderboard-name {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 10px;
+      .logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgb(83, 77, 77);
+      }
+      span {
+        letter-spacing: 0.7px;
+      }
+    }
+  }
+}

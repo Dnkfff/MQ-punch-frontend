@@ -25,6 +25,11 @@
 @import '../components/UI/Table/table.scss';
 @import '../components/UI/Table/black-head-table.scss';
 
+// Tables
+
+// leaderboard table
+@import '../components/UI/Table/components/TableBody/TableBodyTemplates/LeaderboardTableBody/leaderboardTableBody.scss';
+
 // --- pages
 
 // index ( main )s
