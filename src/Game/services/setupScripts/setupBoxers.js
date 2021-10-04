@@ -6,12 +6,9 @@ import { loadFBX } from '../algorithms/assetsLoaders';
 import webGLParameters from '../constants/webGLParameters';
 import boxerParameters from '../constants/boxerParameters';
 import ringParameters from '../constants/ringParameters';
-import animationsNames, { loopedAnimationsNames } from '../constants/animationsNames';
+import animationsNames, { loopedAnimationsNames, modelName } from '../constants/animationsNames';
 
 import Boxer from '../classes/Boxer/Boxer';
-
-
-const MODEL_NAME = 'ybot';
 
 
 const setupBoxers = async (scene) => {
@@ -19,7 +16,7 @@ const setupBoxers = async (scene) => {
   let leftAnimationMixer, rightAnimationMixer;
   const leftAnimationActions = {}, rightAnimationActions = {};
 
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx')
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + modelName + '.fbx')
   .then((model) => {
     model.traverse((obj) => {
       obj.layers.set(webGLParameters.layers.NORMAL);

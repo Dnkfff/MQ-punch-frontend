@@ -58,6 +58,8 @@ const duelAnimationsNames = {
       'dive-right',
     ],
     counterAttack: [
+      'cross-up-left',
+      'cross-up-right',
       'overhand-left',
       'overhand-right',
     ],

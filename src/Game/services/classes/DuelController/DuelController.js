@@ -15,12 +15,12 @@ class DuelController {
 
       if (this.leftBoxersMoves[0]?.startTime <= this.currentTime) {
         const move = this.leftBoxersMoves.shift().move;
-        this.leftBoxer.requestAnimation(move);
+        this.leftBoxer.requestImmediateAnimation(move);
       }
 
       if (this.rightBoxersMoves[0]?.startTime <= this.currentTime) {
         const move = this.rightBoxersMoves.shift().move;
-        this.rightBoxer.requestAnimation(move);
+        this.rightBoxer.requestImmediateAnimation(move);
       }
     }
 }

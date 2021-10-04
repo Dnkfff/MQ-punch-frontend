@@ -4,9 +4,9 @@ const duelParameters = {
   attackIntervalDurationCoefficient: 4,
   probeIntervalDurationCoefficient: 3,
   moveDuration: 0.6,
-  attackRestDurationCoefficient: 2,
+  attackRestDurationCoefficient: 1,
   probeRestDurationCoefficient: 3,
-  reactionTime: 0.35,
+  reactionTimeCoefficient: 0.35,
   chancesOfMovesBooster: 0.1,
   intervalDurationBooster: 0.1,
 };

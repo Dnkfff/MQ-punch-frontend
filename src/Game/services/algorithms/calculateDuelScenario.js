@@ -55,14 +55,17 @@ const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
 };
 
 const fitAttackIntervalsInTime = (attackIntervals) => {
-  const fittedAttackIntervals = attackIntervals.map(attackInterval => {return {
-    startTime: attackInterval.startTime,
-    duration: attackInterval.duration,
-  }});
+  const fittedAttackIntervals = attackIntervals.map(attackInterval => {
+    return {
+      startTime: attackInterval.startTime,
+      duration: attackInterval.duration,
+    };
+  });
 
   const lastAttackInterval = fittedAttackIntervals[fittedAttackIntervals.length - 1];
   const currentDurationOfAttackIntervals = lastAttackInterval.startTime + lastAttackInterval.duration;
-  const lastMoveDeltaTime = duelParameters.moveDuration * (1.0 + duelParameters.probeRestDurationCoefficient) + duelParameters.reactionTime;
+  const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
+  const lastMoveDeltaTime = duelParameters.moveDuration * (1.0 + duelParameters.probeRestDurationCoefficient) + reactionTime;
   const fitCoefficient = (duelParameters.duelDuration - lastMoveDeltaTime) / currentDurationOfAttackIntervals;
 
   fittedAttackIntervals.forEach(fittedAttackInterval => {
@@ -126,7 +129,8 @@ const calculateWinnerMovesTimings = () => {
 
     time = attackInterval.startTime;
     const endTime = attackInterval.startTime + attackInterval.duration;
-    while (time + duelParameters.reactionTime < endTime) {
+    const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
+    while (time + reactionTime < endTime) {
       let moveType;
 
       let chance = Math.random();
@@ -208,8 +212,9 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
         randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
         defensiveMove = duelAnimationsNames.defensive.counterAttack[randomIndex];
       }
+      const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
       loserMoves.push({
-        startTime: winnerMoveTiming.startTime + duelParameters.reactionTime,
+        startTime: winnerMoveTiming.startTime + reactionTime,
         move: defensiveMove,
       });
     } else {
@@ -240,8 +245,9 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
         randomIndex = Math.floor(Math.random() * duelAnimationsNames.defensive.counterAttack.length);
         defensiveMove = duelAnimationsNames.defensive.counterAttack[randomIndex];
       }
+      const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
       loserMoves.push({
-        startTime: winnerMoveTiming.startTime + duelParameters.reactionTime,
+        startTime: winnerMoveTiming.startTime + reactionTime,
         move: defensiveMove,
       });
     }

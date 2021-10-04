@@ -48,4 +48,8 @@ export const loopedAnimationsNames = [
   'warming-up',
 ];
 
+export const idleAnimation = 'fighting-idle';
+
+export const modelName = 'ybot';
+
 export default animationsNames;
