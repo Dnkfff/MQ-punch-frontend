@@ -20,7 +20,7 @@ const Game = () => {
     let scene, renderer, composer;
     let cameraController, duelController;
     const clock = new THREE.Clock();
-    let deltaTime = 0;
+    let deltaTime = 0.0;
     let leftBoxer, rightBoxer;
 
     async function init() {
@@ -37,7 +37,8 @@ const Game = () => {
       setupRing(scene);
 
       const duelScenario = calculateDuelScenario(leftBoxersStats, rightBoxersStats);
-      duelController = new DuelController(leftBoxer, rightBoxer, duelScenario);
+      duelController = new DuelController({ duelScenario, leftBoxer, rightBoxer, cameraController });
+      duelController.run();
 
       clock.start();
 
@@ -50,10 +51,8 @@ const Game = () => {
       updateCanvasSize();
 
       deltaTime = clock.getDelta();
-      if (deltaTime > 0) {
+      if (deltaTime > 0.0) {
         duelController.act(deltaTime);
-        leftBoxer.animate(deltaTime);
-        rightBoxer.animate(deltaTime);
       }
 
       cameraController.update(deltaTime);
