@@ -1,58 +1,6 @@
-import duelEconomics from '../constants/duelEconomics';
-import duelParameters from '../constants/duelParameters';
-import duelAnimationsNames from '../constants/duelAnimationsNames';
+import duelParameters from '../../constants/duelParameters';
+import duelAnimationsNames from '../../constants/duelAnimationsNames';
 
-
-const calculateChancesOfOffensiveMoves = (boxersStats) => {
-  let randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const bruteForceAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const deceptiveAttackCoefficient = (boxersStats.agility * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const effectiveAttackCoefficient = (boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
-
-  const sumOfCoefficients = bruteForceAttackCoefficient + deceptiveAttackCoefficient + effectiveAttackCoefficient;
-
-  return {
-    chanceOfBruteForceAttack: bruteForceAttackCoefficient / sumOfCoefficients,
-    chanceOfDeceptiveAttack: deceptiveAttackCoefficient / sumOfCoefficients,
-    chanceOfEffectiveAttack: effectiveAttackCoefficient / sumOfCoefficients,
-  };
-};
-
-const calculateChancesOfDefensiveMoves = (boxersStats) => {
-  let randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const blockCoefficient = (boxersStats.endurance * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const dodgeCoefficient = (boxersStats.agility * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesBooster * (-1.0 + 2.0 * Math.random());
-  const counterAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
-
-  const sumOfCoefficients = blockCoefficient + dodgeCoefficient + counterAttackCoefficient;
-
-  return {
-    chanceOfBlock: blockCoefficient / sumOfCoefficients,
-    chanceOfDodge: dodgeCoefficient / sumOfCoefficients,
-    chanceOfCounterAttack: counterAttackCoefficient / sumOfCoefficients,
-  };
-};
-
-const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
-  let randomMultiplier;
-  randomMultiplier = 1.0 + duelEconomics.chancesToWinBooster * (-1.0 + 2.0 * Math.random());
-  const sumOfLeftBoxersStats = (leftBoxersStats.strength + leftBoxersStats.agility + leftBoxersStats.endurance) * randomMultiplier;
-  randomMultiplier = 1.0 + duelEconomics.chancesToWinBooster * (-1.0 + 2.0 * Math.random());
-  const sumOfRightBoxersStats = (rightBoxersStats.strength + rightBoxersStats.agility + rightBoxersStats.endurance) * randomMultiplier;
-
-  const sumOfStats = sumOfLeftBoxersStats + sumOfRightBoxersStats;
-
-  return {
-    chanceForLeftBoxerToWin: sumOfLeftBoxersStats / sumOfStats,
-    chanceForRightBoxerToWin: sumOfRightBoxersStats / sumOfStats,
-  };
-};
 
 const fitAttackIntervalsInTime = (attackIntervals) => {
   const fittedAttackIntervals = attackIntervals.map(attackInterval => {
@@ -81,12 +29,12 @@ const calculateAttackIntervals = () => {
 
   let randomMultiplier;
 
-  randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+  randomMultiplier = 1.0 + duelParameters.intervalDurationRandomBooster * (-1.0 + 2.0 * Math.random());
   let previousAttackIntervalEndTime = duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
   for (let i = 0; i < duelParameters.numberOfAttackIntervals; i++) {
-    randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+    randomMultiplier = 1.0 + duelParameters.intervalDurationRandomBooster * (-1.0 + 2.0 * Math.random());
     const attackIntervalStartTime = previousAttackIntervalEndTime + duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
-    randomMultiplier = 1.0 + duelParameters.intervalDurationBooster * (-1.0 + 2.0 * Math.random());
+    randomMultiplier = 1.0 + duelParameters.intervalDurationRandomBooster * (-1.0 + 2.0 * Math.random());
     const attackIntervalDuration = duelParameters.attackIntervalDurationCoefficient * randomMultiplier;
 
     attackIntervals.push({
@@ -259,22 +207,4 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
   };
 };
 
-const calculateDuelScenario = (leftBoxersStats, rightBoxersStats) => {
-  const leftBoxersChancesOfMoves = {
-    offensive: calculateChancesOfOffensiveMoves(leftBoxersStats),
-    defensive: calculateChancesOfDefensiveMoves(leftBoxersStats),
-  };
-  const rightBoxersChancesOfMoves = {
-    offensive: calculateChancesOfOffensiveMoves(rightBoxersStats),
-    defensive: calculateChancesOfDefensiveMoves(rightBoxersStats),
-  };
-  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(leftBoxersStats, rightBoxersStats);
-  const randomChance = Math.random();
-  const winner = (randomChance < chanceForLeftBoxerToWin ? 'left' : 'right');
-
-  const duelScenario = calculateMoves(leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, winner);
-
-  return duelScenario;
-};
-
-export default calculateDuelScenario;
+export default calculateMoves;

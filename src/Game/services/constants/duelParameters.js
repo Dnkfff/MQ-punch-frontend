@@ -7,8 +7,8 @@ const duelParameters = {
   attackRestDurationCoefficient: 1,
   probeRestDurationCoefficient: 3,
   reactionTimeCoefficient: 0.35,
-  chancesOfMovesBooster: 0.1,
-  intervalDurationBooster: 0.1,
+  chancesOfMovesRandomBooster: 0.1,
+  intervalDurationRandomBooster: 0.1,
 };
 
 export default duelParameters;

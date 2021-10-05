@@ -12,7 +12,7 @@ import webGLParameters from './services/constants/webGLParameters';
 import CameraController from './services/classes/CameraController/CameraController';
 import DuelController from './services/classes/DuelController/DuelController';
 
-import calculateDuelScenario from './services/algorithms/calculateDuelScenario';
+import calculateDuelScenario from './services/algorithms/calculateDuelScenario/calculateDuelScenario';
 
 
 const Game = () => {
