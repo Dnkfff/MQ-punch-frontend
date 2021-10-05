@@ -41,14 +41,14 @@ export const calculateChancesOfDefensiveMoves = (boxersStats) => {
 export const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
   let randomMultiplier;
 
-  let sumOfLeftBoxersStats = 0;
+  let sumOfLeftBoxersStats = 0.0;
   randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (-1.0 + 2.0 * Math.random());
   sumOfLeftBoxersStats += (leftBoxersStats.strength + leftBoxersStats.agility + leftBoxersStats.endurance) * randomMultiplier;
   sumOfLeftBoxersStats += leftBoxersStats.winrate * duelEconomics.winrateWeight;
   sumOfLeftBoxersStats += leftBoxersStats.rookie * duelEconomics.rookieWeight;
   sumOfLeftBoxersStats += leftBoxersStats.streaming * duelEconomics.streamingWeight;
 
-  let sumOfRightBoxersStats = 0;
+  let sumOfRightBoxersStats = 0.0;
   randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (-1.0 + 2.0 * Math.random());
   sumOfRightBoxersStats += (rightBoxersStats.strength + rightBoxersStats.agility + rightBoxersStats.endurance) * randomMultiplier;
   sumOfRightBoxersStats += rightBoxersStats.winrate * duelEconomics.winrateWeight;

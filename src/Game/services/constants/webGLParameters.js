@@ -6,9 +6,9 @@ const webGLParameters = {
   },
   bloom: {
     exposure: 1.5,
-    strength: 2,
-    threshold: 0,
-    radius: 0,
+    strength: 2.0,
+    threshold: 0.0,
+    radius: 0.0,
   },
   motionBlur: {
     

@@ -60,8 +60,8 @@ const calculateWinnerMovesTimings = () => {
 
     let randomMultiplier;
 
-    if (index == 0) {
-      time = 0;
+    if (index === 0) {
+      time = 0.0;
     } else {
       time = attackIntervals[index - 1].startTime + attackIntervals[index - 1].duration;
     }
@@ -118,7 +118,7 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
     let randomChance;
     let randomIndex;
 
-    if (winnerMoveTiming.type == 'probe') {
+    if (winnerMoveTiming.type === 'probe') {
       randomIndex = Math.floor(Math.random() * duelAnimationsNames.probe.length);
       probeMove = duelAnimationsNames.probe[randomIndex];
       winnerMoves.push({
@@ -132,7 +132,7 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
         startTime: winnerMoveTiming.startTime,
         move: probeMove,
       });
-    } else if ((winnerMoveTiming.type == 'attack') == (winner == 'left')) {
+    } else if ((winnerMoveTiming.type === 'attack') === (winner === 'left')) {
       randomChance = Math.random();
       if (randomChance < leftBoxersChancesOfMoves.offensive.chanceOfBruteForceAttack) {
         randomIndex = Math.floor(Math.random() * duelAnimationsNames.offensive.bruteForceAttack.length);
@@ -202,8 +202,8 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
   });
 
   return {
-    leftBoxersMoves: winner == 'left' ? winnerMoves : loserMoves,
-    rightBoxersMoves: winner == 'left' ? loserMoves : winnerMoves,
+    leftBoxersMoves: winner === 'left' ? winnerMoves : loserMoves,
+    rightBoxersMoves: winner === 'left' ? loserMoves : winnerMoves,
   };
 };
 

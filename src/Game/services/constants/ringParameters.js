@@ -1,7 +1,7 @@
 const ringParameters = {
   canvas: {
-    width: 100,
-    height: 20,
+    width: 100.0,
+    height: 20.0,
     color: 0xffffff,
   },
   pillars: {
@@ -10,7 +10,7 @@ const ringParameters = {
   },
   ropes: {
     count: 4,
-    height: 20,
+    height: 20.0,
     radius: 0.3,
     color: 0xff0000,
   },

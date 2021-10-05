@@ -8,12 +8,12 @@ import { boneNames } from '../../../constants/viewsNames';
 const firstPersonView = (model) => {
   const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, boneNames['head']);
 
-  const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0, Math.cos(parentRotation.y));
+  const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0.0, Math.cos(parentRotation.y));
   const lookAtVector = positionOffsetVector.clone();
 
   lookAtVector.applyQuaternion(childQuaternion);
 
-  positionOffsetVector.multiplyScalar(0);
+  positionOffsetVector.multiplyScalar(0.0);
 
   return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
 };

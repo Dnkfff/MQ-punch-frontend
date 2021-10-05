@@ -26,12 +26,12 @@ const setupBoxers = async (scene) => {
     model.scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
 
     leftModel = SkeletonUtils.clone(model);
-    leftModel.rotation.y = Math.PI / 2;
-    leftModel.position.set(ringParameters.canvas.width / 4, 0, ringParameters.canvas.width / 2);
+    leftModel.rotation.y = Math.PI / 2.0;
+    leftModel.position.set(ringParameters.canvas.width / 4.0, 0.0, ringParameters.canvas.width / 2.0);
 
     rightModel = SkeletonUtils.clone(model);
-    rightModel.rotation.y = -Math.PI / 2;
-    rightModel.position.set(ringParameters.canvas.width * 3 / 4, 0, ringParameters.canvas.width / 2);
+    rightModel.rotation.y = -Math.PI / 2.0;
+    rightModel.position.set(ringParameters.canvas.width * 3.0 / 4.0, 0.0, ringParameters.canvas.width / 2.0);
 
     scene.add(leftModel, rightModel);
 

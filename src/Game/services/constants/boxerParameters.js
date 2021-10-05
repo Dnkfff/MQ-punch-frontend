@@ -1,5 +1,5 @@
 const boxerParameters = {
-  scale: 1,
+  scale: 1.0,
   animationTransitionDuration: 0.1,
 };
 

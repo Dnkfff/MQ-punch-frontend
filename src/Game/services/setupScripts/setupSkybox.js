@@ -26,7 +26,7 @@ const setupSkybox = async (scene) => {
 
   let skybox = new THREE.Mesh(geometry, material);
   skybox.rotateX(Math.PI);
-  skybox.rotateZ(Math.PI / 2);
+  skybox.rotateZ(Math.PI / 2.0);
   skybox.layers.set(webGLParameters.layers.BLOOM);
 
   scene.add(skybox);

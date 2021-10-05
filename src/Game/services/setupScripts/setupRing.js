@@ -10,7 +10,7 @@ export const setupCanvas = (scene) => {
 
   const canvas = new THREE.Mesh(geometry, material);
 
-  canvas.position.set(ringParameters.canvas.width / 2, -ringParameters.canvas.height / 2, ringParameters.canvas.width / 2);
+  canvas.position.set(ringParameters.canvas.width / 2.0, -ringParameters.canvas.height / 2.0, ringParameters.canvas.width / 2.0);
 
   canvas.layers.set(0);
 
@@ -26,16 +26,16 @@ export const setupPillars = (scene) => {
 
       switch (i) {
         case 0:
-          pillar.position.set(0, (ringParameters.canvas.height - ringParameters.ropes.height) / 2, ringParameters.canvas.width);
+          pillar.position.set(0.0, (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0, ringParameters.canvas.width);
           break;
         case 1:
-          pillar.position.set(ringParameters.canvas.width, (ringParameters.canvas.height - ringParameters.ropes.height) / 2, ringParameters.canvas.width);
+          pillar.position.set(ringParameters.canvas.width, (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0, ringParameters.canvas.width);
           break;
         case 2:
-          pillar.position.set(ringParameters.canvas.width, (ringParameters.canvas.height - ringParameters.ropes.height) / 2, 0);
+          pillar.position.set(ringParameters.canvas.width, (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0, 0.0);
           break;
         case 3:
-          pillar.position.set(0, (ringParameters.canvas.height - ringParameters.ropes.height) / 2, 0);
+          pillar.position.set(0.0, (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0, 0.0);
           break;
       }
 
@@ -59,22 +59,22 @@ export const setupRopes = (scene) => {
 
       switch (j) {
         case 0:
-          cylinder.rotateX(Math.PI / 2);
-          cylinder.position.set(0, ropesStep * i, ringParameters.canvas.width / 2);
+          cylinder.rotateX(Math.PI / 2.0);
+          cylinder.position.set(0.0, ropesStep * i, ringParameters.canvas.width / 2.0);
           break;
         case 1:
-          cylinder.rotateY(Math.PI / 2);
-          cylinder.rotateX(Math.PI / 2);
-          cylinder.position.set(ringParameters.canvas.width / 2, ropesStep * i, ringParameters.canvas.width);
+          cylinder.rotateY(Math.PI / 2.0);
+          cylinder.rotateX(Math.PI / 2.0);
+          cylinder.position.set(ringParameters.canvas.width / 2.0, ropesStep * i, ringParameters.canvas.width);
           break;
         case 2:
-          cylinder.rotateX(Math.PI / 2);
-          cylinder.position.set(ringParameters.canvas.width, ropesStep * i, ringParameters.canvas.width / 2);
+          cylinder.rotateX(Math.PI / 2.0);
+          cylinder.position.set(ringParameters.canvas.width, ropesStep * i, ringParameters.canvas.width / 2.0);
           break;
         case 3:
-          cylinder.rotateY(Math.PI / 2);
-          cylinder.rotateX(Math.PI / 2);
-          cylinder.position.set(ringParameters.canvas.width / 2, ropesStep * i, 0);
+          cylinder.rotateY(Math.PI / 2.0);
+          cylinder.rotateX(Math.PI / 2.0);
+          cylinder.position.set(ringParameters.canvas.width / 2.0, ropesStep * i, 0.0);
           break;
       }
 
