@@ -18,9 +18,17 @@
 @import '../components/Wrappers/StickyHeader/sticky-header.scss';
 @import '../components/Wrappers/BottomButtonWithUpArrow/bottomButtonWithUpArrow.scss';
 @import '../components/Wrappers/Mobilemenu/mobileMenu.scss';
+@import '../components/Wrappers/Footer/footer.scss';
 
 // UI
 @import '../components/UI/GlobalLoader/globalLoader.scss';
+@import '../components/UI/Table/table.scss';
+@import '../components/UI/Table/black-head-table.scss';
+
+// Tables
+
+// leaderboard table
+@import '../components/UI/Table/components/TableBody/TableBodyTemplates/LeaderboardTableBody/leaderboardTableBody.scss';
 
 // --- pages
 
@@ -29,3 +37,9 @@
 @import '../components/page-components/main-page/WelcomeBlock/welcomeBlock.scss';
 @import '../components/page-components/main-page/StreamArea/streamArea.scss';
 @import '../components/page-components/main-page/LiveEvents/liveEvents.scss';
+@import '../components/page-components/main-page/LeaderBoard/leaderBoard.scss';
+@import '../components/page-components/main-page/LeaderBoard/components/SelectDivisionSlider/selectDivisionSlider.scss';
+@import '../components/page-components/main-page/LeaderBoard/components/PlayersTable/playersTable.scss';
+
+// market
+@import '../pages/market/market.scss';

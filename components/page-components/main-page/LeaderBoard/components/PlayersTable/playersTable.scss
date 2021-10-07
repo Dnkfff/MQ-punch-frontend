@@ -1,0 +1,11 @@
+.global-main-page {
+  .players-table {
+    margin-top: 20px;
+    width: calc(100% - 50px);
+    max-width: 1300px;
+
+    .table {
+      width: 100%;
+    }
+  }
+}

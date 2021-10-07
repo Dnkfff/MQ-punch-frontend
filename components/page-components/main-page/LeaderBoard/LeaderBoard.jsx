@@ -8,6 +8,7 @@ const LeaderBoard = () => {
 
   return (
     <div className='leaderboard'>
+      <h3>leaderboard</h3>
       <SelectDivisionSlider />
       <PlayersTable />
     </div>

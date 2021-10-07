@@ -1,0 +1,28 @@
+.mq-punch-table.black-head-table {
+  .thead {
+    background-color: #252830;
+
+    .th {
+      i {
+        color: #fff;
+        margin-right: 10px;
+        font-size: 20px;
+      }
+      span {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 18px;
+      }
+    }
+  }
+
+  .tbody {
+    .tr {
+      background-color: #eee;
+    }
+    .tr:nth-child(2n) {
+      background-color: #e2e2e2;
+      box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

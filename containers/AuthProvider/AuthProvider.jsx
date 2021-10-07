@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Web3 from 'web3';
 
-// functions & constants
-import { onLogIn } from '../../redux/reducers/auth/slice';
+// functions
+import { onResetUserInfo, onLogOut } from '../../redux/reducers/auth/slice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -12,34 +11,29 @@ const AuthProvider = ({ children }) => {
     window.ethereum.on('accountsChanged', (accounts) => {
       const accountNotValid = !accounts || accounts.length === 0;
 
-      if (accountNotValid) return logOut();
+      if (accountNotValid) return dispatch(onLogOut());
+    });
+
+    window.ethereum.on('disconnect', () => {
+      dispatch(onLogOut());
     });
   };
 
   const handlingReLogin = async () => {
     const addressIsEqual =
       window.localStorage.user &&
-      window.ethereum.selectedAddress ===
-        JSON.parse(window.localStorage.getItem('user')).metamaskAddress;
+      window.ethereum.selectedAddress &&
+      window.ethereum.selectedAddress.toUpperCase() ===
+        JSON.parse(window.localStorage.getItem('user')).metamaskAddress.toUpperCase();
 
     // handle relogin with same account
-    if (window.ethereum.selectedAddress && !addressIsEqual) {
+    if (window.ethereum.selectedAddress && addressIsEqual) {
+      return dispatch(onResetUserInfo());
     }
 
     // handle relogin with another account
     if (window.ethereum.selectedAddress && !addressIsEqual) {
-      const web3 = new Web3(Web3.givenProvider);
-
-      const accounts = await web3.eth.requestAccounts();
-
-      const signature = await web3.eth.personal.sign('MQ PUNCH', accounts[0], '');
-
-      return dispatch(
-        onLogIn({
-          signature,
-          metamaskAddress: window.ethereum.selectedAddress,
-        })
-      );
+      return dispatch(onLogOut());
     }
   };
 
@@ -47,8 +41,6 @@ const AuthProvider = ({ children }) => {
     handlingReLogin();
     handlingLogout();
   }, []);
-
-  function logOut() {}
 
   return children;
 };
