@@ -35,6 +35,7 @@ const slice = createSlice({
         JSON.stringify({
           metamaskAddress: payload.metamaskAddress,
           token: payload.token,
+          lastRefresh: new Date(),
         })
       );
     },
@@ -50,9 +51,12 @@ const slice = createSlice({
       state.user = null;
       window.localStorage.removeItem('user');
     },
+    onResetUserInfo: (state) => {
+      state.user = JSON.parse(window.localStorage.getItem('user'));
+    },
   },
 });
 
-export const { onLogOut } = slice.actions;
+export const { onLogOut, onResetUserInfo } = slice.actions;
 
 export default slice.reducer;
