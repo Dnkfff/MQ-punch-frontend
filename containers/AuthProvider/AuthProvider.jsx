@@ -1,34 +1,40 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 // functions
-import { onResetUserInfo, onLogOut } from '../../redux/reducers/auth/slice';
+import { onLogOut, onRefreshToken } from "../../redux/reducers/auth/slice";
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const handlingLogout = () => {
-    window.ethereum.on('accountsChanged', (accounts) => {
+    window.ethereum.on("accountsChanged", (accounts) => {
       const accountNotValid = !accounts || accounts.length === 0;
 
       if (accountNotValid) return dispatch(onLogOut());
     });
 
-    window.ethereum.on('disconnect', () => {
+    window.ethereum.on("disconnect", () => {
       dispatch(onLogOut());
     });
   };
 
   const handlingReLogin = async () => {
+    const localStorageUserInfo = JSON.parse(window.localStorage.getItem("user"));
+
     const addressIsEqual =
       window.localStorage.user &&
       window.ethereum.selectedAddress &&
       window.ethereum.selectedAddress.toUpperCase() ===
-        JSON.parse(window.localStorage.getItem('user')).metamaskAddress.toUpperCase();
+        localStorageUserInfo.metamaskAddress.toUpperCase();
 
     // handle relogin with same account
     if (window.ethereum.selectedAddress && addressIsEqual) {
-      return dispatch(onResetUserInfo());
+      return dispatch(
+        onRefreshToken({
+          refreshToken: localStorageUserInfo.refreshToken,
+        })
+      );
     }
 
     // handle relogin with another account
@@ -38,8 +44,10 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    handlingReLogin();
-    handlingLogout();
+    if (window.ethereum) {
+      handlingReLogin();
+      handlingLogout();
+    }
   }, []);
 
   return children;
