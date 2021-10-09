@@ -1,9 +1,16 @@
-import React from 'react';
+import React from "react";
 
-const Market = (props) => {
+// components
+import OpenSeaBanner from "../../components/page-components/market-page/OpenSeaBanner/OpenSeaBanner";
+import BoxersList from "../../components/page-components/market-page/BoxersList/BoxersList";
+import SocialTradeBanner from "../../components/page-components/market-page/SocialsTradeBanner/SocialTradeBanner";
+
+const Market = () => {
   return (
-    <div className='global-market-page'>
-      <p className='class'>123123123</p>
+    <div className="global-market-page">
+      <OpenSeaBanner />
+      <BoxersList />
+      <SocialTradeBanner />
     </div>
   );
 };
