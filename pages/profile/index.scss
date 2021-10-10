@@ -68,26 +68,11 @@
 
     .profile__settings__icon {
       font-size: 24px;
-      color: $text;
       margin-right: 11px;
-      position: absolute;
-      left: -40%;
-      top: 0%;
     }
     .profile__settings__text {
       font-size: 25px;
       font-weight: 500;
-      color: $text;
-      position: relative;
-      transition: color 0.2s linear;
-
-      &:hover {
-        color: darken($text, 30%);
-        cursor: pointer;
-      }
-
-      &:hover .profile__settings__icon {
-        transform: rotate(90deg);
       }
     }
   }
