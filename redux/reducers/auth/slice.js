@@ -9,6 +9,12 @@ export const onLogIn = createAsyncThunk("auth/login", async ({ signature, metama
     signedSignature: signature,
   });
 
+  if (loginResult?.data?.refreshToken) {
+    setTimeout(() => {
+      store.dispatch(onRefreshToken({ refreshToken: loginResult.data.refreshToken }));
+    }, refreshTokenCoolDown);
+  }
+
   return { ...loginResult.data, metamaskAddress };
 });
 
@@ -48,9 +54,11 @@ export const onRefreshToken = createAsyncThunk("auth/refresh-token", async ({ re
     refreshToken,
   });
 
-  setTimeout(() => {
-    store.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
-  }, refreshTokenCoolDown);
+  if (refreshResult?.data?.refreshToken) {
+    setTimeout(() => {
+      store.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
+    }, refreshTokenCoolDown);
+  }
 
   return { ...refreshResult.data };
 });
