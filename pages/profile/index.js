@@ -5,6 +5,8 @@ import profileNoPhotoBigger from "../../assets/website/profile_no_photo_bigger.p
 const Market = (props) => {
   return (
     <div className="global__profile">
+      {/* Profile Header */}
+
       <div className="profile__header">
         <div className="profile__container">
           <div className="profile__header__inner">
@@ -23,9 +25,9 @@ const Market = (props) => {
                   </div>
                 </div>
                 <div className="profile__header__settings">
-                  <div className="profile__settings__text">
-                    Settings
+                  <div className="profile__header__settings__link">
                     <i className="fas fa-cog fa-100x profile__settings__icon"></i>
+                    <div className="profile__settings__text">Settings</div>
                   </div>
                 </div>
               </div>
@@ -48,6 +50,8 @@ const Market = (props) => {
         </div>
       </div>
 
+      {/* Profile Stable */}
+
       <div className="profile__stable">
         <div className="profile__container">
           <div className="profile__stable__inner">
@@ -62,6 +66,7 @@ const Market = (props) => {
         </div>
       </div>
 
+      {/* Profile Offer */}
       <div className="profile__offer">
         <div className="profile__container">
           <div className="profile__offer__inner profile__block__style">
@@ -84,6 +89,8 @@ const Market = (props) => {
         </div>
       </div>
 
+      {/* Profile Navigation*/}
+
       <div className="profile__settings">
         <nav className="profile__settings__nav">
           <a
@@ -104,6 +111,8 @@ const Market = (props) => {
         </nav>
       </div>
 
+      {/* Profile Transfer*/}
+
       <div className="profile__transfer">
         <div className="profile__container">
           <div className="profile__transfer__inner profile__block__style">
@@ -120,6 +129,8 @@ const Market = (props) => {
           </div>
         </div>
       </div>
+
+      {/* Profile General*/}
 
       <div className="profile__general">
         <div className="profile__container">
@@ -167,6 +178,8 @@ const Market = (props) => {
                 </div>
               </div>
             </div>
+
+            {/* Profile General - confirm*/}
 
             <div className="profile__general__confirm">
               <div className="profile__general__update">

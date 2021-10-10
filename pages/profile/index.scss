@@ -2,11 +2,39 @@
   box-sizing: border-box;
   padding-top: 120px;
 
+  // Container
+
   .profile__container {
     width: 100%;
     max-width: 1250px;
     margin: 0 auto;
   }
+
+  // Header BTN
+  // ==========
+
+  .profile__btn {
+    padding: 18px 34px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    color: $text;
+    background-color: #f9f9f9;
+    border: 1px solid #b4b4b4;
+    border-radius: 7px;
+    transition: background-color 0.2s linear;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: rgb(235, 235, 235);
+    }
+  }
+
+  // Header
+  // ==========
 
   .profile__header {
     width: 100%;
@@ -61,10 +89,20 @@
     }
   }
 
+  // Header settings
+  // ==========
+
   .profile__header__settings {
-    display: flex;
-    justify-content: center;
-    text-align: center;
+    .profile__header__settings__link {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: $text;
+      transition: color 0.2s linear;
+      &:hover {
+        color: darken($text, 30%);
+      }
+    }
 
     .profile__settings__icon {
       font-size: 24px;
@@ -73,9 +111,11 @@
     .profile__settings__text {
       font-size: 25px;
       font-weight: 500;
-      }
     }
   }
+
+  // Header stats
+  // ==========
 
   .profile__stats {
     display: flex;
@@ -95,6 +135,9 @@
     font-size: 25px;
   }
 
+  // Header stable
+  // ==========
+
   .profile__stable {
     margin-top: 133px;
   }
@@ -113,6 +156,9 @@
     font-size: 20px;
     font-weight: 400;
   }
+
+  // Header offer
+  // ==========
 
   .profile__offer {
     margin-top: 57px;
@@ -165,25 +211,8 @@
     font-weight: 500;
   }
 
-  .profile__btn {
-    padding: 18px 34px;
-    margin-right: 8px;
-    cursor: pointer;
-    font-size: 20px;
-    color: $text;
-    background-color: #f9f9f9;
-    border: 1px solid #b4b4b4;
-    border-radius: 7px;
-    transition: background-color 0.2s linear;
-
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      background-color: rgb(235, 235, 235);
-    }
-  }
+  // Header Navigation
+  // ==========
 
   .profile__settings {
     background-color: #8f1d1d;
@@ -229,9 +258,13 @@
     }
   }
 
-  // .profile__nav__element-activ {
-  //   // color: $white;
-  // }
+  .profile__nav__element-activ {
+    color: $white;
+
+    &:after {
+      opacity: 1;
+    }
+  }
 
   .profile__nav__icon {
     margin-right: 10px;
@@ -242,6 +275,9 @@
     font-size: 35px;
     font-weight: 500;
   }
+
+  // Header Transfer
+  // ==========
 
   .profile__transfer {
     margin-top: 106px;
@@ -265,6 +301,9 @@
     margin-bottom: 43px;
     width: 50%;
   }
+
+  // Header General
+  // ==========
 
   .profile__general {
     margin-top: 80px;
@@ -297,12 +336,17 @@
     margin-bottom: 17px;
   }
 
+  // Header placeholder
+  // ==========
+
   ::placeholder {
     color: #000000;
     font-size: 20px;
     font-weight: 500;
   }
 
+  // Header input
+  // ==========
   .profile__general__input {
     outline: none;
     padding: 18px 25px;
@@ -315,6 +359,9 @@
     font-size: 20px;
     font-weight: 500;
   }
+
+  // Header textarea
+  // ==========
 
   .profile__general__description {
     outline: none;
@@ -359,11 +406,15 @@
   }
 
   .profile__general__add {
+    cursor: pointer;
     position: absolute;
     right: 5%;
     top: 5%;
     font-size: 35px;
   }
+
+  // Header confirm
+  // ==========
 
   .profile__general__confirm {
     margin-top: 30px;
@@ -377,6 +428,9 @@
     font-weight: 500;
     margin-bottom: 30px;
   }
+
+  // Header checkbox
+  // ==========
 
   .profile__general__checkbox {
     height: 23px;
