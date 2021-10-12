@@ -1,31 +1,35 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, connect, useSelector } from 'react-redux';
-import cn from 'classnames';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, connect, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import cn from "classnames";
+import Link from "next/link";
 
-import Modal from '../../UI/Modal/Modal';
-import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
+import Modal from "../../UI/Modal/Modal";
+import BigHeaderMenuLinks from "../BigHeaderMenuLinks/BigHeaderMenuLinks";
 
-import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from "../../../inside-services/get-uuid/get-uuid";
 import {
   changeHeaderHeight,
-  onLogIn,
   changeMobileMenuOpened,
-} from '../../../redux/reducers/globalManager/slice';
+} from "../../../redux/reducers/globalManager/slice";
+import { onLogOut } from "../../../redux/reducers/auth/slice";
 
-import mainBigLogoPath from '../../../assets/website/mq-rect-punch-logo-white.png';
-import boxingRingPict from '../../../assets/website/boxing-ring.png';
-import creditCardSVG from '../../../assets/website/icons/credit_card.svg';
-import profileIconSVG from '../../../assets/website/icons/profile_icon.svg';
-import { HiMenuAlt2 } from 'react-icons/hi';
+import mainBigLogoPath from "../../../assets/website/mq-rect-punch-logo-white.png";
+import boxingRingPict from "../../../assets/website/boxing-ring.png";
+import CreditCardSVG from "../../../assets/website/icons/credit_card.svg";
+import ProfileIconSVG from "../../../assets/website/icons/profile_icon.svg";
+import { HiMenuAlt2 } from "react-icons/hi";
 
 const BigHeader = (props) => {
   const { header_height } = props;
   const dispatch = useDispatch();
+  const router = useRouter();
   const userIsAuth = !!useSelector((state) => state.auth.user);
   const headerRef = useRef(getUUID());
+  const profileDropDownRef = useRef(getUUID());
 
   const [modalData, setModalData] = useState(null);
+  const [profileDropDownOpen, setProfileDropDownOpen] = useState(false);
 
   const onOpenMobileMenu = () => {
     dispatch(changeMobileMenuOpened(true));
@@ -43,46 +47,74 @@ const BigHeader = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (profileDropDownOpen) {
+      document.addEventListener("mousedown", handleClickOutsideProfileDD);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutsideProfileDD);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideProfileDD);
+    };
+  }, [profileDropDownOpen]);
+
   return (
     <>
       <Modal data={modalData} />
-      <header className='app-container-big-header' ref={headerRef}>
-        <div className='main-picture'>
-          <img src={boxingRingPict.src} alt='boxing-ring' className='boxing-ring-pict' />
-          <Link href={'/'}>
-            <img src={mainBigLogoPath.src} alt='MQPUNCH' className='main-big-logo' />
+      <header className="app-container-big-header" ref={headerRef}>
+        <div className="main-picture">
+          <img src={boxingRingPict.src} alt="boxing-ring" className="boxing-ring-pict" />
+          <Link href={"/"}>
+            <img src={mainBigLogoPath.src} alt="MQPUNCH" className="main-big-logo" />
           </Link>
           {!userIsAuth && (
-            <div className='under-picture-info'>
-              <button className='start' onClick={onOpenAuthModal}>
+            <div className="under-picture-info">
+              <button className="start" onClick={onOpenAuthModal}>
                 Start
               </button>
             </div>
           )}
         </div>
         <div
-          className={cn('big-header-menu', {
-            'only-menu': !userIsAuth,
-            'menu-with-icons': userIsAuth,
+          className={cn("big-header-menu", {
+            "only-menu": !userIsAuth,
+            "menu-with-icons": userIsAuth,
           })}
         >
-          <nav className='links'>
+          <nav className="links">
             <BigHeaderMenuLinks />
           </nav>
-          <div className='menu-icon' onClick={onOpenMobileMenu}>
+          <div className="menu-icon" onClick={onOpenMobileMenu}>
             <HiMenuAlt2 />
           </div>
-          {userIsAuth && (
-            <div className='right'>
-              <div className='balance'>
-                <img src={creditCardSVG.src} alt='credit_card' />
-                <span>{'300.00 $'}</span>
+          {!userIsAuth && (
+            <div className="right">
+              <div className="balance">
+                <span>{"300.0000 ETH"}</span>
+                <CreditCardSVG className="wallet-icon" />
+                <i className="fas fa-caret-down"></i>
               </div>
-              <Link href={'/profile'}>
-                <div className='profile'>
-                  <img src={profileIconSVG.src} alt='profile' />
-                </div>
-              </Link>
+              <div className="profile" onClick={() => setProfileDropDownOpen((v) => !v)}>
+                <ProfileIconSVG />
+                <ul
+                  className={cn("profile-dropdown", {
+                    opened: profileDropDownOpen,
+                    closed: !profileDropDownOpen,
+                  })}
+                  ref={profileDropDownRef}
+                >
+                  <li
+                    onClick={() => {
+                      router.push("/");
+                      dispatch(onLogOut());
+                    }}
+                  >
+                    <div className="icon" />
+                    <span>Log Out</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           )}
         </div>
@@ -92,9 +124,17 @@ const BigHeader = (props) => {
 
   function onOpenAuthModal() {
     setModalData({
-      template: 'auth-modal',
+      template: "auth-modal",
       onClose: () => setModalData(null),
     });
+  }
+
+  function handleClickOutsideProfileDD(event) {
+    if (profileDropDownRef.current.contains(event.target)) {
+      return;
+    } else {
+      setProfileDropDownOpen(false);
+    }
   }
 };
 

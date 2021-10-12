@@ -32,11 +32,7 @@
 
 // --- pages
 
-<<<<<<< HEAD
 // index ( main )
-=======
-// index ( main )s
->>>>>>> 98ed5aa0661a8b1bdfbbd50c33e27091414e1291
 @import "../pages/index.scss";
 @import "../components/page-components/main-page/WelcomeBlock/welcomeBlock.scss";
 @import "../components/page-components/main-page/StreamArea/streamArea.scss";
@@ -44,18 +40,11 @@
 @import "../components/page-components/main-page/LeaderBoard/leaderBoard.scss";
 @import "../components/page-components/main-page/LeaderBoard/components/SelectDivisionSlider/selectDivisionSlider.scss";
 @import "../components/page-components/main-page/LeaderBoard/components/PlayersTable/playersTable.scss";
-<<<<<<< HEAD
 
-// market
 @import "../pages/market/market.scss";
 @import "../components/page-components/market-page/BoxersList/boxers-list.scss";
 @import "../components/page-components/market-page/OpenSeaBanner/open-sea-banner.scss";
 @import "../components/page-components/market-page/SocialsTradeBanner/social-trade-banner.scss";
-=======
 
 // profile
 @import "../pages/profile/index.scss";
-
-// market
-@import "../pages/market/market.scss";
->>>>>>> 98ed5aa0661a8b1bdfbbd50c33e27091414e1291
