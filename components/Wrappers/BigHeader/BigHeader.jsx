@@ -14,7 +14,7 @@ import {
 } from "../../../redux/reducers/globalManager/slice";
 import { onLogOut } from "../../../redux/reducers/auth/slice";
 
-import mainBigLogoPath from "../../../assets/website/mq-rect-punch-logo-white.png";
+import mainBigLogoPath from "../../../assets/website/logos/mq-rect-punch-logo-white.png";
 import boxingRingPict from "../../../assets/website/boxing-ring.png";
 import CreditCardSVG from "../../../assets/website/icons/credit_card.svg";
 import ProfileIconSVG from "../../../assets/website/icons/profile_icon.svg";
@@ -88,10 +88,10 @@ const BigHeader = (props) => {
           <div className="menu-icon" onClick={onOpenMobileMenu}>
             <HiMenuAlt2 />
           </div>
-          {!userIsAuth && (
+          {userIsAuth && (
             <div className="right">
-              <div className="balance">
-                <span>{"300.0000 ETH"}</span>
+              <div className="balance" onClick={onOpenBalanceModal}>
+                <span>{"0.0000 ETH"}</span>
                 <CreditCardSVG className="wallet-icon" />
                 <i className="fas fa-caret-down"></i>
               </div>
@@ -125,6 +125,13 @@ const BigHeader = (props) => {
   function onOpenAuthModal() {
     setModalData({
       template: "auth-modal",
+      onClose: () => setModalData(null),
+    });
+  }
+
+  function onOpenBalanceModal() {
+    setModalData({
+      template: "balance-modal",
       onClose: () => setModalData(null),
     });
   }

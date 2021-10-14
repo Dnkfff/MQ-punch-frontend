@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 // assets
-import bigLogo from "../../../assets/website/mq-rect-punch-logo-black.png";
+import bigLogo from "../../../assets/website/logos/mq-rect-punch-logo-black.png";
 
 const Footer = () => {
   return (

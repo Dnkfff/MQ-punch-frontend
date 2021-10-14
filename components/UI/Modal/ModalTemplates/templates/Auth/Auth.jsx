@@ -6,7 +6,7 @@ import Web3 from "web3";
 import { onLogIn } from "../../../../../../redux/reducers/auth/slice";
 
 // assets
-import metamaskIcon from "../../../../../../assets/website/icons/metamask.svg";
+import MetamaskIcon from "../../../../../../assets/website/icons/metamask.svg";
 import { GrClose } from "react-icons/gr";
 
 const AuthModal = ({ data }) => {
@@ -49,7 +49,7 @@ const AuthModal = ({ data }) => {
         <div className="stick" />
         <h2 className="login-title">sign-up</h2>
       </div>
-      <img src={metamaskIcon.src} className="metamask-icon" />
+      <MetamaskIcon className="metamask-icon" />
       {metamaskDoesntExist && (
         <span className="metamask-doenst-exist">
           <i className="fas fa-times-hexagon"></i>

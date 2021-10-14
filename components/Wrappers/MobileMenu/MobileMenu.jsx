@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import cn from 'classnames';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import cn from "classnames";
 
 // components
-import Modal from '../../UI/Modal/Modal';
+import Modal from "../../UI/Modal/Modal";
 
 // functions and constants
-import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
-import { changeMobileMenuOpened } from '../../../redux/reducers/globalManager/slice';
+import { bigHeaderMenuLinks } from "../../../inside-services/constants/constants";
+import { changeMobileMenuOpened } from "../../../redux/reducers/globalManager/slice";
 
-import creditCardSVG from '../../../assets/website/icons/credit_card_black.svg';
-import profileIconSVG from '../../../assets/website/icons/profile_icon_black.svg';
-import { GrClose } from 'react-icons/gr';
-import logoIMG from '../../../assets/website/mq-rect-punch-logo-black.png';
+import creditCardSVG from "../../../assets/website/icons/credit_card_black.svg";
+import profileIconSVG from "../../../assets/website/icons/profile_icon_black.svg";
+import { GrClose } from "react-icons/gr";
+import logoIMG from "../../../assets/website/logos/mq-rect-punch-logo-black.png";
 
 const MobileMenu = () => {
   const dispatch = useDispatch();
@@ -32,39 +32,39 @@ const MobileMenu = () => {
     <>
       <Modal data={modalData} />
       <div
-        className={cn('global-mobile-menu', {
+        className={cn("global-mobile-menu", {
           opened: isMobilemenuOpened,
           closed: !isMobilemenuOpened,
         })}
       >
-        <div className='content'>
-          <div className={cn('global-mobile-menu-header', { multiplied: userIsAuth })}>
+        <div className="content">
+          <div className={cn("global-mobile-menu-header", { multiplied: userIsAuth })}>
             {userIsAuth && (
-              <div className='user-info'>
-                <div className='profile'>
-                  <img src={profileIconSVG.src} alt='profile' />
+              <div className="user-info">
+                <div className="profile">
+                  <img src={profileIconSVG.src} alt="profile" />
                 </div>
-                <div className='balance'>
-                  <span>{'300.00 $'}</span>
-                  <img src={creditCardSVG.src} alt='credit_card' />
+                <div className="balance">
+                  <span>{"300.00 $"}</span>
+                  <img src={creditCardSVG.src} alt="credit_card" />
                 </div>
               </div>
             )}
-            <div className='close-button' onClick={onCloseMobileMenu}>
+            <div className="close-button" onClick={onCloseMobileMenu}>
               <GrClose />
             </div>
           </div>
-          <Link href={'/'}>
-            <div className='logo-area' onClick={onCloseMobileMenu}>
-              <img src={logoIMG.src} alt='logo' />
+          <Link href={"/"}>
+            <div className="logo-area" onClick={onCloseMobileMenu}>
+              <img src={logoIMG.src} alt="logo" />
             </div>
           </Link>
           {!userIsAuth && (
-            <button className='start-button' onClick={onOpenAuthModal}>
+            <button className="start-button" onClick={onOpenAuthModal}>
               start
             </button>
           )}
-          <nav className='global-mobile-menu-links'>
+          <nav className="global-mobile-menu-links">
             <ul>
               {bigHeaderMenuLinks.map((el) => (
                 <Link href={el.pathname} key={el.id}>
@@ -87,7 +87,7 @@ const MobileMenu = () => {
     onCloseMobileMenu();
 
     setModalData({
-      template: 'auth-modal',
+      template: "auth-modal",
       onClose: () => setModalData(null),
     });
   }
