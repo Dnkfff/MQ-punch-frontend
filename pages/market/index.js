@@ -68,6 +68,118 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="market__item">
+          <div className="puncher__photo"></div>
+          <div className="puncher__info">
+            <div className="puncher__name">
+              <div className="puncher__info__title">MQ-punch</div>
+              <div className="puncher__nick">Joe</div>
+            </div>
+            <div className="puncher__price">
+              <div className="puncher__info__title">Price</div>
+              <div className="puncher__price__">
+                <div className="puncher__price__icon"></div>
+                <div className="puncher__price__value">3</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="maklet__social">
