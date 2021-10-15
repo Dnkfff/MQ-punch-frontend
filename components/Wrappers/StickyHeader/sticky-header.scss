@@ -111,6 +111,7 @@
       align-items: center;
       margin-right: 13px;
 
+      svg,
       img {
         width: 30px;
         margin-right: 10px;
@@ -129,6 +130,7 @@
       border-left: 2px solid #fff;
       padding-left: 13px;
 
+      svg,
       img {
         width: 30px;
       }
@@ -136,11 +138,13 @@
 
     @media screen and (max-width: 600px) {
       .balance {
+        svg,
         img {
           width: 20px;
         }
       }
       .profile {
+        svg,
         img {
           width: 20px;
         }
