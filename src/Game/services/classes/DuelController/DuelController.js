@@ -1,7 +1,7 @@
 import { calculateBarycenterOfBoxers } from './duelAlgorithms';
 
 import duelParameters from '../../constants/duelParameters';
-import viewsNames from '../../constants/viewsNames';
+import viewNames from '../../constants/viewNames';
 
 
 class DuelController {
@@ -22,17 +22,17 @@ class DuelController {
       if (this.mode === 'run') {
         this.currentTime += deltaTime;
 
-        if (this.leftBoxersMoves[0]?.startTime <= this.currentTime) {
-          const move = this.leftBoxersMoves.shift();
-          this.finishedLeftBoxersMoves.push(move);
-          this.leftBoxer.requestImmediateAnimation(move.move);
-        }
+        const animateBoxer = (boxerMoves, finishedBoxerMoves, boxer) => {
+          if (boxerMoves[0]?.startTime <= this.currentTime) {
+            const boxerMove = boxerMoves.shift();
+            finishedBoxerMoves.push(boxerMove);
+            boxer.requestAnimation(boxerMove.move.lower, 'lower');
+            boxer.requestAnimation(boxerMove.move.upper, 'upper');
+          }
+        };
 
-        if (this.rightBoxersMoves[0]?.startTime <= this.currentTime) {
-          const move = this.rightBoxersMoves.shift();
-          this.finishedRightBoxersMoves.push(move);
-          this.rightBoxer.requestImmediateAnimation(move.move);
-        }
+        animateBoxer(this.leftBoxersMoves, this.finishedLeftBoxersMoves, this.leftBoxer);
+        animateBoxer(this.rightBoxersMoves, this.finishedRightBoxersMoves, this.rightBoxer);
 
         if (this.leftBoxersMoves.length === 0 && this.rightBoxersMoves.length === 0) {
           this.prepareSlowMotion();
@@ -43,15 +43,16 @@ class DuelController {
       } else if (this.mode === 'slowmotion') {
         this.currentTime += deltaTime * duelParameters.slowMotionMultiplier;
 
-        if (this.leftBoxersMoves[0]?.startTime <= this.currentTime) {
-          const move = this.leftBoxersMoves.shift();
-          this.leftBoxer.requestImmediateAnimation(move.move);
-        }
+        const animateBoxer = (boxerMoves, boxer) => {
+          if (boxerMoves[0]?.startTime <= this.currentTime) {
+            const boxerMove = boxerMoves.shift();
+            boxer.requestAnimation(boxerMove.move.lower, 'lower');
+            boxer.requestAnimation(boxerMove.move.upper, 'upper');
+          }
+        };
 
-        if (this.rightBoxersMoves[0]?.startTime <= this.currentTime) {
-          const move = this.rightBoxersMoves.shift();
-          this.rightBoxer.requestImmediateAnimation(move.move);
-        }
+        animateBoxer(this.leftBoxersMoves, this.leftBoxer);
+        animateBoxer(this.rightBoxersMoves, this.rightBoxer);
 
         if (this.leftBoxersMoves.length === 0 && this.rightBoxersMoves.length === 0) {
           this.prepareSlowMotion();
@@ -72,7 +73,7 @@ class DuelController {
 
       this.currentTime = Math.min(this.finishedLeftBoxersMoves[0].startTime, this.finishedRightBoxersMoves[0].startTime);
 
-      this.cameraController.setView(viewsNames[Math.floor(this.currentCameraViewNumber / 2)]);
+      this.cameraController.setView(viewNames[Math.floor(this.currentCameraViewNumber / 2)]);
       const numberIsPair = (this.currentCameraViewNumber % 2 === 0);
       const leftBoxerIsWinner = true; // needs to be changed
       if (numberIsPair === leftBoxerIsWinner) {
@@ -81,7 +82,7 @@ class DuelController {
         this.cameraController.setTargetModel(this.leftBoxer.model);
       }
       this.currentCameraViewNumber++;
-      if (this.currentCameraViewNumber === viewsNames.length * 2) {
+      if (this.currentCameraViewNumber === viewNames.length * 2) {
         this.currentCameraViewNumber = 0;
         this.mode = 'stop';
       }

@@ -6,7 +6,8 @@ import { loadFBX } from '../algorithms/assetsLoaders';
 import webGLParameters from '../constants/webGLParameters';
 import boxerParameters from '../constants/boxerParameters';
 import ringParameters from '../constants/ringParameters';
-import animationsNames, { loopedAnimationsNames, modelName } from '../constants/animationsNames';
+import modelNames from '../constants/modelNames';
+import boxerAnimations from '../constants/boxerAnimations';
 
 import Boxer from '../classes/Boxer/Boxer';
 
@@ -16,7 +17,7 @@ const setupBoxers = async (scene) => {
   let leftAnimationMixer, rightAnimationMixer;
   const leftAnimationActions = {}, rightAnimationActions = {};
 
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + modelName + '.fbx')
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + modelNames.boxer + '.fbx')
   .then((model) => {
     model.traverse((obj) => {
       obj.layers.set(webGLParameters.layers.NORMAL);
@@ -44,13 +45,16 @@ const setupBoxers = async (scene) => {
   await modelsLoadingPromise;
 
   const animationsLoadingPromises =
-    animationsNames.map((name) => loadFBX('../../../../assets/animations/' + name + '.fbx')
+    boxerAnimations.map(boxerAnimation => loadFBX('../../../../assets/animations/' + boxerAnimation.name + '.fbx')
     .then((animation) => {
+      const name = boxerAnimation.name;
+      const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;
+
       leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
-      leftAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+      leftAnimationActions[name].setLoop(loopMode);
       leftAnimationActions[name].clampWhenFinished = true;
       rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
-      rightAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+      rightAnimationActions[name].setLoop(loopMode);
       rightAnimationActions[name].clampWhenFinished = true;
     }).catch((error) => {
       console.log(error);
@@ -59,9 +63,61 @@ const setupBoxers = async (scene) => {
 
   await Promise.all(animationsLoadingPromises);
 
+  const calculateIdleAnimations = (boxerAnimations) => {
+    const lowerBodyIdleAnimations = [], upperBodyIdleAnimations = [];
+
+    boxerAnimations.map((boxerAnimation) => {
+      if (boxerAnimation.idle) {
+        if (boxerAnimation.type === 'lower' || boxerAnimation.type === 'whole') {
+          lowerBodyIdleAnimations.push(boxerAnimation.name);
+        }
+        if (boxerAnimation.type === 'upper' || boxerAnimation.type === 'whole'){
+          upperBodyIdleAnimations.push(boxerAnimation.name);
+        }
+      }
+    });
+
+    const lowerBodyIdleAnimationsLength = lowerBodyIdleAnimations.length;
+    const upperBodyIdleAnimationsLength = upperBodyIdleAnimations.length;
+    let randomIndex;
+    randomIndex = Math.floor(Math.random() * lowerBodyIdleAnimationsLength);
+    const leftLowerBodyIdleAnimation = lowerBodyIdleAnimations[randomIndex];
+    randomIndex = Math.floor(Math.random() * upperBodyIdleAnimationsLength);
+    const leftUpperBodyIdleAnimation = upperBodyIdleAnimations[randomIndex];
+    randomIndex = Math.floor(Math.random() * lowerBodyIdleAnimationsLength);
+    const rightLowerBodyIdleAnimation = lowerBodyIdleAnimations[randomIndex];
+    randomIndex = Math.floor(Math.random() * upperBodyIdleAnimationsLength);
+    const rightUpperBodyIdleAnimation = upperBodyIdleAnimations[randomIndex];
+
+    return {
+      left: {
+        lower: leftLowerBodyIdleAnimation,
+        upper: leftUpperBodyIdleAnimation,
+      },
+      right: {
+        lower: rightLowerBodyIdleAnimation,
+        upper: rightUpperBodyIdleAnimation,
+      },
+    };
+  };
+  const idleAnimations = calculateIdleAnimations(boxerAnimations);
+
+  const leftBoxerConstructorArguments = {
+    model: leftModel,
+    animationMixer: leftAnimationMixer,
+    animationActions: leftAnimationActions,
+    idleAnimations: idleAnimations.left,
+  };
+  const rightBoxerConstructorArguments = {
+    model: rightModel,
+    animationMixer: rightAnimationMixer,
+    animationActions: rightAnimationActions,
+    idleAnimations: idleAnimations.right,
+  };
+
   return {
-    leftBoxer: new Boxer(leftModel, leftAnimationMixer, leftAnimationActions),
-    rightBoxer: new Boxer(rightModel, rightAnimationMixer, rightAnimationActions),
+    leftBoxer: new Boxer(leftBoxerConstructorArguments),
+    rightBoxer: new Boxer(rightBoxerConstructorArguments),
   };
 };
 

@@ -1,4 +1,4 @@
-const viewsNames = [
+const viewNames = [
   'first-person',
   'third-person-left',
   'third-person-center',
@@ -11,7 +11,7 @@ const viewsNames = [
   'forearm-right',
 ];
 
-export const boneNames = {
+export const modelBoneNames = {
   'head': 'mixamorigHead',
   'neck': 'mixamorigNeck',
   'spine': 'mixamorigSpine',
@@ -19,4 +19,4 @@ export const boneNames = {
   'forearm-right': 'mixamorigRightForeArm',
 };
 
-export default viewsNames;
+export default viewNames;

@@ -1,6 +1,6 @@
 import cameraViews from './cameraViews';
 
-import viewsNames from '../../constants/viewsNames';
+import viewNames from '../../constants/viewNames';
 
 
 class CameraController {
@@ -11,7 +11,7 @@ class CameraController {
 
     this.targetModel = targetModel;
     this.automaticModeEnabled = true;
-    this.view = viewsNames[0];
+    this.view = viewNames[0];
   }
 
   setTargetModel(targetModel) {

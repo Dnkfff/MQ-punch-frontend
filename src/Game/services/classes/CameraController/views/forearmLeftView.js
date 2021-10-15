@@ -3,11 +3,11 @@ import * as THREE from 'three';
 import { getGeometricAttributesOfModelChildByName, calculateCameraParameters } from '../cameraAlgorithms';
 
 import boxerParameters from '../../../constants/boxerParameters';
-import { boneNames } from '../../../constants/viewsNames';
+import { modelBoneNames } from '../../../constants/viewNames';
 
 
 const forearmLeftView = (model) => {
-  const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, boneNames['forearm-left']);
+  const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, modelBoneNames['forearm-left']);
 
   const positionOffsetVector = new THREE.Vector3(Math.sin(parentRotation.y), 0.0, Math.cos(parentRotation.y));
   const lookAtVector = positionOffsetVector.clone();

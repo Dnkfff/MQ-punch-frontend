@@ -9,20 +9,20 @@ import belowView from './views/belowView';
 import forearmLeftView from './views/forearmLeftView';
 import forearmRightView from './views/forearmRightView';
 
-import viewsNames from '../../constants/viewsNames';
+import viewNames from '../../constants/viewNames';
 
 
 const cameraViews = {
-  [viewsNames[0]]: firstPersonView,
-  [viewsNames[1]]: thirdPersonLeftView,
-  [viewsNames[2]]: thirdPersonCenterView,
-  [viewsNames[3]]: thirdPersonRightView,
-  [viewsNames[4]]: sideLeftView,
-  [viewsNames[5]]: sideRightView,
-  [viewsNames[6]]: aboveView,
-  [viewsNames[7]]: belowView,
-  [viewsNames[8]]: forearmLeftView,
-  [viewsNames[9]]: forearmRightView,
+  [viewNames[0]]: firstPersonView,
+  [viewNames[1]]: thirdPersonLeftView,
+  [viewNames[2]]: thirdPersonCenterView,
+  [viewNames[3]]: thirdPersonRightView,
+  [viewNames[4]]: sideLeftView,
+  [viewNames[5]]: sideRightView,
+  [viewNames[6]]: aboveView,
+  [viewNames[7]]: belowView,
+  [viewNames[8]]: forearmLeftView,
+  [viewNames[9]]: forearmRightView,
 };
 
 export default cameraViews;
