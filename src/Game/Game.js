@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import * as THREE from 'three';
+import { Clock } from 'three';
 
 import setupWebGL from './services/setupScripts/setupWebGL';
 import setupRing from './services/setupScripts/setupRing';
@@ -19,7 +19,7 @@ const Game = () => {
   useEffect(() => {
     let scene, renderer, composer;
     let cameraController, duelController;
-    const clock = new THREE.Clock();
+    const clock = new Clock();
     let deltaTime = 0.0;
     let leftBoxer, rightBoxer;
 
@@ -36,11 +36,19 @@ const Game = () => {
 
       setupRing(scene);
 
+      if (leftBoxersStats.leadingSide === 'left') {
+        leftBoxer.toggleLeadingSide();
+      }
+      if (rightBoxersStats.leadingSide === 'left') {
+        rightBoxer.toggleLeadingSide();
+      }
+
       const duelScenario = calculateDuelScenario(leftBoxersStats, rightBoxersStats);
       duelController = new DuelController({ duelScenario, leftBoxer, rightBoxer, cameraController });
-      duelController.run();
 
       clock.start();
+
+      duelController.run();
 
       render();
     }

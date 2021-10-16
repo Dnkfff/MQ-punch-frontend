@@ -1,3 +1,5 @@
+import { Matrix4 } from 'three';
+
 import boxerParameters from '../../constants/boxerParameters';
 
 
@@ -10,6 +12,7 @@ class Boxer {
     this.upperBodyIdleAnimation = idleAnimations.upper;
     this.currentLowerBodyAnimationName = this.lowerBodyIdleAnimation;
     this.currentUpperBodyAnimationName = this.upperBodyIdleAnimation;
+    this.leadingSide = 'right';
   }
 
   animate(deltaTime) {
@@ -43,6 +46,18 @@ class Boxer {
       upperBodyAnimationAction.fadeOut(transitionDuration);
       this.currentUpperBodyAnimationName = name;
     }
+  }
+
+  toggleLeadingSide() {
+    if (this.leadingSide === 'left') {
+      this.leadingSide = 'right';
+    } else {
+      this.leadingSide = 'left';
+    }
+
+    this.model.position.x *= -1;
+    this.model.rotation.y *= -1;
+    this.model.applyMatrix4(new Matrix4().makeScale(-1, 1, 1));
   }
 }
 
