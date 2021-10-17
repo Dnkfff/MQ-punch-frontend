@@ -105,21 +105,44 @@
   .right {
     display: flex;
     align-items: center;
+    margin-right: 10px;
+    position: absolute;
+    right: 10px;
+
+    @media screen and (max-width: 600px) {
+      right: 0px;
+    }
 
     .balance {
+      position: relative;
       display: flex;
       align-items: center;
-      margin-right: 13px;
+      padding: 7px 24px 7px 13px;
+      border-radius: 3px;
+      margin-right: 5px;
+      column-gap: 10px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.336);
+      }
 
-      svg,
-      img {
-        width: 30px;
-        margin-right: 10px;
+      svg.wallet-icon {
+        width: 24px;
+        fill: rgb(194, 193, 193);
       }
 
       span {
-        font-size: 16px;
-        color: white;
+        font-size: 15px;
+        color: #fff;
+        font-weight: 500;
+      }
+
+      i.fa-caret-down {
+        position: absolute;
+        top: calc(50% - 8px);
+        right: 7px;
+        color: rgb(194, 193, 193);
       }
     }
 
@@ -127,26 +150,76 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      border-left: 2px solid #fff;
-      padding-left: 13px;
+      position: relative;
+      background-color: #791616;
+      padding: 10px;
+      border-radius: 3px;
 
-      svg,
-      img {
-        width: 30px;
+      svg {
+        width: 28px;
+      }
+
+      ul.profile-dropdown {
+        position: absolute;
+        z-index: 1000;
+        min-width: 200px;
+        top: calc(100% + 5px);
+        right: 0;
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      ul.profile-dropdown.closed {
+        max-height: 0px;
+      }
+      ul.profile-dropdown.opened {
+        max-height: 500px;
+      }
+
+      ul.profile-dropdown li {
+        width: 100%;
+        border-bottom: 1px solid #aaa;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: rgb(221, 218, 218);
+        }
+
+        .icon {
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          i {
+            color: #333;
+          }
+        }
       }
     }
 
     @media screen and (max-width: 600px) {
       .balance {
+        span {
+          font-size: 13px;
+        }
+
         svg,
         img {
-          width: 20px;
+          width: 20px !important;
         }
       }
       .profile {
         svg,
         img {
-          width: 20px;
+          width: 25px;
         }
       }
     }
