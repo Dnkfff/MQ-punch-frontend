@@ -1,0 +1,66 @@
+@mixin payment-card {
+  width: 298px;
+  height: 187.5px;
+  padding: 10px 15px;
+  color: rgb(243, 242, 242);
+
+  .ethereum-card-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-title {
+    text-transform: capitalize;
+    text-shadow: 1px 1px 2px #461005;
+    font-size: 22px;
+  }
+
+  .convertation {
+    color: #fff;
+    font-size: 26px;
+    letter-spacing: 0.8px;
+  }
+
+  .card-balance {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: rgb(243, 242, 242);
+    .crypto-icon {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      i {
+        font-size: 24px;
+      }
+    }
+
+    .balance {
+      font-weight: 500;
+    }
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    img {
+      width: 40px;
+    }
+    svg {
+      width: 30px;
+      margin: 5px;
+    }
+  }
+}

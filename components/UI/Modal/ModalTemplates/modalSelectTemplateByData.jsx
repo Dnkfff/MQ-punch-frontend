@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { Auth, Dummy } from './templates';
+import { Auth, Balance, Dummy } from "./templates";
 
 const templatesList = (data) => ({
   // modal window
-  'auth-modal': <Auth data={data} />,
+  "auth-modal": <Auth data={data} />,
+  "balance-modal": <Balance data={data} />,
 });
 
 const modalSelectTemplateByData = (data) => {

@@ -43,6 +43,7 @@
           align-items: center;
           margin-left: 13px;
 
+          svg,
           img {
             width: 30px;
             margin-left: 15px;
@@ -58,21 +59,70 @@
           display: flex;
           align-items: center;
           cursor: pointer;
+          position: relative;
           padding-right: 13px;
           border-right: 2px solid #251818;
 
+          svg,
           img {
             width: 30px;
+          }
+
+          ul.profile-dropdown {
+            position: absolute;
+            z-index: 1000;
+            min-width: 200px;
+            top: calc(100% + 5px);
+            left: 0;
+            background-color: #fff;
+            border-radius: 3px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+          }
+          ul.profile-dropdown.closed {
+            max-height: 0px;
+          }
+          ul.profile-dropdown.opened {
+            max-height: 500px;
+          }
+
+          ul.profile-dropdown li {
+            width: 100%;
+            border-bottom: 1px solid #aaa;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+              background-color: rgb(221, 218, 218);
+            }
+
+            .icon {
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              i {
+                color: #333;
+              }
+            }
           }
         }
 
         @media screen and (max-width: 600px) {
           .balance {
+            svg,
             img {
               width: 25px;
             }
           }
           .profile {
+            svg,
             img {
               width: 25px;
             }
