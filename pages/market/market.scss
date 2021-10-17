@@ -16,10 +16,10 @@
   }
 
   .market__item {
-    width: calc((100% - 20px * 5 + 20px) / 8);
+    width: calc((100% - 7 * 10px) / 7);
     margin-right: 10px;
     margin-bottom: 20px;
-    height: 250px;
+    height: 300px;
     border: 1px #a7a7a78c solid;
     border-radius: 8px;
     transition: box-shadow 0.2s linear;
@@ -30,14 +30,65 @@
       .puncher__photo {
         border-radius: 2px;
       }
+
+      .puncher__bay {
+        display: block;
+      }
     }
 
     .puncher__photo {
-      height: 170px;
+      display: flex;
+      justify-content: center;
+
+      padding: 10px;
+      height: 200px;
       background: none;
       border-radius: 0;
       transition: background 0.2s linear;
       transition: border-radius 0.2s linear;
+      position: relative;
+
+      img {
+        object-fit: cover;
+
+        height: 98%;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .puncher__bay {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .market__bay__btn {
+      padding: 4px 9px;
+      cursor: pointer;
+      font-size: 14px;
+      color: rgb(255, 255, 255);
+      background: rgb(123, 29, 29);
+      border: none;
+      border-radius: 9px;
+      transition: background-color 0.2s linear;
+      // transition: border 0.1s linear;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        background: rgb(206, 13, 13);
+        // border: 2px solid rgb(206, 13, 13);
+      }
     }
 
     .puncher__info {
@@ -65,7 +116,7 @@
   }
 
   .market__social__inner {
-    padding: 65px 0;
+    padding: 65px 40px;
     background-color: #000000;
   }
 
@@ -84,7 +135,7 @@
 
   .market__btn {
     padding: 7px 40px;
-    margin-right: 30px;
+    margin: 0 15px;
     cursor: pointer;
     font-size: 20px;
     color: $white;
@@ -99,6 +150,109 @@
 
     &:hover {
       background: rgb(243, 9, 9);
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .global-market-page {
+    .market__item {
+      width: calc((100% - 6 * 10px) / 6);
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .global-market-page {
+    .market__item {
+      width: calc((100% - 5 * 10px) / 5);
+    }
+  }
+}
+
+@media (max-width: 910px) {
+  .global-market-page {
+    .market__item {
+      width: calc((100% - 4 * 10px) / 4);
+    }
+
+    .market__btn {
+      padding: 7px 20px;
+    }
+
+    .market__social__btn {
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .global-market-page {
+    .market__item {
+      width: calc((100% - 3 * 10px) / 3);
+    }
+
+    .market__btn {
+      padding: 7px 15px;
+      font-size: 15px;
+    }
+
+    .market__social__title {
+      font-size: 20px;
+    }
+
+    .market__social__btn {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .global-market-page {
+    .market__item {
+      width: calc((100% - 2 * 10px) / 2);
+    }
+
+    .market__btn {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .market__social__inner {
+      padding: 20px 25px;
+    }
+
+    .market__social__title {
+      font-size: 15px;
+    }
+
+    .market__social__btn {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .global-market-page {
+    .market__item {
+      width: calc(100% - 10px);
+    }
+
+    .market__btn {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .market__social__inner {
+      padding: 20px 25px;
+    }
+
+    .market__social__title {
+      font-size: 15px;
+    }
+
+    .market__social__btn {
+      margin-top: 10px;
     }
   }
 }

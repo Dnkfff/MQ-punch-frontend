@@ -1,11 +1,20 @@
 import React from "react";
+import puncherBayExample from "../../assets/website/puncher_bay_example.png";
 
 const Market = (props) => {
   return (
     <div className="global-market-page">
       <div className="market">
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -20,8 +29,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -36,8 +54,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -52,8 +79,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -68,8 +104,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -84,8 +129,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -100,8 +154,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -116,8 +179,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -132,8 +204,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -148,8 +229,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
@@ -164,8 +254,17 @@ const Market = (props) => {
             </div>
           </div>
         </div>
+
         <div className="market__item">
-          <div className="puncher__photo"></div>
+          <div className="puncher__photo">
+            <img src={puncherBayExample.src} alt="no_photo" className="" />
+            <div className="puncher__bay">
+              <button className="market__bay__btn" type="button">
+                Bay
+              </button>
+            </div>
+          </div>
+
           <div className="puncher__info">
             <div className="puncher__name">
               <div className="puncher__info__title">MQ-punch</div>
