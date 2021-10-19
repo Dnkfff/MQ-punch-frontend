@@ -99,9 +99,10 @@ const MobileMenu = () => {
                   </li>
                 </ul>
               </div>
-              <div className='balance'>
-                <span>{'300.00 $'}</span>
-                <CreditCardSVG />
+              <div className='balance' onClick={onOpenBalanceModal}>
+                <span>{'0.0000 ETH'}</span>
+                <CreditCardSVG className='wallet-icon' />
+                <i className='fas fa-caret-down'></i>
               </div>
             </div>
           )}
@@ -143,6 +144,15 @@ const MobileMenu = () => {
     dispatch(
       setGlobalModalData({
         template: 'auth-modal',
+        onClose: () => dispatch(setGlobalModalData(null)),
+      })
+    );
+  }
+
+  function onOpenBalanceModal() {
+    dispatch(
+      setGlobalModalData({
+        template: 'balance-modal',
         onClose: () => dispatch(setGlobalModalData(null)),
       })
     );

@@ -85,7 +85,7 @@ const BigHeader = (props) => {
         <div className='menu-icon' onClick={onOpenMobileMenu}>
           <HiMenuAlt2 />
         </div>
-        {userIsAuth && (
+        {!userIsAuth && (
           <div className='right'>
             <div className='balance' onClick={onOpenBalanceModal}>
               <span>{'0.0000 ETH'}</span>

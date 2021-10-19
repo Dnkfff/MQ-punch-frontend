@@ -48,7 +48,24 @@ const Balance = ({ data }) => {
         </div>
       </div>
       <div className='balance-content-body'>
-        {mode === null && <div className='settings'>settings</div>}
+        {mode === null && (
+          <div className='settings'>
+            <h3 className='history-screen-label'>MQ-Punch balance history</h3>
+            <div className='history-list'>
+              <div className='history-list-item'>
+                <div className='left'>
+                  <span className=''>deposit:</span>
+                  <span className='status'>successful</span>
+                </div>
+                <div className='right'>
+                  <span className='date'>15:12 May 17, 2021</span>
+                  <span className='amount'>+ $50.50</span>
+                </div>
+              </div>
+              <div className='history-list-item'>-500$</div>
+            </div>
+          </div>
+        )}
         {mode === 'deposit' && (
           <div className='transfer-content'>
             <div className='transfer-main-area'>
