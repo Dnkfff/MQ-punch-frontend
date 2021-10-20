@@ -4,37 +4,34 @@ import duelParameters from '../../constants/duelParameters';
 
 export const calculateChancesOfOffensiveMoves = (boxersStats) => {
   let randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
+  randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
   const bruteForceAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
-  const deceptiveAttackCoefficient = (boxersStats.agility * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
-  const effectiveAttackCoefficient = (boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+  const deceptiveAttackCoefficient = (boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+  const counterAttackCoefficient = (boxersStats.agility * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
 
-  const sumOfCoefficients = bruteForceAttackCoefficient + deceptiveAttackCoefficient + effectiveAttackCoefficient;
+  const sumOfCoefficients = bruteForceAttackCoefficient + deceptiveAttackCoefficient + counterAttackCoefficient;
 
   return {
     chanceOfBruteForceAttack: bruteForceAttackCoefficient / sumOfCoefficients,
     chanceOfDeceptiveAttack: deceptiveAttackCoefficient / sumOfCoefficients,
-    chanceOfEffectiveAttack: effectiveAttackCoefficient / sumOfCoefficients,
+    chanceOfCounterAttack: counterAttackCoefficient / sumOfCoefficients,
   };
 };
 
 export const calculateChancesOfDefensiveMoves = (boxersStats) => {
   let randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
-  const blockCoefficient = (boxersStats.endurance * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
-  const dodgeCoefficient = (boxersStats.agility * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
-  randomMultiplier = 1.0 + duelParameters.chancesOfMovesRandomBooster * (-1.0 + 2.0 * Math.random());
-  const counterAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+  const blockCoefficient = (boxersStats.strength * 3.0 + boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+  const dodgeCoefficient = (boxersStats.agility * 3.0 + boxersStats.endurance * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
 
-  const sumOfCoefficients = blockCoefficient + dodgeCoefficient + counterAttackCoefficient;
+  const sumOfCoefficients = blockCoefficient + dodgeCoefficient;
 
   return {
     chanceOfBlock: blockCoefficient / sumOfCoefficients,
     chanceOfDodge: dodgeCoefficient / sumOfCoefficients,
-    chanceOfCounterAttack: counterAttackCoefficient / sumOfCoefficients,
   };
 };
 

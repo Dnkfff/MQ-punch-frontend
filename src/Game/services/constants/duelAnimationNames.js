@@ -1,13 +1,13 @@
 const duelAnimationNames = {
-  offensive: {
-    bruteForceAttack: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
+  lower: [
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
+    'step-to-the-right',
+  ],
+  upper: {
+    offensive: {
+      bruteForceAttack: [
         'cross-up-left',
         'cross-up-right',
         'cross-down-left',
@@ -23,15 +23,7 @@ const duelAnimationNames = {
         'overhand-left',
         'overhand-right',
       ],
-    },
-    deceptiveAttack: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
+      deceptiveAttack: [
         'jab',
         'cross-up-left',
         'cross-up-right',
@@ -46,55 +38,22 @@ const duelAnimationNames = {
         'uppercut-down-left',
         'uppercut-down-right',
       ],
-    },
-    effectiveAttack: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
-        'jab',
+      counterAttack: [
         'cross-up-left',
         'cross-up-right',
-        'cross-down-left',
-        'cross-down-right',
-        'hook-up-left',
-        'hook-up-right',
-        'hook-down-left',
-        'hook-down-right',
-        'uppercut-up-left',
-        'uppercut-up-right',
-        'uppercut-down-left',
-        'uppercut-down-right',
+        'overhand-left',
+        'overhand-right',
       ],
     },
-  },
-  defensive: {
-    block: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
+    defensive: {
+      block: [
         'block-up-left',
         'block-up-right',
         'block-down-left',
         'block-down-right',
         'block-front',
       ],
-    },
-    dodge: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
+      dodge: [
         'slip-left',
         'slip-right',
         'roll-left',
@@ -103,29 +62,7 @@ const duelAnimationNames = {
         'dive-right',
       ],
     },
-    counterAttack: {
-      lower: [
-        'step-forward',
-        'step-backward',
-        'step-to-the-left',
-        'step-to-the-right',
-      ],
-      upper: [
-        'cross-up-left',
-        'cross-up-right',
-        'overhand-left',
-        'overhand-right',
-      ],
-    },
-  },
-  probe: {
-    lower: [
-      'step-forward',
-      'step-backward',
-      'step-to-the-left',
-      'step-to-the-right',
-    ],
-    upper: [
+    probe: [
       'change-stand',
       'slip-left',
       'slip-right',
@@ -136,6 +73,20 @@ const duelAnimationNames = {
       'jab',
     ],
   },
+  whole: [
+    'defeat-1',
+    'defeat-2',
+    'falling-backward',
+    'falling-forward',
+    'getting-up-backward',
+    'getting-up-forward',
+    'standing-1',
+    'standing-2',
+    'victory-1',
+    'victory-2',
+    'warming-up-1',
+    'warming-up-2',
+  ],
 };
 
 export default duelAnimationNames;
