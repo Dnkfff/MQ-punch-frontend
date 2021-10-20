@@ -50,8 +50,8 @@ const calculateAttackIntervals = () => {
   return attackIntervals;
 };
 
-const calculateWinnerMovesTimings = () => {
-  let winnerMovesTimings = [];
+const calculateWinnerMoveTimings = () => {
+  let winnerMoveTimings = [];
 
   const attackIntervals = calculateAttackIntervals();
 
@@ -66,7 +66,7 @@ const calculateWinnerMovesTimings = () => {
       time = attackIntervals[index - 1].startTime + attackIntervals[index - 1].duration;
     }
     while (time < attackInterval.startTime) {
-      winnerMovesTimings.push({
+      winnerMoveTimings.push({
         startTime: time,
         type: 'probe',
       });
@@ -90,7 +90,7 @@ const calculateWinnerMovesTimings = () => {
         moveType = 'probe';
       }
 
-      winnerMovesTimings.push({
+      winnerMoveTimings.push({
         startTime: time,
         type: moveType,
       });
@@ -99,21 +99,21 @@ const calculateWinnerMovesTimings = () => {
       time += duelParameters.moveDuration * (1.0 + randomMultiplier);
     }
 
-    winnerMovesTimings.push({
+    winnerMoveTimings.push({
       startTime: time,
       type: 'offensive',
     });
   });
 
-  return winnerMovesTimings;
+  return winnerMoveTimings;
 };
 
-const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, winner) => {
+const calculateMoves = (leftBoxerChancesOfMoves, rightBoxerChancesOfMoves, winner) => {
   let winnerMoves = [], loserMoves = [];
 
-  const winnerMovesTimings = calculateWinnerMovesTimings();
+  const winnerMoveTimings = calculateWinnerMoveTimings();
 
-  winnerMovesTimings.forEach((winnerMoveTiming) => {
+  winnerMoveTimings.forEach((winnerMoveTiming) => {
     let randomChance;
     let randomIndex;
     let lowerBodyMove, upperBodyMove;
@@ -195,17 +195,17 @@ const calculateMoves = (leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, win
       pushProbeMove(winnerMoves);
       pushProbeMove(loserMoves);
     } else if ((winnerMoveTiming.type === 'attack') === (winner === 'left')) {
-      pushOffensiveMove(winnerMoves, leftBoxersChancesOfMoves);
-      pushDefensiveMove(loserMoves, rightBoxersChancesOfMoves);
+      pushOffensiveMove(winnerMoves, leftBoxerChancesOfMoves);
+      pushDefensiveMove(loserMoves, rightBoxerChancesOfMoves);
     } else {
-      pushOffensiveMove(winnerMoves, rightBoxersChancesOfMoves);
-      pushDefensiveMove(loserMoves, leftBoxersChancesOfMoves);
+      pushOffensiveMove(winnerMoves, rightBoxerChancesOfMoves);
+      pushDefensiveMove(loserMoves, leftBoxerChancesOfMoves);
     }
   });
 
   return {
-    leftBoxersMoves: winner === 'left' ? winnerMoves : loserMoves,
-    rightBoxersMoves: winner === 'left' ? loserMoves : winnerMoves,
+    leftBoxerMoves: winner === 'left' ? winnerMoves : loserMoves,
+    rightBoxerMoves: winner === 'left' ? loserMoves : winnerMoves,
   };
 };
 

@@ -2,20 +2,20 @@ import { calculateChancesOfOffensiveMoves, calculateChancesOfDefensiveMoves, cal
 import calculateMoves from './calculateMoves';
 
 
-const calculateDuelScenario = (leftBoxersStats, rightBoxersStats) => {
-  const leftBoxersChancesOfMoves = {
-    offensive: calculateChancesOfOffensiveMoves(leftBoxersStats),
-    defensive: calculateChancesOfDefensiveMoves(leftBoxersStats),
+const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
+  const leftBoxerChancesOfMoves = {
+    offensive: calculateChancesOfOffensiveMoves(leftBoxerStats),
+    defensive: calculateChancesOfDefensiveMoves(leftBoxerStats),
   };
-  const rightBoxersChancesOfMoves = {
-    offensive: calculateChancesOfOffensiveMoves(rightBoxersStats),
-    defensive: calculateChancesOfDefensiveMoves(rightBoxersStats),
+  const rightBoxerChancesOfMoves = {
+    offensive: calculateChancesOfOffensiveMoves(rightBoxerStats),
+    defensive: calculateChancesOfDefensiveMoves(rightBoxerStats),
   };
-  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(leftBoxersStats, rightBoxersStats);
+  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(leftBoxerStats, rightBoxerStats);
   const randomChance = Math.random();
   const winner = randomChance < chanceForLeftBoxerToWin ? 'left' : 'right';
 
-  const duelScenario = calculateMoves(leftBoxersChancesOfMoves, rightBoxersChancesOfMoves, winner);
+  const duelScenario = calculateMoves(leftBoxerChancesOfMoves, rightBoxerChancesOfMoves, winner);
 
   return duelScenario;
 };

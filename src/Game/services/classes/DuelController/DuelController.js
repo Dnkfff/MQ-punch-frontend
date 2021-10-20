@@ -8,10 +8,10 @@ class DuelController {
     constructor({ duelScenario, leftBoxer, rightBoxer, cameraController }) {
       this.leftBoxer = leftBoxer;
       this.rightBoxer = rightBoxer;
-      this.leftBoxersMoves = duelScenario.leftBoxersMoves.slice();
-      this.rightBoxersMoves = duelScenario.rightBoxersMoves.slice();
-      this.finishedLeftBoxersMoves = [];
-      this.finishedRightBoxersMoves = [];
+      this.leftBoxerMoves = duelScenario.leftBoxerMoves.slice();
+      this.rightBoxerMoves = duelScenario.rightBoxerMoves.slice();
+      this.finishedLeftBoxerMoves = [];
+      this.finishedRightBoxerMoves = [];
       this.currentTime = 0.0;
       this.mode = 'stop';
       this.cameraController = cameraController;
@@ -31,10 +31,10 @@ class DuelController {
           }
         };
 
-        animateBoxer(this.leftBoxersMoves, this.finishedLeftBoxersMoves, this.leftBoxer);
-        animateBoxer(this.rightBoxersMoves, this.finishedRightBoxersMoves, this.rightBoxer);
+        animateBoxer(this.leftBoxerMoves, this.finishedLeftBoxerMoves, this.leftBoxer);
+        animateBoxer(this.rightBoxerMoves, this.finishedRightBoxerMoves, this.rightBoxer);
 
-        if (this.leftBoxersMoves.length === 0 && this.rightBoxersMoves.length === 0) {
+        if (this.leftBoxerMoves.length === 0 && this.rightBoxerMoves.length === 0) {
           this.prepareSlowMotion();
         }
 
@@ -51,10 +51,10 @@ class DuelController {
           }
         };
 
-        animateBoxer(this.leftBoxersMoves, this.leftBoxer);
-        animateBoxer(this.rightBoxersMoves, this.rightBoxer);
+        animateBoxer(this.leftBoxerMoves, this.leftBoxer);
+        animateBoxer(this.rightBoxerMoves, this.rightBoxer);
 
-        if (this.leftBoxersMoves.length === 0 && this.rightBoxersMoves.length === 0) {
+        if (this.leftBoxerMoves.length === 0 && this.rightBoxerMoves.length === 0) {
           this.prepareSlowMotion();
         }
 
@@ -67,11 +67,11 @@ class DuelController {
       this.mode = 'slowmotion';
 
       for (let i = 0; i < duelParameters.slowMotionMovesNumber; i++) {
-        this.leftBoxersMoves.push(this.finishedLeftBoxersMoves[i]);
-        this.rightBoxersMoves.push(this.finishedRightBoxersMoves[i]);
+        this.leftBoxerMoves.push(this.finishedLeftBoxerMoves[i]);
+        this.rightBoxerMoves.push(this.finishedRightBoxerMoves[i]);
       }
 
-      this.currentTime = Math.min(this.finishedLeftBoxersMoves[0].startTime, this.finishedRightBoxersMoves[0].startTime);
+      this.currentTime = Math.min(this.finishedLeftBoxerMoves[0].startTime, this.finishedRightBoxerMoves[0].startTime);
 
       this.cameraController.setView(viewNames[Math.floor(this.currentCameraViewNumber / 2)]);
       const numberIsPair = (this.currentCameraViewNumber % 2 === 0);

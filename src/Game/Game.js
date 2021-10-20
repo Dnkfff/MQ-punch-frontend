@@ -36,14 +36,14 @@ const Game = () => {
 
       setupRing(scene);
 
-      if (leftBoxersStats.leadingSide === 'left') {
+      if (leftBoxerStats.leadingSide === 'left') {
         leftBoxer.toggleLeadingSide();
       }
-      if (rightBoxersStats.leadingSide === 'left') {
+      if (rightBoxerStats.leadingSide === 'left') {
         rightBoxer.toggleLeadingSide();
       }
 
-      const duelScenario = calculateDuelScenario(leftBoxersStats, rightBoxersStats);
+      const duelScenario = calculateDuelScenario(leftBoxerStats, rightBoxerStats);
       duelController = new DuelController({ duelScenario, leftBoxer, rightBoxer, cameraController });
 
       clock.start();

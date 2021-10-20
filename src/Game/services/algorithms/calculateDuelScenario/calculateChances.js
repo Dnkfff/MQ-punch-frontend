@@ -2,14 +2,14 @@ import duelEconomics from '../../constants/duelEconomics';
 import duelParameters from '../../constants/duelParameters';
 
 
-export const calculateChancesOfOffensiveMoves = (boxersStats) => {
+export const calculateChancesOfOffensiveMoves = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
-  const bruteForceAttackCoefficient = (boxersStats.strength * 2.0 + boxersStats.endurance * 1.0) * randomMultiplier;
+  const bruteForceAttackCoefficient = (boxerStats.strength * 2.0 + boxerStats.endurance * 1.0) * randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
-  const deceptiveAttackCoefficient = (boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  const deceptiveAttackCoefficient = (boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) * randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
-  const counterAttackCoefficient = (boxersStats.agility * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
+  const counterAttackCoefficient = (boxerStats.agility * 2.0 + boxerStats.strength * 1.0) * randomMultiplier;
 
   const sumOfCoefficients = bruteForceAttackCoefficient + deceptiveAttackCoefficient + counterAttackCoefficient;
 
@@ -20,12 +20,12 @@ export const calculateChancesOfOffensiveMoves = (boxersStats) => {
   };
 };
 
-export const calculateChancesOfDefensiveMoves = (boxersStats) => {
+export const calculateChancesOfDefensiveMoves = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
-  const blockCoefficient = (boxersStats.strength * 3.0 + boxersStats.endurance * 2.0 + boxersStats.agility * 1.0) * randomMultiplier;
+  const blockCoefficient = (boxerStats.strength * 3.0 + boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) * randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
-  const dodgeCoefficient = (boxersStats.agility * 3.0 + boxersStats.endurance * 2.0 + boxersStats.strength * 1.0) * randomMultiplier;
+  const dodgeCoefficient = (boxerStats.agility * 3.0 + boxerStats.endurance * 2.0 + boxerStats.strength * 1.0) * randomMultiplier;
 
   const sumOfCoefficients = blockCoefficient + dodgeCoefficient;
 
@@ -35,27 +35,27 @@ export const calculateChancesOfDefensiveMoves = (boxersStats) => {
   };
 };
 
-export const calculateChancesToWin = (leftBoxersStats, rightBoxersStats) => {
+export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   let randomMultiplier;
 
-  let sumOfLeftBoxersStats = 0.0;
+  let sumOfLeftBoxerStats = 0.0;
   randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (-1.0 + 2.0 * Math.random());
-  sumOfLeftBoxersStats += (leftBoxersStats.strength + leftBoxersStats.agility + leftBoxersStats.endurance) * randomMultiplier;
-  sumOfLeftBoxersStats += leftBoxersStats.winrate * duelEconomics.winrateWeight;
-  sumOfLeftBoxersStats += leftBoxersStats.rookie * duelEconomics.rookieWeight;
-  sumOfLeftBoxersStats += leftBoxersStats.streaming * duelEconomics.streamingWeight;
+  sumOfLeftBoxerStats += (leftBoxerStats.strength + leftBoxerStats.agility + leftBoxerStats.endurance) * randomMultiplier;
+  sumOfLeftBoxerStats += leftBoxerStats.winrate * duelEconomics.winrateWeight;
+  sumOfLeftBoxerStats += leftBoxerStats.rookie * duelEconomics.rookieWeight;
+  sumOfLeftBoxerStats += leftBoxerStats.streaming * duelEconomics.streamingWeight;
 
-  let sumOfRightBoxersStats = 0.0;
+  let sumOfRightBoxerStats = 0.0;
   randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (-1.0 + 2.0 * Math.random());
-  sumOfRightBoxersStats += (rightBoxersStats.strength + rightBoxersStats.agility + rightBoxersStats.endurance) * randomMultiplier;
-  sumOfRightBoxersStats += rightBoxersStats.winrate * duelEconomics.winrateWeight;
-  sumOfRightBoxersStats += rightBoxersStats.rookie * duelEconomics.rookieWeight;
-  sumOfRightBoxersStats += rightBoxersStats.streaming * duelEconomics.streamingWeight;
+  sumOfRightBoxerStats += (rightBoxerStats.strength + rightBoxerStats.agility + rightBoxerStats.endurance) * randomMultiplier;
+  sumOfRightBoxerStats += rightBoxerStats.winrate * duelEconomics.winrateWeight;
+  sumOfRightBoxerStats += rightBoxerStats.rookie * duelEconomics.rookieWeight;
+  sumOfRightBoxerStats += rightBoxerStats.streaming * duelEconomics.streamingWeight;
 
-  const sumOfStats = sumOfLeftBoxersStats + sumOfRightBoxersStats;
+  const sumOfStats = sumOfLeftBoxerStats + sumOfRightBoxerStats;
 
   return {
-    chanceForLeftBoxerToWin: sumOfLeftBoxersStats / sumOfStats,
-    chanceForRightBoxerToWin: sumOfRightBoxersStats / sumOfStats,
+    chanceForLeftBoxerToWin: sumOfLeftBoxerStats / sumOfStats,
+    chanceForRightBoxerToWin: sumOfRightBoxerStats / sumOfStats,
   };
 };
