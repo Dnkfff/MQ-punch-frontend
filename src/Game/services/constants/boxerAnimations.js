@@ -24,7 +24,7 @@ const boxerAnimations = [
     idle: true,
   },
   {
-    name: 'change-stand',
+    name: 'switch-leading-side',
     looped: false,
     type: 'whole',
     idle: false,
@@ -282,5 +282,7 @@ const boxerAnimations = [
     idle: false,
   },
 ];
+
+export const switchLeadingSideAnimationName = 'switch-leading-side';
 
 export default boxerAnimations;

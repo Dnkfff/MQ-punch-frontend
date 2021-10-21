@@ -1,6 +1,9 @@
 const duelParameters = {
   duelDuration: 60.0,
   numberOfAttackIntervals: 12,
+  chanceOfOffensiveMove: 0.4,
+  chanceOfDefensiveMove: 0.4,
+  chanceOfProbeMove: 0.15,
   attackIntervalDurationCoefficient: 4.0,
   probeIntervalDurationCoefficient: 3.0,
   moveDuration: 0.6,

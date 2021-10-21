@@ -37,10 +37,10 @@ const Game = () => {
       setupRing(scene);
 
       if (leftBoxerStats.leadingSide === 'left') {
-        leftBoxer.toggleLeadingSide();
+        leftBoxer.switchLeadingSide();
       }
       if (rightBoxerStats.leadingSide === 'left') {
-        rightBoxer.toggleLeadingSide();
+        rightBoxer.switchLeadingSide();
       }
 
       const duelScenario = calculateDuelScenario(leftBoxerStats, rightBoxerStats);

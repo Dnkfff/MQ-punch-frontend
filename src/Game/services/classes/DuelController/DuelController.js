@@ -2,6 +2,7 @@ import { calculateBarycenterOfBoxers } from './duelAlgorithms';
 
 import duelParameters from '../../constants/duelParameters';
 import viewNames from '../../constants/viewNames';
+import { switchLeadingSideAnimationName } from '../../constants/duelAnimationNames';
 
 
 class DuelController {
@@ -19,15 +20,30 @@ class DuelController {
     }
 
     act(deltaTime) {
-      if (this.mode === 'run') {
+      if (this.mode !== 'stop') {
+        if (this.mod === 'slowmotion') {
+          deltaTime *= duelParameters.slowMotionMultiplier;
+        }
+
         this.currentTime += deltaTime;
 
         const animateBoxer = (boxerMoves, finishedBoxerMoves, boxer) => {
           if (boxerMoves[0]?.startTime <= this.currentTime) {
             const boxerMove = boxerMoves.shift();
-            finishedBoxerMoves.push(boxerMove);
-            boxer.requestAnimation(boxerMove.move.lower, 'lower');
-            boxer.requestAnimation(boxerMove.move.upper, 'upper');
+
+            if (this.mode === 'run') {
+              finishedBoxerMoves.push(boxerMove);
+            }
+
+            if (boxerMove.move.whole !== undefined) {
+              boxer.requestAnimation(boxerMove.move.whole, 'whole');
+              if (boxerMove.move.whole === switchLeadingSideAnimationName) {
+                boxer.switchLeadingSide();
+              }
+            } else {
+              boxer.requestAnimation(boxerMove.move.lower, 'lower');
+              boxer.requestAnimation(boxerMove.move.upper, 'upper');
+            }
           }
         };
 
@@ -40,26 +56,6 @@ class DuelController {
 
         this.leftBoxer.animate(deltaTime);
         this.rightBoxer.animate(deltaTime);
-      } else if (this.mode === 'slowmotion') {
-        this.currentTime += deltaTime * duelParameters.slowMotionMultiplier;
-
-        const animateBoxer = (boxerMoves, boxer) => {
-          if (boxerMoves[0]?.startTime <= this.currentTime) {
-            const boxerMove = boxerMoves.shift();
-            boxer.requestAnimation(boxerMove.move.lower, 'lower');
-            boxer.requestAnimation(boxerMove.move.upper, 'upper');
-          }
-        };
-
-        animateBoxer(this.leftBoxerMoves, this.leftBoxer);
-        animateBoxer(this.rightBoxerMoves, this.rightBoxer);
-
-        if (this.leftBoxerMoves.length === 0 && this.rightBoxerMoves.length === 0) {
-          this.prepareSlowMotion();
-        }
-
-        this.leftBoxer.animate(deltaTime * duelParameters.slowMotionMultiplier);
-        this.rightBoxer.animate(deltaTime * duelParameters.slowMotionMultiplier);
       }
     }
 

@@ -38,17 +38,17 @@ class Boxer {
     this.animationActions[name].fadeIn(transitionDuration);
     this.animationActions[name].play();
 
-    if (type === 'lower' || type === 'whole') {
+    if ((type === 'lower' || type === 'whole') && this.currentLowerBodyAnimationName !== name) {
       lowerBodyAnimationAction.fadeOut(transitionDuration);
       this.currentLowerBodyAnimationName = name;
     }
-    if (type === 'upper' || type === 'whole') {
+    if ((type === 'upper' || type === 'whole') && this.currentUpperBodyAnimationName !== name) {
       upperBodyAnimationAction.fadeOut(transitionDuration);
       this.currentUpperBodyAnimationName = name;
     }
   }
 
-  toggleLeadingSide() {
+  switchLeadingSide() {
     if (this.leadingSide === 'left') {
       this.leadingSide = 'right';
     } else {
