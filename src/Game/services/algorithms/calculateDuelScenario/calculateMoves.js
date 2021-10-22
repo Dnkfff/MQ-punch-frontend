@@ -11,15 +11,14 @@ import {
 
 
 const pushTheMove = (move, moveTimingStartTime, moves) => {
+  const randomMultiplier = 0.5 + 0.5 * Math.random();
+  const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration * randomMultiplier;
   const randomChance = Math.random();
-  if (randomChance < duelParameters.chanceOfMove) {
-    const randomMultiplier = Math.random();
-    const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration * randomMultiplier;
-    moves.push({
-      startTime: moveTimingStartTime + reactionTime,
-      move,
-    });
-  }
+  moves.push({
+    startTime: moveTimingStartTime + reactionTime,
+    move,
+    hit: randomChance < duelParameters.chanceOfHit,
+  });
 };
 
 const applyLeadingSide = (upperBodyMoveName, leadingSide) => {
@@ -33,10 +32,9 @@ const applyLeadingSide = (upperBodyMoveName, leadingSide) => {
 };
 
 const pushProbeMove = ({ moveTimingStartTime, moves, leadingSide }) => {
-  let randomIndex;
   let lowerBodyMoveName, upperBodyMoveName;
 
-  randomIndex = Math.floor(Math.random() * probeAnimationNames.length);
+  let randomIndex = Math.floor(Math.random() * probeAnimationNames.length);
   upperBodyMoveName = probeAnimationNames[randomIndex];
   applyLeadingSide(upperBodyMoveName, leadingSide);
 
@@ -50,24 +48,50 @@ const pushProbeMove = ({ moveTimingStartTime, moves, leadingSide }) => {
   pushTheMove(move, moveTimingStartTime, moves);
 };
 
-const pushOffensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves }) => {
-  let randomIndex;
+const pushDeceptiveAttackMove = ({ moveTimingStartTime, moves, leadingSide }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
-  const randomChance = Math.random();
-  if (randomChance < chancesOfMoves.offensive.chanceOfBruteForceAttack) {
-    randomIndex = Math.floor(Math.random() * offensiveAnimationNames.bruteForceAttack.length);
-    upperBodyMoveName = offensiveAnimationNames.bruteForceAttack[randomIndex];
-  } else if (randomChance < chancesOfMoves.offensive.chanceOfBruteForceAttack + chancesOfMoves.offensive.chanceOfDeceptiveAttack) {
-    randomIndex = Math.floor(Math.random() * offensiveAnimationNames.deceptiveAttack.length);
-    upperBodyMoveName = offensiveAnimationNames.deceptiveAttack[randomIndex];
-  } else {
-    randomIndex = Math.floor(Math.random() * offensiveAnimationNames.counterAttack.length);
-    upperBodyMoveName = offensiveAnimationNames.counterAttack[randomIndex];
-  }
+  let randomIndex = Math.floor(Math.random() * offensiveAnimationNames.deceptiveAttack.length);
+  upperBodyMoveName = offensiveAnimationNames.deceptiveAttack[randomIndex];
   applyLeadingSide(upperBodyMoveName, leadingSide);
 
   randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMoveName].length);
+  lowerBodyMoveName = lowerAnimationNames[upperBodyMoveName][randomIndex];
+
+  moves.push({
+    startTime: moveTimingStartTime,
+    move: {
+      lower: lowerBodyMoveName,
+      upper: upperBodyMoveName,
+    },
+  });
+
+  return upperBodyMoveName;
+};
+
+const pushOffensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves }) => {
+  let lowerBodyMoveName, upperBodyMoveName;
+
+  let type, deceptiveAttackMoveName;
+
+  const randomChance = Math.random();
+  if (randomChance < chancesOfMoves.offensive.chanceOfBruteForceAttack) {
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.bruteForceAttack.length);
+    upperBodyMoveName = offensiveAnimationNames.bruteForceAttack[randomIndex];
+    type = 'bruteForceAttack';
+  } else if (randomChance < chancesOfMoves.offensive.chanceOfBruteForceAttack + chancesOfMoves.offensive.chanceOfDeceptiveAttack) {
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.deceptiveAttack.length);
+    upperBodyMoveName = offensiveAnimationNames.deceptiveAttack[randomIndex];
+    type = 'deceptiveAttack';
+    deceptiveAttackMoveName = pushDeceptiveAttackMove({ moveTimingStartTime, moves, leadingSide });
+  } else {
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.counterAttack.length);
+    upperBodyMoveName = offensiveAnimationNames.counterAttack[randomIndex];
+    type = 'counterAttack';
+  }
+  applyLeadingSide(upperBodyMoveName, leadingSide);
+
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMoveName].length);
   lowerBodyMoveName = lowerAnimationNames[upperBodyMoveName][randomIndex];
 
   const move = {
@@ -76,24 +100,64 @@ const pushOffensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfM
   };
   pushTheMove(move, moveTimingStartTime, moves);
 
-  return move;
+  return {
+    name: upperBodyMoveName,
+    deceptiveName: deceptiveAttackMoveName,
+    type,
+  };
 };
 
-const pushDefensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMoveName }) => {
-  let randomIndex;
+const pushDeceptiveDefenseMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMove }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
   const randomChance = Math.random();
   if (randomChance < chancesOfMoves.defensive.chanceOfBlock) {
-    randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMoveName].block.length);
-    upperBodyMoveName = defensiveAnimationNames[offensiveMoveName].block[randomIndex];
+    const randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMove.name].block.length);
+    upperBodyMoveName = defensiveAnimationNames[offensiveMove.name].block[randomIndex];
   } else {
-    randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMoveName].dodge.length);
-    upperBodyMoveName = defensiveAnimationNames[offensiveMoveName].dodge[randomIndex];
+    const randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMove.name].dodge.length);
+    upperBodyMoveName = defensiveAnimationNames[offensiveMove.name].dodge[randomIndex];
   }
   applyLeadingSide(upperBodyMoveName, leadingSide);
 
-  randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMoveName].length);
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMoveName].length);
+  lowerBodyMoveName = lowerAnimationNames[upperBodyMoveName][randomIndex];
+
+  moves.push({
+    startTime: moveTimingStartTime,
+    move: {
+      lower: lowerBodyMoveName,
+      upper: upperBodyMoveName,
+    },
+  });
+};
+
+const pushDefensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMove }) => {
+  let lowerBodyMoveName, upperBodyMoveName;
+
+  if (offensiveMove.type !== 'counterAttack') {
+    if (offensiveMove.type === 'deceptiveAttack') {
+      const randomChance = Math.random();
+      if (randomChance < duelParameters.chanceOfDeceptiveDefenseMove) {
+        pushDeceptiveDefenseMove({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMove });
+      }
+    }
+
+    const randomChance = Math.random();
+    if (randomChance < chancesOfMoves.defensive.chanceOfBlock) {
+      const randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMove.name].block.length);
+      upperBodyMoveName = defensiveAnimationNames[offensiveMove.name].block[randomIndex];
+    } else {
+      const randomIndex = Math.floor(Math.random() * defensiveAnimationNames[offensiveMove.name].dodge.length);
+      upperBodyMoveName = defensiveAnimationNames[offensiveMove.name].dodge[randomIndex];
+    }
+  } else {
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.bruteForceAttack.length);
+    upperBodyMoveName = offensiveAnimationNames.bruteForceAttack[randomIndex];
+  }
+  applyLeadingSide(upperBodyMoveName, leadingSide);
+
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMoveName].length);
   lowerBodyMoveName = lowerAnimationNames[upperBodyMoveName][randomIndex];
 
   const move = {
@@ -127,19 +191,19 @@ const calculateMoves = (boxersChancesOfMoves, boxersLeadingSides, winner) => {
       pushProbeMove({ moveTimingStartTime, moves: loserMoves });
     } else if (moveTiming.winnerMoveType === 'offensive') {
       if (winner === 'left') {
-        const offensiveMoveName = pushOffensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves }).upper;
-        pushDefensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves, offensiveMoveName });
+        const offensiveMove = pushOffensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves });
+        pushDefensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves, offensiveMove });
       } else {
-        const offensiveMoveName = pushOffensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves }).upper;
-        pushDefensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves, offensiveMoveName });
+        const offensiveMove = pushOffensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves });
+        pushDefensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves, offensiveMove });
       }
     } else if (moveTiming.winnerMoveType === 'defensive') {
       if (winner === 'left') {
-        const offensiveMoveName = pushOffensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves }).upper;
-        pushDefensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves, offensiveMoveName });
+        const offensiveMove = pushOffensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves });
+        pushDefensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves, offensiveMove });
       } else {
-        const offensiveMoveName = pushOffensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves }).upper;
-        pushDefensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves, offensiveMoveName });
+        const offensiveMove = pushOffensiveMove({ moveTimingStartTime, moves: loserMoves, leadingSide, chancesOfMoves: leftBoxerChancesOfMoves });
+        pushDefensiveMove({ moveTimingStartTime, moves: winnerMoves, leadingSide, chancesOfMoves: rightBoxerChancesOfMoves, offensiveMove });
       }
     } else {
       if (moveTiming.winnerMoveType === 'switchLeadingSide-winner') {

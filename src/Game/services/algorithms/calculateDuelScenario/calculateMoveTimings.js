@@ -11,16 +11,8 @@ const calculateMoveTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winne
 
   const attackIntervals = calculateAttackIntervals();
 
-  attackIntervals.forEach((attackInterval, index) => {
-    let time;
-
-    let randomMultiplier;
-
-    if (index === 0) {
-      time = 0.0;
-    } else {
-      time = attackIntervals[index - 1].startTime + attackIntervals[index - 1].duration;
-    }
+  let time = 0;
+  attackIntervals.forEach((attackInterval) => {
     while (time < attackInterval.startTime) {
       moveTimings.push({
         startTime: time,
@@ -29,14 +21,13 @@ const calculateMoveTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winne
         loserLeadingSide: loserLeadingSide,
       });
 
-      randomMultiplier = duelParameters.probeRestDurationCoefficient * Math.random();
+      const randomMultiplier = duelParameters.probeRestDurationCoefficient * Math.random();
       time += duelParameters.moveDuration * (1.0 + randomMultiplier);
     }
 
-    time = attackInterval.startTime;
     const endTime = attackInterval.startTime + attackInterval.duration;
     const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
-    while (time + reactionTime < endTime) {
+    while (time + reactionTime <= endTime) {
       let moveType;
 
       let chance = Math.random();
@@ -68,20 +59,19 @@ const calculateMoveTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winne
       moveTimings.push({
         startTime: time,
         winnerMoveType: moveType,
-        winnerLeadingSide: winnerLeadingSide,
-        loserLeadingSide: loserLeadingSide,
+        winnerLeadingSide,
+        loserLeadingSide,
       });
 
-      randomMultiplier = duelParameters.attackRestDurationCoefficient * Math.random();
+      const randomMultiplier = duelParameters.attackRestDurationCoefficient * Math.random();
       time += duelParameters.moveDuration * (1.0 + randomMultiplier);
     }
-
-    moveTimings.push({
-      startTime: time,
-      winnerMoveType: 'offensive',
-      winnerLeadingSide: winnerLeadingSide,
-      loserLeadingSide: loserLeadingSide,
-    });
+  });
+  moveTimings.push({
+    startTime: time,
+    winnerMoveType: 'offensive',
+    winnerLeadingSide: winnerLeadingSide,
+    loserLeadingSide: loserLeadingSide,
   });
 
   return moveTimings;

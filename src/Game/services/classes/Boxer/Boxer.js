@@ -55,9 +55,9 @@ class Boxer {
       this.leadingSide = 'left';
     }
 
-    this.model.position.x *= -1;
-    this.model.rotation.y *= -1;
-    this.model.applyMatrix4(new Matrix4().makeScale(-1, 1, 1));
+    this.model.position.x *= -1.0;
+    this.model.rotation.y *= -1.0;
+    this.model.applyMatrix4(new Matrix4().makeScale(-1.0, 1.0, 1.0));
   }
 }
 
