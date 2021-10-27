@@ -1,25 +1,38 @@
+// endpoints:
+// 1 - 1100px
+// 2 - 800px
+// 3 - 500px
+
 .global-modal-window-content.balance-modal {
   width: 1000px;
-  max-height: 800px;
+  max-height: 80%;
   overflow-y: auto;
   top: 10%;
   left: calc(50% - 500px);
   margin: 0 auto;
   background-color: rgb(240, 240, 240);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 5px;
   transition: height 0.2s ease;
-  overflow: hidden;
+  overflow-y: auto;
   color: #333;
 
-  .balance-content {
-    width: 100%;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(219, 219, 219);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bebaba;
+    border-radius: 5px;
   }
 
   .balance-content-header {
     min-height: 130px;
+    height: 130px;
     width: 100%;
     position: relative;
 
@@ -66,13 +79,21 @@
   }
 
   .transfer-block {
-    width: 800px;
+    width: 100%;
     position: absolute;
-    left: calc(50% - 400px);
+    left: 0px;
     top: 50px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    column-gap: 20px;
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 20px;
+      width: 100%;
+    }
 
     .transfer-icon {
       i {
@@ -85,6 +106,20 @@
       flex-direction: column;
       row-gap: 10px;
       align-items: center;
+    }
+
+    .actions-area-small {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      column-gap: 10px;
+      margin-top: 7px;
+
+      @media screen and (min-width: 800px) {
+        display: none;
+      }
     }
 
     button.deposit,
@@ -102,6 +137,11 @@
         border-radius: 10px;
         color: rgb(184, 10, 10);
       }
+
+      @media screen and (max-width: 600px) {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
     }
     button.deposit.active,
     button.withdraw.active {
@@ -111,10 +151,20 @@
       background-color: rgb(255, 230, 234);
     }
 
-    .beta {
+    .beta,
+    .beta-small {
       text-decoration: underline;
       font-size: 13px;
       cursor: pointer;
+    }
+    .beta-small {
+      margin-top: 3px;
+      @media screen and (max-width: 600px) {
+        font-size: 11px;
+      }
+      @media screen and (min-width: 800px) {
+        display: none;
+      }
     }
   }
 
@@ -185,7 +235,7 @@
       .history-list-item {
         background-color: transparent;
         width: 100%;
-        padding: 5px 10px;
+        padding: 5px 20px;
         border-bottom: 1.5px solid #aaa;
         display: flex;
         flex-direction: row;
@@ -196,17 +246,52 @@
           display: flex;
           flex-direction: row;
           align-items: center;
-          column-gap: 10px;
+          column-gap: 20px;
+
+          .operation-type {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.6px;
+          }
+
+          .status {
+            background-color: forestgreen;
+            border-radius: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 600;
+          }
         }
 
         .right {
           display: flex;
           flex-direction: column;
           row-gap: 5px;
+
+          .date {
+            font-size: 13px;
+            color: rgb(119, 119, 119);
+          }
+
+          .amount {
+            font-weight: 600;
+          }
         }
       }
       .history-list-item:last-child {
         border-bottom: none;
+      }
+      .history-list-item.deposit {
+        .amount {
+          color: rgb(29, 129, 29);
+        }
+      }
+      .history-list-item.withdraw {
+        .amount {
+          color: brown;
+        }
       }
     }
 
@@ -284,6 +369,143 @@
           }
           span.transparent {
             color: rgb(121, 115, 115);
+          }
+        }
+      }
+    }
+  }
+
+  // endpoints
+
+  // 1100px
+  @media screen and (max-width: 1100px) {
+    width: 800px;
+    left: calc(50% - 400px);
+
+    .metamask-card,
+    .ethereum-card {
+      zoom: 0.8;
+    }
+  }
+
+  // 800px
+  @media screen and (max-width: 800px) {
+    width: 500px;
+    left: calc(50% - 250px);
+    max-height: 80%;
+    overflow-y: auto;
+
+    .metamask-card,
+    .ethereum-card {
+      zoom: 0.8;
+    }
+
+    .transfer-block {
+      .row {
+        column-gap: 10px;
+        .actions-area {
+          display: none;
+        }
+      }
+      .actions-area-small {
+        display: flex;
+      }
+    }
+
+    .balance-content-body {
+      padding-top: 170px;
+
+      .transfer-content {
+        .transfer-main-area {
+          .input-item {
+            input {
+              width: 150px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // 500px
+  @media screen and (max-width: 500px) {
+    width: 320px;
+    left: calc(50% - 160px);
+
+    .metamask-card,
+    .ethereum-card {
+      zoom: 0.5;
+    }
+
+    .balance-content-body {
+      padding-top: 90px;
+
+      .transfer-content {
+        .input-label {
+          font-size: 14px;
+          text-align: center;
+        }
+
+        .transfer-main-area {
+          .input-item {
+            input {
+              width: 90px;
+              padding: 5px 5px;
+              font-size: 14px;
+            }
+            span {
+              font-size: 12px;
+            }
+          }
+        }
+
+        .warning {
+          font-size: 13px;
+          text-align: center;
+        }
+      }
+
+      .settings {
+        .history-screen-label {
+          font-size: 18px !important;
+        }
+
+        .history-list {
+          width: 100%;
+        }
+
+        .history-list-item {
+          width: 100%;
+          padding: 5px 10px;
+          border-bottom: 1.5px solid #aaa;
+
+          .left {
+            column-gap: 5px;
+
+            .operation-type {
+              font-size: 12px;
+              letter-spacing: normal;
+            }
+
+            .status {
+              padding: 5px 7px;
+              font-size: 10px;
+              font-weight: 500;
+            }
+          }
+
+          .right {
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+
+            .date {
+              font-size: 11px;
+            }
+
+            .amount {
+              font-size: 14px;
+            }
           }
         }
       }
