@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
+import ReactTooltip from 'react-tooltip';
 
 // components
 import MqPunchCard from './components/MQPunchCard';
@@ -15,13 +16,25 @@ const Balance = ({ data }) => {
           <i className='fas fa-times' />
         </div>
         <div className='settings-buttons'>
-          <button className='settings' onClick={() => setMode(null)}>
+          <button className='settings' onClick={() => setMode(null)} data-tip data-for='historyTip'>
             <i className='far fa-sliders-v' />
           </button>
+          <ReactTooltip id='historyTip' place='top' effect='solid' type='light'>
+            Balance history
+          </ReactTooltip>
           {/* URL TO OUR DOCS */}
-          <a className='info' target='_blank' href='https://github.com/'>
+          <a
+            className='info'
+            target='_blank'
+            href='https://github.com/'
+            data-tip
+            data-for='infoTip'
+          >
             <i className='far fa-info-circle' />
           </a>
+          <ReactTooltip id='infoTip' place='top' effect='solid' type='light'>
+            Help
+          </ReactTooltip>
         </div>
 
         <div className='transfer-block'>
