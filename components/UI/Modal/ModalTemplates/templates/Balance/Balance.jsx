@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
+import ReactTooltip from 'react-tooltip';
 
 // components
 import MqPunchCard from './components/MQPunchCard';
@@ -9,24 +10,57 @@ const Balance = ({ data }) => {
   const [mode, setMode] = useState(null);
 
   return (
-    <div className='balance-content'>
+    <>
       <div className='balance-content-header'>
         <div className='close-button' onClick={data.onClose}>
           <i className='fas fa-times' />
         </div>
         <div className='settings-buttons'>
-          <button className='settings' onClick={() => setMode(null)}>
+          <button className='settings' onClick={() => setMode(null)} data-tip data-for='historyTip'>
             <i className='far fa-sliders-v' />
           </button>
+          <ReactTooltip id='historyTip' place='top' effect='solid' type='light'>
+            Balance history
+          </ReactTooltip>
           {/* URL TO OUR DOCS */}
-          <a className='info' target='_blank' href='https://github.com/'>
+          <a
+            className='info'
+            target='_blank'
+            href='https://github.com/'
+            data-tip
+            data-for='infoTip'
+          >
             <i className='far fa-info-circle' />
           </a>
+          <ReactTooltip id='infoTip' place='top' effect='solid' type='light'>
+            Help
+          </ReactTooltip>
         </div>
 
         <div className='transfer-block'>
-          <MqPunchCard />
-          <div className='actions-area'>
+          <div className='row'>
+            <MqPunchCard />
+            <div className='actions-area'>
+              <button
+                className={cn('withdraw', { active: mode === 'withdraw' })}
+                onClick={() => setMode('withdraw')}
+              >
+                WITHDRAW
+              </button>
+              <div className='transfer-icon'>
+                <i className='fad fa-exchange' />
+              </div>
+              <button
+                className={cn('deposit', { active: mode === 'deposit' })}
+                onClick={() => setMode('deposit')}
+              >
+                DEPOSIT
+              </button>
+              <span className='beta'>deposit by currency (Beta)</span>
+            </div>
+            <MetamaskCard />
+          </div>
+          <div className='actions-area-small'>
             <button
               className={cn('withdraw', { active: mode === 'withdraw' })}
               onClick={() => setMode('withdraw')}
@@ -42,13 +76,38 @@ const Balance = ({ data }) => {
             >
               DEPOSIT
             </button>
-            <span className='beta'>deposit by currency (Beta)</span>
           </div>
-          <MetamaskCard />
+          <span className='beta-small'>deposit by currency (Beta)</span>
         </div>
       </div>
       <div className='balance-content-body'>
-        {mode === null && <div className='settings'>settings</div>}
+        {mode === null && (
+          <div className='settings'>
+            <h3 className='history-screen-label'>MQ-Punch balance history</h3>
+            <div className='history-list'>
+              <div className={cn('history-list-item', 'deposit')}>
+                <div className='left'>
+                  <span className='operation-type'>deposit</span>
+                  <span className='status'>successful</span>
+                </div>
+                <div className='right'>
+                  <span className='date'>15:12 May 17, 2021</span>
+                  <span className='amount'>+ $50.50</span>
+                </div>
+              </div>
+              <div className={cn('history-list-item', 'withdraw')}>
+                <div className='left'>
+                  <span className='operation-type'>withdraw</span>
+                  <span className='status'>successful</span>
+                </div>
+                <div className='right'>
+                  <span className='date'>17:38 May 18, 2021</span>
+                  <span className='amount'>- $150.50</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {mode === 'deposit' && (
           <div className='transfer-content'>
             <div className='transfer-main-area'>
@@ -106,7 +165,7 @@ const Balance = ({ data }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
