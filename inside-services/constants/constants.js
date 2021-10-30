@@ -1,20 +1,28 @@
-import { getUUID } from "../get-uuid/get-uuid";
+import { getUUID } from '../get-uuid/get-uuid';
 
 // in miliseconds ( one hour )
 export const refreshTokenCoolDown = 60 * 60 * 1000;
 
+export const DEFAULT_TOURNAMENTS_SCREEN_ROUTE = '/tournaments/events';
+
 export const bigHeaderMenuLinks = [
-  { label: "Market", id: getUUID(), pathname: "/market" },
+  { label: 'Market', id: getUUID(), pathname: '/market' },
   {
-    label: "Tournaments",
+    label: 'Tournaments',
     id: getUUID(),
-    pathname: "/tournaments",
+    pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE,
   },
-  { label: "Gym", id: getUUID(), pathname: "/gym" },
+  { label: 'Gym', id: getUUID(), pathname: '/gym' },
   {
-    label: "Leaderboard",
+    label: 'Leaderboard',
     id: getUUID(),
-    pathname: "/leaderboard",
+    pathname: '/leaderboard',
   },
-  { label: "Learn", id: getUUID(), pathname: "/learn" },
+  { label: 'Learn', id: getUUID(), pathname: '/learn' },
+];
+
+export const tournamentsTopMenuLinks = [
+  { label: 'Events', id: getUUID(), pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE },
+  { label: 'Results', id: getUUID(), pathname: '/tournaments/results' },
+  { label: 'Your tournaments', id: getUUID(), pathname: '/tournaments/your-tournaments' },
 ];
