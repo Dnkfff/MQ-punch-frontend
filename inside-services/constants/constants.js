@@ -21,8 +21,36 @@ export const bigHeaderMenuLinks = [
   { label: 'Learn', id: getUUID(), pathname: '/learn' },
 ];
 
+// FORM
+export const DOUBLE_DATE_SELECTOR_TYPE = 'double-date-selector';
+export const DIVISION_SELECTOR_TYPE = 'division-selector';
+export const INPUT_TYPE = 'input';
+
 export const tournamentsTopMenuLinks = [
   { label: 'Events', id: getUUID(), pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE },
-  { label: 'Results', id: getUUID(), pathname: '/tournaments/results' },
-  { label: 'Your tournaments', id: getUUID(), pathname: '/tournaments/your-tournaments' },
+  {
+    label: 'Results',
+    id: getUUID(),
+    pathname: '/tournaments/results',
+    filtering: [
+      {
+        type: DOUBLE_DATE_SELECTOR_TYPE,
+        field: 'date',
+        placeholder: 'Choose date',
+        caption: 'Date',
+      },
+      {
+        type: DIVISION_SELECTOR_TYPE,
+        field: 'division',
+        placeholder: 'Select division',
+        caption: 'Division',
+      },
+      { type: INPUT_TYPE, field: 'prizePool', placeholder: 'Prize pool', caption: 'Prize pool' },
+    ],
+  },
+  {
+    label: 'Your tournaments',
+    id: getUUID(),
+    pathname: '/tournaments/your-tournaments',
+  },
 ];
