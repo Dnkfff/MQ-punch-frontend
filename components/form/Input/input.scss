@@ -1,0 +1,30 @@
+.mq-punch-form-input {
+  width: 100%;
+  outline: none;
+  border-radius: 3px;
+  padding: 3px 5px;
+  position: relative;
+}
+
+.mq-punch-form-input.primary {
+  border: 1px solid rgb(206, 206, 206);
+  transition: border 0.2s ease;
+  color: rgb(94, 94, 94);
+
+  &::placeholder {
+    color: rgb(150, 150, 150);
+  }
+
+  &:hover {
+    border: 1px solid rgb(124, 124, 124);
+  }
+
+  &:focus {
+    border: 1px solid rgb(124, 124, 124);
+    color: #000;
+  }
+}
+
+.mq-punch-form-input.with-prefix {
+  padding-right: 40px;
+}

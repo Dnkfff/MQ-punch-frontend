@@ -26,10 +26,13 @@
 
 // UI
 @import '../components/UI/GlobalLoader/globalLoader.scss';
-@import '../components/UI/Table/table.scss';
-@import '../components/UI/Table/black-head-table.scss';
+
+// Form
+@import '../components/form/Input/input.scss';
 
 // Tables
+@import '../components/UI/Table/table.scss';
+@import '../components/UI/Table/black-head-table.scss';
 
 // leaderboard table
 @import '../components/UI/Table/components/TableBody/TableBodyTemplates/LeaderboardTableBody/leaderboardTableBody.scss';

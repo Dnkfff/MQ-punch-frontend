@@ -45,7 +45,20 @@ export const tournamentsTopMenuLinks = [
         placeholder: 'Select division',
         caption: 'Division',
       },
-      { type: INPUT_TYPE, field: 'prizePool', placeholder: 'Prize pool', caption: 'Prize pool' },
+      {
+        type: INPUT_TYPE,
+        field: 'prizePool',
+        placeholder: 'Prize pool',
+        caption: 'Prize pool',
+        inputType: 'text',
+        formatFunc: ({ oldValue, newValue }) => {
+          const regex1 = /^\d{1,5}$/;
+          const regex2 = /^$/;
+          if (!regex1.test(newValue) && !regex2.test(newValue)) return oldValue;
+
+          return newValue;
+        },
+      },
     ],
   },
   {

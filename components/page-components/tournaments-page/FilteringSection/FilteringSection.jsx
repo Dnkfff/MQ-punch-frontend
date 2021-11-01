@@ -1,16 +1,22 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+// components
+import Input from '../../../form/Input/Input';
+
 // functions
 import { generateFilteringForm } from './helper';
 import { setUpdatedFilteringForm } from '../../../../redux/reducers/tournaments/slice';
+
+// constants
+import { INPUT_TYPE } from '../../../../inside-services/constants/constants';
 
 const FilteringSection = (props) => {
   const { currentPage } = props;
   const currentPageLabel = currentPage.label;
   const dispatch = useDispatch();
   const filteringForm = useSelector((state) => state.tournaments[currentPageLabel]);
-  if (!filteringForm) {
+  if (!filteringForm && currentPage.filtering) {
     dispatch(
       setUpdatedFilteringForm({
         updatedFilteringForm: generateFilteringForm(currentPage.filtering),
@@ -36,11 +42,47 @@ const FilteringSection = (props) => {
     Object.keys(filteringForm).forEach((key) => {
       const element = filteringForm[key];
 
-      filteringFormContent.push(<span key={element.id}>{element.placeholder}</span>);
+      if (element.type === INPUT_TYPE) {
+        filteringFormContent.push(
+          <div className='form-item'>
+            <span className='form-item-caption'>{element.caption}</span>
+            <div className='input-container'>
+              <Input
+                types={['primary', 'with-prefix']}
+                inputType={element.inputType}
+                placeholder={element.placeholder}
+                value={element.value}
+                onChange={(event) => onChangeFilteringSectionInputValue(event, element)}
+              />
+              <span className='input-prefix'>$</span>
+            </div>
+          </div>
+        );
+      } else {
+        filteringFormContent.push(null);
+      }
     });
   }
 
-  return <section className='filtering-section'>{filteringFormContent}</section>;
+  return (
+    <section className='filtering-section'>
+      <div className='form-row'>{filteringFormContent}</div>
+    </section>
+  );
+
+  function onChangeFilteringSectionInputValue(event, element) {
+    const newValue = element.formatFunc({
+      oldValue: filteringForm[element.field].value,
+      newValue: event.target.value,
+    });
+    setFilteringForm({
+      ...filteringForm,
+      [element.field]: {
+        ...filteringForm[element.field],
+        value: newValue,
+      },
+    });
+  }
 };
 
 export default FilteringSection;
