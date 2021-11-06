@@ -1,0 +1,81 @@
+.global-leaderboard-page {
+  .boxer-card {
+    font-weight: bold;
+    width: 400px;
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .images {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .primary {
+        max-height: 300px;
+      }
+    }
+
+    .divider {
+      width: 90%;
+      height: 5px;
+      background-color: #e80304;
+      margin: 10px 0;
+    }
+
+    .properties {
+      width: 100%;
+      .item {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .progres-bar {
+        background-color: white;
+        height: 9px;
+        width: 142px;
+        border-radius: 10px;
+      }
+      .full-bar {
+        background-color: black;
+        height: 9px;
+        width: 100px;
+        border-radius: 10px;
+      }
+
+      .caption {
+        font-size: 10px;
+      }
+
+      .count-indicator {
+        font-size: 8px;
+      }
+    }
+
+    .card-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      column-gap: 10px;
+      margin-top: 15px;
+
+      span {
+        font-size: 6px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+    }
+  }
+}
