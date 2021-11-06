@@ -2,8 +2,8 @@ import React from 'react';
 
 // assets
 import goldenCup from '../../../../assets/website/division_icons/preview_first/golden.png';
-import silverCup from '../../../../assets/website/division_icons/preview_first/silver.svg';
-import bronzeCup from '../../../../assets/website/division_icons/preview_first/bronze.svg';
+import SilverCup from '../../../../assets/website/division_icons/preview_first/silver.svg';
+import BronzeCup from '../../../../assets/website/division_icons/preview_first/bronze.svg';
 
 const LiveEventItem = ({ event }) => {
   return (
@@ -12,8 +12,8 @@ const LiveEventItem = ({ event }) => {
         <h4 className='title'>{event.name}</h4>
         <div className='divisions'>
           <img src={goldenCup.src} />
-          <img src={silverCup.src} />
-          <img src={bronzeCup.src} />
+          <SilverCup />
+          <BronzeCup />
         </div>
       </div>
       <div className='live-event-single-event_content'>

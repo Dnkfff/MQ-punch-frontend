@@ -5,6 +5,7 @@ export const slice = createSlice({
   initialState: {
     header_height: 0,
     mobile_menu_is_opened: false,
+    global_modal_data: null,
   },
   reducers: {
     changeHeaderHeight: (state, action) => {
@@ -17,9 +18,14 @@ export const slice = createSlice({
 
       state.mobile_menu_is_opened = newMobileMenuOpenedState;
     },
+    setGlobalModalData: (state, action) => {
+      const newGlobalModalData = action.payload;
+
+      state.global_modal_data = newGlobalModalData;
+    },
   },
 });
 
-export const { changeHeaderHeight, changeMobileMenuOpened } = slice.actions;
+export const { changeHeaderHeight, changeMobileMenuOpened, setGlobalModalData } = slice.actions;
 
 export default slice.reducer;

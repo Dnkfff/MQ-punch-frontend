@@ -12,7 +12,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const DivisionItem = ({ item, activeSlide }) => {
   return (
     <div className={cn('division-item', item.type, { active: activeSlide.type === item.type })}>
-      {item.icon && <img src={item.icon.src} />}
+      {item.icon && item.icon}
       {!item.icon && (
         <>
           <p>TOP</p>

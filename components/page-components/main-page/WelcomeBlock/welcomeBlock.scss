@@ -9,7 +9,7 @@
     margin: 5px 0;
     font-size: 20px;
     letter-spacing: 0.5px;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Cairo", sans-serif;
     font-weight: 700;
     color: #333;
   }
@@ -43,7 +43,6 @@
       top: -90px;
       left: 0;
       transition: opacity 0.3s ease;
-      z-index: 2;
     }
     &:hover {
       span {
@@ -53,6 +52,5 @@
         opacity: 0.3;
       }
     }
-    // border-bottom: 7px solid #583232;
   }
 }
