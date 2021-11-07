@@ -5,6 +5,24 @@ export const refreshTokenCoolDown = 60 * 60 * 1000;
 
 export const DEFAULT_TOURNAMENTS_SCREEN_ROUTE = '/tournaments/events';
 
+export const START_PERIOD_YEAR = 2021;
+export const YEARS_RANGE = 10;
+
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 export const bigHeaderMenuLinks = [
   { label: 'Market', id: getUUID(), pathname: '/market' },
   {

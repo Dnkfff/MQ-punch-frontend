@@ -3,13 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // components
 import Input from '../../../form/Input/Input';
+import DoubleDateSelector from '../../../form/DoubleDateSelector/DoubleDateSelector';
 
 // functions
 import { generateFilteringForm } from './helper';
 import { setUpdatedFilteringForm } from '../../../../redux/reducers/tournaments/slice';
 
 // constants
-import { INPUT_TYPE } from '../../../../inside-services/constants/constants';
+import {
+  INPUT_TYPE,
+  DOUBLE_DATE_SELECTOR_TYPE,
+} from '../../../../inside-services/constants/constants';
 
 const FilteringSection = (props) => {
   const { currentPage } = props;
@@ -48,19 +52,31 @@ const FilteringSection = (props) => {
             <span className='form-item-caption'>{element.caption}</span>
             <div className='input-container'>
               <Input
-                types={['primary', 'with-prefix']}
+                types={['primary']}
                 inputType={element.inputType}
                 placeholder={element.placeholder}
                 value={element.value}
                 onChange={(event) => onChangeFilteringSectionInputValue(event, element)}
               />
-              <span className='input-prefix'>$</span>
             </div>
           </div>
         );
-      } else {
-        filteringFormContent.push(null);
+        return;
       }
+
+      if (element.type === DOUBLE_DATE_SELECTOR_TYPE) {
+        filteringFormContent.push(
+          <div className='form-item'>
+            <span className='form-item-caption'>{element.caption}</span>
+            <div className='double-date-container'>
+              <DoubleDateSelector />
+            </div>
+          </div>
+        );
+        return;
+      }
+
+      filteringFormContent.push(null);
     });
   }
 
