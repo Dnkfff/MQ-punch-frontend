@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // components
 import Input from '../../../form/Input/Input';
 import DoubleDateSelector from '../../../form/DoubleDateSelector/DoubleDateSelector';
+import MultiDropDown from '../../../form/MultiDropDown/MultiDropDown';
 
 // functions
 import { generateFilteringForm } from './helper';
@@ -13,7 +14,9 @@ import { setUpdatedFilteringForm } from '../../../../redux/reducers/tournaments/
 import {
   INPUT_TYPE,
   DOUBLE_DATE_SELECTOR_TYPE,
+  DIVISION_SELECTOR_TYPE,
 } from '../../../../inside-services/constants/constants';
+import { SELECT_DIVISION_ITEMS } from '../../../../inside-services/constants/rating';
 
 const FilteringSection = (props) => {
   const { currentPage } = props;
@@ -67,16 +70,43 @@ const FilteringSection = (props) => {
       if (element.type === DOUBLE_DATE_SELECTOR_TYPE) {
         filteringFormContent.push(
           <div className='form-item'>
+            <DoubleDateSelector
+              className={'mq-punch-double-date-selector'}
+              fromConfig={{
+                value: null,
+                placeholder: 'Start date',
+                label: 'From:',
+              }}
+              toConfig={{ value: null, placeholder: 'End date', label: 'To:' }}
+            />
+          </div>
+        );
+        return;
+      }
+
+      if (element.type === DIVISION_SELECTOR_TYPE) {
+        filteringFormContent.push(
+          <div className='form-item'>
             <span className='form-item-caption'>{element.caption}</span>
             <div className='double-date-container'>
-              <DoubleDateSelector />
+              <MultiDropDown
+                items={SELECT_DIVISION_ITEMS}
+                options={{
+                  labelPosition: 'left',
+                  width: '300px',
+                  placeholder: 'select division',
+                  type: DIVISION_SELECTOR_TYPE,
+                }}
+                selectedItems={[]}
+                setSelectedItems={() => {}}
+              />
             </div>
           </div>
         );
         return;
       }
 
-      filteringFormContent.push(null);
+      throw new Error(`${element.type} element type is incorrect`);
     });
   }
 

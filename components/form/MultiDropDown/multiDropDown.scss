@@ -1,0 +1,104 @@
+.cflow-multiselect-wrapper {
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+
+  .cflow-multiselect-toggle-btn {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button.black-button {
+      width: 100%;
+      border: 1px solid #76767a;
+      border-radius: 3px;
+      padding: 4px 8px;
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-transform: capitalize;
+
+      .cflow-multiselect-caption {
+        display: flex;
+        align-items: flex-start;
+        width: 96%;
+        overflow: hidden;
+
+        span.placeholder {
+          color: rgb(119, 119, 119);
+          font-size: 14px;
+          font-weight: 600;
+          max-width: 85%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          transition: color 0.2s ease;
+        }
+
+        svg {
+          margin-right: 5px;
+          transform: scale(0.8);
+        }
+
+        p {
+          font-size: 0.9375rem;
+          font-weight: 600;
+          line-height: 1.5rem;
+          color: #222b45;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 85%;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    button.black-button:hover,
+    button.black-button.opened {
+      border: 1px solid #860000;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.651);
+
+      .cflow-multiselect-caption {
+        span.placeholder {
+          color: #333;
+        }
+      }
+    }
+
+    button.black-button.opened {
+      div.drop-down-arrow {
+        i {
+          color: #860000;
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    label {
+      display: block;
+      width: 30%;
+      margin-bottom: 0;
+    }
+
+    .big-label {
+      margin-bottom: 0.5rem;
+      display: block;
+      width: 100% !important;
+    }
+
+    div.drop-down-arrow {
+      i {
+        font-size: 24px;
+        color: #76767a;
+        transition: color 0.2s ease, transform 0.3s ease;
+      }
+    }
+  }
+}

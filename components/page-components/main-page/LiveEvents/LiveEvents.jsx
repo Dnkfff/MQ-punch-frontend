@@ -46,7 +46,7 @@ const LiveEvents = () => {
   ];
 
   return (
-    <div className='live-events'>
+    <div className='mq-punch-live-events'>
       <div className='live-events-header'>
         <div className='line' />
         <button className='scroll-arrow'>

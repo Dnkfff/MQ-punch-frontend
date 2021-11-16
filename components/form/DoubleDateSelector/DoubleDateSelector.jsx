@@ -7,25 +7,34 @@ import { renderCustomHeader } from './renderCustomHeader';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DoubleDateSelector = (props) => {
-  const { className } = props;
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const { className, fromConfig, toConfig } = props;
+  const [startDate, setStartDate] = useState(fromConfig.value);
+  const [endDate, setEndDate] = useState(toConfig.value);
+
   return (
     <div className={className}>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        withPortal
-        portalId='global-portal-datepicker'
-        renderCustomHeader={renderCustomHeader}
-      />
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        withPortal
-        portalId='global-portal-datepicker'
-        renderCustomHeader={renderCustomHeader}
-      />
+      <div>
+        <span>{fromConfig.label}</span>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          withPortal
+          portalId='global-portal-datepicker'
+          renderCustomHeader={renderCustomHeader}
+          placeholderText={fromConfig.placeholder}
+        />
+      </div>
+      <div>
+        <span>{toConfig.label}</span>
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          withPortal
+          portalId='global-portal-datepicker'
+          renderCustomHeader={renderCustomHeader}
+          placeholderText={toConfig.placeholder}
+        />
+      </div>
     </div>
   );
 };

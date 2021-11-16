@@ -1,0 +1,57 @@
+.global-tournaments-page-container {
+  .main-events-block {
+    width: calc(100% - 40px);
+    align-self: center;
+    margin-top: 15px;
+    background-color: #aaa;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main-events-block_header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 30px;
+    }
+
+    .main-events-block_events-list {
+      width: calc(100% - 10px);
+      margin-top: 15px;
+      max-height: 500px;
+      overflow-y: scroll;
+
+      > .signs {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        column-gap: 40px;
+        position: sticky;
+        top: 0px;
+        background-color: rgb(211, 211, 211);
+        padding: 10px;
+      }
+
+      > .list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+        padding-top: 5px;
+        background-color: #333;
+      }
+
+      .event-item {
+        width: calc(100% - 10px);
+        padding: 10px 10px;
+        background-color: #eee;
+        border-radius: 5px;
+      }
+    }
+  }
+}
