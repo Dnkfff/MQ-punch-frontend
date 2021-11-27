@@ -2,7 +2,7 @@ import {
   INPUT_TYPE,
   DIVISION_SELECTOR_TYPE,
   DOUBLE_DATE_SELECTOR_TYPE,
-} from '../../../../inside-services/constants/constants';
+} from '../../../../inside-services/constants/form';
 import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
 
 export const generateFilteringForm = (filteringArray) => {

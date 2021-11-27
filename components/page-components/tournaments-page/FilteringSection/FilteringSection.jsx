@@ -15,14 +15,20 @@ import {
   INPUT_TYPE,
   DOUBLE_DATE_SELECTOR_TYPE,
   DIVISION_SELECTOR_TYPE,
-} from '../../../../inside-services/constants/constants';
+} from '../../../../inside-services/constants/form';
+import { pageMatchEventStatus } from '../../../../inside-services/constants/events';
 import { SELECT_DIVISION_ITEMS } from '../../../../inside-services/constants/rating';
+
+// api
+import EventsAPI from '../../../../api/events/events';
 
 const FilteringSection = (props) => {
   const { currentPage } = props;
   const currentPageLabel = currentPage.label;
   const dispatch = useDispatch();
-  const filteringForm = useSelector((state) => state.tournaments[currentPageLabel]);
+  const filteringForm = useSelector((state) =>
+    state.tournaments[currentPageLabel] ? state.tournaments[currentPageLabel].form : null
+  );
   if (!filteringForm && currentPage.filtering) {
     dispatch(
       setUpdatedFilteringForm({
@@ -113,6 +119,9 @@ const FilteringSection = (props) => {
   return (
     <section className='filtering-section'>
       <div className='form-row'>{filteringFormContent}</div>
+      <button className='filtering-section-button' onClick={triggerEventsSearch}>
+        Search
+      </button>
     </section>
   );
 
@@ -128,6 +137,18 @@ const FilteringSection = (props) => {
         value: newValue,
       },
     });
+  }
+
+  function triggerEventsSearch() {
+    const eventsAPI = new EventsAPI();
+
+    eventsAPI.setPageParameters({
+      status: pageMatchEventStatus[currentPageLabel],
+      dateAfter: null,
+      dateBefore: null,
+      divisions: null,
+    });
+    eventsAPI.getEvents();
   }
 };
 

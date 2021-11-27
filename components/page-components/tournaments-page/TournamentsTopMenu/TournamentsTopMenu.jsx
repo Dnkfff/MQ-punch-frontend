@@ -7,7 +7,7 @@ import cn from 'classnames';
 import FilteringSection from '../FilteringSection/FilteringSection';
 
 // constants
-import { tournamentsTopMenuLinks } from '../../../../inside-services/constants/constants';
+import { tournamentsTopMenuLinks } from '../../../../inside-services/constants/events';
 
 // functions
 import { changeFilterMenuOpenedState } from '../../../../redux/reducers/tournaments/slice';

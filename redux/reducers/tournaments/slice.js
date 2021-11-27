@@ -14,11 +14,18 @@ export const slice = createSlice({
     setUpdatedFilteringForm: (state, action) => {
       const { updatedFilteringForm, page } = action.payload;
 
-      state[page] = updatedFilteringForm;
+      state[page] = {};
+      state[page].form = updatedFilteringForm;
+    },
+    setPageSearchResult: (state, action) => {
+      const { searchResult, page } = action.payload;
+
+      state[page].searchResult = searchResult;
     },
   },
 });
 
-export const { changeFilterMenuOpenedState, setUpdatedFilteringForm } = slice.actions;
+export const { changeFilterMenuOpenedState, setUpdatedFilteringForm, setPageSearchResult } =
+  slice.actions;
 
 export default slice.reducer;

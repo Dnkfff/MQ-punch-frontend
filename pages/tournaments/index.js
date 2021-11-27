@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from '../../inside-services/constants/constants';
+import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from '../../inside-services/constants/events';
 
 const Tournaments = () => {
   const router = useRouter();

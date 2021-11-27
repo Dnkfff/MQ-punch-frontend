@@ -109,6 +109,8 @@
     z-index: 1;
     padding: 10px 20px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
     animation: filtering-section-animation 0.5s ease;
 
@@ -119,6 +121,11 @@
       flex-wrap: wrap;
       column-gap: 18px;
       row-gap: 10px;
+    }
+
+    .filtering-section-button {
+      align-self: flex-end;
+      margin-top: 10px;
     }
   }
 }
