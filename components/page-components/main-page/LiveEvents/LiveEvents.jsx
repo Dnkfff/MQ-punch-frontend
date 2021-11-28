@@ -9,7 +9,44 @@ import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
 
 const LiveEvents = () => {
   const liveEventsLoading = useSelector((state) => state.tournaments.live_events_loading);
-  const liveEvents = useSelector((state) => state.tournaments.live_events);
+  //const liveEvents = useSelector((state) => state.tournaments.live_events) || ;
+  const liveEvents = [
+    {
+      name: 'Grand Ukrainian Tournament',
+      prizePool: '100',
+      division: 'golden',
+      playingTimer: 30000,
+      id: getUUID(),
+    },
+    {
+      name: 'Grand Ukrainian Tournament',
+      prizePool: '100',
+      division: 'golden',
+      playingTimer: 45000,
+      id: getUUID(),
+    },
+    {
+      name: 'Grand Ukrainian Tournament',
+      prizePool: '100',
+      division: 'golden',
+      playingTimer: 60000,
+      id: getUUID(),
+    },
+    {
+      name: 'Grand Ukrainian Tournament',
+      prizePool: '100',
+      division: 'golden',
+      playingTimer: 60000,
+      id: getUUID(),
+    },
+    {
+      name: 'Grand Ukrainian Tournament',
+      prizePool: '100',
+      division: 'golden',
+      playingTimer: 60000,
+      id: getUUID(),
+    },
+  ];
 
   const skeletonEvents = useMemo(
     () => [

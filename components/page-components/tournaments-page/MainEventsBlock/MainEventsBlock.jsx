@@ -1,49 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-// functions
-import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
+// components
+import EventsTab from './components/EventsTab';
 
-const EVENTS_MOCK = [
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-  { id: getUUID() },
-];
+// constants
+import {
+  EVENTS_PAGE_LABEL,
+  RESULTS_PAGE_LABEL,
+  YOUR_TOURNAMENTS_PAGE_LABEL,
+} from '../../../../inside-services/constants/events';
 
 const MainEventsBlock = (props) => {
-  return (
-    <section className='main-events-block'>
-      <div className='main-events-block_header'>
-        <h3>CURRENT & UP TO COMING EVENTS</h3>
-        <div>select division</div>
-      </div>
-      <div className='main-events-block_events-list'>
-        <div className='signs'>
-          <span>event</span>
-          <span>location</span>
-          <span>event type</span>
-          <span>places</span>
-          <span>entry fee</span>
-          <span>prize pool</span>
-          <span>registered</span>
-        </div>
-        <div className='list'>
-          {EVENTS_MOCK.map((el) => (
-            <div className='event-item' key={el.id}>
-              Some Event
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+  const { type } = props;
+  const eventsLoading = useSelector((state) => state.tournaments.events_loading);
+  const events = useSelector((state) =>
+    state.tournaments[type] ? state.tournaments[type].searchResult : null
   );
+
+  if (type === EVENTS_PAGE_LABEL) {
+    return <EventsTab loading={eventsLoading} events={events} />;
+  }
 };
 
 export default MainEventsBlock;

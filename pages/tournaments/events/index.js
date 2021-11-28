@@ -5,6 +5,9 @@ import TournamentsTopMenu from '../../../components/page-components/tournaments-
 import LiveEvents from '../../../components/page-components/main-page/LiveEvents/LiveEvents';
 import MainEventsBlock from '../../../components/page-components/tournaments-page/MainEventsBlock/MainEventsBlock';
 
+// constants
+import { EVENTS_PAGE_LABEL } from '../../../inside-services/constants/events';
+
 // api
 import EventsAPI from '../../../api/events/events';
 
@@ -21,7 +24,7 @@ const TournamentsEvents = () => {
         <h3 className='live-events-block-title'>Live events</h3>
         <LiveEvents />
       </div>
-      <MainEventsBlock />
+      <MainEventsBlock type={EVENTS_PAGE_LABEL} />
     </div>
   );
 };
