@@ -1,8 +1,15 @@
 import axios from 'axios';
 
-import { SERVER_URL } from '../../inside-services/constants/constants';
+// redux
+import store from '../../redux/store';
+import {
+  setLiveEvents,
+  setLiveEventsLoading,
+  setEventsLoading,
+} from '../../redux/reducers/tournaments/slice';
 
 // constants
+import { SERVER_URL } from '../../inside-services/constants/constants';
 import { RECORDS_FOR_PAGE } from '../../inside-services/constants/events';
 
 export const pageMatchEventStatus = {};
@@ -25,10 +32,22 @@ class EventsAPI {
     return axios.get(url);
   }
 
-  // TO DO
-  // static getAllLiveEvents() {
-  //   const url = `${SERVER_URL}/event/all`;
-  // }
+  static async getAllLiveEvents() {
+    const url = `${SERVER_URL}/event/all?status=live&page=0&size=10`;
+
+    let response = null;
+    store.dispatch(setLiveEventsLoading(true));
+    store.dispatch(setLiveEvents(null));
+    try {
+      response = await axios.get(url);
+    } catch (error) {
+      // TO DO UPDATE ERROR STATE
+    } finally {
+      store.dispatch(setLiveEventsLoading(false));
+    }
+
+    store.dispatch(setLiveEvents(response || []));
+  }
 
   setPageParameters(params) {
     const { status, dateAfter, dateBefore, divisions } = params;
@@ -45,7 +64,7 @@ class EventsAPI {
     this.page = page;
   }
 
-  getEvents() {
+  async getEvents() {
     const { status, divisions, page, dateAfter, dateBefore, size } = this;
     const url = `${SERVER_URL}/event/all?status=${status}&page=${page}&size=${size}`;
     if (dateAfter) url = url + `&after=${dateAfter}`;
@@ -56,7 +75,19 @@ class EventsAPI {
       });
     }
 
-    return axios.get(url);
+    let response = null;
+
+    store.dispatch(setEventsLoading(true));
+    try {
+      response = await axios.get(url);
+    } catch (error) {
+      console.log(error);
+      // TO DO
+    } finally {
+      store.dispatch(setEventsLoading(false));
+    }
+
+    return response || [];
   }
 }
 

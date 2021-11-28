@@ -7,10 +7,20 @@ import cn from 'classnames';
 import FilteringSection from '../FilteringSection/FilteringSection';
 
 // constants
-import { tournamentsTopMenuLinks } from '../../../../inside-services/constants/events';
+import {
+  tournamentsTopMenuLinks,
+  pageMatchEventStatus,
+  PAGES_WHERE_RENDER_LIVE_EVENTS,
+} from '../../../../inside-services/constants/events';
 
 // functions
-import { changeFilterMenuOpenedState } from '../../../../redux/reducers/tournaments/slice';
+import {
+  changeFilterMenuOpenedState,
+  setPageSearchResult,
+} from '../../../../redux/reducers/tournaments/slice';
+
+// api
+import EventsAPI from '../../../../api/events/events';
 
 const TournamentsTopMenu = () => {
   const router = useRouter();
@@ -19,10 +29,28 @@ const TournamentsTopMenu = () => {
 
   const currentPage = tournamentsTopMenuLinks.find((el) => el.pathname === router.pathname);
 
+  const eventsAPI = new EventsAPI();
+
   useEffect(() => {
     if (!currentPage.filtering) {
-      return dispatch(changeFilterMenuOpenedState(false));
+      dispatch(changeFilterMenuOpenedState(false));
     }
+
+    // get live events
+    if (PAGES_WHERE_RENDER_LIVE_EVENTS.includes(currentPage.label)) {
+      EventsAPI.getAllLiveEvents();
+    }
+
+    // get page events function
+    const getPageEvents = async () => {
+      eventsAPI.setPageParameters({
+        status: pageMatchEventStatus[currentPage.label],
+      });
+      const eventsResult = await eventsAPI.getEvents();
+      dispatch(setPageSearchResult({ searchResult: eventsResult, page: currentPage.label }));
+    };
+
+    getPageEvents();
   }, [currentPage]);
 
   return (

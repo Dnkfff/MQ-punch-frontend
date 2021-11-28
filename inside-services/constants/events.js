@@ -15,6 +15,7 @@ export const EVENTS_PAGE_LABEL = 'Events';
 export const RESULTS_PAGE_LABEL = 'Results';
 export const YOUR_TOURNAMENTS_PAGE_LABEL = 'Your tournaments';
 export const RECORDS_FOR_PAGE = 10;
+export const PAGES_WHERE_RENDER_LIVE_EVENTS = [EVENTS_PAGE_LABEL];
 
 export const pageMatchEventStatus = {
   [EVENTS_PAGE_LABEL]: EVENT_FUTURE_STATUS,
@@ -41,20 +42,21 @@ export const tournamentsTopMenuLinks = [
         placeholder: 'Select division',
         caption: 'Division',
       },
-      {
-        type: INPUT_TYPE,
-        field: 'prizePool',
-        placeholder: 'Prize pool',
-        caption: 'Prize pool',
-        inputType: 'text',
-        formatFunc: ({ oldValue, newValue }) => {
-          const regex1 = /^\d{1,5}$/;
-          const regex2 = /^$/;
-          if (!regex1.test(newValue) && !regex2.test(newValue)) return oldValue;
+      // TO DO
+      // {
+      //   type: INPUT_TYPE,
+      //   field: 'prizePool',
+      //   placeholder: 'Prize pool',
+      //   caption: 'Prize pool',
+      //   inputType: 'text',
+      //   formatFunc: ({ oldValue, newValue }) => {
+      //     const regex1 = /^\d{1,5}$/;
+      //     const regex2 = /^$/;
+      //     if (!regex1.test(newValue) && !regex2.test(newValue)) return oldValue;
 
-          return newValue;
-        },
-      },
+      //     return newValue;
+      //   },
+      // },
     ],
   },
   {

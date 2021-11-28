@@ -36,7 +36,9 @@ const MainEventsBlock = (props) => {
         </div>
         <div className='list'>
           {EVENTS_MOCK.map((el) => (
-            <div className='event-item'>Some Event</div>
+            <div className='event-item' key={el.id}>
+              Some Event
+            </div>
           ))}
         </div>
       </div>

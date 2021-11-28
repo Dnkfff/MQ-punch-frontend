@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 // components
 import LiveEventItem from '../LiveEventItem/LiveEventItem';
@@ -7,43 +8,24 @@ import LiveEventItem from '../LiveEventItem/LiveEventItem';
 import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
 
 const LiveEvents = () => {
-  const liveEvensArray = [
-    {
-      name: 'Grand Ukrainian Tournament',
-      prizePool: '100',
-      division: 'golden',
-      playingTimer: 30000,
-      id: getUUID(),
-    },
-    {
-      name: 'Grand Ukrainian Tournament',
-      prizePool: '100',
-      division: 'golden',
-      playingTimer: 45000,
-      id: getUUID(),
-    },
-    {
-      name: 'Grand Ukrainian Tournament',
-      prizePool: '100',
-      division: 'golden',
-      playingTimer: 60000,
-      id: getUUID(),
-    },
-    {
-      name: 'Grand Ukrainian Tournament',
-      prizePool: '100',
-      division: 'golden',
-      playingTimer: 60000,
-      id: getUUID(),
-    },
-    {
-      name: 'Grand Ukrainian Tournament',
-      prizePool: '100',
-      division: 'golden',
-      playingTimer: 60000,
-      id: getUUID(),
-    },
-  ];
+  const liveEventsLoading = useSelector((state) => state.tournaments.live_events_loading);
+  const liveEvents = useSelector((state) => state.tournaments.live_events);
+
+  const skeletonEvents = useMemo(
+    () => [
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+      { id: getUUID() },
+    ],
+    []
+  );
 
   return (
     <div className='mq-punch-live-events'>
@@ -59,9 +41,15 @@ const LiveEvents = () => {
         <div className='line' />
       </div>
       <div className='live-events-content'>
-        {liveEvensArray.map((el) => (
-          <LiveEventItem event={el} key={el.id} />
-        ))}
+        {liveEventsLoading &&
+          skeletonEvents.map((el) => <LiveEventItem key={el.id} loading={true} />)}
+        {!liveEventsLoading &&
+          liveEvents &&
+          liveEvents.length !== 0 &&
+          liveEvents.map((el) => <LiveEventItem event={el} key={el.id} loading={false} />)}
+        {!liveEventsLoading && liveEvents && liveEvents.length === 0 && (
+          <LiveEventItem event={null} loading={false} />
+        )}
       </div>
     </div>
   );

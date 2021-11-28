@@ -4,12 +4,24 @@ export const slice = createSlice({
   name: 'global-manager',
   initialState: {
     filter_menu_is_open: false,
+    live_events: null,
+    live_events_loading: false,
+    events_loading: false,
   },
   reducers: {
     changeFilterMenuOpenedState: (state, action) => {
       const newValue = action.payload;
 
       state.filter_menu_is_open = newValue;
+    },
+    setLiveEvents: (state, action) => {
+      state.live_events = action.payload;
+    },
+    setLiveEventsLoading: (state, action) => {
+      state.live_events_loading = action.payload;
+    },
+    setEventsLoading: (state, action) => {
+      state.events_loading = action.payload;
     },
     setUpdatedFilteringForm: (state, action) => {
       const { updatedFilteringForm, page } = action.payload;
@@ -20,12 +32,22 @@ export const slice = createSlice({
     setPageSearchResult: (state, action) => {
       const { searchResult, page } = action.payload;
 
+      if (!state[page]) {
+        state[page] = {};
+      }
+
       state[page].searchResult = searchResult;
     },
   },
 });
 
-export const { changeFilterMenuOpenedState, setUpdatedFilteringForm, setPageSearchResult } =
-  slice.actions;
+export const {
+  changeFilterMenuOpenedState,
+  setLiveEvents,
+  setLiveEventsLoading,
+  setEventsLoading,
+  setUpdatedFilteringForm,
+  setPageSearchResult,
+} = slice.actions;
 
 export default slice.reducer;
