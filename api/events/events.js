@@ -12,8 +12,6 @@ import {
 import { SERVER_URL } from '../../inside-services/constants/constants';
 import { RECORDS_FOR_PAGE } from '../../inside-services/constants/events';
 
-export const pageMatchEventStatus = {};
-
 class EventsAPI {
   constructor() {
     const DEFAULT_EVENT_STATUS = 'future';
@@ -46,7 +44,10 @@ class EventsAPI {
       store.dispatch(setLiveEventsLoading(false));
     }
 
-    store.dispatch(setLiveEvents(response || []));
+    if (response && response.data && response.data.length !== 0) {
+      return store.dispatch(setLiveEvents(response.data));
+    }
+    return store.dispatch([]);
   }
 
   setPageParameters(params) {

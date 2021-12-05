@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
+
+// types
+import { LiveEventType } from '../../../../inside-services/types/events/events';
 
 // assets
 import goldenCup from '../../../../assets/website/division_icons/preview_first/golden.png';
-import SilverCup from '../../../../assets/website/division_icons/preview_first/silver.svg';
-import BronzeCup from '../../../../assets/website/division_icons/preview_first/bronze.svg';
 
-const LiveEventItem = ({ event, loading }) => {
+interface LiveEventItemProps {
+  event?: LiveEventType;
+  loading: boolean;
+}
+
+const LiveEventItem: FunctionComponent<LiveEventItemProps> = ({ event, loading }) => {
   if (!loading && !event) {
     return <div className='live-event-single-event'></div>;
   }
@@ -21,8 +27,6 @@ const LiveEventItem = ({ event, loading }) => {
           <h4 className='title'>{event.name}</h4>
           <div className='divisions'>
             <img src={goldenCup.src} />
-            <SilverCup />
-            <BronzeCup />
           </div>
         </div>
         <div className='live-event-single-event_content'>
