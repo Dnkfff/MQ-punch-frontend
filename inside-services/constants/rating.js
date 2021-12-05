@@ -8,6 +8,13 @@ import GoldenDivisionIcon from '../../assets/website/division_icons/dummy/golden
 import PlatinumDivisionIcon from '../../assets/website/division_icons/dummy/platinum.svg';
 import TitanDivisionIcon from '../../assets/website/division_icons/dummy/titan.svg';
 
+export const DIVISION_TO_ICON_MATCH = {
+  BRONZE: <BronzeDivisionIcon />,
+  SILVER: <SilverDivisionIcon />,
+  GOLD: <GoldenDivisionIcon />,
+  TITAN: <TitanDivisionIcon />,
+};
+
 export const LEADERBOARD_SLIDES = [
   {
     type: 'all',

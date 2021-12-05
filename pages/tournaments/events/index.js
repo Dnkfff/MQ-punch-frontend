@@ -20,10 +20,10 @@ const TournamentsEvents = () => {
   return (
     <div className='global-tournaments-page-container'>
       <TournamentsTopMenu />
-      <div className='live-events-block'>
+      {/* <div className='live-events-block'>
         <h3 className='live-events-block-title'>Live events</h3>
         <LiveEvents />
-      </div>
+      </div> */}
       <MainEventsBlock type={EVENTS_PAGE_LABEL} />
     </div>
   );

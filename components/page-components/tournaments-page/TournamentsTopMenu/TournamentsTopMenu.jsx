@@ -47,7 +47,14 @@ const TournamentsTopMenu = () => {
         status: pageMatchEventStatus[currentPage.label],
       });
       const eventsResult = await eventsAPI.getEvents();
-      dispatch(setPageSearchResult({ searchResult: eventsResult, page: currentPage.label }));
+
+      if (eventsResult && eventsResult.data && eventsResult.data.length !== 0) {
+        return dispatch(
+          setPageSearchResult({ searchResult: eventsResult.data, page: currentPage.label })
+        );
+      }
+
+      return setPageSearchResult({ searchResult: [], page: currentPage.label });
     };
 
     getPageEvents();
