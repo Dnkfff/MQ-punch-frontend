@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-const Tournaments = (props) => {
-  return (
-    <div>
-      <p>123123123123</p>
-    </div>
-  );
+import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from '../../inside-services/constants/events';
+
+const Tournaments = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push(DEFAULT_TOURNAMENTS_SCREEN_ROUTE);
+  }, []);
+
+  return <></>;
 };
 
 export default Tournaments;

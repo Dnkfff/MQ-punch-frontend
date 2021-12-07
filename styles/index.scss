@@ -26,10 +26,16 @@
 
 // UI
 @import '../components/UI/GlobalLoader/globalLoader.scss';
-@import '../components/UI/Table/table.scss';
-@import '../components/UI/Table/black-head-table.scss';
+@import '../components/UI/PortalModal/portalModal.scss';
+
+// Form
+@import '../components/form/Input/input.scss';
+@import '../components/form/DoubleDateSelector/doubleDateSelector.scss';
+@import '../components/form/MultiDropDown/multiDropDown.scss';
 
 // Tables
+@import '../components/UI/Table/table.scss';
+@import '../components/UI/Table/black-head-table.scss';
 
 // leaderboard table
 @import '../components/UI/Table/components/TableBody/TableBodyTemplates/LeaderboardTableBody/leaderboardTableBody.scss';
@@ -57,3 +63,10 @@
 @import '../components/page-components/market-page/BoxersList/boxers-list.scss';
 @import '../components/page-components/market-page/OpenSeaBanner/open-sea-banner.scss';
 @import '../components/page-components/market-page/SocialsTradeBanner/social-trade-banner.scss';
+
+// tournaments
+@import '../pages/tournaments/tournaments.scss';
+@import '../components/page-components/tournaments-page/TournamentsTopMenu/tournamentsTopMenu.scss';
+
+//  ---> events page
+@import '../components/page-components/tournaments-page/MainEventsBlock/mainEventsBlock.scss';

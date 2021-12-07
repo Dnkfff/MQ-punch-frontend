@@ -1,0 +1,145 @@
+.global-tournaments-page-container {
+  .tournaments-top-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 50px;
+    color: #333;
+
+    .current-page {
+      font-size: 22px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+    }
+
+    button.filtering {
+      border: 1px solid rgb(211, 211, 211);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 10px;
+      padding: 5px 15px;
+      border-radius: 10px;
+      background-color: rgb(75, 75, 75);
+      color: #eee;
+      cursor: pointer;
+      position: relative;
+
+      i {
+        font-size: 18px;
+      }
+
+      span {
+        font-size: 20px;
+      }
+    }
+
+    button.filtering.active {
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -24px;
+        left: calc(50% - 30px);
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 20px solid rgb(223, 223, 223);
+
+        animation: filtering-section-animation 0.5s ease-in-out;
+      }
+    }
+
+    .links-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      column-gap: 5px;
+    }
+
+    .links-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      background-color: transparent;
+      transform: skew(-10deg);
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 14px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+
+      span {
+        transform: skew(10deg);
+        font-size: 18px;
+        color: rgb(78, 78, 78);
+        transition: color 0.3s ease;
+      }
+
+      &:hover {
+        background-color: rgb(216, 216, 216);
+
+        span {
+          color: #333;
+        }
+      }
+    }
+    .links-item.selected {
+      border-bottom: 5px solid #8f1d1d;
+      color: #000;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+
+  section.filtering-section {
+    background-color: rgb(223, 223, 223);
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    position: relative;
+    z-index: 1;
+    padding: 10px 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    animation: filtering-section-animation 0.5s ease;
+
+    .form-row {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      column-gap: 18px;
+      row-gap: 10px;
+    }
+
+    .filtering-section-button {
+      align-self: flex-end;
+      margin-top: 10px;
+    }
+  }
+}
+
+@keyframes filtering-section-animation {
+  0% {
+    transform: scale(0.95);
+    max-height: 0;
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+    max-height: 500px;
+  }
+}

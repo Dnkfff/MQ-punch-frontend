@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import cn from 'classnames';
 
 // functions & constants
-import { slides } from './constants';
+import { LEADERBOARD_SLIDES } from '../../../../../../inside-services/constants/rating';
 
 // css for slider
 import 'slick-carousel/slick/slick.css';
@@ -36,7 +36,7 @@ const NextArrow = ({ onClick }) => (
 );
 
 const SelectDivisionSlider = () => {
-  const [activeSlide, setActiveSlide] = useState(slides[0]);
+  const [activeSlide, setActiveSlide] = useState(LEADERBOARD_SLIDES[0]);
   const settings = {
     infinite: true,
     dots: true,
@@ -47,13 +47,13 @@ const SelectDivisionSlider = () => {
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    beforeChange: (_, next) => setActiveSlide(slides[next]),
+    beforeChange: (_, next) => setActiveSlide(LEADERBOARD_SLIDES[next]),
   };
 
   return (
     <div className='select-division-slider'>
       <Slider {...settings}>
-        {slides.map((el) => (
+        {LEADERBOARD_SLIDES.map((el) => (
           <DivisionItem key={el.id} item={el} activeSlide={activeSlide} />
         ))}
       </Slider>

@@ -144,7 +144,6 @@ window.FontAwesomeKitConfig = {
       o = t.querySelectorAll(r);
     Array.prototype.forEach.call(o, function (e) {
       var n = e.getAttribute('title');
-      e.setAttribute('aria-hidden', 'true');
       var r = !e.nextElementSibling || !e.nextElementSibling.classList.contains('sr-only');
       if (n && r) {
         var o = t.createElement('span');

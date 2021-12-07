@@ -1,0 +1,15 @@
+.global-tournaments-page-container {
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+
+  .live-events-block {
+    width: calc(100% - 40px);
+    align-self: center;
+
+    > h3.live-events-block-title {
+      margin-left: 20px;
+      color: #333;
+    }
+  }
+}
