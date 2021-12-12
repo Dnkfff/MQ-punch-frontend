@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import cn from 'classnames';
 
 // function
 import { getUUID } from '../../../../../../inside-services/get-uuid/get-uuid';
@@ -49,18 +50,28 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
               <span>players</span>
             </div>
           </div>
-          <div className='body'>
+          <div className={cn('body', 'ET-body')}>
             {loading &&
-              Array(10)
+              Array(20)
                 .fill(null)
                 .map(
                   (_, index): JSX.Element => (
-                    <div className='event-item skeleton' key={index + getUUID()}>
-                      <span className='e-name skeleton' />
-                      <span className='e-division skeleton' />
-                      <span className='e-entry-fee skeleton' />
-                      <span className='e-prize-pool skeleton' />
-                      <span className='e-players skeleton' />
+                    <div className={cn('ET-event-item', 'skeleton')} key={index + getUUID()}>
+                      <span className='ET-event-item__name'>
+                        <div />
+                      </span>
+                      <span className='ET-event-item__division'>
+                        <div />
+                      </span>
+                      <span className='ET-event-item__entry-fee'>
+                        <div />
+                      </span>
+                      <span className='ET-event-item__prize-pool'>
+                        <div />
+                      </span>
+                      <span className='ET-event-item__players'>
+                        <div />
+                      </span>
                     </div>
                   )
                 )}

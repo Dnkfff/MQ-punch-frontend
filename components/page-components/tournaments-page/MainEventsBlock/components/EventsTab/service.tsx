@@ -19,25 +19,25 @@ export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
   return (
     <>
       <div
-        className={cn('event-item', { opened: eventIsOpened })}
+        className={cn('ET-event-item', { opened: eventIsOpened })}
         onClick={() => (eventIsOpened ? setOpenedEvent(null) : setOpenedEvent(el))}
       >
-        <div className='e-name'>
+        <div className='ET-event-item__name'>
           <span>{name}</span>
         </div>
-        <div className='e-division'>
+        <div className='ET-event-item__division'>
           <div className='division-container'>
             <span>{division}</span>
             {DIVISION_TO_ICON_MATCH[division]}
           </div>
         </div>
-        <div className='e-entry-fee'>
+        <div className='ET-event-item__entry-fee'>
           <span>{entryFee}$</span>
         </div>
-        <div className='e-prize-pool'>
+        <div className='ET-event-item__prize-pool'>
           <span>{prizePool}$</span>
         </div>
-        <div className='e-players'>
+        <div className='ET-event-item__players'>
           <span>3/9</span>
         </div>
       </div>

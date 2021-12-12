@@ -46,23 +46,28 @@
         }
       }
 
-      .e-name {
+      .e-name,
+      .ET-event-item__name {
         width: 40%;
       }
 
-      .e-division {
+      .e-division,
+      .ET-event-item__division {
         width: 18%;
       }
 
-      .e-entry-fee {
+      .e-entry-fee,
+      .ET-event-item__entry-fee {
         width: 15%;
       }
 
-      .e-prize-pool {
+      .e-prize-pool,
+      .ET-event-item__prize-pool {
         width: 15%;
       }
 
-      .e-players {
+      .e-players,
+      .ET-event-item__players {
         width: 12%;
       }
 
@@ -71,8 +76,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-height: 500px;
-        overflow-y: auto;
 
         &::-webkit-scrollbar {
           width: 7px;
@@ -89,77 +92,6 @@
           border-radius: 10px;
         }
         border-bottom: 4px solid #252830;
-      }
-
-      .event-item {
-        width: 100%;
-        padding: 13px 10px;
-        background-color: $gray;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        border-bottom: 2px solid rgb(226, 226, 226);
-        cursor: pointer;
-
-        .e-name {
-          span {
-            font-weight: bold;
-            font-size: 18px;
-            letter-spacing: 0.5px;
-            font-family: 'Cairo', sans-serif;
-            color: $text-dark;
-          }
-        }
-
-        .e-division {
-          .division-container {
-            width: min-content;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: darken($color: $gray, $amount: 3);
-            transition: background-color 0.2s ease;
-
-            span {
-              font-family: 'Cairo', sans-serif;
-              font-weight: bold;
-              font-size: 14px;
-            }
-
-            svg {
-              width: 35px;
-              margin-left: 4px;
-            }
-          }
-        }
-
-        .e-entry-fee,
-        .e-prize-pool {
-          padding-left: 20px;
-          span {
-            font-size: 16px;
-            font-weight: 500;
-            color: forestgreen;
-          }
-        }
-
-        .e-players {
-          span {
-            margin-left: 20px;
-          }
-        }
-
-        transition: background-color 0.2s ease;
-        &:hover {
-          background-color: lighten($color: $gray, $amount: 5);
-
-          .division-container {
-            background-color: darken($color: $white, $amount: 5);
-          }
-        }
       }
     }
   }

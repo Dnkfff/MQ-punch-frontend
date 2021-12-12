@@ -1,0 +1,109 @@
+.ET-body {
+  .ET-event-item {
+    width: 100%;
+    padding: 13px 10px;
+    cursor: pointer;
+    background-color: $gray;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid rgb(226, 226, 226);
+    transition: background-color 0.2s ease;
+    &:hover {
+      background-color: lighten($color: $gray, $amount: 5);
+
+      .ET-event-item__division .division-container {
+        background-color: darken($color: $white, $amount: 5);
+      }
+    }
+  }
+
+  .ET-event-item.skeleton {
+    padding: 13px 10px;
+
+    .ET-event-item__name,
+    .ET-event-item__division,
+    .ET-event-item__entry-fee,
+    .ET-event-item__prize-pool,
+    .ET-event-item__players {
+      div {
+        height: 25px;
+        border-radius: 5px;
+        opacity: 0.7;
+        background: #c7c7c7;
+        position: relative;
+        margin-right: 120px;
+        min-width: 80px;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          transform: translateX(-100%);
+          background-image: linear-gradient(
+            90deg,
+            rgba(#eee, 0) 0,
+            rgba(#eee, 0.2) 20%,
+            rgba(#eee, 0.5) 60%,
+            rgba(#eee, 0)
+          );
+          animation: skeleton-loading 2s infinite;
+          content: '';
+        }
+      }
+    }
+  }
+
+  .ET-event-item__name {
+    span {
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      font-family: 'Cairo', sans-serif;
+      color: $text-dark;
+    }
+  }
+
+  .ET-event-item__division {
+    .division-container {
+      width: min-content;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: darken($color: $gray, $amount: 3);
+      transition: background-color 0.2s ease;
+
+      span {
+        font-family: 'Cairo', sans-serif;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      svg {
+        width: 35px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .ET-event-item__entry-fee,
+  .ET-event-item__prize-pool {
+    padding-left: 20px;
+    span {
+      font-size: 16px;
+      font-weight: 500;
+      color: forestgreen;
+    }
+  }
+
+  .ET-event-item__players {
+    span {
+      margin-left: 20px;
+    }
+  }
+}
