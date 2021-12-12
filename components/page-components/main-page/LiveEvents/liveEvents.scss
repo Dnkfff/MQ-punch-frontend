@@ -4,7 +4,7 @@ $live-event-2: rgba(54, 5, 22, 0.1);
 .mq-punch-live-events {
   padding-bottom: 20px;
   width: 100%;
-  color: #333;
+  color: $text-dark;
 
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ $live-event-2: rgba(54, 5, 22, 0.1);
     .line {
       width: 400px;
       height: 5px;
-      background-color: #eee;
+      background-color: $gray;
       &:first-child {
         border-bottom-left-radius: 50%;
         border-top-left-radius: 50%;
@@ -52,7 +52,7 @@ $live-event-2: rgba(54, 5, 22, 0.1);
       cursor: pointer;
       transition: color 0.3s ease, background-color 0.3s ease;
       &:hover {
-        color: #eee;
+        color: $gray;
         background-color: rgb(80, 5, 5);
       }
     }
@@ -62,7 +62,7 @@ $live-event-2: rgba(54, 5, 22, 0.1);
     font-size: 32px;
     margin: 10px 0;
     text-transform: uppercase;
-    color: #eee;
+    color: $gray;
     font-weight: 700;
   }
 

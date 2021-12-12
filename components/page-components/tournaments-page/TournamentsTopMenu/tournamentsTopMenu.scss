@@ -6,7 +6,7 @@
     width: 100%;
     justify-content: space-between;
     padding: 0 50px;
-    color: #333;
+    color: $text-dark;
 
     .current-page {
       font-size: 22px;
@@ -25,7 +25,7 @@
       padding: 5px 15px;
       border-radius: 10px;
       background-color: rgb(75, 75, 75);
-      color: #eee;
+      color: $gray;
       cursor: pointer;
       position: relative;
 
@@ -87,13 +87,13 @@
         background-color: rgb(216, 216, 216);
 
         span {
-          color: #333;
+          color: $text-dark;
         }
       }
     }
     .links-item.selected {
       border-bottom: 5px solid #8f1d1d;
-      color: #000;
+      color: $black;
       &:hover {
         background-color: transparent;
       }

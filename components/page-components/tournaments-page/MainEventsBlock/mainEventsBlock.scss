@@ -26,23 +26,6 @@
     .main-events-block_events-list {
       width: calc(100% - 10px);
       margin-top: 15px;
-      max-height: 500px;
-      overflow-y: auto;
-
-      &::-webkit-scrollbar {
-        width: 7px;
-        height: 10px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #bababa;
-        border-radius: 10px;
-      }
 
       > .columns {
         width: 100%;
@@ -52,11 +35,12 @@
         position: sticky;
         top: 0px;
         padding: 10px;
-        border-bottom: 2px solid rgb(202, 202, 202);
+        background-color: #252830;
+        border-bottom: 4px solid #252830;
 
         span {
           font-size: 14px;
-          color: #444;
+          color: $white;
           margin-left: 10px;
           text-transform: capitalize;
         }
@@ -87,13 +71,30 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        row-gap: 10px;
+        max-height: 500px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          width: 7px;
+          height: 10px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: $scrollbar-gray;
+          border-radius: 10px;
+        }
+        border-bottom: 4px solid #252830;
       }
 
       .event-item {
         width: 100%;
         padding: 13px 10px;
-        background-color: #eee;
+        background-color: $gray;
         border-radius: 5px;
         display: flex;
         flex-direction: row;
@@ -107,7 +108,7 @@
             font-size: 18px;
             letter-spacing: 0.5px;
             font-family: 'Cairo', sans-serif;
-            color: #333;
+            color: $text-dark;
           }
         }
 
@@ -119,7 +120,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            background-color: darken($color: #eee, $amount: 3);
+            background-color: darken($color: $gray, $amount: 3);
             transition: background-color 0.2s ease;
 
             span {
@@ -153,10 +154,10 @@
 
         transition: background-color 0.2s ease;
         &:hover {
-          background-color: lighten($color: #eee, $amount: 5);
+          background-color: lighten($color: $gray, $amount: 5);
 
           .division-container {
-            background-color: darken($color: #fff, $amount: 5);
+            background-color: darken($color: $white, $amount: 5);
           }
         }
       }

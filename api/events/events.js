@@ -44,10 +44,10 @@ class EventsAPI {
       store.dispatch(setLiveEventsLoading(false));
     }
 
-    if (response && response.data && response.data.length !== 0) {
-      return store.dispatch(setLiveEvents(response.data));
+    if (response && response.data?.data && response.data?.data.length !== 0) {
+      return store.dispatch(setLiveEvents(response.data.data));
     }
-    return store.dispatch([]);
+    return store.dispatch(setLiveEvents([]));
   }
 
   setPageParameters(params) {
@@ -88,7 +88,7 @@ class EventsAPI {
       store.dispatch(setEventsLoading(false));
     }
 
-    return response || [];
+    return response?.data || [];
   }
 }
 

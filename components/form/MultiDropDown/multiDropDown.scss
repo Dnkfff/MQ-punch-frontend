@@ -61,13 +61,13 @@
     }
     button.black-button:hover,
     button.black-button.opened {
-      border: 1px solid #860000;
+      border: 1px solid $dark-red;
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.651);
 
       .cflow-multiselect-caption {
         span.placeholder {
-          color: #333;
+          color: $text-dark;
         }
       }
     }
@@ -75,7 +75,7 @@
     button.black-button.opened {
       div.drop-down-arrow {
         i {
-          color: #860000;
+          color: $dark-red;
           transform: rotate(180deg);
         }
       }

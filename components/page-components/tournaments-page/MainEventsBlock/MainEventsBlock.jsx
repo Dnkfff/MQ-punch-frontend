@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // components
-import EventsTab from './components/EventsTab';
+import EventsTab from './components/EventsTab/EventsTab';
 
 // constants
 import {
