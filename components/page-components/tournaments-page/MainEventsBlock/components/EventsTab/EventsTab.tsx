@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import InfiniteScroller from 'react-infinite-scroller';
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
 
 // function
 import { getUUID } from '../../../../../../inside-services/get-uuid/get-uuid';
+import { setPageSearchResult } from '../../../../../../redux/reducers/tournaments/slice';
 
 // service
 import { EventsMapper } from './service';
+// api
+import EventsAPI from '../../../../../../api/events/events';
+// constants
+import {
+  pageMatchEventStatus,
+  EVENTS_PAGE_LABEL,
+} from '../../../../../../inside-services/constants/events';
 
 // types
 import { FutureEventType } from '../../../../../../inside-services/types/events/events';
@@ -13,10 +23,15 @@ import { FutureEventType } from '../../../../../../inside-services/types/events/
 interface EventsTabProps {
   loading: boolean;
   events?: [] | Array<FutureEventType>;
+  metaData: any;
 }
 
 const EventsTab: React.FC<EventsTabProps> = (props) => {
-  const { loading, events } = props;
+  const { loading, events, metaData } = props;
+  const dispatch = useDispatch();
+  const eventsAPI = new EventsAPI();
+  eventsAPI.setPageParameters({ status: 'future' });
+  eventsAPI.setNewPaginationState({ page: 0 });
 
   const [openedEvent, setOpenedEvent] = useState(null);
 
@@ -25,6 +40,13 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
 
   const eventsNotFound = !loading && events && events.length === 0;
   const eventsExist = !loading && events && events.length !== 0;
+
+  const tableIsFull = events && events.length >= metaData.totalRows;
+
+  useEffect(() => {
+    // get page events function
+    getPageEvents();
+  }, [eventsAPI.page]);
 
   return (
     <section className='main-events-block'>
@@ -80,23 +102,67 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
                 <span>EVENTS NOT FOUND</span>
               </div>
             )}
-            {eventsExist &&
-              events.map(
-                (el: FutureEventType): JSX.Element => (
-                  <EventsMapper
-                    key={el.id}
-                    el={el}
-                    openedEvent={openedEvent}
-                    setOpenedEvent={setOpenedEvent}
-                  />
-                )
-              )}
+            {eventsExist && (
+              <InfiniteScroller
+                loadMore={
+                  !tableIsFull && !loading
+                    ? () => {
+                        eventsAPI.setNewPaginationState({ page: eventsAPI.page + 1 });
+                        getPageEvents();
+                      }
+                    : null
+                }
+                hasMore={!tableIsFull && !loading}
+                loader={<div>loading...</div>}
+              >
+                {events.map(
+                  (el: FutureEventType): JSX.Element => (
+                    <EventsMapper
+                      el={el}
+                      openedEvent={openedEvent}
+                      setOpenedEvent={setOpenedEvent}
+                    />
+                  )
+                )}
+              </InfiniteScroller>
+            )}
           </div>
         </div>
       )}
       {screenWidthMobile && <></>}
     </section>
   );
+
+  async function getPageEvents() {
+    eventsAPI.setPageParameters({
+      status: pageMatchEventStatus[EVENTS_PAGE_LABEL],
+    });
+    const eventsResult = await eventsAPI.getEvents();
+
+    if (
+      eventsResult &&
+      eventsResult.data &&
+      eventsResult.metaData &&
+      eventsResult.data.length !== 0
+    ) {
+      const newSearchResult =
+        eventsAPI.page === 0 ? eventsResult.data : [...events].concat(eventsResult.data);
+
+      return dispatch(
+        setPageSearchResult({
+          searchResult: newSearchResult,
+          metaData: eventsResult.metaData,
+          page: EVENTS_PAGE_LABEL,
+        })
+      );
+    }
+
+    return setPageSearchResult({
+      searchResult: [],
+      metaData: { totalRows: 0 },
+      page: EVENTS_PAGE_LABEL,
+    });
+  }
 };
 
 export default EventsTab;

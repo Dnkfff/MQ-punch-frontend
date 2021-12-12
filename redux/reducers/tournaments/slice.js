@@ -30,13 +30,14 @@ export const slice = createSlice({
       state[page].form = updatedFilteringForm;
     },
     setPageSearchResult: (state, action) => {
-      const { searchResult, page } = action.payload;
+      const { searchResult, metaData, page } = action.payload;
 
       if (!state[page]) {
         state[page] = {};
       }
 
       state[page].searchResult = searchResult;
+      state[page].metaData = metaData;
     },
   },
 });

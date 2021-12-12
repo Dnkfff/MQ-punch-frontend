@@ -40,24 +40,6 @@ const TournamentsTopMenu = () => {
     if (PAGES_WHERE_RENDER_LIVE_EVENTS.includes(currentPage.label)) {
       EventsAPI.getAllLiveEvents();
     }
-
-    // get page events function
-    const getPageEvents = async () => {
-      eventsAPI.setPageParameters({
-        status: pageMatchEventStatus[currentPage.label],
-      });
-      const eventsResult = await eventsAPI.getEvents();
-
-      if (eventsResult && eventsResult.data && eventsResult.data.length !== 0) {
-        return dispatch(
-          setPageSearchResult({ searchResult: eventsResult.data, page: currentPage.label })
-        );
-      }
-
-      return setPageSearchResult({ searchResult: [], page: currentPage.label });
-    };
-
-    getPageEvents();
   }, [currentPage]);
 
   return (

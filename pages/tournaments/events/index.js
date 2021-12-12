@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // components
 import TournamentsTopMenu from '../../../components/page-components/tournaments-page/TournamentsTopMenu/TournamentsTopMenu';
@@ -8,15 +8,7 @@ import MainEventsBlock from '../../../components/page-components/tournaments-pag
 // constants
 import { EVENTS_PAGE_LABEL } from '../../../inside-services/constants/events';
 
-// api
-import EventsAPI from '../../../api/events/events';
-
 const TournamentsEvents = () => {
-  useEffect(() => {
-    const eventAPI = new EventsAPI();
-    eventAPI.getEvents();
-  }, []);
-
   return (
     <div className='global-tournaments-page-container'>
       <TournamentsTopMenu />

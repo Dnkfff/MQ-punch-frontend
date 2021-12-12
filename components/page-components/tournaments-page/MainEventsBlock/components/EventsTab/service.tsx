@@ -8,7 +8,6 @@ interface EventsMapperInterface {
   el: FutureEventType;
   openedEvent: any;
   setOpenedEvent: any;
-  key: string;
 }
 
 export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
@@ -21,6 +20,7 @@ export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
       <div
         className={cn('ET-event-item', { opened: eventIsOpened })}
         onClick={() => (eventIsOpened ? setOpenedEvent(null) : setOpenedEvent(el))}
+        key={el.id}
       >
         <div className='ET-event-item__name'>
           <span>{name}</span>
