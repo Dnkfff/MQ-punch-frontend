@@ -219,6 +219,7 @@ const calculateMoves = (boxersChancesOfMoves, boxersLeadingSides, winner) => {
   return {
     leftBoxerMoves: winner === 'left' ? winnerMoves : loserMoves,
     rightBoxerMoves: winner === 'left' ? loserMoves : winnerMoves,
+    winner,
   };
 };
 

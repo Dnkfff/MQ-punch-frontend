@@ -1,4 +1,4 @@
-import { Matrix4 } from 'three';
+import { Matrix4, Vector3 } from 'three';
 
 import boxerParameters from '../../constants/boxerParameters';
 
@@ -58,6 +58,44 @@ class Boxer {
     this.model.position.x *= -1.0;
     this.model.rotation.y *= -1.0;
     this.model.applyMatrix4(new Matrix4().makeScale(-1.0, 1.0, 1.0));
+  }
+
+  move(direction, borders, coefficient) {
+    let boxerMoveVector = new Vector3(Math.sin(this.model.rotation.y), 0.0, Math.cos(this.model.rotation.y));
+    boxerMoveVector.multiplyScalar(boxerParameters.scale * boxerParameters.stepSize * coefficient);
+    const rotationAxisVector = new Vector3(0.0, 1.0, 0.0);
+
+    if (direction === 'forward') {
+      this.model.position.add(boxerMoveVector);
+    } else if (direction === 'backward') {
+      boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI);
+      this.model.position.add(boxerMoveVector);
+    } else if (direction === 'left') {
+      boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI / 2.0);
+      this.model.position.add(boxerMoveVector);
+    } else if (direction === 'right') {
+      boxerMoveVector.applyAxisAngle(rotationAxisVector, -Math.PI / 2.0);
+      this.model.position.add(boxerMoveVector);
+    }
+
+    if (this.model.position.x < borders.x.min) {
+      this.model.position.x = borders.x.min;
+    } else if (this.model.position.x > borders.x.max) {
+      this.model.position.x = borders.x.max;
+    }
+    if (this.model.position.z < borders.z.min) {
+      this.model.position.z = borders.z.min;
+    } else if (this.model.position.z > borders.z.max) {
+      this.model.position.z = borders.z.max;
+    }
+  }
+
+  face(anotherBoxer) {
+    this.model.lookAt(anotherBoxer.model.position);
+  }
+
+  getDistance(anotherBoxer) {
+    return this.model.position.distanceTo(anotherBoxer.model.position);
   }
 }
 

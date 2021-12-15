@@ -1,8 +1,7 @@
-import { calculateBarycenterOfBoxers } from './duelAlgorithms';
+import { switchBoxerLeadingSide, calculateDistanceCoefficient, moveBoxer } from './duelAlgorithms';
 
 import duelParameters from '../../constants/duelParameters';
 import viewNames from '../../constants/viewNames';
-import { switchLeadingSideAnimationName } from '../../constants/duelAnimationNames';
 
 
 class DuelController {
@@ -17,6 +16,7 @@ class DuelController {
       this.mode = 'stop';
       this.cameraController = cameraController;
       this.currentCameraViewNumber = 0;
+      this.winner = duelScenario.winner;
     }
 
     act(deltaTime) {
@@ -37,12 +37,14 @@ class DuelController {
 
             if (boxerMove.move.whole !== undefined) {
               boxer.requestAnimation(boxerMove.move.whole, 'whole');
-              if (boxerMove.move.whole === switchLeadingSideAnimationName) {
-                boxer.switchLeadingSide();
-              }
+
+              switchBoxerLeadingSide(boxer, boxerMove);
             } else {
               boxer.requestAnimation(boxerMove.move.lower, 'lower');
               boxer.requestAnimation(boxerMove.move.upper, 'upper');
+
+              const coefficient = calculateDistanceCoefficient(this.leftBoxer, this.rightBoxer);
+              moveBoxer(boxer, boxerMove, coefficient);
             }
           }
         };
@@ -50,12 +52,15 @@ class DuelController {
         animateBoxer(this.leftBoxerMoves, this.finishedLeftBoxerMoves, this.leftBoxer);
         animateBoxer(this.rightBoxerMoves, this.finishedRightBoxerMoves, this.rightBoxer);
 
-        if (this.leftBoxerMoves.length === 0 && this.rightBoxerMoves.length === 0) {
-          this.prepareSlowMotion();
-        }
+        this.leftBoxer.face(this.rightBoxer);
+        this.rightBoxer.face(this.leftBoxer);
 
         this.leftBoxer.animate(deltaTime);
         this.rightBoxer.animate(deltaTime);
+
+        if (this.leftBoxerMoves.length === 0 && this.rightBoxerMoves.length === 0) {
+          this.prepareSlowMotion();
+        }
       }
     }
 
@@ -71,7 +76,7 @@ class DuelController {
 
       this.cameraController.setView(viewNames[Math.floor(this.currentCameraViewNumber / 2)]);
       const numberIsPair = (this.currentCameraViewNumber % 2 === 0);
-      const leftBoxerIsWinner = true; // needs to be changed
+      const leftBoxerIsWinner = (this.winner === 'left');
       if (numberIsPair === leftBoxerIsWinner) {
         this.cameraController.setTargetModel(this.rightBoxer.model);
       } else {

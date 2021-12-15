@@ -283,6 +283,12 @@ const boxerAnimations = [
   },
 ];
 
-export const switchLeadingSideAnimationName = 'switch-leading-side';
+export const specialAnimationNames = {
+  switchLeadingSide: 'switch-leading-side',
+  moveForward: 'step-forward',
+  moveBackward: 'step-backward',
+  moveLeft: 'step-to-the-left',
+  moveRight: 'step-to-the-right',
+};
 
 export default boxerAnimations;
