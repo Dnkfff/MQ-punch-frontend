@@ -1,3 +1,5 @@
+/** @module containers/Game/services/setupScripts/setupWebGL */
+
 import * as THREE from 'three';
 import { EffectComposer, RenderPass, UnrealBloomPass } from 'three-stdlib';
 
@@ -5,6 +7,10 @@ import webGLParameters from '../constants/webGLParameters';
 import cameraParameters from '../constants/cameraParameters';
 
 
+/**
+  @summary Initializes the Three.js scene
+  @returns THREE.Scene
+*/
 export const setupScene = () => {
   const scene = new THREE.Scene();
 
@@ -14,11 +20,22 @@ export const setupScene = () => {
   return scene;
 };
 
+/**
+  @summary Initializes the Three.js camera
+  @param window HTML window
+  @returns THREE.PerspectiveCamera
+*/
 export const setupCamera = (window) => {
   const camera = new THREE.PerspectiveCamera(cameraParameters.fieldOfView, window.innerWidth / window.innerHeight, cameraParameters.nearPlaneDistance, cameraParameters.farPlaneDistance);
   return camera;
 };
 
+/**
+  @summary Initializes the WebGL renderer
+  @param container HTML container
+  @param window HTML window
+  @returns THREE.WebGLRenderer
+*/
 export const setupRenderer = (container, window) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -34,6 +51,14 @@ export const setupRenderer = (container, window) => {
   return renderer;
 };
 
+/**
+  @summary Initializes the Three.js composer
+  @param window HTML window
+  @param scene Three.js scene
+  @param camera Three.js camera
+  @param renderer Three.js renderer
+  @returns THREE.EffectComposer
+*/
 export const setupComposer = (window, scene, camera, renderer) => {
   const renderPass = new RenderPass(scene, camera);
 
@@ -53,6 +78,14 @@ export const setupComposer = (window, scene, camera, renderer) => {
   return composer;
 };
 
+/**
+  @summary Initializes the WebGL and Three.js environment
+  @description Initializes scene, camera, renderer and composer.
+  @param params
+  @param params.container HTML instance of container where the canvas will render
+  @param params.window HTML window
+  @returns an object of scene, camera, renderer and composer
+*/
 const setupWebGL = ({ container, window }) => {
   const scene = setupScene();
   const camera = setupCamera(window);

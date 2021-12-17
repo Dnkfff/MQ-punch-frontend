@@ -1,3 +1,25 @@
+/** @module containers/Game/services/constants/duelParameters */
+
+/**
+  @brief The object of duel economics
+  @description It contains chanceOfMoveRandomBooster,
+  duelDuration (in seconds),
+  numberOfAttackIntervals,
+  intervalDurationRandomBooster,
+  chanceOfOffensiveMove,
+  chanceOfDefensiveMove,
+  chanceOfProbeMove,
+  attackIntervalDurationCoefficient,
+  probeIntervalDurationCoefficient,
+  moveDuration (in seconds),
+  attackRestDurationCoefficient,
+  probeRestDurationCoefficient,
+  reactionTimeCoefficient,
+  chanceOfDeceptiveDefenseMove,
+  chanceOfHit,
+  slowMotionMovesNumber,
+  slowMotionMultiplier.
+*/
 const duelParameters = {
   chanceOfMoveRandomBooster: 0.1,
   duelDuration: 60.0,

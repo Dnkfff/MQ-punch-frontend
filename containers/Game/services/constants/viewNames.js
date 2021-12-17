@@ -1,3 +1,8 @@
+/** @module containers/Game/services/constants/viewNames */
+
+/**
+  @brief The object of camera view names
+*/
 const viewNames = [
   'first-person',
   'third-person-left',
@@ -11,7 +16,10 @@ const viewNames = [
   'forearm-right',
 ];
 
-export const modelBoneNames = {
+/**
+  @brief The object of shortcuts for boxer model bone names
+*/
+export const boxerModelBoneNames = {
   'head': 'mixamorigHead',
   'neck': 'mixamorigNeck',
   'spine': 'mixamorigSpine',

@@ -1,3 +1,8 @@
+/** @module containers/Game/services/constants/duelAnimationNames */
+
+/**
+  @brief The object of boxer probe animation names
+*/
 export const probeAnimationNames = [
   'jab',
   'slip-left',
@@ -8,6 +13,10 @@ export const probeAnimationNames = [
   'dive-right',
 ];
 
+/**
+  @brief The object of boxer offensive animation names
+  @description It contains bruteForceAttack, deceptiveAttack, counterAttack objects of appropriate animation names.
+*/
 export const offensiveAnimationNames = {
   bruteForceAttack: [
     'cross-up-left',
@@ -48,6 +57,11 @@ export const offensiveAnimationNames = {
   ],
 };
 
+/**
+  @brief The object of boxer defensive animation names
+  @description It contains offensive animation names as keys
+  and objects with appropriate defensive animations as values.
+*/
 export const defensiveAnimationNames = {
   'jab': {
     block: [
@@ -191,6 +205,9 @@ export const defensiveAnimationNames = {
   },
 };
 
+/**
+  @brief The object of boxer animation names for the lower body
+*/
 export const lowerAnimationNames = {
   'jab': [
     'fighting-idle-1-lower-body',
@@ -333,4 +350,7 @@ export const lowerAnimationNames = {
   ],
 };
 
+/**
+  @brief Special switch leading side animation name
+*/
 export const switchLeadingSideAnimationName = 'switch-leading-side';

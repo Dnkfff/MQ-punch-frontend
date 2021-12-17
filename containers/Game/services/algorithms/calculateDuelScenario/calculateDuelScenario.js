@@ -1,7 +1,16 @@
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateDuelScenario */
+
 import { calculateChancesOfOffensiveMoves, calculateChancesOfDefensiveMoves, calculateChancesToWin } from './calculateChances';
 import calculateMoves from './calculateMoves';
 
 
+/**
+  @summary Calculates the duel scenario
+  @description Works asynchronously.
+  @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @param rightBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @returns the duel scenario
+*/
 const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
   const boxersChancesOfMoves = {
     leftBoxerChancesOfMoves: {

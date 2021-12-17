@@ -1,3 +1,5 @@
+/** @module containers/Game/services/setupScripts/setupBoxers */
+
 import { AnimationMixer, LoopOnce, LoopRepeat } from 'three';
 import { SkeletonUtils } from 'three-stdlib';
 
@@ -12,6 +14,12 @@ import boxerAnimations from '../constants/boxerAnimations';
 import Boxer from '../classes/Boxer/Boxer';
 
 
+/**
+  @summary Initializes two Boxer instances
+  @description Loads models and animations, creates two Boxer instances.
+  @param scene Three.js scene where the two boxers will render
+  @returns an object of two Boxer instances
+*/
 const setupBoxers = async (scene) => {
   let leftModel, rightModel;
   let leftAnimationMixer, rightAnimationMixer;

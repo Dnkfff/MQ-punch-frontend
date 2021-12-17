@@ -1,3 +1,12 @@
+/** @module containers/Game/services/constants/boxerAnimations */
+
+/**
+  @brief The object of boxer animation objects
+  @description Each object has its name (animation name),
+  looped (the flag is enabled if animation can be looped if there is no next animation requested),
+  type (appropriate body part: lower, upper or whole),
+  idle (the flag is enabled if it can be used as idle animation).
+*/
 const boxerAnimations = [
   {
     name: 'fighting-idle-1-lower-body',

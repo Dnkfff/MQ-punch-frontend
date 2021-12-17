@@ -1,6 +1,13 @@
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateAttackIntervals */
+
 import duelParameters from '../../constants/duelParameters';
 
 
+/**
+  @summary Fits attack intervals in time
+  @param attackIntervals
+  @returns fitted attack intervals
+*/
 const fitAttackIntervalsInTime = (attackIntervals) => {
   const fittedAttackIntervals = attackIntervals.map(attackInterval => {
     return {
@@ -23,6 +30,12 @@ const fitAttackIntervalsInTime = (attackIntervals) => {
   return fittedAttackIntervals;
 };
 
+/**
+  @summary Calculates attack intervals
+  @description Contains random.
+  @param attackIntervals
+  @returns attack intervals
+*/
 const calculateAttackIntervals = () => {
   let attackIntervals = [];
 

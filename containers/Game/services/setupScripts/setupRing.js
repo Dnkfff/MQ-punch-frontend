@@ -1,9 +1,15 @@
+/** @module containers/Game/services/setupScripts/setupRing */
+
 import * as THREE from 'three';
 
 import webGLParameters from '../constants/webGLParameters';
 import ringParameters from '../constants/ringParameters';
 
 
+/**
+  @summary Initializes ring canvas
+  @param scene WebGL scene
+*/
 export const setupCanvas = (scene) => {
   const geometry = new THREE.BoxGeometry(ringParameters.canvas.width, ringParameters.canvas.height, ringParameters.canvas.width);
   const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(ringParameters.canvas.color) });
@@ -17,6 +23,10 @@ export const setupCanvas = (scene) => {
   scene.add(canvas);
 };
 
+/**
+  @summary Initializes ring pillars
+  @param scene WebGL scene
+*/
 export const setupPillars = (scene) => {
   const geometry = new THREE.CylinderGeometry(ringParameters.pillars.radius, ringParameters.pillars.radius, ringParameters.canvas.height + ringParameters.ropes.height, 32);
   const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(ringParameters.pillars.color) });
@@ -48,6 +58,10 @@ export const setupPillars = (scene) => {
   }
 };
 
+/**
+  @summary Initializes ring ropes
+  @param scene WebGL scene
+*/
 export const setupRopes = (scene) => {
   const geometry = new THREE.CylinderGeometry(ringParameters.ropes.radius, ringParameters.ropes.radius, ringParameters.canvas.width, 32);
   const material = new THREE.MeshBasicMaterial({ color: new THREE.Color(ringParameters.ropes.color) });
@@ -88,6 +102,11 @@ export const setupRopes = (scene) => {
   }
 };
 
+/**
+  @summary Initializes ring and rest of environment
+  @description Initializes ring canvas, pillars and ropes.
+  @param scene WebGL scene where the ring will render
+*/
 const setupRing = (scene) => {
   setupCanvas(scene);
   setupPillars(scene);

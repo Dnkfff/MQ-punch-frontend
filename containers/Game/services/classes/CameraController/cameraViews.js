@@ -1,3 +1,5 @@
+/** @module containers/Game/services/classes/CameraController/cameraViews */
+
 import firstPersonView from './views/firstPersonView';
 import thirdPersonLeftView from './views/thirdPersonLeftView';
 import thirdPersonCenterView from './views/thirdPersonCenterView';
@@ -12,6 +14,11 @@ import forearmRightView from './views/forearmRightView';
 import viewNames from '../../constants/viewNames';
 
 
+/**
+  @summary CameraViews object
+  @description It contains view names as keys
+  and appropriate view functions as values.
+*/
 const cameraViews = {
   [viewNames[0]]: firstPersonView,
   [viewNames[1]]: thirdPersonLeftView,

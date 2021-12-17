@@ -1,3 +1,5 @@
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMoves */
+
 import calculateMoveTimings from './calculateMoveTimings';
 
 import duelParameters from '../../constants/duelParameters';
@@ -10,6 +12,13 @@ import {
 } from '../../constants/duelAnimationNames';
 
 
+/**
+  @summary Pushes specified move into moves list
+  @description Contains random.
+  @param move move object
+  @param moveTimingStartTime move start time
+  @param moves moves list
+*/
 const pushTheMove = (move, moveTimingStartTime, moves) => {
   const randomMultiplier = 0.5 + 0.5 * Math.random();
   const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.moveDuration * randomMultiplier;
@@ -21,6 +30,11 @@ const pushTheMove = (move, moveTimingStartTime, moves) => {
   });
 };
 
+/**
+  @summary Changes upperBodyMoveName according to leadinSide
+  @param upperBodyMoveName
+  @param leadingSide
+*/
 const applyLeadingSide = (upperBodyMoveName, leadingSide) => {
   if (leadingSide === 'left') {
     if (upperBodyMoveName.includes('left')) {
@@ -31,6 +45,14 @@ const applyLeadingSide = (upperBodyMoveName, leadingSide) => {
   }
 };
 
+/**
+  @summary Pushes probe move into moves list
+  @description Contains random.
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+  @param params.leadingSide
+*/
 const pushProbeMove = ({ moveTimingStartTime, moves, leadingSide }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
@@ -48,6 +70,14 @@ const pushProbeMove = ({ moveTimingStartTime, moves, leadingSide }) => {
   pushTheMove(move, moveTimingStartTime, moves);
 };
 
+/**
+  @summary Pushes deceptive attack move into moves list
+  @description Contains random.
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+  @param params.leadingSide
+*/
 const pushDeceptiveAttackMove = ({ moveTimingStartTime, moves, leadingSide }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
@@ -69,6 +99,15 @@ const pushDeceptiveAttackMove = ({ moveTimingStartTime, moves, leadingSide }) =>
   return upperBodyMoveName;
 };
 
+/**
+  @summary Pushes offensive move into moves list
+  @description Contains random.
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+  @param params.leadingSide
+  @param params.chancesOfMoves an object with chances of each move
+*/
 const pushOffensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
@@ -107,6 +146,16 @@ const pushOffensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfM
   };
 };
 
+/**
+  @summary Pushes deceptive defence move into moves list
+  @description Contains random.
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+  @param params.leadingSide
+  @param params.chancesOfMoves an object with chances of each move
+  @param params.offensiveMove offensive move name
+*/
 const pushDeceptiveDefenseMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMove }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
@@ -132,6 +181,16 @@ const pushDeceptiveDefenseMove = ({ moveTimingStartTime, moves, leadingSide, cha
   });
 };
 
+/**
+  @summary Pushes defensive move into moves list
+  @description Contains random.
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+  @param params.leadingSide
+  @param params.chancesOfMoves an object with chances of each move
+  @param params.offensiveMove offensive move name
+*/
 const pushDefensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfMoves, offensiveMove }) => {
   let lowerBodyMoveName, upperBodyMoveName;
 
@@ -167,6 +226,12 @@ const pushDefensiveMove = ({ moveTimingStartTime, moves, leadingSide, chancesOfM
   pushTheMove(move, moveTimingStartTime, moves);
 };
 
+/**
+  @summary Pushes switch leading side move into moves list
+  @param params
+  @param params.moveTimingStartTime move timing start time
+  @param params.moves moves list
+*/
 const pushSwitchLeadingSideMove = ({ moveTimingStartTime, moves }) => {
   const move = {
     whole: switchLeadingSideAnimationName,
@@ -174,6 +239,15 @@ const pushSwitchLeadingSideMove = ({ moveTimingStartTime, moves }) => {
   pushTheMove(move, moveTimingStartTime, moves);
 };
 
+/**
+  @summary Calculates move timings for each boxer
+  @param params
+  @param params.boxersChancesOfMoves an object with chances of each move for each boxer
+  @param params.boxersLeadingSides an object with leading sides of each boxer
+  @param params.winner winner of the duel
+  @returns an object with leftBoxerMoves (object that contains startTime and move),
+  rightBoxerMoves and winner
+*/
 const calculateMoves = (boxersChancesOfMoves, boxersLeadingSides, winner) => {
   const { leftBoxerChancesOfMoves, rightBoxerChancesOfMoves } = boxersChancesOfMoves;
   const { leftBoxerLeadingSide, rightBoxerLeadingSide } = boxersLeadingSides;

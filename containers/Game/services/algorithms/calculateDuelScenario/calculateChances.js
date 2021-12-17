@@ -1,7 +1,15 @@
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateChances */
+
 import duelEconomics from '../../constants/duelEconomics';
 import duelParameters from '../../constants/duelParameters';
 
 
+/**
+  @summary Calculates chances of offensive moves based on given boxer stats
+  @description Contains random.
+  @param boxerStats an object with boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @returns an object with chanceOfBruteForceAttack, chanceOfDeceptiveAttack and chanceOfCounterAttack
+*/
 export const calculateChancesOfOffensiveMoves = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
@@ -20,6 +28,12 @@ export const calculateChancesOfOffensiveMoves = (boxerStats) => {
   };
 };
 
+/**
+  @summary Calculates chances of defensive moves based on given boxer stats
+  @description Contains random.
+  @param boxerStats an object with boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @returns an object with chanceOfBlock and chanceOfDodge
+*/
 export const calculateChancesOfDefensiveMoves = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier = 1.0 + duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
@@ -35,6 +49,13 @@ export const calculateChancesOfDefensiveMoves = (boxerStats) => {
   };
 };
 
+/**
+  @summary Calculates chances of each boxer to win based on given boxer stats
+  @description Contains random.
+  @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @param leftBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
+  @returns an object with chanceForLeftBoxerToWin and chanceForRightBoxerToWin
+*/
 export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   let randomMultiplier;
 

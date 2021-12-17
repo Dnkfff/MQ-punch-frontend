@@ -1,9 +1,27 @@
+/** @module containers/Game/services/classes/Boxer/Boxer */
+
 import { Matrix4, Vector3 } from 'three';
 
 import boxerParameters from '../../constants/boxerParameters';
 
 
+/**
+  @summary The Boxer class
+  @description Initializes Three.js scene (on WebGL), boxers, skybox, camera controller,
+  ring environment, runs the duel scenario calculation algorithm.
+  Then starts duel controller and renders scene objects.
+  @class
+*/
 class Boxer {
+  /**
+    @summary Boxer constructor
+    @constructor
+    @param params
+    @param params.model boxer model
+    @param params.animationMixer Three.js animation mixer
+    @param params.animationActions Three.js animation actions array
+    @param params.idleAnimations an object of idle animation names for the lower and the upper body
+  */
   constructor({ model, animationMixer, animationActions, idleAnimations }) {
     this.model = model;
     this.animationMixer = animationMixer;
@@ -15,6 +33,11 @@ class Boxer {
     this.leadingSide = 'right';
   }
 
+  /**
+    @summary Animates the model
+    @description Updates animationMixer with deltaTime, switches to idle animations if requested are finished.
+    @param deltaTime time in ms passed since the last call
+  */
   animate(deltaTime) {
     this.animationMixer.update(deltaTime);
 
@@ -29,6 +52,12 @@ class Boxer {
     }
   }
 
+  /**
+    @summary Requests an animation
+    @description Fades in current animation and fades out the requested one with blending.
+    @param name requested animation name
+    @param type for the lower, the upper or the whole body
+  */
   requestAnimation(name, type) {
     const transitionDuration = boxerParameters.animationTransitionDuration;
     const lowerBodyAnimationAction = this.animationActions[this.currentLowerBodyAnimationName];
@@ -48,6 +77,10 @@ class Boxer {
     }
   }
 
+  /**
+    @summary Switches the leading side
+    @description Mirrors the model using matrix.
+  */
   switchLeadingSide() {
     if (this.leadingSide === 'left') {
       this.leadingSide = 'right';
@@ -60,6 +93,13 @@ class Boxer {
     this.model.applyMatrix4(new Matrix4().makeScale(-1.0, 1.0, 1.0));
   }
 
+  /**
+    @summary Moves the model on canvas
+    @description The function moves the boxer model handling collisions with the canvas.
+    @param direction time in ms passed since the last call
+    @param borders time in ms passed since the last call
+    @param coefficient in ms passed since the last call
+  */
   move(direction, borders, coefficient) {
     let boxerMoveVector = new Vector3(Math.sin(this.model.rotation.y), 0.0, Math.cos(this.model.rotation.y));
     boxerMoveVector.multiplyScalar(boxerParameters.scale * boxerParameters.stepSize * coefficient);
@@ -90,10 +130,19 @@ class Boxer {
     }
   }
 
+  /**
+    @summary Makes the model face at another boxer's model
+    @param anotherBoxer target boxer model
+  */
   face(anotherBoxer) {
     this.model.lookAt(anotherBoxer.model.position);
   }
 
+  /**
+    @summary Returns distance between the model and the give one
+    @param anotherBoxer target boxer model
+    @returns distance to the given model
+  */
   getDistance(anotherBoxer) {
     return this.model.position.distanceTo(anotherBoxer.model.position);
   }

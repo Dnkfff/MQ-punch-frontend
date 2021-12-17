@@ -1,3 +1,5 @@
+/** @module containers/Game/services/setupScripts/setupSkybox */
+
 import * as THREE from 'three';
 
 import { loadTexture } from '../algorithms/assetsLoaders';
@@ -6,6 +8,12 @@ import webGLParameters from '../constants/webGLParameters';
 import cameraParameters from '../constants/cameraParameters';
 
 
+/**
+  @summary Initializes skybox
+  @description Loads skybox texture and place it in the scene.
+  @param scene WebGL scene where the skybox will render
+  @returns skybox Skybox THREE.Mesh instance
+*/
 const setupSkybox = async (scene) => {
   let texture;
 

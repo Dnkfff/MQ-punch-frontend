@@ -1,3 +1,11 @@
+/** @module containers/Game/services/constants/ringParameters */
+
+/**
+  @brief The object of ring parameters
+  @description It contains objects of canvas {width, height, color},
+  pillars {radius, color},
+  ropes {count, height, radius, color}.
+*/
 const ringParameters = {
   canvas: {
     width: 100.0,

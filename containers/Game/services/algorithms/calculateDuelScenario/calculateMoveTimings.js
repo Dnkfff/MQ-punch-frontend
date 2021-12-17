@@ -1,8 +1,18 @@
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMoveTimings */
+
 import calculateAttackIntervals from './calculateAttackIntervals';
 
 import duelParameters from '../../constants/duelParameters';
 
 
+/**
+  @summary Calculates move timings
+  @description Contains random.
+  @param leftBoxerLeadingSide
+  @param rightBoxerLeadingSide
+  @param winner
+  @returns the list of objects that contains startTime, winnerMoveType, winnerLeadingSide and loserLeadingSide
+*/
 const calculateMoveTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winner) => {
   let moveTimings = [];
 
