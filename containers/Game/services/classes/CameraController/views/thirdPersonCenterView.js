@@ -1,12 +1,14 @@
 /** @module containers/Game/services/classes/CameraController/views/thirdPersonCenterView */
 
-import { Vector3 } from 'three';
+import { Vector3 } from "three";
 
-import { getGeometricAttributesOfModelChildByName, calculateCameraParameters } from '../cameraAlgorithms';
+import {
+  getGeometricAttributesOfModelChildByName,
+  calculateCameraParameters,
+} from "../cameraAlgorithms";
 
-import boxerParameters from '../../../constants/boxerParameters';
-import { boxerModelBoneNames } from '../../../constants/viewNames';
-
+import boxerParameters from "../../../constants/boxerParameters";
+import { boxerModelBoneNames } from "../../../constants/viewNames";
 
 /**
   @summary View from the center of the third person function
@@ -16,14 +18,26 @@ import { boxerModelBoneNames } from '../../../constants/viewNames';
   @returns new camera parameters
 */
 const thirdPersonCenterView = (model) => {
-  const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, boxerModelBoneNames['neck']);
+  const { childPosition, parentRotation, childQuaternion } =
+    getGeometricAttributesOfModelChildByName(
+      model,
+      boxerModelBoneNames["neck"]
+    );
 
-  const positionOffsetVector = new Vector3(Math.sin(parentRotation.y), Math.sin(-Math.PI / 12.0), Math.cos(parentRotation.y));
+  const positionOffsetVector = new Vector3(
+    Math.sin(parentRotation.y),
+    Math.sin(-Math.PI / 12.0),
+    Math.cos(parentRotation.y)
+  );
   const lookAtVector = positionOffsetVector.clone();
 
   positionOffsetVector.multiplyScalar(boxerParameters.scale * -20.0);
 
-  return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
+  return calculateCameraParameters({
+    childPosition,
+    positionOffsetVector,
+    lookAtVector,
+  });
 };
 
 export default thirdPersonCenterView;

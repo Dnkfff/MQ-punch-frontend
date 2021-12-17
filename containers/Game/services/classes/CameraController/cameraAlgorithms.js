@@ -23,7 +23,11 @@ export const getGeometricAttributesOfModelChildByName = (model, name) => {
   @param params.lookAtVector relative lookAt vector
   @returns an object with cameraPosition and cameraLookAt Three.js vectors
 */
-export const calculateCameraParameters = ({ childPosition, positionOffsetVector, lookAtVector }) => {
+export const calculateCameraParameters = ({
+  childPosition,
+  positionOffsetVector,
+  lookAtVector,
+}) => {
   const cameraPosition = childPosition.clone();
   cameraPosition.add(positionOffsetVector);
 

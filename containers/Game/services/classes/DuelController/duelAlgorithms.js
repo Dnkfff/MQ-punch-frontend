@@ -1,9 +1,8 @@
 /** @module containers/Game/services/classes/DuelContoller/duelAlgorithms */
 
-import ringParameters from '../../constants/ringParameters';
-import boxerParameters from '../../constants/boxerParameters';
-import { specialAnimationNames } from '../../constants/boxerAnimations';
-
+import ringParameters from "../../constants/ringParameters";
+import boxerParameters from "../../constants/boxerParameters";
+import { specialAnimationNames } from "../../constants/boxerAnimations";
 
 /**
   @summary Switches given boxer leading side if it requests the appropriate animation
@@ -26,7 +25,10 @@ export const switchBoxerLeadingSide = (boxer, boxerMove) => {
 export const calculateDistanceCoefficient = (leftBoxer, rightBoxer) => {
   const distance = leftBoxer.getDistance(rightBoxer);
 
-  return Math.min(distance / (boxerParameters.scale * boxerParameters.normalDistance), 2.0);
+  return Math.min(
+    distance / (boxerParameters.scale * boxerParameters.normalDistance),
+    2.0
+  );
 };
 
 /**
@@ -51,12 +53,12 @@ export const moveBoxer = (boxer, boxerMove, coefficient) => {
   };
 
   if (boxerMove.move.lower === specialAnimationNames.moveForward) {
-    boxer.move('forward', borders, coefficient);
+    boxer.move("forward", borders, coefficient);
   } else if (boxerMove.move.lower === specialAnimationNames.moveBackward) {
-    boxer.move('backward', borders, 1.0 / coefficient);
+    boxer.move("backward", borders, 1.0 / coefficient);
   } else if (boxerMove.move.lower === specialAnimationNames.moveLeft) {
-    boxer.move('left', borders, 1.0);
+    boxer.move("left", borders, 1.0);
   } else if (boxerMove.move.lower === specialAnimationNames.moveRight) {
-    boxer.move('right', borders, 1.0);
+    boxer.move("right", borders, 1.0);
   }
 };

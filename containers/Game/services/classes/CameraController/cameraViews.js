@@ -1,18 +1,17 @@
 /** @module containers/Game/services/classes/CameraController/cameraViews */
 
-import firstPersonView from './views/firstPersonView';
-import thirdPersonLeftView from './views/thirdPersonLeftView';
-import thirdPersonCenterView from './views/thirdPersonCenterView';
-import thirdPersonRightView from './views/thirdPersonRightView';
-import sideLeftView from './views/sideLeftView';
-import sideRightView from './views/sideRightView';
-import aboveView from './views/aboveView';
-import belowView from './views/belowView';
-import forearmLeftView from './views/forearmLeftView';
-import forearmRightView from './views/forearmRightView';
+import firstPersonView from "./views/firstPersonView";
+import thirdPersonLeftView from "./views/thirdPersonLeftView";
+import thirdPersonCenterView from "./views/thirdPersonCenterView";
+import thirdPersonRightView from "./views/thirdPersonRightView";
+import sideLeftView from "./views/sideLeftView";
+import sideRightView from "./views/sideRightView";
+import aboveView from "./views/aboveView";
+import belowView from "./views/belowView";
+import forearmLeftView from "./views/forearmLeftView";
+import forearmRightView from "./views/forearmRightView";
 
-import viewNames from '../../constants/viewNames';
-
+import viewNames from "../../constants/viewNames";
 
 /**
   @summary CameraViews object

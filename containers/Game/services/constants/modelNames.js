@@ -5,7 +5,7 @@
   @description It contains boxer.
 */
 const modelNames = {
-  boxer: 'ybot',
+  boxer: "ybot",
 };
 
 export default modelNames;

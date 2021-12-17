@@ -19,9 +19,7 @@ const webGLParameters = {
     threshold: 0.0,
     radius: 0.0,
   },
-  motionBlur: {
-    
-  },
+  motionBlur: {}, // TODO motion blur
   lights: {
     ambient: {
       color: 0xffffff,

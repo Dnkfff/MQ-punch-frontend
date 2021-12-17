@@ -1,9 +1,8 @@
 /** @module containers/Game/services/classes/Boxer/Boxer */
 
-import { Matrix4, Vector3 } from 'three';
+import { Matrix4, Vector3 } from "three";
 
-import boxerParameters from '../../constants/boxerParameters';
-
+import boxerParameters from "../../constants/boxerParameters";
 
 /**
   @summary The Boxer class
@@ -30,7 +29,7 @@ class Boxer {
     this.upperBodyIdleAnimation = idleAnimations.upper;
     this.currentLowerBodyAnimationName = this.lowerBodyIdleAnimation;
     this.currentUpperBodyAnimationName = this.upperBodyIdleAnimation;
-    this.leadingSide = 'right';
+    this.leadingSide = "right";
   }
 
   /**
@@ -41,14 +40,16 @@ class Boxer {
   animate(deltaTime) {
     this.animationMixer.update(deltaTime);
 
-    const currentLowerBodyAnimationIsRunning = this.animationActions[this.currentLowerBodyAnimationName].isRunning();
+    const currentLowerBodyAnimationIsRunning =
+      this.animationActions[this.currentLowerBodyAnimationName].isRunning();
     if (!currentLowerBodyAnimationIsRunning) {
-      this.requestAnimation(this.lowerBodyIdleAnimation, 'lower');
+      this.requestAnimation(this.lowerBodyIdleAnimation, "lower");
     }
 
-    const currentUpperBodyAnimationIsRunning = this.animationActions[this.currentUpperBodyAnimationName].isRunning();
+    const currentUpperBodyAnimationIsRunning =
+      this.animationActions[this.currentUpperBodyAnimationName].isRunning();
     if (!currentUpperBodyAnimationIsRunning) {
-      this.requestAnimation(this.upperBodyIdleAnimation, 'upper');
+      this.requestAnimation(this.upperBodyIdleAnimation, "upper");
     }
   }
 
@@ -60,18 +61,26 @@ class Boxer {
   */
   requestAnimation(name, type) {
     const transitionDuration = boxerParameters.animationTransitionDuration;
-    const lowerBodyAnimationAction = this.animationActions[this.currentLowerBodyAnimationName];
-    const upperBodyAnimationAction = this.animationActions[this.currentUpperBodyAnimationName];
+    const lowerBodyAnimationAction =
+      this.animationActions[this.currentLowerBodyAnimationName];
+    const upperBodyAnimationAction =
+      this.animationActions[this.currentUpperBodyAnimationName];
 
     this.animationActions[name].reset();
     this.animationActions[name].fadeIn(transitionDuration);
     this.animationActions[name].play();
 
-    if ((type === 'lower' || type === 'whole') && this.currentLowerBodyAnimationName !== name) {
+    if (
+      (type === "lower" || type === "whole") &&
+      this.currentLowerBodyAnimationName !== name
+    ) {
       lowerBodyAnimationAction.fadeOut(transitionDuration);
       this.currentLowerBodyAnimationName = name;
     }
-    if ((type === 'upper' || type === 'whole') && this.currentUpperBodyAnimationName !== name) {
+    if (
+      (type === "upper" || type === "whole") &&
+      this.currentUpperBodyAnimationName !== name
+    ) {
       upperBodyAnimationAction.fadeOut(transitionDuration);
       this.currentUpperBodyAnimationName = name;
     }
@@ -82,10 +91,10 @@ class Boxer {
     @description Mirrors the model using matrix.
   */
   switchLeadingSide() {
-    if (this.leadingSide === 'left') {
-      this.leadingSide = 'right';
+    if (this.leadingSide === "left") {
+      this.leadingSide = "right";
     } else {
-      this.leadingSide = 'left';
+      this.leadingSide = "left";
     }
 
     this.model.position.x *= -1.0;
@@ -101,19 +110,25 @@ class Boxer {
     @param coefficient in ms passed since the last call
   */
   move(direction, borders, coefficient) {
-    let boxerMoveVector = new Vector3(Math.sin(this.model.rotation.y), 0.0, Math.cos(this.model.rotation.y));
-    boxerMoveVector.multiplyScalar(boxerParameters.scale * boxerParameters.stepSize * coefficient);
+    let boxerMoveVector = new Vector3(
+      Math.sin(this.model.rotation.y),
+      0.0,
+      Math.cos(this.model.rotation.y)
+    );
+    boxerMoveVector.multiplyScalar(
+      boxerParameters.scale * boxerParameters.stepSize * coefficient
+    );
     const rotationAxisVector = new Vector3(0.0, 1.0, 0.0);
 
-    if (direction === 'forward') {
+    if (direction === "forward") {
       this.model.position.add(boxerMoveVector);
-    } else if (direction === 'backward') {
+    } else if (direction === "backward") {
       boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI);
       this.model.position.add(boxerMoveVector);
-    } else if (direction === 'left') {
+    } else if (direction === "left") {
       boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI / 2.0);
       this.model.position.add(boxerMoveVector);
-    } else if (direction === 'right') {
+    } else if (direction === "right") {
       boxerMoveVector.applyAxisAngle(rotationAxisVector, -Math.PI / 2.0);
       this.model.position.add(boxerMoveVector);
     }

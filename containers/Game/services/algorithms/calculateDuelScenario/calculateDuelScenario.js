@@ -1,8 +1,11 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateDuelScenario */
 
-import { calculateChancesOfOffensiveMoves, calculateChancesOfDefensiveMoves, calculateChancesToWin } from './calculateChances';
-import calculateMoves from './calculateMoves';
-
+import {
+  calculateChancesOfOffensiveMoves,
+  calculateChancesOfDefensiveMoves,
+  calculateChancesToWin,
+} from "./calculateChances";
+import calculateMoves from "./calculateMoves";
 
 /**
   @summary Calculates the duel scenario
@@ -22,16 +25,21 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
       defensive: calculateChancesOfDefensiveMoves(rightBoxerStats),
     },
   };
-  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(leftBoxerStats, rightBoxerStats);
+  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } =
+    calculateChancesToWin(leftBoxerStats, rightBoxerStats);
   const randomChance = Math.random();
-  const winner = randomChance < chanceForLeftBoxerToWin ? 'left' : 'right';
+  const winner = randomChance < chanceForLeftBoxerToWin ? "left" : "right";
 
   const boxersLeadingSides = {
     leftBoxerLeadingSide: leftBoxerStats.leadingSide,
     rightBoxerLeadingSide: rightBoxerStats.leadingSide,
   };
 
-  const duelScenario = calculateMoves(boxersChancesOfMoves, boxersLeadingSides, winner);
+  const duelScenario = calculateMoves(
+    boxersChancesOfMoves,
+    boxersLeadingSides,
+    winner
+  );
 
   return duelScenario;
 };

@@ -1,9 +1,8 @@
 /** @module containers/Game/services/classes/CameraController/CameraController */
 
-import cameraViews from './cameraViews';
+import cameraViews from "./cameraViews";
 
-import viewNames from '../../constants/viewNames';
-
+import viewNames from "../../constants/viewNames";
 
 /**
   @summary The CameraController class
@@ -56,8 +55,14 @@ class CameraController {
     @summary Updates camera parameters according to active view
   */
   modesHandler() {
-    const { cameraPosition, cameraLookAt } = cameraViews[this.view](this.targetModel);
-    this.camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    const { cameraPosition, cameraLookAt } = cameraViews[this.view](
+      this.targetModel
+    );
+    this.camera.position.set(
+      cameraPosition.x,
+      cameraPosition.y,
+      cameraPosition.z
+    );
     this.camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
   }
 

@@ -1,12 +1,14 @@
 /** @module containers/Game/services/classes/CameraController/views/forearmLeftView */
 
-import { Vector3 } from 'three';
+import { Vector3 } from "three";
 
-import { getGeometricAttributesOfModelChildByName, calculateCameraParameters } from '../cameraAlgorithms';
+import {
+  getGeometricAttributesOfModelChildByName,
+  calculateCameraParameters,
+} from "../cameraAlgorithms";
 
-import boxerParameters from '../../../constants/boxerParameters';
-import { boxerModelBoneNames } from '../../../constants/viewNames';
-
+import boxerParameters from "../../../constants/boxerParameters";
+import { boxerModelBoneNames } from "../../../constants/viewNames";
 
 /**
   @summary View from the left forearm function
@@ -16,9 +18,17 @@ import { boxerModelBoneNames } from '../../../constants/viewNames';
   @returns new camera parameters
 */
 const forearmLeftView = (model) => {
-  const { childPosition, parentRotation, childQuaternion } = getGeometricAttributesOfModelChildByName(model, boxerModelBoneNames['forearm-left']);
+  const { childPosition, parentRotation, childQuaternion } =
+    getGeometricAttributesOfModelChildByName(
+      model,
+      boxerModelBoneNames["forearm-left"]
+    );
 
-  const positionOffsetVector = new Vector3(Math.sin(parentRotation.y), 0.0, Math.cos(parentRotation.y));
+  const positionOffsetVector = new Vector3(
+    Math.sin(parentRotation.y),
+    0.0,
+    Math.cos(parentRotation.y)
+  );
   const lookAtVector = positionOffsetVector.clone();
 
   positionOffsetVector.applyQuaternion(childQuaternion);
@@ -26,7 +36,11 @@ const forearmLeftView = (model) => {
 
   positionOffsetVector.multiplyScalar(boxerParameters.scale * -5.0);
 
-  return calculateCameraParameters({ childPosition, positionOffsetVector, lookAtVector });
+  return calculateCameraParameters({
+    childPosition,
+    positionOffsetVector,
+    lookAtVector,
+  });
 };
 
 export default forearmLeftView;
