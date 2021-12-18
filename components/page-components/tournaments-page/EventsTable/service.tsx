@@ -1,8 +1,8 @@
 import cn from 'classnames';
 
 // types
-import { FutureEventType } from '../../../../../../inside-services/types/events/events';
-import { DIVISION_TO_ICON_MATCH } from '../../../../../../inside-services/constants/rating';
+import { FutureEventType } from '../../../../inside-services/types/events/events';
+import { DIVISION_TO_ICON_MATCH } from '../../../../inside-services/constants/rating';
 
 interface EventsMapperInterface {
   el: FutureEventType;

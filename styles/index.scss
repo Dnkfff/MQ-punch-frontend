@@ -30,6 +30,7 @@
 // UI
 @import '../components/UI/GlobalLoader/globalLoader.scss';
 @import '../components/UI/PortalModal/portalModal.scss';
+@import '../components/UI/Spinner/spinner.scss';
 
 // Form
 @import '../components/form/Input/input.scss';
@@ -68,5 +69,5 @@
 @import '../components/page-components/tournaments-page/TournamentsTopMenu/tournamentsTopMenu.scss';
 
 //  ---> events page
-@import '../components/page-components/tournaments-page/MainEventsBlock/components/EventsTab/eventsTab.scss';
+@import '../components/page-components/tournaments-page/EventsTable/eventsTable.scss';
 @import '../components/page-components/tournaments-page/MainEventsBlock/mainEventsBlock.scss';

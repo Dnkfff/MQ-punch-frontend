@@ -3,45 +3,50 @@ import InfiniteScroller from 'react-infinite-scroller';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 
+// components
+import Spinner from '../../../UI/Spinner/Spinner';
+
 // function
-import { getUUID } from '../../../../../../inside-services/get-uuid/get-uuid';
-import { setPageSearchResult } from '../../../../../../redux/reducers/tournaments/slice';
+import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
+import { setPageSearchResult } from '../../../../redux/reducers/tournaments/slice';
 
 // service
 import { EventsMapper } from './service';
 // api
-import EventsAPI from '../../../../../../api/events/events';
+import EventsAPI from '../../../../api/events/events';
 // constants
 import {
   pageMatchEventStatus,
   EVENTS_PAGE_LABEL,
-} from '../../../../../../inside-services/constants/events';
+} from '../../../../inside-services/constants/events';
 
 // types
-import { FutureEventType } from '../../../../../../inside-services/types/events/events';
+import { FutureEventType } from '../../../../inside-services/types/events/events';
 
 interface EventsTabProps {
-  loading: boolean;
+  eventsLoading: boolean;
+  eventsPaginationLoading: boolean;
   events?: [] | Array<FutureEventType>;
   metaData: any;
 }
 
-const EventsTab: React.FC<EventsTabProps> = (props) => {
-  const { loading, events, metaData } = props;
+const EventsTable: React.FC<EventsTabProps> = (props) => {
+  const { eventsLoading, eventsPaginationLoading, events, metaData } = props;
   const dispatch = useDispatch();
+
   const eventsAPI = new EventsAPI();
   eventsAPI.setPageParameters({ status: 'future' });
   eventsAPI.setNewPaginationState({ page: 0 });
 
   const [openedEvent, setOpenedEvent] = useState(null);
 
-  const screenWidthDesktop = typeof window !== 'undefined' && window.innerWidth > 1024;
-  const screenWidthMobile = typeof window !== 'undefined' && window.innerWidth <= 1024;
+  const screenWidthDesktop: boolean = typeof window !== 'undefined' && window.innerWidth > 1024;
+  const screenWidthMobile: boolean = typeof window !== 'undefined' && window.innerWidth <= 1024;
 
-  const eventsNotFound = !loading && events && events.length === 0;
-  const eventsExist = !loading && events && events.length !== 0;
+  const eventsNotFound: boolean = !eventsLoading && events && events.length === 0;
+  const eventsExist: boolean = !eventsLoading && events && events.length !== 0;
 
-  const tableIsFull = events && events.length >= metaData.totalRows;
+  const tableIsFull: boolean = events && events.length >= metaData.totalRows;
 
   useEffect(() => {
     // get page events function
@@ -73,7 +78,7 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
             </div>
           </div>
           <div className={cn('body', 'ET-body')}>
-            {loading &&
+            {eventsLoading &&
               Array(20)
                 .fill(null)
                 .map(
@@ -105,15 +110,14 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
             {eventsExist && (
               <InfiniteScroller
                 loadMore={
-                  !tableIsFull && !loading
+                  !tableIsFull && !eventsLoading && !eventsPaginationLoading
                     ? () => {
                         eventsAPI.setNewPaginationState({ page: eventsAPI.page + 1 });
                         getPageEvents();
                       }
                     : null
                 }
-                hasMore={!tableIsFull && !loading}
-                loader={<div>loading...</div>}
+                hasMore={!tableIsFull && !eventsLoading && !eventsPaginationLoading}
               >
                 {events.map(
                   (el: FutureEventType): JSX.Element => (
@@ -123,6 +127,11 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
                       setOpenedEvent={setOpenedEvent}
                     />
                   )
+                )}
+                {eventsPaginationLoading && (
+                  <div className='loader-container'>
+                    <Spinner />
+                  </div>
                 )}
               </InfiniteScroller>
             )}
@@ -165,4 +174,4 @@ const EventsTab: React.FC<EventsTabProps> = (props) => {
   }
 };
 
-export default EventsTab;
+export default EventsTable;

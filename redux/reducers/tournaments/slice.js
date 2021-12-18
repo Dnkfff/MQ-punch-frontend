@@ -7,6 +7,7 @@ export const slice = createSlice({
     live_events: null,
     live_events_loading: false,
     events_loading: false,
+    events_pagination_loading: false,
   },
   reducers: {
     changeFilterMenuOpenedState: (state, action) => {
@@ -22,6 +23,9 @@ export const slice = createSlice({
     },
     setEventsLoading: (state, action) => {
       state.events_loading = action.payload;
+    },
+    setEventsPaginationLoading: (state, action) => {
+      state.events_pagination_loading = action.payload;
     },
     setUpdatedFilteringForm: (state, action) => {
       const { updatedFilteringForm, page } = action.payload;
@@ -47,6 +51,7 @@ export const {
   setLiveEvents,
   setLiveEventsLoading,
   setEventsLoading,
+  setEventsPaginationLoading,
   setUpdatedFilteringForm,
   setPageSearchResult,
 } = slice.actions;

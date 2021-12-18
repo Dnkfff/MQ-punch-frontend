@@ -6,6 +6,7 @@ import {
   setLiveEvents,
   setLiveEventsLoading,
   setEventsLoading,
+  setEventsPaginationLoading,
 } from '../../redux/reducers/tournaments/slice';
 
 // constants
@@ -78,14 +79,22 @@ class EventsAPI {
 
     let response = null;
 
-    store.dispatch(setEventsLoading(true));
+    if (page === 0) {
+      store.dispatch(setEventsLoading(true));
+    } else {
+      store.dispatch(setEventsPaginationLoading(true));
+    }
+
     try {
       response = await axios.get(url);
     } catch (error) {
       console.log(error);
       // TO DO
     } finally {
-      store.dispatch(setEventsLoading(false));
+      setTimeout(() => {
+        store.dispatch(setEventsLoading(false));
+        store.dispatch(setEventsPaginationLoading(false));
+      }, 3000);
     }
 
     return response?.data || [];
