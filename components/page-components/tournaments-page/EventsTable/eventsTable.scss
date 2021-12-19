@@ -148,7 +148,12 @@
     }
   }
   .ET-opened-event.opened {
-    max-height: 300px;
+    max-height: 500px;
+  }
+
+  .ET-opened-event__name {
+    font-size: 24px;
+    color: $text-dark;
   }
 
   .ET-opened-event__header {
@@ -183,15 +188,39 @@
     row-gap: 20px;
     column-gap: 20px;
 
+    > div {
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 10px;
+    }
+
+    div.player {
+      border: 2px solid rgb(201, 201, 201);
+      padding: 5px;
+      justify-content: space-between;
+      img {
+        max-width: calc(100% - 5px);
+        max-height: 100px;
+        border-radius: 10px;
+      }
+    }
+
     div.join {
-      width: 100px;
-      height: 100px;
       background-color: #eee;
       cursor: pointer;
-      display: flex;
-      align-items: center;
+      row-gap: 10px;
+      text-align: center;
       justify-content: center;
-      border-radius: 10px;
+      border: 1px solid dimgray;
+    }
+
+    div.join span {
+      font-size: 20px;
+      font-weight: 600;
+      color: dimgray;
     }
   }
 

@@ -15,8 +15,11 @@ interface EventsMapperInterface {
 
 export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
   const { el, openedEvent, setOpenedEvent } = props;
-  const { name, division, entryFee, prizePool, id } = el;
+  const { name, division, entryFee, prizePool, id, eventPlayers, countOfPlayers } = el;
   const eventIsOpened = openedEvent?.id === el.id;
+
+  const currentPlayersCount: number = eventPlayers.length;
+  const playersString: string = `${currentPlayersCount} / ${countOfPlayers}`;
 
   return (
     <>
@@ -41,7 +44,7 @@ export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
           <span>{prizePool}$</span>
         </div>
         <div className='ET-event-item__players'>
-          <span>3/9</span>
+          <span>{playersString}</span>
         </div>
       </div>
       {eventIsOpened && (
