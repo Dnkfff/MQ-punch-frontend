@@ -1,3 +1,4 @@
+// event item desciption
 .ET-body {
   .ET-event-item {
     width: 100%;
@@ -9,7 +10,10 @@
     flex-direction: row;
     align-items: center;
     border-bottom: 2px solid rgb(226, 226, 226);
-    transition: background-color 0.2s ease;
+    overflow: hidden;
+    transition: background-color 0.2s ease, height 0.2s ease, padding 0.2s ease,
+      border-bottom 0.2s ease;
+
     &:hover {
       background-color: lighten($color: $gray, $amount: 5);
 
@@ -17,6 +21,12 @@
         background-color: darken($color: $white, $amount: 5);
       }
     }
+  }
+
+  .ET-event-item.opened {
+    height: 0px;
+    padding: 0px 10px;
+    border-bottom: none;
   }
 
   .ET-event-item.skeleton {
@@ -105,5 +115,94 @@
     span {
       margin-left: 20px;
     }
+  }
+}
+
+// opened event item description
+.ET-body {
+  .ET-opened-event {
+    width: 100%;
+    background-color: $white;
+    border-radius: 5px;
+    border-bottom: 2px solid rgb(226, 226, 226);
+    position: relative;
+    overflow: auto;
+    max-height: 0px;
+    padding: 10px;
+
+    transition: max-height 0.2s ease, padding 0.2s ease;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollbar-gray;
+      border-radius: 10px;
+    }
+  }
+  .ET-opened-event.opened {
+    max-height: 300px;
+  }
+
+  .ET-opened-event__header {
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+
+  .ET-opened-event__header__top {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    column-gap: 30px;
+    align-items: center;
+  }
+
+  .ET-opened-event__header__bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+  }
+
+  .ET-opened-event__main {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+
+    div.join {
+      width: 100px;
+      height: 100px;
+      background-color: #eee;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+  }
+
+  div.close-button {
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  div.close-button i {
+    font-size: 20px;
   }
 }

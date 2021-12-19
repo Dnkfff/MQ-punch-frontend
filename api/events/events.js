@@ -32,7 +32,7 @@ class EventsAPI {
   }
 
   static async getAllLiveEvents() {
-    const url = `${SERVER_URL}/event/all?status=live&page=0&size=10`;
+    const url = `${SERVER_URL}/event/all?status=future&status=live&size=10&sortField=startsAt&asc=true&page=0`;
 
     let response = null;
     store.dispatch(setLiveEventsLoading(true));
@@ -91,10 +91,8 @@ class EventsAPI {
       console.log(error);
       // TO DO
     } finally {
-      setTimeout(() => {
-        store.dispatch(setEventsLoading(false));
-        store.dispatch(setEventsPaginationLoading(false));
-      }, 3000);
+      store.dispatch(setEventsLoading(false));
+      store.dispatch(setEventsPaginationLoading(false));
     }
 
     return response?.data || [];

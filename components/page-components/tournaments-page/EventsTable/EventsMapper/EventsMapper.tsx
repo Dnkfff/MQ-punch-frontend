@@ -1,8 +1,11 @@
 import cn from 'classnames';
 
 // types
-import { FutureEventType } from '../../../../inside-services/types/events/events';
-import { DIVISION_TO_ICON_MATCH } from '../../../../inside-services/constants/rating';
+import { FutureEventType } from '../../../../../inside-services/types/events/events';
+import { DIVISION_TO_ICON_MATCH } from '../../../../../inside-services/constants/rating';
+
+// components
+import { OpenedEventPreview } from '../OpenedEventPreview/OpenedEventPreview';
 
 interface EventsMapperInterface {
   el: FutureEventType;
@@ -12,7 +15,7 @@ interface EventsMapperInterface {
 
 export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
   const { el, openedEvent, setOpenedEvent } = props;
-  const { name, division, entryFee, prizePool } = el;
+  const { name, division, entryFee, prizePool, id } = el;
   const eventIsOpened = openedEvent?.id === el.id;
 
   return (
@@ -20,7 +23,7 @@ export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
       <div
         className={cn('ET-event-item', { opened: eventIsOpened })}
         onClick={() => (eventIsOpened ? setOpenedEvent(null) : setOpenedEvent(el))}
-        key={el.id}
+        key={id}
       >
         <div className='ET-event-item__name'>
           <span>{name}</span>
@@ -41,7 +44,9 @@ export const EventsMapper: React.FC<EventsMapperInterface> = (props) => {
           <span>3/9</span>
         </div>
       </div>
-      {eventIsOpened && <p>it is opened</p>}
+      {eventIsOpened && (
+        <OpenedEventPreview openedEvent={openedEvent} setOpenedEvent={setOpenedEvent} />
+      )}
     </>
   );
 };

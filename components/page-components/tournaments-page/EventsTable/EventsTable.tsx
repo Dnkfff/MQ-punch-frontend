@@ -11,7 +11,7 @@ import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
 import { setPageSearchResult } from '../../../../redux/reducers/tournaments/slice';
 
 // service
-import { EventsMapper } from './service';
+import { EventsMapper } from './EventsMapper/EventsMapper';
 // api
 import EventsAPI from '../../../../api/events/events';
 // constants
