@@ -14,7 +14,6 @@
     "classnames": "^2.3.1",
     "moment": "^2.29.1",
     "next": "^11.1.0",
-    "node-sass": "^4.14.1",
     "react": "17.0.2",
     "react-datepicker": "^4.3.0",
     "react-dates": "^21.8.0",
@@ -41,6 +40,7 @@
     "eslint-config-next": "11.0.1",
     "next-transpile-modules": "^8.0.0",
     "prettier": "2.4.1",
-    "raw-loader": "^4.0.2"
+    "raw-loader": "^4.0.2",
+    "sass": "^1.49.0"
   }
 }

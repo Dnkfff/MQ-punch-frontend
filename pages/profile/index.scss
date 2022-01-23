@@ -1,441 +1,81 @@
 .global__profile {
-  box-sizing: border-box;
-  padding-top: 120px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  column-gap: 20px;
 
-  // Container
+  .profile_info {
+    width: 500px;
+    flex-shrink: 0;
+    height: 500px;
+    background-color: #252830;
+    border-radius: 3px;
+    position: relative;
 
-  .profile__container {
-    width: 100%;
-    max-width: 1250px;
-    margin: 0 auto;
-  }
-
-  // Header BTN
-  // ==========
-
-  .profile__btn {
-    padding: 18px 34px;
-    margin-right: 8px;
-    cursor: pointer;
-    font-size: 20px;
-    color: $text;
-    background-color: #f9f9f9;
-    border: 1px solid #b4b4b4;
-    border-radius: 7px;
-    transition: background-color 0.2s linear;
-
-    &:focus {
-      outline: none;
-    }
-
-    &:hover {
-      background-color: rgb(235, 235, 235);
-    }
-  }
-
-  // Header
-  // ==========
-
-  .profile__header {
-    width: 100%;
-    height: 200px;
-    padding: 0 10px;
-  }
-  .profile__header__inner {
-    display: flex;
-  }
-
-  .profile__header__photo {
-    width: 9%;
-    height: 100%;
-  }
-
-  .profile__header__text {
-    width: 90%;
-    justify-content: space-between;
-    padding: 0 10px;
-    border-bottom: 2px;
-  }
-  .profile__header__data {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: $text 1px solid;
-    padding-bottom: 30px;
-    margin-bottom: 30px;
-  }
-
-  .profile__header__info {
-    display: flex;
-    .profile__header__name {
-      color: $text;
-      font-size: 24px;
-      font-weight: 500;
-    }
-    .profile__header__nick {
-      font-size: 35px;
-      font-weight: 500;
-      color: $black;
-    }
-
-    .profile__header__copy {
-      margin-left: 50px;
-      font-size: 24px;
-      position: relative;
-      i {
-        position: absolute;
-        bottom: 12%;
-        right: 0;
-      }
-    }
-  }
-
-  // Header settings
-  // ==========
-
-  .profile__header__settings {
-    .profile__header__settings__link {
+    button.profile-global-save-icon,
+    button.profile-global-edit-icon,
+    button.profile-global-cancel-icon {
+      cursor: pointer;
+      position: absolute;
+      top: 5px;
+      width: 35px;
+      height: 35px;
+      border: none;
+      background-color: transparent;
+      border-radius: 50%;
+      padding: 10px;
       display: flex;
       align-items: center;
-      cursor: pointer;
-      color: $text;
-      transition: color 0.2s linear;
+      justify-content: center;
+      transition: background-color 0.2s ease;
       &:hover {
-        color: darken($text, 30%);
+        background-color: #1a1d24;
       }
+      &:focus {
+        outline: 2px solid #000;
+      }
+      color: #fff;
     }
 
-    .profile__settings__icon {
-      font-size: 24px;
-      margin-right: 11px;
-    }
-    .profile__settings__text {
-      font-size: 25px;
-      font-weight: 500;
-    }
-  }
-
-  // Header stats
-  // ==========
-
-  .profile__stats {
-    display: flex;
-  }
-
-  .profile__stats__element {
-    margin-right: 125px;
-  }
-
-  .profile__stats__text {
-    color: $text;
-    font-size: 20px;
-    margin-bottom: 17px;
-  }
-  .profile__stats__value {
-    color: $black;
-    font-size: 25px;
-  }
-
-  // Header stable
-  // ==========
-
-  .profile__stable {
-    margin-top: 133px;
-  }
-
-  .profile__stable__inner {
-    text-align: center;
-  }
-
-  .profile__stable__title {
-    font-size: 35px;
-    font-weight: 500;
-    margin-bottom: 25px;
-  }
-
-  .profile__stable__subtitle {
-    font-size: 20px;
-    font-weight: 400;
-  }
-
-  // Header offer
-  // ==========
-
-  .profile__offer {
-    margin-top: 57px;
-  }
-
-  .profile__block__style {
-    background-color: #f5f5f5;
-    background: #f5f5f5;
-    box-shadow: 0px 0px 42px rgba(0, 0, 0, 0.17);
-    border-radius: 7px;
-  }
-
-  .profile__offer__inner {
-    padding: 28px 0 51px 0;
-    text-align: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .profile__offer__title {
-    margin-bottom: 25px;
-    color: $black;
-    font-size: 35px;
-    font-weight: 500;
-  }
-
-  .profile__offer__subtitle {
-    margin-bottom: 35px;
-    color: $black;
-    font-size: 20;
-    font-weight: 400;
-  }
-
-  .profile__offer__form {
-    display: flex;
-    align-items: center;
-  }
-  .profile__offer__input {
-    margin-right: 27px;
-
-    outline: none;
-    padding: 18px 25px;
-    border: 2px solid #737272;
-    border-radius: 7px;
-    width: 319px;
-
-    color: $black;
-    font-size: 20px;
-    font-weight: 500;
-  }
-
-  // Header Navigation
-  // ==========
-
-  .profile__settings {
-    background-color: #8f1d1d;
-
-    margin-top: 220px;
-  }
-
-  .profile__settings__nav {
-    display: flex;
-    justify-content: center;
-  }
-
-  .profile__nav__element {
-    padding: 32px 0;
-    margin-right: 80px;
-    color: #bdbdbd;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    text-align: center;
-
-    position: relative;
-    transition: color 0.2s li;
-
-    &:after {
-      content: '';
-      width: 120%;
-      height: 4px;
-      background-color: $white;
-      position: absolute;
-      bottom: 0%;
-      left: -10%;
-      opacity: 0;
-      transition: opacity 0.2s linear;
+    button.profile-global-cancel-icon {
+      right: 10px;
+      color: #8f1d1d;
     }
 
-    &:hover {
-      color: $white;
+    button.profile-global-save-icon {
+      right: 50px;
     }
 
-    &:hover:after {
-      opacity: 1;
+    button.profile-global-edit-icon {
+      right: 10px;
+      font-size: 13px;
     }
   }
 
-  .profile__nav__element-activ {
-    color: $white;
-
-    &:after {
-      opacity: 1;
-    }
-  }
-
-  .profile__nav__icon {
-    margin-right: 10px;
-    font-size: 35px;
-  }
-
-  .profile__nav__text {
-    font-size: 35px;
-    font-weight: 500;
-  }
-
-  // Header Transfer
-  // ==========
-
-  .profile__transfer {
-    margin-top: 106px;
-  }
-
-  .profile__transfer__inner {
-    padding: 33px 48px 41px;
-  }
-
-  .profile__transfer__title {
-    color: $black;
-    font-size: 35px;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-
-  .profile__transfer__subtitle {
-    color: $text;
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 43px;
-    width: 50%;
-  }
-
-  // Header General
-  // ==========
-
-  .profile__general {
-    margin-top: 80px;
-  }
-
-  .profile__general__inner {
-    padding: 28px 131px 30px 48px;
-  }
-
-  .profile__general__data {
-    border-bottom: 2px $text solid;
-    display: flex;
-  }
-
-  .profile__general__form {
-    width: 75%;
-  }
-
-  .profile__general__titile {
-    color: $black;
-    font-size: 35px;
-    font-weight: 500;
-    margin-bottom: 32px;
-  }
-
-  .profile__general__subtitle {
-    color: $text;
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 17px;
-  }
-
-  // Header placeholder
-  // ==========
-
-  ::placeholder {
-    color: $black;
-    font-size: 20px;
-    font-weight: 500;
-  }
-
-  // Header input
-  // ==========
-  .profile__general__input {
-    outline: none;
-    padding: 18px 25px;
-    border: 2px solid #737272;
-    border-radius: 7px;
+  .boxers_info {
     width: 100%;
-    margin-bottom: 65px;
-
-    color: $black;
-    font-size: 20px;
-    font-weight: 500;
   }
 
-  // Header textarea
-  // ==========
-
-  .profile__general__description {
-    outline: none;
-    padding: 18px 25px;
-    resize: none;
-    overflow: auto;
-    border: 2px solid #737272;
-    border-radius: 7px;
+  .boxers_info_total_bar {
     width: 100%;
-    height: 170px;
-
-    color: $black;
-    font-size: 20px;
-    font-weight: 500;
+    height: 100px;
+    background-color: #252830;
+    border-radius: 3px;
   }
 
-  .profile__general__description__comment {
-    padding: 15px 0 65px 0;
-    color: $text;
-    font-size: 15px;
-    font-weight: 400;
-  }
-
-  .profile__general__photo {
+  .boxers_list {
+    width: 100%;
+    height: 380px;
+    margin-top: 20px;
+    background-color: red;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-
-    margin-left: 150px;
-  }
-
-  .profile__general__photo__title {
-    color: $text;
-    font-size: 15px;
-    font-weight: 400;
-    margin-bottom: 13px;
-    margin-top: 50px;
-  }
-
-  .profile__general__icon {
-    position: relative;
-  }
-
-  .profile__general__add {
-    cursor: pointer;
-    position: absolute;
-    right: 5%;
-    top: 5%;
-    font-size: 35px;
-  }
-
-  // Header confirm
-  // ==========
-
-  .profile__general__confirm {
-    margin-top: 30px;
-  }
-
-  .profile__general__update {
-    display: flex;
-    align-items: center;
-    color: $black;
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-
-  // Header checkbox
-  // ==========
-
-  .profile__general__checkbox {
-    height: 23px;
-    width: 23px;
-
-    margin-right: 13px;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
   }
 }
