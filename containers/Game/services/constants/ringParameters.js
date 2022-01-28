@@ -2,7 +2,8 @@
 
 /**
   @brief The object of ring parameters
-  @description It contains objects of canvas {width, height, color},
+  @description It contains objects of
+  canvas {width, height, color},
   pillars {radius, color},
   ropes {count, height, radius, color}.
 */

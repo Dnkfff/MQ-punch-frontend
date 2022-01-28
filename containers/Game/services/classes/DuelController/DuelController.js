@@ -69,11 +69,7 @@ class DuelController {
             boxer.requestAnimation(boxerMove.move.lower, "lower");
             boxer.requestAnimation(boxerMove.move.upper, "upper");
 
-            const coefficient = calculateDistanceCoefficient(
-              this.leftBoxer,
-              this.rightBoxer
-            );
-            moveBoxer(boxer, boxerMove, coefficient);
+            moveBoxer(boxer, boxerMove);
           }
         }
       };

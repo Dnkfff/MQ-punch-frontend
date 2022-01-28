@@ -15,7 +15,11 @@ export const probeAnimationNames = [
 
 /**
   @brief The object of boxer offensive animation names
-  @description It contains bruteForceAttack, deceptiveAttack, counterAttack objects of appropriate animation names.
+  @description It contains
+  bruteForceAttack,
+  deceptiveAttack and
+  counterAttack
+  objects of appropriate animation names.
 */
 export const offensiveAnimationNames = {
   bruteForceAttack: [

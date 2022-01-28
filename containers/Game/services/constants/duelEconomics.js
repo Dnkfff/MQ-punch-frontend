@@ -2,7 +2,11 @@
 
 /**
   @brief The object of duel economics
-  @description It contains physiqueRandomBooster, winrateWeight, rookieWeight, streamingWeight.
+  @description It contains
+  physiqueRandomBooster,
+  winrateWeight,
+  rookieWeight,
+  streamingWeight.
 */
 const duelEconomics = {
   physiqueRandomBooster: 0.1,

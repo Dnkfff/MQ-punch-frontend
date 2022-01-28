@@ -2,7 +2,8 @@
 
 /**
   @brief The object of boxer animation objects
-  @description Each object has its name (animation name),
+  @description Each object has its
+  name (animation name),
   looped (the flag is enabled if animation can be looped if there is no next animation requested),
   type (appropriate body part: lower, upper or whole),
   idle (the flag is enabled if it can be used as idle animation).
@@ -292,6 +293,9 @@ const boxerAnimations = [
   },
 ];
 
+/**
+  @brief Names of special animations
+*/
 export const specialAnimationNames = {
   switchLeadingSide: "switch-leading-side",
   moveForward: "step-forward",

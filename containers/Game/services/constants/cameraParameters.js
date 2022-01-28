@@ -2,7 +2,10 @@
 
 /**
   @brief The object of camera constants
-  @description It contains fieldOfView, nearPlaneDistance, farPlaneDistance.
+  @description It contains
+  fieldOfView,
+  nearPlaneDistance,
+  farPlaneDistance.
 */
 const cameraParameters = {
   fieldOfView: 50.0,

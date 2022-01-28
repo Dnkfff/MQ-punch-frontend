@@ -2,7 +2,8 @@
 
 /**
   @brief The object of duel economics
-  @description It contains chanceOfMoveRandomBooster,
+  @description It contains
+  chanceOfMoveRandomBooster,
   duelDuration (in seconds),
   numberOfAttackIntervals,
   intervalDurationRandomBooster,
