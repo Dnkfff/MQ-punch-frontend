@@ -1,12 +1,13 @@
 /** @module containers/Game/services/classes/DuelContoller/DuelContoller */
 
+import { Vector3 } from "three";
+
 import { switchBoxerLeadingSide, moveBoxer } from "./duelAlgorithms";
 
 import duelParameters from "../../constants/duelParameters";
 import boxerParameters from "../../constants/boxerParameters";
 import ringParameters from "../../constants/ringParameters";
 import viewNames from "../../constants/viewNames";
-import { Vector3 } from "three";
 
 /**
   @summary The DuelContoller class
@@ -33,6 +34,8 @@ class DuelController {
     this.finishedRightBoxerMoves = [];
     this.leftBoxerSlowMotionStartPosition = new Vector3();
     this.rightBoxerSlowMotionStartPosition = new Vector3();
+    this.leftBoxerSlowMotionStartLeadingSide = "";
+    this.rightBoxerSlowMotionStartLeadingSide = "";
     this.currentTime = 0.0;
     this.mode = "stop";
     this.cameraController = cameraController;
@@ -57,7 +60,12 @@ class DuelController {
       // update current time
       this.currentTime += deltaTime;
 
-      const animateBoxer = (boxerMoves, finishedBoxerMoves, boxer) => {
+      const animateBoxer = (
+        boxer,
+        opponent,
+        boxerMoves,
+        finishedBoxerMoves
+      ) => {
         if (
           boxerMoves.length > 0 &&
           boxerMoves[0].startTime <= this.currentTime
@@ -67,14 +75,16 @@ class DuelController {
 
           if (this.mode === "run") {
             // if not in slow motion
-            // remember positions of boxers before slow motion
+            // remember positions and leading sides of boxers before slow motion
             if (boxerMoves.length + 1 <= duelParameters.slowMotionMovesNumber) {
               if (boxer === this.leftBoxer) {
                 this.leftBoxerSlowMotionStartPosition =
                   boxer.model.position.clone();
+                this.leftBoxerSlowMotionStartLeadingSide = boxer.leadingSide;
               } else {
                 this.rightBoxerSlowMotionStartPosition =
                   boxer.model.position.clone();
+                this.rightBoxerSlowMotionStartLeadingSide = boxer.leadingSide;
               }
             }
 
@@ -94,7 +104,7 @@ class DuelController {
             boxer.requestAnimation(boxerMove.move.upper, "upper");
 
             // make the boxer make a step if the move requires it
-            moveBoxer(boxer, boxerMove);
+            moveBoxer(boxer, opponent, boxerMove);
           }
         }
       };
@@ -106,18 +116,39 @@ class DuelController {
           this.leftBoxer.model.position
         );
 
-        // half of the distance needed to cut
-        const deltaDistance =
+        // half of the distance needed to insert
+        const deltaDistanceToInsert =
           -(
-            boxerParameters.scale * boxerParameters.idealDistance -
+            boxerParameters.scale *
+              boxerParameters.idealDistance *
+              (1.0 - boxerParameters.idealDistanceDeviation) -
             leftToRightDir.length()
           ) / 2.0;
 
-        leftToRightDir.normalize();
-        leftToRightDir.multiplyScalar(deltaDistance);
-        this.leftBoxer.model.position.add(leftToRightDir);
-        leftToRightDir.multiplyScalar(-1.0);
-        this.rightBoxer.model.position.add(leftToRightDir);
+        if (deltaDistanceToInsert < 0.0) {
+          leftToRightDir.normalize();
+          leftToRightDir.multiplyScalar(deltaDistanceToInsert);
+          this.leftBoxer.model.position.add(leftToRightDir);
+          leftToRightDir.multiplyScalar(-1.0);
+          this.rightBoxer.model.position.add(leftToRightDir);
+        }
+
+        // half of the distance needed to cut
+        const deltaDistanceToCut =
+          -(
+            boxerParameters.scale *
+              boxerParameters.idealDistance *
+              (1.0 + boxerParameters.idealDistanceDeviation) -
+            leftToRightDir.length()
+          ) / 2.0;
+
+        if (deltaDistanceToCut > 0.0) {
+          leftToRightDir.normalize();
+          leftToRightDir.multiplyScalar(deltaDistanceToCut);
+          this.leftBoxer.model.position.add(leftToRightDir);
+          leftToRightDir.multiplyScalar(-1.0);
+          this.rightBoxer.model.position.add(leftToRightDir);
+        }
       };
 
       const collideBoxerWithRing = (boxer) => {
@@ -150,21 +181,23 @@ class DuelController {
 
       // assign next moves to boxers
       animateBoxer(
+        this.leftBoxer,
+        this.rightBoxer,
         this.leftBoxerMoves,
-        this.finishedLeftBoxerMoves,
-        this.leftBoxer
+        this.finishedLeftBoxerMoves
       );
       animateBoxer(
+        this.rightBoxer,
+        this.leftBoxer,
         this.rightBoxerMoves,
-        this.finishedRightBoxerMoves,
-        this.rightBoxer
+        this.finishedRightBoxerMoves
       );
 
       // animate and move boxers
       this.leftBoxer.animate(deltaTime);
       this.rightBoxer.animate(deltaTime);
 
-      // make boxers keep ideal distance
+      // make boxers keep minimal distance
       collideBoxersWithEachOther();
 
       // handle boxers' collisions with the ring
@@ -190,12 +223,12 @@ class DuelController {
   }
 
   /**
-    @summary Prepares boxer moves lists and sets execution mode to slowmotion
+    @summary Prepares boxer moves lists, positions and sets execution mode to slowmotion
   */
   prepareSlowMotion() {
     this.mode = "slowmotion";
 
-    // set boxers previously stored positions
+    // set boxers previously stored positions and leading sides
     this.leftBoxer.model.position.set(
       this.leftBoxerSlowMotionStartPosition.x,
       this.leftBoxerSlowMotionStartPosition.y,
@@ -206,6 +239,17 @@ class DuelController {
       this.rightBoxerSlowMotionStartPosition.y,
       this.rightBoxerSlowMotionStartPosition.z
     );
+
+    if (
+      this.leftBoxer.leadingSide !== this.leftBoxerSlowMotionStartLeadingSide
+    ) {
+      this.leftBoxer.switchLeadingSide();
+    }
+    if (
+      this.rightBoxer.leadingSide !== this.rightBoxerSlowMotionStartLeadingSide
+    ) {
+      this.rightBoxer.switchLeadingSide();
+    }
 
     // push specified amount of moves from the end to boxers' moves
     for (let i = 0; i < duelParameters.slowMotionMovesNumber; i++) {

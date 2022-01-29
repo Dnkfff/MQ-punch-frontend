@@ -194,18 +194,22 @@ export const lowerAnimationNames = {
   "uppercut-up-left": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
   ],
   "uppercut-up-right": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
   ],
   "uppercut-down-left": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
   ],
   "uppercut-down-right": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
   ],
   "overhand-left": [
     "fighting-idle-1-lower-body",
@@ -222,24 +226,28 @@ export const lowerAnimationNames = {
   "block-up-left": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
     "step-backward",
     "step-to-the-right",
   ],
   "block-up-right": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
     "step-backward",
     "step-to-the-left",
   ],
   "block-down-left": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
     "step-backward",
     "step-to-the-right",
   ],
   "block-down-right": [
     "fighting-idle-1-lower-body",
     "fighting-idle-2-lower-body",
+    "step-forward",
     "step-backward",
     "step-to-the-left",
   ],

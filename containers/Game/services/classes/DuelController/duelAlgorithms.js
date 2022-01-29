@@ -1,5 +1,8 @@
 /** @module containers/Game/services/classes/DuelContoller/duelAlgorithms */
 
+import { Vector3 } from "three";
+
+import boxerParameters from "../../constants/boxerParameters";
 import { specialAnimationNames } from "../../constants/boxerAnimations";
 
 /**
@@ -14,21 +17,43 @@ export const switchBoxerLeadingSide = (boxer, boxerMove) => {
 };
 
 /**
-  @summary Calculate coefficient to change step size according two the distance between boxers
-  @description The function will manage boxer models to stay at efficient distance
+  @summary Moves boxer in direction according to specified move so boxers will locate at normal distance
+  @description The function will make boxer models to stay at efficient distance
   changing step size.
-  @param boxer Boxer instance
+  @param boxer boxer
   @param boxerMove requested animation name
-  @param coefficient the distance coefficient
+  @param opponent boxer's opponent
 */
-export const moveBoxer = (boxer, boxerMove) => {
+export const moveBoxer = (boxer, opponent, boxerMove) => {
+  let moveDirection;
+  let stepCoefficient;
+
+  const distance = boxer.distanceTo(opponent);
+
   if (boxerMove.move.lower === specialAnimationNames.moveForward) {
-    boxer.move("forward");
+    // move forward
+    moveDirection = new Vector3(0.0, 0.0, 1.0);
+    stepCoefficient = Math.min(
+      distance / (boxerParameters.scale * boxerParameters.idealDistance),
+      2.0
+    );
   } else if (boxerMove.move.lower === specialAnimationNames.moveBackward) {
-    boxer.move("backward");
+    // move backward
+    moveDirection = new Vector3(0.0, 0.0, -1.0);
+    stepCoefficient =
+      (boxerParameters.scale * boxerParameters.idealDistance) / distance;
   } else if (boxerMove.move.lower === specialAnimationNames.moveLeft) {
-    boxer.move("left");
+    // move left
+    moveDirection = new Vector3(-1.0, 0.0, 0.0);
+    stepCoefficient = 1.0;
   } else if (boxerMove.move.lower === specialAnimationNames.moveRight) {
-    boxer.move("right");
+    // move right
+    moveDirection = new Vector3(1.0, 0.0, 0.0);
+    stepCoefficient = 1.0;
+  } else {
+    // return if boxer does not need to move
+    return;
   }
+
+  boxer.move(moveDirection, stepCoefficient);
 };

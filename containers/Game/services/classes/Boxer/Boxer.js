@@ -125,40 +125,42 @@ class Boxer {
   }
 
   /**
-    @summary Moves the model on canvas
-    @description The function moves the boxer model handling collisions with the canvas.
-    @param direction model move direction
+    @summary Moves the boxer
+    @description The function moves the boxer model.
+    @param direction move direction
+    @param coefficient step coefficient
   */
-  move(direction) {
-    let boxerMoveVector = new Vector3(
-      Math.sin(this.model.rotation.y),
-      0.0,
-      Math.cos(this.model.rotation.y)
-    );
-    boxerMoveVector.multiplyScalar(
-      boxerParameters.scale * boxerParameters.stepSize
+  move(direction, coefficient) {
+    direction.applyAxisAngle(new Vector3(0.0, 1.0, 0.0), this.model.rotation.y);
+    direction.normalize();
+    direction.multiplyScalar(
+      coefficient * boxerParameters.scale * boxerParameters.stepSize
     );
 
-    const rotationAxisVector = new Vector3(0.0, 1.0, 0.0);
-
-    if (direction === "backward") {
-      boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI);
-    } else if (direction === "left") {
-      boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI / 2.0);
-    } else if (direction === "right") {
-      boxerMoveVector.applyAxisAngle(rotationAxisVector, -Math.PI / 2.0);
-    }
-
-    this.movingDirection = boxerMoveVector;
+    this.movingDirection = direction;
     this.movingStage = 0.0;
   }
 
   /**
-    @summary Makes the model face at another boxer's model
-    @param anotherBoxer target boxer model
+    @summary Makes boxer face another boxer
+    @param opponent boxer's opponent
   */
-  face(anotherBoxer) {
-    this.model.lookAt(anotherBoxer.model.position);
+  face(opponent) {
+    const dirToOpponent = new Vector3();
+    dirToOpponent.subVectors(opponent.model.position, this.model.position);
+
+    let angleY = Math.atan2(dirToOpponent.x, dirToOpponent.z);
+
+    this.model.rotation.y = angleY;
+  }
+
+  /**
+    @summary Returns distance between two boxers
+    @param opponent boxer's opponent
+    @returns distance to the opponent
+  */
+  distanceTo(opponent) {
+    return this.model.position.distanceTo(opponent.model.position);
   }
 }
 
