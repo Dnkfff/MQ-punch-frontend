@@ -18,22 +18,12 @@ class Boxer {
     @constructor
     @param params
     @param params.model boxer model
-    @param params.opponentModel opponent boxer model
-    @param params.borders ring borders
     @param params.animationMixer Three.js animation mixer
     @param params.animationActions Three.js animation actions array
     @param params.idleAnimations an object of idle animation names for the lower and the upper body
   */
-  constructor({
-    model,
-    opponentModel,
-    borders,
-    animationMixer,
-    animationActions,
-    idleAnimations,
-  }) {
+  constructor({ model, animationMixer, animationActions, idleAnimations }) {
     this.model = model;
-    this.opponentModel = opponentModel;
     this.animationMixer = animationMixer;
     this.animationActions = animationActions;
     this.lowerBodyIdleAnimation = idleAnimations.lower;
@@ -43,13 +33,12 @@ class Boxer {
     this.leadingSide = "right";
     this.movingDirection = new Vector3(0.0, 0.0, 0.0);
     this.movingStage = 1.0;
-    this.borders = borders;
   }
 
   /**
     @summary Animates the model
     @description Updates animationMixer with deltaTime, switches to idle animations if requested are finished.
-    @param deltaTime time in ms passed since the last call
+    @param deltaTime time in seconds passed since the last call
   */
   animate(deltaTime) {
     // update animation stage of model
@@ -69,7 +58,7 @@ class Boxer {
       this.requestAnimation(this.upperBodyIdleAnimation, "upper");
     }
 
-    // move model according to current direction
+    // move model according to current direction and update stage of the move
     if (this.movingStage < 1.0) {
       const deltaStage = deltaTime / duelParameters.moveDuration;
 
@@ -79,33 +68,6 @@ class Boxer {
       this.model.position.add(deltaPosition);
 
       this.movingStage += deltaStage;
-
-      // ring collision handling
-      if (this.model.position.x < this.borders.x.min) {
-        this.model.position.x = this.borders.x.min;
-      } else if (this.model.position.x > this.borders.x.max) {
-        this.model.position.x = this.borders.x.max;
-      }
-      if (this.model.position.z < this.borders.z.min) {
-        this.model.position.z = this.borders.z.min;
-      } else if (this.model.position.z > this.borders.z.max) {
-        this.model.position.z = this.borders.z.max;
-      }
-
-      // boxer ideal distancing
-      let vectorToOpponent = new Vector3();
-      vectorToOpponent.subVectors(
-        this.opponentModel.position,
-        this.model.position
-      );
-
-      const deltaDistance =
-        boxerParameters.scale * boxerParameters.idealDistance -
-        vectorToOpponent.length();
-
-      vectorToOpponent.normalize();
-      vectorToOpponent.multiplyScalar(-deltaDistance);
-      this.model.position.add(vectorToOpponent);
     }
   }
 
@@ -122,6 +84,7 @@ class Boxer {
     const upperBodyAnimationAction =
       this.animationActions[this.currentUpperBodyAnimationName];
 
+    // animation transition
     this.animationActions[name].reset();
     this.animationActions[name].fadeIn(transitionDuration);
     this.animationActions[name].play();
@@ -130,6 +93,7 @@ class Boxer {
       (type === "lower" || type === "whole") &&
       this.currentLowerBodyAnimationName !== name
     ) {
+      // if the animation have changed
       lowerBodyAnimationAction.fadeOut(transitionDuration);
       this.currentLowerBodyAnimationName = name;
     }
@@ -137,6 +101,7 @@ class Boxer {
       (type === "upper" || type === "whole") &&
       this.currentUpperBodyAnimationName !== name
     ) {
+      // if the animation have changed
       upperBodyAnimationAction.fadeOut(transitionDuration);
       this.currentUpperBodyAnimationName = name;
     }
@@ -153,6 +118,7 @@ class Boxer {
       this.leadingSide = "left";
     }
 
+    // mirror along the X-axis
     this.model.position.x *= -1.0;
     this.model.rotation.y *= -1.0;
     this.model.applyMatrix4(new Matrix4().makeScale(-1.0, 1.0, 1.0));
@@ -161,11 +127,9 @@ class Boxer {
   /**
     @summary Moves the model on canvas
     @description The function moves the boxer model handling collisions with the canvas.
-    @param direction time in ms passed since the last call
-    @param coefficient move vector length coefficient
+    @param direction model move direction
   */
   move(direction) {
-    // preparing variables
     let boxerMoveVector = new Vector3(
       Math.sin(this.model.rotation.y),
       0.0,
@@ -174,9 +138,9 @@ class Boxer {
     boxerMoveVector.multiplyScalar(
       boxerParameters.scale * boxerParameters.stepSize
     );
+
     const rotationAxisVector = new Vector3(0.0, 1.0, 0.0);
 
-    // moving
     if (direction === "backward") {
       boxerMoveVector.applyAxisAngle(rotationAxisVector, Math.PI);
     } else if (direction === "left") {
@@ -184,6 +148,7 @@ class Boxer {
     } else if (direction === "right") {
       boxerMoveVector.applyAxisAngle(rotationAxisVector, -Math.PI / 2.0);
     }
+
     this.movingDirection = boxerMoveVector;
     this.movingStage = 0.0;
   }
@@ -194,15 +159,6 @@ class Boxer {
   */
   face(anotherBoxer) {
     this.model.lookAt(anotherBoxer.model.position);
-  }
-
-  /**
-    @summary Returns distance between the model and the give one
-    @param anotherBoxer target boxer model
-    @returns distance to the given model
-  */
-  getDistance(anotherBoxer) {
-    return this.model.position.distanceTo(anotherBoxer.model.position);
   }
 }
 

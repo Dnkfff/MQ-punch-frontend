@@ -55,28 +55,34 @@ class CameraController {
     @summary Updates camera parameters according to active view
   */
   modesHandler() {
+    // getting positions of camera and target from the appropriate view function
     const { cameraPosition, cameraLookAt } = cameraViews[this.view](
       this.targetModel
     );
+
     this.camera.position.set(
       cameraPosition.x,
       cameraPosition.y,
       cameraPosition.z
     );
+
     this.camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
   }
 
   /**
     @summary Updates camera parameters and skybox position
-    @param deltaTime time in ms passed since the last call
+    @param deltaTime time in seconds passed since the last call
   */
   update(deltaTime) {
     if (this.automaticModeEnabled) {
+      // automatic view mode
       // TODO automatic mode
     } else {
+      // manual view mode
       this.modesHandler();
     }
 
+    // set skybox location to camera's one
     this.skybox.position.copy(this.camera.position);
   }
 }

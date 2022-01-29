@@ -4,6 +4,7 @@
   @brief The object of duel economics
   @description It contains
   chanceOfMoveRandomBooster,
+  warmupDuration (in seconds),
   duelDuration (in seconds),
   numberOfAttackIntervals,
   intervalDurationRandomBooster,
@@ -18,11 +19,13 @@
   reactionTimeCoefficient,
   chanceOfDeceptiveDefenseMove,
   chanceOfHit,
+  slowMotionCooldownDuration (in seconds),
   slowMotionMovesNumber,
-  slowMotionMultiplier.
+  slowMotionSpeedMultiplier.
 */
 const duelParameters = {
   chanceOfMoveRandomBooster: 0.1,
+  warmupDuration: 3.0,
   duelDuration: 60.0,
   numberOfAttackIntervals: 12,
   intervalDurationRandomBooster: 0.1,
@@ -37,8 +40,9 @@ const duelParameters = {
   reactionTimeCoefficient: 0.35,
   chanceOfDeceptiveDefenseMove: 0.9,
   chanceOfHit: 0.95,
+  slowMotionCooldownDuration: 3.0,
   slowMotionMovesNumber: 5,
-  slowMotionMultiplier: 0.3,
+  slowMotionSpeedMultiplier: 0.3,
 };
 
 export default duelParameters;

@@ -133,30 +133,14 @@ const setupBoxers = async (scene) => {
   };
   const idleAnimations = calculateIdleAnimations(boxerAnimations);
 
-  const border = boxerParameters.scale * boxerParameters.stepSize;
-  const borders = {
-    x: {
-      min: border,
-      max: ringParameters.canvas.width - border,
-    },
-    z: {
-      min: border,
-      max: ringParameters.canvas.width - border,
-    },
-  };
-
   const leftBoxerConstructorArguments = {
     model: leftModel,
-    opponentModel: rightModel,
-    borders: borders,
     animationMixer: leftAnimationMixer,
     animationActions: leftAnimationActions,
     idleAnimations: idleAnimations.left,
   };
   const rightBoxerConstructorArguments = {
     model: rightModel,
-    opponentModel: leftModel,
-    borders: borders,
     animationMixer: rightAnimationMixer,
     animationActions: rightAnimationActions,
     idleAnimations: idleAnimations.right,

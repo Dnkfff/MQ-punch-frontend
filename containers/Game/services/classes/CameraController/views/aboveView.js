@@ -3,7 +3,7 @@
 import { Vector3 } from "three";
 
 import {
-  getGeometricAttributesOfModelChildByName,
+  getLocationAttributesOfModelChildByName,
   calculateCameraParameters,
 } from "../cameraAlgorithms";
 
@@ -19,7 +19,7 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
 */
 const aboveView = (model) => {
   const { childPosition, parentRotation, childQuaternion } =
-    getGeometricAttributesOfModelChildByName(
+    getLocationAttributesOfModelChildByName(
       model,
       boxerModelBoneNames["spine"]
     );

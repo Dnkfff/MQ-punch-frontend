@@ -1,17 +1,20 @@
 /** @module containers/Game/services/classes/CameraController/cameraAlgorithms */
 
+import { Vector3 } from "three";
+
 /**
-  @summary Gets geometric parameters of specified bone in specified model
+  @summary Gets location parameters of specified bone in specified model
   @param model model
-  @param name model bone name
+  @param name model child (bone) name
   @returns an object with childPosition, parentRotation and childQuaternion
 */
-export const getGeometricAttributesOfModelChildByName = (model, name) => {
-  const modelChildClone = model.getObjectByName(name).clone();
+export const getLocationAttributesOfModelChildByName = (model, name) => {
+  const modelChild = model.getObjectByName(name);
+
   return {
-    childPosition: modelChildClone.localToWorld(modelChildClone.position),
+    childPosition: modelChild.getWorldPosition(new Vector3()),
     parentRotation: model.rotation.clone(),
-    childQuaternion: modelChildClone.quaternion,
+    childQuaternion: modelChild.quaternion.clone(),
   };
 };
 
@@ -21,7 +24,7 @@ export const getGeometricAttributesOfModelChildByName = (model, name) => {
   @param params.childPosition absolute model bone position
   @param params.positionOffsetVector relative position vector
   @param params.lookAtVector relative lookAt vector
-  @returns an object with cameraPosition and cameraLookAt Three.js vectors
+  @returns an object with cameraPosition and cameraLookAt
 */
 export const calculateCameraParameters = ({
   childPosition,
