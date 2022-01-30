@@ -17,12 +17,12 @@ const viewNames = [
 ];
 
 /**
-  @brief The object of shortcuts for boxer model bone names
+  @brief The object of aliases of boxers models bones names
 */
 export const boxerModelBoneNames = {
-  "head": "mixamorigHead",
-  "neck": "mixamorigNeck",
-  "spine": "mixamorigSpine",
+  head: "mixamorigHead",
+  neck: "mixamorigNeck",
+  spine: "mixamorigSpine",
   "forearm-left": "mixamorigLeftForeArm",
   "forearm-right": "mixamorigRightForeArm",
 };

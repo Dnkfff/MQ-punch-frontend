@@ -20,13 +20,13 @@ const fitAttackIntervalsInTime = (attackIntervals) => {
   const currentDurationOfAttackIntervals =
     lastAttackInterval.startTime + lastAttackInterval.duration;
   const reactionTime =
-    duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
-  const lastMoveDeltaTime =
-    duelParameters.moveDuration *
+    duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
+  const lastMovementDeltaTime =
+    duelParameters.movementDuration *
       (1.0 + duelParameters.probeRestDurationCoefficient) +
     reactionTime;
   const fitCoefficient =
-    (duelParameters.duelDuration - lastMoveDeltaTime) /
+    (duelParameters.duelDuration - lastMovementDeltaTime) /
     currentDurationOfAttackIntervals;
 
   fittedAttackIntervals.forEach((fittedAttackInterval) => {
@@ -38,8 +38,7 @@ const fitAttackIntervalsInTime = (attackIntervals) => {
 };
 
 /**
-  @summary Calculates attack intervals
-  @description Contains random.
+  @summary Calculates attack intervals based on chances and random
   @param attackIntervals
   @returns attack intervals
 */

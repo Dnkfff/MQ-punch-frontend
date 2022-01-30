@@ -1,28 +1,27 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateDuelScenario */
 
 import {
-  calculateChancesOfOffensiveMoves,
-  calculateChancesOfDefensiveMoves,
+  calculateChancesOfOffensiveMovements,
+  calculateChancesOfDefensiveMovements,
   calculateChancesToWin,
 } from "./calculateChances";
-import calculateMoves from "./calculateMoves";
+import calculateMovements from "./calculateMovements";
 
 /**
-  @summary Calculates the duel scenario
-  @description Works asynchronously.
+  @summary Calculates the duel scenario asynchronously
   @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @param rightBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @returns the duel scenario
 */
 const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
-  const boxersChancesOfMoves = {
-    leftBoxerChancesOfMoves: {
-      offensive: calculateChancesOfOffensiveMoves(leftBoxerStats),
-      defensive: calculateChancesOfDefensiveMoves(leftBoxerStats),
+  const boxersChancesOfMovements = {
+    leftBoxerChancesOfMovements: {
+      offensive: calculateChancesOfOffensiveMovements(leftBoxerStats),
+      defensive: calculateChancesOfDefensiveMovements(leftBoxerStats),
     },
-    rightBoxerChancesOfMoves: {
-      offensive: calculateChancesOfOffensiveMoves(rightBoxerStats),
-      defensive: calculateChancesOfDefensiveMoves(rightBoxerStats),
+    rightBoxerChancesOfMovements: {
+      offensive: calculateChancesOfOffensiveMovements(rightBoxerStats),
+      defensive: calculateChancesOfDefensiveMovements(rightBoxerStats),
     },
   };
   const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } =
@@ -35,8 +34,8 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
     rightBoxerLeadingSide: rightBoxerStats.leadingSide,
   };
 
-  const duelScenario = calculateMoves(
-    boxersChancesOfMoves,
+  const duelScenario = calculateMovements(
+    boxersChancesOfMovements,
     boxersLeadingSides,
     winner
   );

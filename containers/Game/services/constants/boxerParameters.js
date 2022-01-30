@@ -3,10 +3,10 @@
 /**
   @brief The object of boxer constants
   @description It contains
-  scale (boxer model scale),
+  scale (scale of boxer),
   animationTransitionDuration (time for blending two consistent animations),
-  stepSize (length of average boxer model step),
-  idealDistance (ideal distance between two boxer models),
+  stepSize (length of average step of boxer),
+  idealDistance (ideal distance between two boxers),
   idealDistanceDeviation (maximal deviation of idealDistance).
 */
 const boxerParameters = {

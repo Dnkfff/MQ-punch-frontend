@@ -4,8 +4,7 @@ import { TextureLoader } from "three";
 import { FBXLoader } from "three-stdlib";
 
 /**
-  @summary The function for loading texture from specified url.
-  @description Works asynchronously.
+  @summary Loads texture from specified url asynchronously
   @param url
   @returns new Promise
 */
@@ -17,8 +16,7 @@ export const loadTexture = (url) => {
 };
 
 /**
-  @summary The function for loading FBX-model from specified url.
-  @description Works asynchronously.
+  @summary Loads FBX-model from specified url asynchronously
   @param url
   @returns new Promise
 */

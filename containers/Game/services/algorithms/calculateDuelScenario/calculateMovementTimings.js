@@ -1,23 +1,22 @@
-/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMoveTimings */
+/** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMovementTimings */
 
 import calculateAttackIntervals from "./calculateAttackIntervals";
 
 import duelParameters from "../../constants/duelParameters";
 
 /**
-  @summary Calculates move timings
-  @description Contains random.
+  @summary Calculates movement timings based on chances and random
   @param leftBoxerLeadingSide
   @param rightBoxerLeadingSide
   @param winner
-  @returns the list of objects that contains startTime, winnerMoveType, winnerLeadingSide and loserLeadingSide
+  @returns the list of objects that contains startTime, winnerMovementType, winnerLeadingSide and loserLeadingSide
 */
-const calculateMoveTimings = (
+const calculateMovementTimings = (
   leftBoxerLeadingSide,
   rightBoxerLeadingSide,
   winner
 ) => {
-  let moveTimings = [];
+  let movementTimings = [];
 
   let winnerLeadingSide =
     winner === "left" ? leftBoxerLeadingSide : rightBoxerLeadingSide;
@@ -29,51 +28,51 @@ const calculateMoveTimings = (
   let time = 0;
   attackIntervals.forEach((attackInterval) => {
     while (time < attackInterval.startTime) {
-      moveTimings.push({
+      movementTimings.push({
         startTime: time,
-        winnerMoveType: "probe",
+        winnerMovementType: "probe",
         winnerLeadingSide: winnerLeadingSide,
         loserLeadingSide: loserLeadingSide,
       });
 
       const randomMultiplier =
         duelParameters.probeRestDurationCoefficient * Math.random();
-      time += duelParameters.moveDuration * (1.0 + randomMultiplier);
+      time += duelParameters.movementDuration * (1.0 + randomMultiplier);
     }
 
     const endTime = attackInterval.startTime + attackInterval.duration;
     const reactionTime =
-      duelParameters.reactionTimeCoefficient * duelParameters.moveDuration;
+      duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
     while (time + reactionTime <= endTime) {
-      let moveType;
+      let movementType;
 
       let chance = Math.random();
-      if (chance < duelParameters.chanceOfOffensiveMove) {
-        moveType = "offensive";
+      if (chance < duelParameters.chanceOfOffensiveMovement) {
+        movementType = "offensive";
       } else if (
         chance <
-        duelParameters.chanceOfOffensiveMove +
-          duelParameters.chanceOfDefensiveMove
+        duelParameters.chanceOfOffensiveMovement +
+          duelParameters.chanceOfDefensiveMovement
       ) {
-        moveType = "defensive";
+        movementType = "defensive";
       } else if (
         chance <
-        duelParameters.chanceOfOffensiveMove +
-          duelParameters.chanceOfDefensiveMove +
-          duelParameters.chanceOfProbeMove
+        duelParameters.chanceOfOffensiveMovement +
+          duelParameters.chanceOfDefensiveMovement +
+          duelParameters.chanceOfProbeMovement
       ) {
-        moveType = "probe";
+        movementType = "probe";
       } else {
         chance = Math.random();
         if (chance < 0.5) {
-          moveType = "switchLeadingSide-winner";
+          movementType = "switchLeadingSide-winner";
           if (winnerLeadingSide === "left") {
             winnerLeadingSide = "right";
           } else {
             winnerLeadingSide = "left";
           }
         } else {
-          moveType = "switchLeadingSide-loser";
+          movementType = "switchLeadingSide-loser";
           if (loserLeadingSide === "left") {
             loserLeadingSide = "right";
           } else {
@@ -82,26 +81,26 @@ const calculateMoveTimings = (
         }
       }
 
-      moveTimings.push({
+      movementTimings.push({
         startTime: time,
-        winnerMoveType: moveType,
+        winnerMovementType: movementType,
         winnerLeadingSide,
         loserLeadingSide,
       });
 
       const randomMultiplier =
         duelParameters.attackRestDurationCoefficient * Math.random();
-      time += duelParameters.moveDuration * (1.0 + randomMultiplier);
+      time += duelParameters.movementDuration * (1.0 + randomMultiplier);
     }
   });
-  moveTimings.push({
+  movementTimings.push({
     startTime: time,
-    winnerMoveType: "offensive",
+    winnerMovementType: "offensive",
     winnerLeadingSide: winnerLeadingSide,
     loserLeadingSide: loserLeadingSide,
   });
 
-  return moveTimings;
+  return movementTimings;
 };
 
-export default calculateMoveTimings;
+export default calculateMovementTimings;

@@ -5,33 +5,33 @@ import { Vector3 } from "three";
 /**
   @summary Gets location parameters of specified bone in specified model
   @param model model
-  @param name model child (bone) name
-  @returns an object with childPosition, parentRotation and childQuaternion
+  @param boneName bone name
+  @returns an object with position, rotationY and quaternion
 */
-export const getLocationAttributesOfModelChildByName = (model, name) => {
-  const modelChild = model.getObjectByName(name);
+export const getLocationAttributesOfModelBoneByName = (model, boneName) => {
+  const bone = model.getObjectByName(boneName);
 
   return {
-    childPosition: modelChild.getWorldPosition(new Vector3()),
-    parentRotation: model.rotation.clone(),
-    childQuaternion: modelChild.quaternion.clone(),
+    position: bone.getWorldPosition(new Vector3()),
+    rotationY: model.rotation.y,
+    quaternion: bone.quaternion.clone(),
   };
 };
 
 /**
   @summary Calculates absolute camera positions and lookAt vectors
   @param params
-  @param params.childPosition absolute model bone position
-  @param params.positionOffsetVector relative position vector
-  @param params.lookAtVector relative lookAt vector
+  @param params.position world position
+  @param params.positionOffsetVector local position offset
+  @param params.lookAtVector local look at position
   @returns an object with cameraPosition and cameraLookAt
 */
 export const calculateCameraParameters = ({
-  childPosition,
+  position,
   positionOffsetVector,
   lookAtVector,
 }) => {
-  const cameraPosition = childPosition.clone();
+  const cameraPosition = position.clone();
   cameraPosition.add(positionOffsetVector);
 
   const cameraLookAt = cameraPosition.clone();

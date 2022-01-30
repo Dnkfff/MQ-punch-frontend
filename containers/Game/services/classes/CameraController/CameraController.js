@@ -6,7 +6,7 @@ import viewNames from "../../constants/viewNames";
 
 /**
   @summary The CameraController class
-  @description Controls Three.js camera position, target and views.
+  @description Controls camera position, target, views and modes.
   @class
 */
 class CameraController {
@@ -15,24 +15,24 @@ class CameraController {
     @constructor
     @param camera Three.js camera
     @param skybox Three.js mesh of the skybox
-    @param targetModel
+    @param target
   */
-  constructor(camera, skybox, targetModel) {
+  constructor(camera, skybox, target) {
     this.camera = camera;
 
     this.skybox = skybox;
 
-    this.targetModel = targetModel;
+    this.target = target;
     this.automaticModeEnabled = true;
     this.view = viewNames[0];
   }
 
   /**
-    @summary Sets targetModel
-    @param targetModel
+    @summary Sets target
+    @param target
   */
-  setTargetModel(targetModel) {
-    this.targetModel = targetModel;
+  setTarget(target) {
+    this.target = target;
   }
 
   /**
@@ -57,7 +57,7 @@ class CameraController {
   modesHandler() {
     // getting positions of camera and target from the appropriate view function
     const { cameraPosition, cameraLookAt } = cameraViews[this.view](
-      this.targetModel
+      this.target
     );
 
     this.camera.position.set(

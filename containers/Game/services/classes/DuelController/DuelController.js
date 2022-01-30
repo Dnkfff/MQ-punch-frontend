@@ -11,8 +11,9 @@ import viewNames from "../../constants/viewNames";
 
 /**
   @summary The DuelContoller class
-  @description Requests specified in the duelScenario animations at each moment of time for each boxer
-  and views for the cameraController according to the duel.
+  @description Requests animations for each boxer
+  and views for the cameraController according to the duelScenario
+  at each moment of time.
   @class
 */
 class DuelController {
@@ -28,10 +29,10 @@ class DuelController {
   constructor({ duelScenario, leftBoxer, rightBoxer, cameraController }) {
     this.leftBoxer = leftBoxer;
     this.rightBoxer = rightBoxer;
-    this.leftBoxerMoves = duelScenario.leftBoxerMoves.slice();
-    this.rightBoxerMoves = duelScenario.rightBoxerMoves.slice();
-    this.finishedLeftBoxerMoves = [];
-    this.finishedRightBoxerMoves = [];
+    this.leftBoxerMovements = duelScenario.leftBoxerMovements.slice();
+    this.rightBoxerMovements = duelScenario.rightBoxerMovements.slice();
+    this.finishedLeftBoxerMovements = [];
+    this.finishedRightBoxerMovements = [];
     this.leftBoxerSlowMotionStartPosition = new Vector3();
     this.rightBoxerSlowMotionStartPosition = new Vector3();
     this.leftBoxerSlowMotionStartLeadingSide = "";
@@ -46,7 +47,7 @@ class DuelController {
   /**
     @summary Follows the duelScenario
     @description Requests boxer animations and moves boxers,
-    writes passed moves from the duelScenario to the special list for slowmotion mode.
+    writes passed movements from the duelScenario to the special list for slowmotion mode.
     @param deltaTime time in seconds passed since the last call
   */
   act(deltaTime) {
@@ -63,20 +64,23 @@ class DuelController {
       const animateBoxer = (
         boxer,
         opponent,
-        boxerMoves,
-        finishedBoxerMoves
+        boxerMovements,
+        finishedBoxerMovements
       ) => {
         if (
-          boxerMoves.length > 0 &&
-          boxerMoves[0].startTime <= this.currentTime
+          boxerMovements.length > 0 &&
+          boxerMovements[0].startTime <= this.currentTime
         ) {
-          // if new move has started
-          const boxerMove = boxerMoves.shift(); // get the first move from the list
+          // if new movement has started
+          const boxerMovement = boxerMovements.shift(); // get the first movement from the list
 
           if (this.mode === "run") {
             // if not in slow motion
             // remember positions and leading sides of boxers before slow motion
-            if (boxerMoves.length + 1 <= duelParameters.slowMotionMovesNumber) {
+            if (
+              boxerMovements.length + 1 <=
+              duelParameters.slowMotionMovementsNumber
+            ) {
               if (boxer === this.leftBoxer) {
                 this.leftBoxerSlowMotionStartPosition =
                   boxer.model.position.clone();
@@ -88,27 +92,27 @@ class DuelController {
               }
             }
 
-            // add the move to the list of slow motion moves
-            finishedBoxerMoves.push(boxerMove);
+            // add the movement to the list of slow motion movements
+            finishedBoxerMovements.push(boxerMovement);
           }
 
-          if (boxerMove.move.whole !== undefined) {
-            // if the move is for the whole body at once
-            boxer.requestAnimation(boxerMove.move.whole, "whole");
+          if (boxerMovement.movement.whole !== undefined) {
+            // if the movement is for the whole body at once
+            boxer.requestAnimation(boxerMovement.movement.whole, "whole");
 
-            // make the boxer switch his leading side if the move requires it
-            switchBoxerLeadingSide(boxer, boxerMove);
+            // make the boxer switch his leading side if the movement requires it
+            switchBoxerLeadingSide(boxer, boxerMovement);
           } else {
-            // if the move is for the lower and the upper body separately
-            boxer.requestAnimation(boxerMove.move.lower, "lower");
+            // if the movement is for the lower and the upper body separately
+            boxer.requestAnimation(boxerMovement.movement.lower, "lower");
             boxer.requestAnimation(
-              boxerMove.move.upper,
+              boxerMovement.movement.upper,
               "upper",
-              boxerMove.miss
+              boxerMovement.miss
             );
 
-            // make the boxer make a step if the move requires it
-            moveBoxer(boxer, opponent, boxerMove);
+            // make the boxer make a step if the movement requires it
+            moveBoxer(boxer, opponent, boxerMovement);
           }
         }
       };
@@ -183,28 +187,28 @@ class DuelController {
         }
       };
 
-      // assign next moves to boxers
+      // assign next movements to boxers
       animateBoxer(
         this.leftBoxer,
         this.rightBoxer,
-        this.leftBoxerMoves,
-        this.finishedLeftBoxerMoves
+        this.leftBoxerMovements,
+        this.finishedLeftBoxerMovements
       );
       animateBoxer(
         this.rightBoxer,
         this.leftBoxer,
-        this.rightBoxerMoves,
-        this.finishedRightBoxerMoves
+        this.rightBoxerMovements,
+        this.finishedRightBoxerMovements
       );
 
-      // animate and move boxers
+      // animate and movement boxers
       this.leftBoxer.animate(deltaTime);
       this.rightBoxer.animate(deltaTime);
 
       // make boxers keep minimal distance
       collideBoxersWithEachOther();
 
-      // handle boxers' collisions with the ring
+      // handle boxers collisions with the ring
       collideBoxerWithRing(this.leftBoxer);
       collideBoxerWithRing(this.rightBoxer);
 
@@ -213,10 +217,10 @@ class DuelController {
       this.rightBoxer.face(this.leftBoxer);
 
       if (
-        this.leftBoxerMoves.length === 0 &&
-        this.rightBoxerMoves.length === 0
+        this.leftBoxerMovements.length === 0 &&
+        this.rightBoxerMovements.length === 0
       ) {
-        // if all the moves have ended
+        // if all the movements have ended
         // prepare for slow motion after cooldown
         setTimeout(
           this.prepareSlowMotion(),
@@ -227,7 +231,7 @@ class DuelController {
   }
 
   /**
-    @summary Prepares boxer moves lists, positions and sets execution mode to slowmotion
+    @summary Prepares boxer movements lists, positions and sets execution mode to slowmotion
   */
   prepareSlowMotion() {
     this.mode = "slowmotion";
@@ -255,16 +259,16 @@ class DuelController {
       this.rightBoxer.switchLeadingSide();
     }
 
-    // push specified amount of moves from the end to boxers' moves
-    for (let i = 0; i < duelParameters.slowMotionMovesNumber; i++) {
-      this.leftBoxerMoves.push(this.finishedLeftBoxerMoves[i]);
-      this.rightBoxerMoves.push(this.finishedRightBoxerMoves[i]);
+    // push specified amount of movements from the end to boxers movements
+    for (let i = 0; i < duelParameters.slowMotionMovementsNumber; i++) {
+      this.leftBoxerMovements.push(this.finishedLeftBoxerMovements[i]);
+      this.rightBoxerMovements.push(this.finishedRightBoxerMovements[i]);
     }
 
-    // set current time to minimal of boxers' first moves
+    // set current time to minimal of boxers first movements
     this.currentTime = Math.min(
-      this.finishedLeftBoxerMoves[0].startTime,
-      this.finishedRightBoxerMoves[0].startTime
+      this.finishedLeftBoxerMovements[0].startTime,
+      this.finishedRightBoxerMovements[0].startTime
     );
 
     // switch camera view
@@ -276,10 +280,10 @@ class DuelController {
     const leftBoxerIsWinner = this.winner === "left";
     if (numberIsPair === leftBoxerIsWinner) {
       // nxor
-      this.cameraController.setTargetModel(this.rightBoxer.model);
+      this.cameraController.setTarget(this.rightBoxer.model);
     } else {
       // xor
-      this.cameraController.setTargetModel(this.leftBoxer.model);
+      this.cameraController.setTarget(this.leftBoxer.model);
     }
     this.currentCameraViewNumber++;
     // if all the views have ended

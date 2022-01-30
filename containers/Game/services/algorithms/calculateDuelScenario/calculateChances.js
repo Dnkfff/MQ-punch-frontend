@@ -4,26 +4,25 @@ import duelEconomics from "../../constants/duelEconomics";
 import duelParameters from "../../constants/duelParameters";
 
 /**
-  @summary Calculates chances of offensive moves based on given boxer stats
-  @description Contains random.
+  @summary Calculates chances of offensive movements based on given boxer stats and random
   @param boxerStats an object with boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @returns an object with chanceOfBruteForceAttack, chanceOfDeceptiveAttack and chanceOfCounterAttack
 */
-export const calculateChancesOfOffensiveMoves = (boxerStats) => {
+export const calculateChancesOfOffensiveMovements = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier =
     1.0 +
-    duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+    duelParameters.chanceOfMovementRandomBooster * (-1.0 + 2.0 * Math.random());
   const bruteForceAttackCoefficient =
     (boxerStats.strength * 2.0 + boxerStats.endurance * 1.0) * randomMultiplier;
   randomMultiplier =
     1.0 +
-    duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+    duelParameters.chanceOfMovementRandomBooster * (-1.0 + 2.0 * Math.random());
   const deceptiveAttackCoefficient =
     (boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) * randomMultiplier;
   randomMultiplier =
     1.0 +
-    duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+    duelParameters.chanceOfMovementRandomBooster * (-1.0 + 2.0 * Math.random());
   const counterAttackCoefficient =
     (boxerStats.agility * 2.0 + boxerStats.strength * 1.0) * randomMultiplier;
 
@@ -40,16 +39,15 @@ export const calculateChancesOfOffensiveMoves = (boxerStats) => {
 };
 
 /**
-  @summary Calculates chances of defensive moves based on given boxer stats
-  @description Contains random.
+  @summary Calculates chances of defensive movements based on given boxer stats and random
   @param boxerStats an object with boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @returns an object with chanceOfBlock and chanceOfDodge
 */
-export const calculateChancesOfDefensiveMoves = (boxerStats) => {
+export const calculateChancesOfDefensiveMovements = (boxerStats) => {
   let randomMultiplier;
   randomMultiplier =
     1.0 +
-    duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+    duelParameters.chanceOfMovementRandomBooster * (-1.0 + 2.0 * Math.random());
   const blockCoefficient =
     (boxerStats.strength * 3.0 +
       boxerStats.endurance * 2.0 +
@@ -57,7 +55,7 @@ export const calculateChancesOfDefensiveMoves = (boxerStats) => {
     randomMultiplier;
   randomMultiplier =
     1.0 +
-    duelParameters.chanceOfMoveRandomBooster * (-1.0 + 2.0 * Math.random());
+    duelParameters.chanceOfMovementRandomBooster * (-1.0 + 2.0 * Math.random());
   const dodgeCoefficient =
     (boxerStats.agility * 3.0 +
       boxerStats.endurance * 2.0 +
@@ -73,8 +71,7 @@ export const calculateChancesOfDefensiveMoves = (boxerStats) => {
 };
 
 /**
-  @summary Calculates chances of each boxer to win based on given boxer stats
-  @description Contains random.
+  @summary Calculates chances of each boxer to win based on given boxer stats and random
   @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @param leftBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @returns an object with chanceForLeftBoxerToWin and chanceForRightBoxerToWin

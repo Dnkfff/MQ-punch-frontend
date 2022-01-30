@@ -7,7 +7,7 @@ import duelParameters from "../../constants/duelParameters";
 
 /**
   @summary The Boxer class
-  @description Initializes Three.js scene (on WebGL), boxers, skybox, camera controller,
+  @description Initializes WebGL scene, boxers, skybox, camera controller,
   ring environment, runs the duel scenario calculation algorithm.
   Then starts duel controller and renders scene objects.
   @class
@@ -36,12 +36,12 @@ class Boxer {
   }
 
   /**
-    @summary Animates the model
-    @description Updates animationMixer with deltaTime, switches to idle animations if requested are finished.
+    @summary Animates the boxer
+    @description Updates animationMixer with deltaTime, switches to idle animation if the requested one has finished.
     @param deltaTime time in seconds passed since the last call
   */
   animate(deltaTime) {
-    // update animation stage of model
+    // update animation stage
     this.animationMixer.update(deltaTime);
 
     // set the lower body animation if needed
@@ -58,9 +58,9 @@ class Boxer {
       this.requestAnimation(this.upperBodyIdleAnimation, "upper", false);
     }
 
-    // move model according to current direction and update stage of the move
+    // movement boxer according to current direction and update stage of the movement
     if (this.movingStage < 1.0) {
-      const deltaStage = deltaTime / duelParameters.moveDuration;
+      const deltaStage = deltaTime / duelParameters.movementDuration;
 
       const deltaPosition = this.movingDirection.clone();
       deltaPosition.multiplyScalar(deltaStage);
@@ -72,8 +72,8 @@ class Boxer {
   }
 
   /**
-    @summary Requests an animation
-    @description Fades in current animation and fades out the requested one with blending.
+    @summary Requests an animation with transition (blending)
+    @description Fades out current animation and fades in the requested one.
     @param name requested animation name
     @param type for the lower, the upper or the whole body
   */
@@ -128,7 +128,7 @@ class Boxer {
 
   /**
     @summary Switches the leading side
-    @description Mirrors the model using matrix.
+    @description Mirrors the model.
   */
   switchLeadingSide() {
     if (this.leadingSide === "left") {
@@ -145,8 +145,8 @@ class Boxer {
 
   /**
     @summary Moves the boxer
-    @description The function moves the boxer model.
-    @param direction move direction
+    @description Moves the boxer at specified direction with specified step length coefficient.
+    @param direction movement direction
     @param coefficient step coefficient
   */
   move(direction, coefficient) {

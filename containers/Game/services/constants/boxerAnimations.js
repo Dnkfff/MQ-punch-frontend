@@ -454,10 +454,10 @@ const boxerAnimations = [
 */
 export const specialAnimationNames = {
   switchLeadingSide: "switch-leading-side",
-  moveForward: "step-forward",
-  moveBackward: "step-backward",
-  moveLeft: "step-to-the-left",
-  moveRight: "step-to-the-right",
+  movementForward: "step-forward",
+  movementBackward: "step-backward",
+  movementLeft: "step-to-the-left",
+  movementRight: "step-to-the-right",
 };
 
 export default boxerAnimations;
