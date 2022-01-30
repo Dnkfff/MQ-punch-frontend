@@ -76,6 +76,7 @@ class Boxer {
     @description Fades out current animation and fades in the requested one.
     @param name requested animation name
     @param type for the lower, the upper or the whole body
+    @param miss if the boxer has missed attack or defence
   */
   requestAnimation(name, type, miss) {
     const transitionDuration = boxerParameters.animationTransitionDuration;

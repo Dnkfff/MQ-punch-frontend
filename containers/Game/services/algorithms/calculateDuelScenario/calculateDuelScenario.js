@@ -8,7 +8,7 @@ import {
 import calculateMovements from "./calculateMovements";
 
 /**
-  @summary Calculates the duel scenario asynchronously
+  @summary Calculates the duel scenario
   @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @param rightBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
   @returns the duel scenario

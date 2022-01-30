@@ -31,7 +31,12 @@ const duelParameters = {
   intervalDurationRandomBooster: 0.1,
   chanceOfOffensiveMovement: 0.4,
   chanceOfDefensiveMovement: 0.4,
-  chanceOfProbeMovement: 0.15,
+  chanceOfProbeMovement: 0.2,
+  // chanceOfSwitchLeadingSideMovement = 1.0 - (
+  //                                     chanceOfOffensiveMovement +
+  //                                     chanceOfDefensiveMovement +
+  //                                     chanceOfProbeMovement
+  //                                     )
   attackIntervalDurationCoefficient: 4.0,
   probeIntervalDurationCoefficient: 3.0,
   movementDuration: 0.6,

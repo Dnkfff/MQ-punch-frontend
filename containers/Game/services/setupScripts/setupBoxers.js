@@ -3,6 +3,8 @@
 import { AnimationMixer, LoopOnce, LoopRepeat } from "three";
 import { SkeletonUtils } from "three-stdlib";
 
+import Boxer from "../classes/Boxer/Boxer";
+
 import { loadFBX } from "../algorithms/assetsLoaders";
 
 import webGLParameters from "../constants/webGLParameters";
@@ -10,8 +12,6 @@ import boxerParameters from "../constants/boxerParameters";
 import ringParameters from "../constants/ringParameters";
 import modelNames from "../constants/modelNames";
 import boxerAnimations from "../constants/boxerAnimations";
-
-import Boxer from "../classes/Boxer/Boxer";
 
 /**
   @summary Initializes two Boxer instances
