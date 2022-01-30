@@ -55,7 +55,7 @@ class Boxer {
     const currentUpperBodyAnimationIsRunning =
       this.animationActions[this.currentUpperBodyAnimationName].isRunning();
     if (!currentUpperBodyAnimationIsRunning) {
-      this.requestAnimation(this.upperBodyIdleAnimation, "upper");
+      this.requestAnimation(this.upperBodyIdleAnimation, "upper", false);
     }
 
     // move model according to current direction and update stage of the move
@@ -77,32 +77,51 @@ class Boxer {
     @param name requested animation name
     @param type for the lower, the upper or the whole body
   */
-  requestAnimation(name, type) {
+  requestAnimation(name, type, miss) {
     const transitionDuration = boxerParameters.animationTransitionDuration;
     const lowerBodyAnimationAction =
       this.animationActions[this.currentLowerBodyAnimationName];
     const upperBodyAnimationAction =
       this.animationActions[this.currentUpperBodyAnimationName];
 
-    // animation transition
+    // if boxer has missed the hit
+    if (type === "upper" && miss === true) {
+      name += "-miss";
+    }
+
+    // start animation
     this.animationActions[name].reset();
-    this.animationActions[name].fadeIn(transitionDuration);
     this.animationActions[name].play();
 
-    if (
-      (type === "lower" || type === "whole") &&
+    // if the animation has changed
+    if (type === "whole" && this.currentLowerBodyAnimationName !== name) {
+      // for the whole body
+      // animation transition
+      this.animationActions[name].fadeIn(transitionDuration);
+      lowerBodyAnimationAction.fadeOut(transitionDuration);
+      upperBodyAnimationAction.fadeOut(transitionDuration);
+
+      this.currentLowerBodyAnimationName = name;
+      this.currentUpperBodyAnimationName = name;
+    } else if (
+      type === "lower" &&
       this.currentLowerBodyAnimationName !== name
     ) {
-      // if the animation have changed
+      // for the lower body
+      // animation transition
+      this.animationActions[name].fadeIn(transitionDuration);
       lowerBodyAnimationAction.fadeOut(transitionDuration);
+
       this.currentLowerBodyAnimationName = name;
-    }
-    if (
-      (type === "upper" || type === "whole") &&
+    } else if (
+      type === "upper" &&
       this.currentUpperBodyAnimationName !== name
     ) {
-      // if the animation have changed
+      // for the upper body
+      // animation transition
+      this.animationActions[name].fadeIn(transitionDuration);
       upperBodyAnimationAction.fadeOut(transitionDuration);
+
       this.currentUpperBodyAnimationName = name;
     }
   }

@@ -18,7 +18,7 @@
   probeRestDurationCoefficient,
   reactionTimeCoefficient,
   chanceOfDeceptiveDefenseMove,
-  chanceOfHit,
+  chanceOfMiss,
   slowMotionCooldownDuration (in seconds),
   slowMotionMovesNumber,
   slowMotionSpeedMultiplier.
@@ -39,7 +39,7 @@ const duelParameters = {
   probeRestDurationCoefficient: 3.0,
   reactionTimeCoefficient: 0.35,
   chanceOfDeceptiveDefenseMove: 0.9,
-  chanceOfHit: 0.95,
+  chanceOfMiss: 0.05,
   slowMotionCooldownDuration: 3.0,
   slowMotionMovesNumber: 5,
   slowMotionSpeedMultiplier: 0.3,

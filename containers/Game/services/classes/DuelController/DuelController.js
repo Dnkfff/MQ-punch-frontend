@@ -70,7 +70,7 @@ class DuelController {
           boxerMoves.length > 0 &&
           boxerMoves[0].startTime <= this.currentTime
         ) {
-          // if new move have started
+          // if new move has started
           const boxerMove = boxerMoves.shift(); // get the first move from the list
 
           if (this.mode === "run") {
@@ -101,7 +101,11 @@ class DuelController {
           } else {
             // if the move is for the lower and the upper body separately
             boxer.requestAnimation(boxerMove.move.lower, "lower");
-            boxer.requestAnimation(boxerMove.move.upper, "upper");
+            boxer.requestAnimation(
+              boxerMove.move.upper,
+              "upper",
+              boxerMove.miss
+            );
 
             // make the boxer make a step if the move requires it
             moveBoxer(boxer, opponent, boxerMove);
@@ -278,7 +282,7 @@ class DuelController {
       this.cameraController.setTargetModel(this.leftBoxer.model);
     }
     this.currentCameraViewNumber++;
-    // if the views have ended
+    // if all the views have ended
     if (this.currentCameraViewNumber === viewNames.length * 2) {
       this.currentCameraViewNumber = 0;
       this.mode = "stop";

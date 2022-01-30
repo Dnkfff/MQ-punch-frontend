@@ -12,23 +12,24 @@ import {
 } from "../../constants/duelAnimationNames";
 
 /**
-  @summary Pushes specified move into moves list
+  @summary Pushes specified move into moves list with the chance of miss (only for the upper body)
   @description Contains random.
+  @param moves moves list
   @param move move object
   @param moveTimingStartTime move start time
-  @param moves moves list
+  @param miss if the attack or defence is missed
 */
-const pushTheMove = (move, moveTimingStartTime, moves) => {
+const pushTheMove = (moves, move, moveTimingStartTime, miss) => {
   const randomMultiplier = 0.5 + 0.5 * Math.random();
   const reactionTime =
     duelParameters.reactionTimeCoefficient *
     duelParameters.moveDuration *
     randomMultiplier;
-  const randomChance = Math.random();
+
   moves.push({
     startTime: moveTimingStartTime + reactionTime,
     move,
-    hit: randomChance < duelParameters.chanceOfHit,
+    miss,
   });
 };
 
@@ -71,7 +72,7 @@ const pushProbeMove = ({ moveTimingStartTime, moves, leadingSide }) => {
     lower: lowerBodyMoveName,
     upper: upperBodyMoveName,
   };
-  pushTheMove(move, moveTimingStartTime, moves);
+  pushTheMove(moves, move, moveTimingStartTime, false);
 };
 
 /**
@@ -170,7 +171,7 @@ const pushOffensiveMove = ({
     lower: lowerBodyMoveName,
     upper: upperBodyMoveName,
   };
-  pushTheMove(move, moveTimingStartTime, moves);
+  pushTheMove(moves, move, moveTimingStartTime, Math.random() < duelParameters.chanceOfMiss);
 
   return {
     name: upperBodyMoveName,
@@ -292,7 +293,7 @@ const pushDefensiveMove = ({
     lower: lowerBodyMoveName,
     upper: upperBodyMoveName,
   };
-  pushTheMove(move, moveTimingStartTime, moves);
+  pushTheMove(moves, move, moveTimingStartTime, Math.random() < duelParameters.chanceOfMiss);
 };
 
 /**
@@ -305,7 +306,7 @@ const pushSwitchLeadingSideMove = ({ moveTimingStartTime, moves }) => {
   const move = {
     whole: switchLeadingSideAnimationName,
   };
-  pushTheMove(move, moveTimingStartTime, moves);
+  pushTheMove(moves, move, moveTimingStartTime, false);
 };
 
 /**

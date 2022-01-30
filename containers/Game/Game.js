@@ -75,6 +75,7 @@ const Game = () => {
         streaming: 0.1,
         leadingSide: "left",
       };
+
       if (leftBoxerStats.leadingSide === "left") {
         leftBoxer.switchLeadingSide();
       }
