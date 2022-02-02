@@ -20,7 +20,7 @@ class Boxer {
     @param params.model boxer model
     @param params.animationMixer Three.js animation mixer
     @param params.animationActions Three.js animation actions array
-    @param params.idleAnimations an object of idle animation names for the lower and the upper body
+    @param params.idleAnimations The object of idle animation names for the lower and the upper body
   */
   constructor({ model, animationMixer, animationActions, idleAnimations }) {
     this.model = model;
@@ -86,7 +86,7 @@ class Boxer {
       this.animationActions[this.currentUpperBodyAnimationName];
 
     // if boxer has missed the hit
-    if (type === "upper" && miss === true) {
+    if (type === "upper" && miss) {
       name += "-miss";
     }
 

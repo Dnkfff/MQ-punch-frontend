@@ -89,6 +89,7 @@ const Game = () => {
         rightBoxerStats
       );
       console.log(new Date() - timePoint); // TODO to be deleted
+      console.log(duelScenario.leftBoxerMovements, duelScenario.rightBoxerMovements);
       duelController = new DuelController({
         duelScenario,
         leftBoxer,

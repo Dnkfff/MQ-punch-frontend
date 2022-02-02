@@ -96,7 +96,7 @@ export const setupComposer = (window, scene, camera, renderer) => {
   @param params
   @param params.container HTML instance of container where the canvas will render
   @param params.window HTML window
-  @returns an object of scene, camera, renderer and composer
+  @returns The object of scene, camera, renderer and composer
 */
 const setupWebGL = ({ container, window }) => {
   const scene = setupScene();

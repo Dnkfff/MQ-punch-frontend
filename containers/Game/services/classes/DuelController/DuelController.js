@@ -259,7 +259,7 @@ class DuelController {
       this.rightBoxer.switchLeadingSide();
     }
 
-    // push specified amount of movements from the end to boxers movements
+    // pushing specified amount of movements from the end to boxers movements
     for (let i = 0; i < duelParameters.slowMotionMovementsNumber; i++) {
       this.leftBoxerMovements.push(this.finishedLeftBoxerMovements[i]);
       this.rightBoxerMovements.push(this.finishedRightBoxerMovements[i]);

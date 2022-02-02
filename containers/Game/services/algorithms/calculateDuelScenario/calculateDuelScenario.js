@@ -9,11 +9,14 @@ import calculateMovements from "./calculateMovements";
 
 /**
   @summary Calculates the duel scenario
-  @param leftBoxerStats an object with left boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
-  @param rightBoxerStats an object with right boxer strength, agility, endurance, rookie, winrate, streaming, leadingSize
-  @returns the duel scenario
+  @param leftBoxerStats an object with left boxer strength, agility, endurance,
+  rookie, winrate and coefficients streaming and leadingSide
+  @param rightBoxerStats an object with right boxer strength, agility, endurance,
+  rookie, winrate and coefficients streaming and leadingSide
+  @returns the duel scenario with moves for each boxer
 */
 const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
+  // calculating chances of each move for each boxer
   const boxersChancesOfMovements = {
     leftBoxerChancesOfMovements: {
       offensive: calculateChancesOfOffensiveMovements(leftBoxerStats),
@@ -24,16 +27,22 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
       defensive: calculateChancesOfDefensiveMovements(rightBoxerStats),
     },
   };
+
+  // calculating chances of each boxer to win
   const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } =
     calculateChancesToWin(leftBoxerStats, rightBoxerStats);
-  const randomChance = Math.random();
-  const winner = randomChance < chanceForLeftBoxerToWin ? "left" : "right";
 
+  // choosing the winner
+  const winner = Math.random() < chanceForLeftBoxerToWin ? "left" : "right";
+
+  // packing leading sides of each boxer to an object
   const boxersLeadingSides = {
     leftBoxerLeadingSide: leftBoxerStats.leadingSide,
     rightBoxerLeadingSide: rightBoxerStats.leadingSide,
   };
 
+  // calculating movements for each boxer
+  // so they will be stored in one object
   const duelScenario = calculateMovements(
     boxersChancesOfMovements,
     boxersLeadingSides,
