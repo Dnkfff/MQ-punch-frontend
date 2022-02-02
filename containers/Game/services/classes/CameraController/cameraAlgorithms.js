@@ -9,8 +9,10 @@ import { Vector3 } from "three";
   @returns an object with position, rotationY and quaternion
 */
 export const getLocationAttributesOfModelBoneByName = (model, boneName) => {
+  // getting bone by its name
   const bone = model.getObjectByName(boneName);
 
+  // calculating and returning an object of position, rotationY and quaternion
   return {
     position: bone.getWorldPosition(new Vector3()),
     rotationY: model.rotation.y,
@@ -31,9 +33,11 @@ export const calculateCameraParameters = ({
   positionOffsetVector,
   lookAtVector,
 }) => {
+  // cameraPosition (world) = position (world) + positionOffsetVector (local)
   const cameraPosition = position.clone();
   cameraPosition.add(positionOffsetVector);
 
+  // cameraLookAt (world) = position (world) + lookAtVector (local)
   const cameraLookAt = cameraPosition.clone();
   cameraLookAt.add(lookAtVector);
 

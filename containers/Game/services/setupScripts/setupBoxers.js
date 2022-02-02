@@ -25,17 +25,21 @@ const setupBoxers = async (scene) => {
   const leftAnimationActions = {},
     rightAnimationActions = {};
 
+  // promise to load model
   const modelsLoadingPromise = loadFBX(
     "../../../../assets/models/" + modelNames.boxer + ".fbx"
   )
     .then((model) => {
+      // setting rendering layer of each model child to normal layer
       model.traverse((obj) => {
         obj.layers.set(webGLParameters.layers.NORMAL);
       });
 
+      // scaling the model
       const scaleCoefficient = boxerParameters.scale * 0.15;
       model.scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
 
+      // clonning the model and configuring the clone for the left boxer
       leftModel = SkeletonUtils.clone(model);
       leftModel.rotation.y = Math.PI / 2.0;
       leftModel.position.set(
@@ -44,6 +48,7 @@ const setupBoxers = async (scene) => {
         (ringParameters.canvas.width * 1.0) / 16.0
       );
 
+      // clonning the model and configuring the clone for the right boxer
       rightModel = SkeletonUtils.clone(model);
       rightModel.rotation.y = -Math.PI / 2.0;
       rightModel.position.set(
@@ -52,8 +57,10 @@ const setupBoxers = async (scene) => {
         (ringParameters.canvas.width * 15.0) / 16.0
       );
 
+      // adding both models to the scene
       scene.add(leftModel, rightModel);
 
+      // creating animation mixers for both models
       leftAnimationMixer = new AnimationMixer(leftModel);
       rightAnimationMixer = new AnimationMixer(rightModel);
     })
@@ -61,19 +68,26 @@ const setupBoxers = async (scene) => {
       console.log(error);
     });
 
+  // waiting for the model loading promise
   await modelsLoadingPromise;
 
+  // promises to load all animations
   const animationsLoadingPromises = boxerAnimations.map((boxerAnimation) =>
     loadFBX("../../../../assets/animations/" + boxerAnimation.name + ".fbx")
       .then((animation) => {
         const name = boxerAnimation.name;
         const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;
 
+        // creating, adding and configuring animation action
+        // for given animation for the left boxer
         leftAnimationActions[name] = leftAnimationMixer.clipAction(
           animation.animations[0]
         );
         leftAnimationActions[name].setLoop(loopMode);
         leftAnimationActions[name].clampWhenFinished = true;
+
+        // creating, adding and configuring animation action
+        // for given animation for the right boxer
         rightAnimationActions[name] = rightAnimationMixer.clipAction(
           animation.animations[0]
         );
@@ -85,13 +99,17 @@ const setupBoxers = async (scene) => {
       })
   );
 
+  // waiting for all animation loading promises
   await Promise.all(animationsLoadingPromises);
 
+  // a function to calculate idle animation for given boxer
   const calculateIdleAnimations = (boxerAnimations) => {
     const lowerBodyIdleAnimations = [],
       upperBodyIdleAnimations = [];
 
-    boxerAnimations.map((boxerAnimation) => {
+    // for each boxer animation add it to idle animations
+    // if it has flag "idle" setted
+    boxerAnimations.forEach((boxerAnimation) => {
       if (boxerAnimation.idle) {
         if (
           boxerAnimation.type === "lower" ||
@@ -110,11 +128,16 @@ const setupBoxers = async (scene) => {
 
     const lowerBodyIdleAnimationsLength = lowerBodyIdleAnimations.length;
     const upperBodyIdleAnimationsLength = upperBodyIdleAnimations.length;
+
     let randomIndex;
+
+    // calculating idle animations for each part of body for the left boxer
     randomIndex = Math.floor(Math.random() * lowerBodyIdleAnimationsLength);
     const leftLowerBodyIdleAnimation = lowerBodyIdleAnimations[randomIndex];
     randomIndex = Math.floor(Math.random() * upperBodyIdleAnimationsLength);
     const leftUpperBodyIdleAnimation = upperBodyIdleAnimations[randomIndex];
+
+    // calculating idle animations for each part of body for the right boxer
     randomIndex = Math.floor(Math.random() * lowerBodyIdleAnimationsLength);
     const rightLowerBodyIdleAnimation = lowerBodyIdleAnimations[randomIndex];
     randomIndex = Math.floor(Math.random() * upperBodyIdleAnimationsLength);
@@ -131,8 +154,12 @@ const setupBoxers = async (scene) => {
       },
     };
   };
+
+  // calculating idle animations for each boxer
   const idleAnimations = calculateIdleAnimations(boxerAnimations);
 
+  // creating two objects containing arguments for
+  // both Boxer instances constructors
   const leftBoxerConstructorArguments = {
     model: leftModel,
     animationMixer: leftAnimationMixer,
@@ -146,6 +173,7 @@ const setupBoxers = async (scene) => {
     idleAnimations: idleAnimations.right,
   };
 
+  // returning an object of both boxers
   return {
     leftBoxer: new Boxer(leftBoxerConstructorArguments),
     rightBoxer: new Boxer(rightBoxerConstructorArguments),

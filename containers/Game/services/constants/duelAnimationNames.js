@@ -1,7 +1,7 @@
 /** @module containers/Game/services/constants/duelAnimationNames */
 
 /**
-  @brief The object of boxer probe animation names
+  @brief The object of boxer probe animation names (for the upper body)
 */
 export const probeAnimationNames = [
   "jab",
@@ -14,7 +14,7 @@ export const probeAnimationNames = [
 ];
 
 /**
-  @brief The object of boxer offensive animation names
+  @brief The object of boxer offensive animation names (for the upper body)
   @description It contains
   bruteForceAttack,
   deceptiveAttack and
@@ -62,7 +62,7 @@ export const offensiveAnimationNames = {
 };
 
 /**
-  @brief The object of boxer defensive animation names
+  @brief The object of boxer defensive animation names (for the upper body)
   @description It contains offensive animation names as keys
   and objects with appropriate defensive animations as values.
 */
@@ -130,7 +130,9 @@ export const defensiveAnimationNames = {
 };
 
 /**
-  @brief The object of boxer animation names for the lower body
+  @brief The object of boxer lower boyd animation names
+  @description It contains upper body animation names as keys
+  and lower body animations as values.
 */
 export const lowerAnimationNames = {
   jab: [

@@ -15,7 +15,7 @@ import viewNames from "../../constants/viewNames";
 
 /**
   @summary CameraViews object
-  @description Contains view names as keys and appropriate view functions as values.
+  @description It contains view names as keys and appropriate view functions as values.
 */
 const cameraViews = {
   [viewNames[0]]: firstPersonView,

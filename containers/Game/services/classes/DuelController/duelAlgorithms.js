@@ -19,48 +19,59 @@ export const switchBoxerLeadingSide = (boxer, boxerMovement) => {
 };
 
 /**
-  @summary Moves boxer in direction according to specified movement so boxers will locate at normal distance
+  @summary Moves boxer in direction according to specified movement
+  so boxers will locate at normal distance
   @description Makes boxers stay at efficient distance changing sizes of their steps.
   @param boxer boxer
-  @param boxerMovement requested animation name
   @param opponent boxer's opponent
+  @param boxerMovement requested animation name
 */
 export const moveBoxer = (boxer, opponent, boxerMovement) => {
   let movementDirection;
   let stepCoefficient;
 
+  // calculating distance from the boxer to his opponent
   const distance = boxer.distanceTo(opponent);
 
+  // movement forward
   if (boxerMovement.movement.lower === specialAnimationNames.movementForward) {
-    // movement forward
     movementDirection = new Vector3(0.0, 0.0, 1.0);
     stepCoefficient = Math.min(
       distance / (boxerParameters.scale * boxerParameters.idealDistance),
       2.0
     );
-  } else if (
+  }
+
+  // movement backward
+  else if (
     boxerMovement.movement.lower === specialAnimationNames.movementBackward
   ) {
-    // movement backward
     movementDirection = new Vector3(0.0, 0.0, -1.0);
     stepCoefficient =
       (boxerParameters.scale * boxerParameters.idealDistance) / distance;
-  } else if (
+  }
+
+  // movement to the left
+  else if (
     boxerMovement.movement.lower === specialAnimationNames.movementLeft
   ) {
-    // movement left
     movementDirection = new Vector3(-1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
-  } else if (
+  }
+
+  // movement to the right
+  else if (
     boxerMovement.movement.lower === specialAnimationNames.movementRight
   ) {
-    // movement right
     movementDirection = new Vector3(1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
-  } else {
-    // return if boxer does not need to movement
+  }
+
+  // return if boxer does not need to movement
+  else {
     return;
   }
 
+  // move the boxer
   boxer.move(movementDirection, stepCoefficient);
 };

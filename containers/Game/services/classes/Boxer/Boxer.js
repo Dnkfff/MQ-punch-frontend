@@ -7,7 +7,7 @@ import duelParameters from "../../constants/duelParameters";
 
 /**
   @summary The Boxer class
-  @description Initializes WebGL scene, boxers, skybox, camera controller,
+  @description Initializes scene, boxers, skybox, camera controller,
   ring environment, runs the duel scenario calculation algorithm.
   Then starts duel controller and renders scene objects.
   @class
@@ -18,55 +18,66 @@ class Boxer {
     @constructor
     @param params
     @param params.model boxer model
-    @param params.animationMixer Three.js animation mixer
-    @param params.animationActions Three.js animation actions array
-    @param params.idleAnimations The object of idle animation names for the lower and the upper body
+    @param params.animationMixer animation mixer
+    @param params.animationActions animation actions array
+    @param params.idleAnimations The object of idle animation names
+    for the lower and the upper body
   */
   constructor({ model, animationMixer, animationActions, idleAnimations }) {
     this.model = model;
+
     this.animationMixer = animationMixer;
     this.animationActions = animationActions;
+
     this.lowerBodyIdleAnimation = idleAnimations.lower;
     this.upperBodyIdleAnimation = idleAnimations.upper;
+
     this.currentLowerBodyAnimationName = this.lowerBodyIdleAnimation;
     this.currentUpperBodyAnimationName = this.upperBodyIdleAnimation;
+
     this.leadingSide = "right";
+
     this.movingDirection = new Vector3(0.0, 0.0, 0.0);
     this.movingStage = 1.0;
   }
 
   /**
     @summary Animates the boxer
-    @description Updates animationMixer with deltaTime, switches to idle animation if the requested one has finished.
+    @description Updates animationMixer with deltaTime, switches to idle animation
+    if the requested one has finished.
     @param deltaTime time in seconds passed since the last call
   */
   animate(deltaTime) {
-    // update animation stage
+    // updating animation stage
     this.animationMixer.update(deltaTime);
 
-    // set the lower body animation if needed
+    // setting the lower body animation if needed
     const currentLowerBodyAnimationIsRunning =
       this.animationActions[this.currentLowerBodyAnimationName].isRunning();
     if (!currentLowerBodyAnimationIsRunning) {
       this.requestAnimation(this.lowerBodyIdleAnimation, "lower");
     }
 
-    // set the upper body animation if needed
+    // setting the upper body animation if needed
     const currentUpperBodyAnimationIsRunning =
       this.animationActions[this.currentUpperBodyAnimationName].isRunning();
     if (!currentUpperBodyAnimationIsRunning) {
       this.requestAnimation(this.upperBodyIdleAnimation, "upper", false);
     }
 
-    // movement boxer according to current direction and update stage of the movement
+    // moving boxer according to current direction
     if (this.movingStage < 1.0) {
+      // calculating delta stage of the movement
       const deltaStage = deltaTime / duelParameters.movementDuration;
 
+      // calculating delta position
       const deltaPosition = this.movingDirection.clone();
       deltaPosition.multiplyScalar(deltaStage);
 
+      // moving the model onto delta position
       this.model.position.add(deltaPosition);
 
+      // updating stage of the movement
       this.movingStage += deltaStage;
     }
   }
@@ -79,6 +90,7 @@ class Boxer {
     @param miss if the boxer has missed attack or defence
   */
   requestAnimation(name, type, miss) {
+    // getting some variables
     const transitionDuration = boxerParameters.animationTransitionDuration;
     const lowerBodyAnimationAction =
       this.animationActions[this.currentLowerBodyAnimationName];
@@ -87,42 +99,44 @@ class Boxer {
 
     // if boxer has missed the hit
     if (type === "upper" && miss) {
+      // adding to animation name "-miss" suffix
       name += "-miss";
     }
 
-    // start animation
+    // starting animation
     this.animationActions[name].reset();
     this.animationActions[name].play();
 
     // if the animation has changed
+    // for the whole body
     if (type === "whole" && this.currentLowerBodyAnimationName !== name) {
-      // for the whole body
-      // animation transition
+      // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       lowerBodyAnimationAction.fadeOut(transitionDuration);
       upperBodyAnimationAction.fadeOut(transitionDuration);
 
+      // setting animations names
       this.currentLowerBodyAnimationName = name;
       this.currentUpperBodyAnimationName = name;
-    } else if (
-      type === "lower" &&
-      this.currentLowerBodyAnimationName !== name
-    ) {
-      // for the lower body
-      // animation transition
+    }
+
+    // for the lower body
+    else if (type === "lower" && this.currentLowerBodyAnimationName !== name) {
+      // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       lowerBodyAnimationAction.fadeOut(transitionDuration);
 
+      // setting animation name
       this.currentLowerBodyAnimationName = name;
-    } else if (
-      type === "upper" &&
-      this.currentUpperBodyAnimationName !== name
-    ) {
-      // for the upper body
-      // animation transition
+    }
+
+    // for the upper body
+    else if (type === "upper" && this.currentUpperBodyAnimationName !== name) {
+      // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       upperBodyAnimationAction.fadeOut(transitionDuration);
 
+      // setting animation name
       this.currentUpperBodyAnimationName = name;
     }
   }
@@ -132,13 +146,14 @@ class Boxer {
     @description Mirrors the model.
   */
   switchLeadingSide() {
+    // switching the leading side
     if (this.leadingSide === "left") {
       this.leadingSide = "right";
     } else {
       this.leadingSide = "left";
     }
 
-    // mirror along the X-axis
+    // mirroring along the X-axis
     this.model.position.x *= -1.0;
     this.model.rotation.y *= -1.0;
     this.model.applyMatrix4(new Matrix4().makeScale(-1.0, 1.0, 1.0));
@@ -146,17 +161,22 @@ class Boxer {
 
   /**
     @summary Moves the boxer
-    @description Moves the boxer at specified direction with specified step length coefficient.
+    @description Moves the boxer at specified direction
+    with specified step length coefficient.
     @param direction movement direction
     @param coefficient step coefficient
   */
   move(direction, coefficient) {
+    // applying model rotation to the given local direction
     direction.applyAxisAngle(new Vector3(0.0, 1.0, 0.0), this.model.rotation.y);
+
+    // applying size coefficient to the given direction
     direction.normalize();
     direction.multiplyScalar(
       coefficient * boxerParameters.scale * boxerParameters.stepSize
     );
 
+    // setting moving direction and stage
     this.movingDirection = direction;
     this.movingStage = 0.0;
   }
@@ -166,11 +186,14 @@ class Boxer {
     @param opponent boxer's opponent
   */
   face(opponent) {
+    // calculating direction from the boxer to his opponent
     const dirToOpponent = new Vector3();
     dirToOpponent.subVectors(opponent.model.position, this.model.position);
 
+    // calculating an angle between the direction and Z-axis
     let angleY = Math.atan2(dirToOpponent.x, dirToOpponent.z);
 
+    // setting the model Y-rotation angle
     this.model.rotation.y = angleY;
   }
 

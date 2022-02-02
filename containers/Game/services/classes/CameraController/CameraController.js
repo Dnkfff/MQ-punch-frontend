@@ -13,9 +13,9 @@ class CameraController {
   /**
     @summary CameraController constructor
     @constructor
-    @param camera Three.js camera
-    @param skybox Three.js mesh of the skybox
-    @param target
+    @param camera camera
+    @param skybox skybox
+    @param target target
   */
   constructor(camera, skybox, target) {
     this.camera = camera;
@@ -60,12 +60,14 @@ class CameraController {
       this.target
     );
 
+    // setting camera position
     this.camera.position.set(
       cameraPosition.x,
       cameraPosition.y,
       cameraPosition.z
     );
 
+    // setting camera lookAt position
     this.camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
   }
 
@@ -74,15 +76,17 @@ class CameraController {
     @param deltaTime time in seconds passed since the last call
   */
   update(deltaTime) {
+    // automatic view mode
     if (this.automaticModeEnabled) {
-      // automatic view mode
       // TODO automatic mode
-    } else {
-      // manual view mode
+    }
+
+    // manual view mode
+    else {
       this.modesHandler();
     }
 
-    // set skybox location to camera's one
+    // setting skybox position to camera's one
     this.skybox.position.copy(this.camera.position);
   }
 }

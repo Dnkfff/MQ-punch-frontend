@@ -18,6 +18,7 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
   @returns new camera parameters
 */
 const firstPersonView = (model) => {
+  // getting bone position, rotationY and quaternion
   const { position, rotationY, quaternion } =
     getLocationAttributesOfModelBoneByName(model, boxerModelBoneNames["head"]);
 
@@ -32,6 +33,7 @@ const firstPersonView = (model) => {
 
   positionOffsetVector.multiplyScalar(0.0);
 
+  // calculating and returning new camera parameters
   return calculateCameraParameters({
     position,
     positionOffsetVector,

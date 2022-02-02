@@ -18,41 +18,51 @@ import calculateDuelScenario from "./services/algorithms/calculateDuelScenario/c
 
 /**
   @summary The Three.js Game function itself
-  @description Initializes Three.js scene (on WebGL), boxers, skybox, camera controller,
+  @description Initializes Three.js scene, boxers, skybox, camera controller,
   ring environment, runs the duel scenario calculation algorithm.
   Then starts duel controller and renders scene objects.
   @returns div tag with controlled by Three.js canvas
 */
 const Game = () => {
   useEffect(() => {
-    let scene, renderer, composer;
-    let cameraController, duelController;
     const clock = new Clock();
-    let deltaTime = 0.0;
+
+    let scene, renderer, composer;
+
     let leftBoxer, rightBoxer;
 
+    let cameraController;
+
+    let duelController;
+
+    let deltaTime = 0.0;
+
+    // initialization function
     async function init() {
+      // getting container element
       const container = document.getElementById("container");
 
+      // creating and configuring WebGL environment
       let camera;
-      let timePoint = new Date(); // TODO to be deleted
       ({ scene, camera, renderer, composer } = setupWebGL({
         container,
         window,
       }));
-      console.log(new Date() - timePoint); // TODO to be deleted
 
-      timePoint = new Date(); // TODO to be deleted
+      let timePoint = new Date(); // TODO to be deleted
+      // creating and configuring boxers
       ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
       console.log(new Date() - timePoint); // TODO to be deleted
 
-      timePoint = new Date(); // TODO to be deleted
+      // creating skybox
       const skybox = await setupSkybox(scene);
-      console.log(new Date() - timePoint); // TODO to be deleted
+
+      // creating and configuring camera controller
       cameraController = new CameraController(camera, skybox, leftBoxer.model);
       cameraController.enableAutomaticMode(false); // TODO to be deleted
       cameraController.setView("third-person-center"); // TODO to be deleted
 
+      // creating ring environment in the scene
       setupRing(scene);
 
       const leftBoxerStats = {
@@ -76,6 +86,7 @@ const Game = () => {
         leadingSide: "left",
       };
 
+      // switching boxers leading sides if they are "left" ("right" is default)
       if (leftBoxerStats.leadingSide === "left") {
         leftBoxer.switchLeadingSide();
       }
@@ -84,12 +95,14 @@ const Game = () => {
       }
 
       timePoint = new Date(); // TODO to be deleted
+      // calculating a duel scenario
       const duelScenario = calculateDuelScenario(
         leftBoxerStats,
         rightBoxerStats
       );
       console.log(new Date() - timePoint); // TODO to be deleted
-      console.log(duelScenario.leftBoxerMovements, duelScenario.rightBoxerMovements);
+
+      // creating duel controller
       duelController = new DuelController({
         duelScenario,
         leftBoxer,
@@ -97,44 +110,62 @@ const Game = () => {
         cameraController,
       });
 
+      // starting clock
       clock.start();
 
+      // running duelController
       duelController.run();
 
+      // calling render function
       render();
     }
 
     function render() {
+      // requesting render function call after this call ends
       requestAnimationFrame(render);
 
+      // updating WebGL canvas sizes
       updateCanvasSize();
 
+      // getting time difference since the last call
       deltaTime = clock.getDelta();
-      if (deltaTime > 0.0) {
-        duelController.act(deltaTime);
-      }
 
+      // making duelController acting
+      duelController.act(deltaTime);
+
+      // updating camera
       cameraController.update(deltaTime);
 
+      // clearing renderer
       renderer.clear();
 
+      // rendering bloom pass
       cameraController.camera.layers.set(webGLParameters.layers.BLOOM);
       composer.render();
 
+      // clearing depth buffer
       renderer.clearDepth();
+
+      // rendering normal pass
       cameraController.camera.layers.set(webGLParameters.layers.NORMAL);
       renderer.render(scene, cameraController.camera);
     }
 
     function updateCanvasSize() {
+      // updating the camera
       cameraController.camera.aspect = window.innerWidth / window.innerHeight;
       cameraController.camera.updateProjectionMatrix();
+
+      // updating the renderer
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
+
+      // updating the effect composer
       composer.setSize(window.innerWidth, window.innerHeight);
       composer.setPixelRatio(window.devicePixelRatio);
     }
 
+    // calling the initialization function
     init();
   }, []);
 

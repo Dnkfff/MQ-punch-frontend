@@ -8,14 +8,14 @@ import webGLParameters from "../constants/webGLParameters";
 import cameraParameters from "../constants/cameraParameters";
 
 /**
-  @summary Initializes skybox
-  @description Loads skybox texture and place it in the scene.
-  @param scene WebGL scene where the skybox will render
-  @returns skybox Skybox THREE.Mesh instance
+  @summary Loads skybox texture and adds it to scene
+  @param scene THREE.js scene
+  @returns a THREE.js mesh instance of skybox
 */
 const setupSkybox = async (scene) => {
   let texture;
 
+  // loading skybox texture
   const texturePromise = loadTexture(
     "../../../../assets/textures/skybox/skybox.jpg"
   )
@@ -30,20 +30,26 @@ const setupSkybox = async (scene) => {
     console.log(error);
   });
 
-  const material = new THREE.MeshBasicMaterial({ map: texture });
-  material.side = THREE.BackSide;
-
+  // creating a sphere geometry
   let geometry = new THREE.SphereGeometry(
     cameraParameters.farPlaneDistance,
     32,
     32
   );
 
+  // creating a basic material
+  const material = new THREE.MeshBasicMaterial({ map: texture });
+  material.side = THREE.BackSide;
+
+  // creating a skybox mesh
   let skybox = new THREE.Mesh(geometry, material);
   skybox.rotateX(Math.PI);
   skybox.rotateZ(Math.PI / 2.0);
+
+  // setting skybox rendering layer to bloom layer
   skybox.layers.set(webGLParameters.layers.BLOOM);
 
+  // adding skybox to the scene
   scene.add(skybox);
 
   return skybox;

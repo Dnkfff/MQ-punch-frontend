@@ -737,8 +737,10 @@ const calculateMovements = (
   saturateHealthLevels(winnerMovements, loserMovements);
 
   // "translating" winner-loser to left-right
-  const leftBoxerMovements = winner === "left" ? winnerMovements : loserMovements;
-  const rightBoxerMovements = winner === "left" ? loserMovements : winnerMovements;
+  const leftBoxerMovements =
+    winner === "left" ? winnerMovements : loserMovements;
+  const rightBoxerMovements =
+    winner === "left" ? loserMovements : winnerMovements;
 
   return {
     leftBoxerMovements,

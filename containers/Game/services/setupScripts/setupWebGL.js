@@ -7,12 +7,14 @@ import webGLParameters from "../constants/webGLParameters";
 import cameraParameters from "../constants/cameraParameters";
 
 /**
-  @summary Initializes the Three.js scene
+  @summary Initializes a Three.js scene
   @returns THREE.Scene
 */
 export const setupScene = () => {
+  // creating a scene
   const scene = new THREE.Scene();
 
+  // adding ambient light
   const ambientLight = new THREE.AmbientLight(
     webGLParameters.lights.ambient.color,
     webGLParameters.lights.ambient.strength
@@ -23,27 +25,30 @@ export const setupScene = () => {
 };
 
 /**
-  @summary Initializes the Three.js camera
+  @summary Initializes a Three.js camera
   @param window HTML window
   @returns THREE.PerspectiveCamera
 */
 export const setupCamera = (window) => {
+  // creating a camera
   const camera = new THREE.PerspectiveCamera(
     cameraParameters.fieldOfView,
     window.innerWidth / window.innerHeight,
     cameraParameters.nearPlaneDistance,
     cameraParameters.farPlaneDistance
   );
+
   return camera;
 };
 
 /**
-  @summary Initializes the WebGL renderer
+  @summary Initializes a THREE.js renderer
   @param container HTML container
   @param window HTML window
   @returns THREE.WebGLRenderer
 */
 export const setupRenderer = (container, window) => {
+  // creating and configuring a renderer
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -53,13 +58,14 @@ export const setupRenderer = (container, window) => {
   renderer.toneMappingExposure = 0.85;
   renderer.autoClear = false;
 
+  // adding the renderer.domElement to the container as a child
   container.appendChild(renderer.domElement);
 
   return renderer;
 };
 
 /**
-  @summary Initializes the Three.js composer
+  @summary Initializes a Three.js effect composer
   @param window HTML window
   @param scene Three.js scene
   @param camera Three.js camera
@@ -67,8 +73,10 @@ export const setupRenderer = (container, window) => {
   @returns THREE.EffectComposer
 */
 export const setupComposer = (window, scene, camera, renderer) => {
+  // creating a render pass
   const renderPass = new RenderPass(scene, camera);
 
+  // creating and configuring a bloom pass
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
     1.5,
@@ -81,6 +89,7 @@ export const setupComposer = (window, scene, camera, renderer) => {
   bloomPass.radius = webGLParameters.bloom.radius;
   bloomPass.renderToScreen = true;
 
+  // creating and configuring an effect composer
   const composer = new EffectComposer(renderer);
   composer.setSize(window.innerWidth, window.innerHeight);
   composer.setPixelRatio(window.devicePixelRatio);
@@ -91,18 +100,19 @@ export const setupComposer = (window, scene, camera, renderer) => {
 };
 
 /**
-  @summary Initializes the WebGL and Three.js environment
-  @description Initializes scene, camera, renderer and composer.
+  @summary Initializes WebGL and Three.js environment
+  @description Initializes a scene, a camera, a renderer and an effect composer.
   @param params
   @param params.container HTML instance of container where the canvas will render
   @param params.window HTML window
-  @returns The object of scene, camera, renderer and composer
+  @returns an object of scene, camera, renderer and composer
 */
 const setupWebGL = ({ container, window }) => {
   const scene = setupScene();
   const camera = setupCamera(window);
   const renderer = setupRenderer(container, window);
   const composer = setupComposer(window, scene, camera, renderer);
+
   return { scene, camera, renderer, composer };
 };
 
