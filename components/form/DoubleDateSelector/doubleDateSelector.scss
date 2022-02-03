@@ -1,0 +1,36 @@
+#global-portal-datepicker {
+  div.react-datepicker {
+    background-color: red;
+  }
+
+  div.global-portal-datepicker-header {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: red;
+  }
+}
+
+div.mq-punch-double-date-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+
+  input[type='text'] {
+    font-size: 16px;
+    color: #333;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #76767a;
+    background-color: transparent;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+  }
+  input[type='text']:hover,
+  input[type='text']:focus {
+    border: 1px solid #860000;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.651);
+  }
+}

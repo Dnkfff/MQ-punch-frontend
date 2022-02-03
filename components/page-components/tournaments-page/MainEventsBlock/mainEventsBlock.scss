@@ -1,0 +1,165 @@
+.global-tournaments-page-container {
+  .main-events-block {
+    width: calc(100% - 40px);
+    align-self: center;
+    margin-top: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main-events-block_header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      column-gap: 30px;
+
+      h3 {
+        color: #444;
+        text-align: center;
+      }
+    }
+
+    .main-events-block_events-list {
+      width: calc(100% - 10px);
+      margin-top: 15px;
+      max-height: 500px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+        height: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #bababa;
+        border-radius: 10px;
+      }
+
+      > .columns {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: sticky;
+        top: 0px;
+        padding: 10px;
+        border-bottom: 2px solid rgb(202, 202, 202);
+
+        span {
+          font-size: 14px;
+          color: #444;
+          margin-left: 10px;
+          text-transform: capitalize;
+        }
+      }
+
+      .e-name {
+        width: 40%;
+      }
+
+      .e-division {
+        width: 18%;
+      }
+
+      .e-entry-fee {
+        width: 15%;
+      }
+
+      .e-prize-pool {
+        width: 15%;
+      }
+
+      .e-players {
+        width: 12%;
+      }
+
+      > .body {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+      }
+
+      .event-item {
+        width: 100%;
+        padding: 13px 10px;
+        background-color: #eee;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: 2px solid rgb(226, 226, 226);
+        cursor: pointer;
+
+        .e-name {
+          span {
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            font-family: 'Cairo', sans-serif;
+            color: #333;
+          }
+        }
+
+        .e-division {
+          .division-container {
+            width: min-content;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: darken($color: #eee, $amount: 3);
+            transition: background-color 0.2s ease;
+
+            span {
+              font-family: 'Cairo', sans-serif;
+              font-weight: bold;
+              font-size: 14px;
+            }
+
+            svg {
+              width: 35px;
+              margin-left: 4px;
+            }
+          }
+        }
+
+        .e-entry-fee,
+        .e-prize-pool {
+          padding-left: 20px;
+          span {
+            font-size: 16px;
+            font-weight: 500;
+            color: forestgreen;
+          }
+        }
+
+        .e-players {
+          span {
+            margin-left: 20px;
+          }
+        }
+
+        transition: background-color 0.2s ease;
+        &:hover {
+          background-color: lighten($color: #eee, $amount: 5);
+
+          .division-container {
+            background-color: darken($color: #fff, $amount: 5);
+          }
+        }
+      }
+    }
+  }
+}

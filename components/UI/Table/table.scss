@@ -1,0 +1,25 @@
+.mq-punch-table {
+  width: 100%;
+
+  .thead {
+    width: 100%;
+  }
+
+  .tbody {
+    width: 100%;
+  }
+
+  .tr {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .th {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

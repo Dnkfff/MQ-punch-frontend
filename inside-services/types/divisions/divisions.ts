@@ -1,0 +1,1 @@
+export type divisionTYPE = "BRONZE" | "SILVER" |"GOLD" | "TITAN";

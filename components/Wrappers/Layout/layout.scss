@@ -1,0 +1,13 @@
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
+
+  > .content {
+    width: 100%;
+    min-height: 500px;
+    background-color: #ececec;
+    padding-bottom: 50px;
+  }
+}

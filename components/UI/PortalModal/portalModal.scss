@@ -1,0 +1,142 @@
+// multiselect
+.mq-punch-portal-modal {
+  position: absolute;
+  z-index: 100000;
+  font-family: 'Open-Sans', sans-serif;
+
+  .cflow-multiselect-options-wrapper {
+    z-index: 10;
+
+    &.collapsed {
+      display: none;
+    }
+  }
+
+  .cflow-multiselect-options-wrapper .left {
+    position: absolute;
+    left: 0;
+  }
+
+  .cflow-multiselect-options-wrapper .right {
+    position: absolute;
+    right: 0;
+  }
+
+  .cflow-multiselect-opt {
+    position: absolute;
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #e4e9f2;
+    min-width: 130px;
+    overflow-y: auto;
+    z-index: 2;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+
+    .cancel {
+      color: brown;
+      font-weight: 500;
+      transition: background-color 0.05s ease;
+    }
+    .cancel:hover {
+      background-color: rgb(255, 233, 236) !important;
+    }
+
+    .choose-all {
+      color: forestgreen;
+      font-weight: 500;
+      transition: background-color 0.05s ease;
+    }
+    .choose-all:hover {
+      background-color: rgb(202, 255, 202) !important;
+    }
+
+    li {
+      padding: 4px 5px 4px 12px;
+      text-transform: capitalize;
+      border-bottom: 1px solid #e4e9f2;
+      border-left: 3px solid transparent;
+      text-overflow: ellipsis;
+      white-space: wrap;
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 15px;
+        height: 15px;
+        margin-right: 15px;
+      }
+
+      > span {
+        font-size: 15px;
+        margin-left: 10px;
+        color: #222b45;
+      }
+
+      span.second-label {
+        font-weight: 600;
+      }
+
+      p {
+        line-height: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.selected {
+        border-left: 3px solid #004b46;
+        font-weight: bold;
+        background-color: #cee7e7;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: #cee7e7;
+      }
+
+      .plastic-type-li {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 5px;
+        text-overflow: ellipsis;
+
+        span.bin-code {
+          font-weight: 700;
+          text-overflow: ellipsis;
+        }
+
+        span.plastic_type_name {
+          font-size: 14px;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .cflow-multiselect-search-wrapper {
+    padding: 10px;
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+
+    input {
+      width: 100%;
+      border: none;
+
+      &::placeholder {
+        color: #9fabbf;
+      }
+    }
+  }
+}

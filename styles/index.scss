@@ -1,0 +1,72 @@
+// обнуляющие стили
+@import './zeroing.scss';
+
+// глобальные стили
+@import './global.scss';
+
+// colors
+@import './colors.scss';
+
+// mixins
+@import './mixins/payment-card.scss';
+
+// modal
+@import '../components/UI/Modal/modal.scss';
+// modal templates
+@import '../components/UI/Modal/ModalTemplates/templates/Auth/auth.scss';
+@import '../components/UI/Modal/ModalTemplates/templates/Balance/balance.scss';
+
+// layout
+@import '../components/Wrappers/Layout/layout.scss';
+@import '../components/Wrappers/BigHeader/big-header.scss';
+@import '../components/Wrappers/StickyHeader/sticky-header.scss';
+@import '../components/Wrappers/BottomButtonWithUpArrow/bottomButtonWithUpArrow.scss';
+@import '../components/Wrappers/Mobilemenu/mobileMenu.scss';
+@import '../components/Wrappers/Footer/footer.scss';
+
+// UI
+@import '../components/UI/GlobalLoader/globalLoader.scss';
+@import '../components/UI/PortalModal/portalModal.scss';
+
+// Form
+@import '../components/form/Input/input.scss';
+@import '../components/form/DoubleDateSelector/doubleDateSelector.scss';
+@import '../components/form/MultiDropDown/multiDropDown.scss';
+
+// Tables
+@import '../components/UI/Table/table.scss';
+@import '../components/UI/Table/black-head-table.scss';
+
+// leaderboard table
+@import '../components/UI/Table/components/TableBody/TableBodyTemplates/LeaderboardTableBody/leaderboardTableBody.scss';
+
+// --- pages
+
+// index ( main )s
+@import '../pages/index.scss';
+@import '../components/page-components/main-page/WelcomeBlock/welcomeBlock.scss';
+@import '../components/page-components/main-page/StreamArea/streamArea.scss';
+@import '../components/page-components/main-page/LiveEvents/liveEvents.scss';
+@import '../components/page-components/main-page/LeaderBoard/leaderBoard.scss';
+@import '../components/page-components/main-page/LeaderBoard/components/SelectDivisionSlider/selectDivisionSlider.scss';
+@import '../components/page-components/main-page/LeaderBoard/components/PlayersTable/playersTable.scss';
+
+// profile
+@import '../pages/profile/index.scss';
+
+// gym
+@import '../pages/gym/index.scss';
+@import '../components/page-components/gym/BoxerPreview/boxerPreview.scss';
+
+// market
+@import '../pages/market/market.scss';
+@import '../components/page-components/market-page/BoxersList/boxers-list.scss';
+@import '../components/page-components/market-page/OpenSeaBanner/open-sea-banner.scss';
+@import '../components/page-components/market-page/SocialsTradeBanner/social-trade-banner.scss';
+
+// tournaments
+@import '../pages/tournaments/tournaments.scss';
+@import '../components/page-components/tournaments-page/TournamentsTopMenu/tournamentsTopMenu.scss';
+
+//  ---> events page
+@import '../components/page-components/tournaments-page/MainEventsBlock/mainEventsBlock.scss';
