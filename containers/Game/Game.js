@@ -49,24 +49,22 @@ const Game = () => {
         window,
       }));
 
-      let timePoint = new Date(); // TODO to be deleted
       // creating and configuring boxers
       ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
-      console.log(new Date() - timePoint); // TODO to be deleted
 
       // creating skybox
       const skybox = await setupSkybox(scene);
 
       // creating and configuring camera controller
       cameraController = new CameraController(camera, skybox, leftBoxer.model);
-      cameraController.enableAutomaticMode(false); // TODO to be deleted
-      cameraController.setView("third-person-center"); // TODO to be deleted
+      cameraController.enableAutomaticMode(false); // TODO: to be deleted
+      cameraController.setView("third-person-center"); // TODO: to be deleted
 
       // creating ring environment in the scene
       setupRing(scene);
 
+      // TODO: getting boxers stats
       const leftBoxerStats = {
-        // TODO to be deleted
         strength: 60,
         agility: 60,
         endurance: 60,
@@ -74,9 +72,8 @@ const Game = () => {
         winrate: 0.1,
         streaming: 0.1,
         leadingSide: "right",
-      };
+      }; // TODO: to be deleted
       const rightBoxerStats = {
-        // TODO to be deleted
         strength: 60,
         agility: 60,
         endurance: 60,
@@ -84,7 +81,7 @@ const Game = () => {
         winrate: 0.1,
         streaming: 0.1,
         leadingSide: "left",
-      };
+      }; // TODO: to be deleted
 
       // switching boxers leading sides if they are "left" ("right" is default)
       if (leftBoxerStats.leadingSide === "left") {
@@ -94,13 +91,11 @@ const Game = () => {
         rightBoxer.switchLeadingSide();
       }
 
-      timePoint = new Date(); // TODO to be deleted
       // calculating a duel scenario
       const duelScenario = calculateDuelScenario(
         leftBoxerStats,
         rightBoxerStats
       );
-      console.log(new Date() - timePoint); // TODO to be deleted
 
       // creating duel controller
       duelController = new DuelController({

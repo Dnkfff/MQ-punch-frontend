@@ -78,7 +78,7 @@ class CameraController {
   update(deltaTime) {
     // automatic view mode
     if (this.automaticModeEnabled) {
-      // TODO automatic mode
+      // TODO: automatic mode
     }
 
     // manual view mode
