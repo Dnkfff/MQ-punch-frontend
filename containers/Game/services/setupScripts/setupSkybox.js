@@ -1,11 +1,11 @@
 /** @module containers/Game/services/setupScripts/setupSkybox */
 
-import * as THREE from "three";
+import * as THREE from 'three';
 
-import { loadTexture } from "../algorithms/assetsLoaders";
+import { loadTexture } from '../algorithms/assetsLoaders';
 
-import webGLParameters from "../constants/webGLParameters";
-import cameraParameters from "../constants/cameraParameters";
+import webGLParameters from '../constants/webGLParameters';
+import cameraParameters from '../constants/cameraParameters';
 
 /**
   @summary Loads skybox texture and adds it to scene
@@ -16,9 +16,7 @@ const setupSkybox = async (scene) => {
   let texture;
 
   // loading skybox texture
-  const texturePromise = loadTexture(
-    "../../../../assets/textures/skybox/skybox.jpg"
-  )
+  const texturePromise = loadTexture('../../../../assets/textures/skybox/skybox.jpg')
     .then((jpeg) => {
       texture = jpeg;
     })
@@ -31,11 +29,7 @@ const setupSkybox = async (scene) => {
   });
 
   // creating a sphere geometry
-  let geometry = new THREE.SphereGeometry(
-    cameraParameters.farPlaneDistance,
-    32,
-    32
-  );
+  let geometry = new THREE.SphereGeometry(cameraParameters.farPlaneDistance, 32, 32);
 
   // creating a basic material
   const material = new THREE.MeshBasicMaterial({ map: texture });

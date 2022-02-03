@@ -1,17 +1,17 @@
 /** @module containers/Game/services/setupScripts/setupBoxers */
 
-import { AnimationMixer, LoopOnce, LoopRepeat } from "three";
-import { SkeletonUtils } from "three-stdlib";
+import { AnimationMixer, LoopOnce, LoopRepeat } from 'three';
+import { SkeletonUtils } from 'three-stdlib';
 
-import Boxer from "../classes/Boxer/Boxer";
+import Boxer from '../classes/Boxer/Boxer';
 
-import { loadFBX } from "../algorithms/assetsLoaders";
+import { loadFBX } from '../algorithms/assetsLoaders';
 
-import webGLParameters from "../constants/webGLParameters";
-import boxerParameters from "../constants/boxerParameters";
-import ringParameters from "../constants/ringParameters";
-import modelNames from "../constants/modelNames";
-import boxerAnimations from "../constants/boxerAnimations";
+import webGLParameters from '../constants/webGLParameters';
+import boxerParameters from '../constants/boxerParameters';
+import ringParameters from '../constants/ringParameters';
+import modelNames from '../constants/modelNames';
+import boxerAnimations from '../constants/boxerAnimations';
 
 /**
   @summary Initializes two Boxer instances
@@ -26,9 +26,7 @@ const setupBoxers = async (scene) => {
     rightAnimationActions = {};
 
   // promise to load model
-  const modelsLoadingPromise = loadFBX(
-    "../../../../assets/models/" + modelNames.boxer + ".fbx"
-  )
+  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + modelNames.boxer + '.fbx')
     .then((model) => {
       // setting rendering layer of each model child to normal layer
       model.traverse((obj) => {
@@ -73,24 +71,20 @@ const setupBoxers = async (scene) => {
 
   // promises to load all animations
   const animationsLoadingPromises = boxerAnimations.map((boxerAnimation) =>
-    loadFBX("../../../../assets/animations/" + boxerAnimation.name + ".fbx")
+    loadFBX('../../../../assets/animations/' + boxerAnimation.name + '.fbx')
       .then((animation) => {
         const name = boxerAnimation.name;
         const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;
 
         // creating, adding and configuring animation action
         // for given animation for the left boxer
-        leftAnimationActions[name] = leftAnimationMixer.clipAction(
-          animation.animations[0]
-        );
+        leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
         leftAnimationActions[name].setLoop(loopMode);
         leftAnimationActions[name].clampWhenFinished = true;
 
         // creating, adding and configuring animation action
         // for given animation for the right boxer
-        rightAnimationActions[name] = rightAnimationMixer.clipAction(
-          animation.animations[0]
-        );
+        rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
         rightAnimationActions[name].setLoop(loopMode);
         rightAnimationActions[name].clampWhenFinished = true;
       })
@@ -111,16 +105,10 @@ const setupBoxers = async (scene) => {
     // if it has flag "idle" setted
     boxerAnimations.forEach((boxerAnimation) => {
       if (boxerAnimation.idle) {
-        if (
-          boxerAnimation.type === "lower" ||
-          boxerAnimation.type === "whole"
-        ) {
+        if (boxerAnimation.type === 'lower' || boxerAnimation.type === 'whole') {
           lowerBodyIdleAnimations.push(boxerAnimation.name);
         }
-        if (
-          boxerAnimation.type === "upper" ||
-          boxerAnimation.type === "whole"
-        ) {
+        if (boxerAnimation.type === 'upper' || boxerAnimation.type === 'whole') {
           upperBodyIdleAnimations.push(boxerAnimation.name);
         }
       }

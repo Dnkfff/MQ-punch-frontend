@@ -1,13 +1,13 @@
 /** @module containers/Game/services/classes/CameraController/views/firstPersonView */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 import {
   getLocationAttributesOfModelBoneByName,
   calculateCameraParameters,
-} from "../cameraAlgorithms";
+} from '../cameraAlgorithms';
 
-import { boxerModelBoneNames } from "../../../constants/viewNames";
+import { boxerModelBoneNames } from '../../../constants/viewNames';
 
 /**
   @summary View from the first person function
@@ -19,14 +19,12 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
 */
 const firstPersonView = (model) => {
   // getting bone position, rotationY and quaternion
-  const { position, rotationY, quaternion } =
-    getLocationAttributesOfModelBoneByName(model, boxerModelBoneNames["head"]);
-
-  const positionOffsetVector = new Vector3(
-    Math.sin(rotationY),
-    0.0,
-    Math.cos(rotationY)
+  const { position, rotationY, quaternion } = getLocationAttributesOfModelBoneByName(
+    model,
+    boxerModelBoneNames['head']
   );
+
+  const positionOffsetVector = new Vector3(Math.sin(rotationY), 0.0, Math.cos(rotationY));
   const lookAtVector = positionOffsetVector.clone();
 
   lookAtVector.applyQuaternion(quaternion);

@@ -1,20 +1,20 @@
 /** @module containers/Game/Game */
 
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { Clock } from "three";
+import { Clock } from 'three';
 
-import setupWebGL from "./services/setupScripts/setupWebGL";
-import setupRing from "./services/setupScripts/setupRing";
-import setupSkybox from "./services/setupScripts/setupSkybox";
-import setupBoxers from "./services/setupScripts/setupBoxers";
+import setupWebGL from './services/setupScripts/setupWebGL';
+import setupRing from './services/setupScripts/setupRing';
+import setupSkybox from './services/setupScripts/setupSkybox';
+import setupBoxers from './services/setupScripts/setupBoxers';
 
-import webGLParameters from "./services/constants/webGLParameters";
+import webGLParameters from './services/constants/webGLParameters';
 
-import CameraController from "./services/classes/CameraController/CameraController";
-import DuelController from "./services/classes/DuelController/DuelController";
+import CameraController from './services/classes/CameraController/CameraController';
+import DuelController from './services/classes/DuelController/DuelController';
 
-import calculateDuelScenario from "./services/algorithms/calculateDuelScenario/calculateDuelScenario";
+import calculateDuelScenario from './services/algorithms/calculateDuelScenario/calculateDuelScenario';
 
 /**
   @summary The Three.js Game function itself
@@ -40,7 +40,7 @@ const Game = () => {
     // initialization function
     async function init() {
       // getting container element
-      const container = document.getElementById("container");
+      const container = document.getElementById('container');
 
       // creating and configuring WebGL environment
       let camera;
@@ -58,7 +58,7 @@ const Game = () => {
       // creating and configuring camera controller
       cameraController = new CameraController(camera, skybox, leftBoxer.model);
       cameraController.enableAutomaticMode(false); // TODO: to be deleted
-      cameraController.setView("third-person-center"); // TODO: to be deleted
+      cameraController.setView('third-person-center'); // TODO: to be deleted
 
       // creating ring environment in the scene
       setupRing(scene);
@@ -71,7 +71,7 @@ const Game = () => {
         rookie: 0.1,
         winrate: 0.1,
         streaming: 0.1,
-        leadingSide: "right",
+        leadingSide: 'right',
       }; // TODO: to be deleted
       const rightBoxerStats = {
         strength: 60,
@@ -80,22 +80,19 @@ const Game = () => {
         rookie: 0.1,
         winrate: 0.1,
         streaming: 0.1,
-        leadingSide: "left",
+        leadingSide: 'left',
       }; // TODO: to be deleted
 
       // switching boxers leading sides if they are "left" ("right" is default)
-      if (leftBoxerStats.leadingSide === "left") {
+      if (leftBoxerStats.leadingSide === 'left') {
         leftBoxer.switchLeadingSide();
       }
-      if (rightBoxerStats.leadingSide === "left") {
+      if (rightBoxerStats.leadingSide === 'left') {
         rightBoxer.switchLeadingSide();
       }
 
       // calculating a duel scenario
-      const duelScenario = calculateDuelScenario(
-        leftBoxerStats,
-        rightBoxerStats
-      );
+      const duelScenario = calculateDuelScenario(leftBoxerStats, rightBoxerStats);
 
       // creating duel controller
       duelController = new DuelController({
@@ -164,7 +161,7 @@ const Game = () => {
     init();
   }, []);
 
-  return <div id="container" />;
+  return <div id='container' />;
 };
 
 export default Game;

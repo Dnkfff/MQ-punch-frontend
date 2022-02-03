@@ -1,8 +1,8 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMovementTimings */
 
-import calculateAttackIntervals from "./calculateAttackIntervals";
+import calculateAttackIntervals from './calculateAttackIntervals';
 
-import duelParameters from "../../constants/duelParameters";
+import duelParameters from '../../constants/duelParameters';
 
 /**
   @summary Calculates movement timings based on chances and random
@@ -12,20 +12,14 @@ import duelParameters from "../../constants/duelParameters";
   @returns the list of objects that contains startTime, winnerMovementType,
   winnerLeadingSide, loserLeadingSide, winnerMiss and loserMiss
 */
-const calculateMovementTimings = (
-  leftBoxerLeadingSide,
-  rightBoxerLeadingSide,
-  winner
-) => {
+const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winner) => {
   // movement timings are for winner only
   // so loser movements are generated as opposite ones
   let movementTimings = [];
 
   // "translating" left-right to winner-loser
-  let winnerLeadingSide =
-    winner === "left" ? leftBoxerLeadingSide : rightBoxerLeadingSide;
-  let loserLeadingSide =
-    winner === "left" ? rightBoxerLeadingSide : leftBoxerLeadingSide;
+  let winnerLeadingSide = winner === 'left' ? leftBoxerLeadingSide : rightBoxerLeadingSide;
+  let loserLeadingSide = winner === 'left' ? rightBoxerLeadingSide : leftBoxerLeadingSide;
 
   // calculating attack intervals
   // so there will be probe movements between them
@@ -42,7 +36,7 @@ const calculateMovementTimings = (
       // add probe movement
       movementTimings.push({
         startTime: time,
-        winnerMovementType: "probe",
+        winnerMovementType: 'probe',
         winnerLeadingSide,
         loserLeadingSide,
         winnerMiss: true,
@@ -50,16 +44,14 @@ const calculateMovementTimings = (
       });
 
       // update current time with value big enough for the movement
-      const randomMultiplier =
-        Math.random() * duelParameters.probeRestDurationCoefficient;
+      const randomMultiplier = Math.random() * duelParameters.probeRestDurationCoefficient;
       time += duelParameters.movementDuration * (1.0 + randomMultiplier);
     }
 
     // calculating current attack interval end time
     const endTime = attackInterval.startTime + attackInterval.duration;
     // calculating maximal time for boxer to react
-    const reactionTime =
-      duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
+    const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
 
     // until current interval ended
     while (time + reactionTime <= endTime) {
@@ -69,16 +61,15 @@ const calculateMovementTimings = (
 
       // offensive movement
       if (chance < duelParameters.chanceOfOffensiveMovement) {
-        movementType = "offensive";
+        movementType = 'offensive';
       }
 
       // defensive movement
       else if (
         chance <
-        duelParameters.chanceOfOffensiveMovement +
-          duelParameters.chanceOfDefensiveMovement
+        duelParameters.chanceOfOffensiveMovement + duelParameters.chanceOfDefensiveMovement
       ) {
-        movementType = "defensive";
+        movementType = 'defensive';
       }
 
       // probe movement
@@ -88,7 +79,7 @@ const calculateMovementTimings = (
           duelParameters.chanceOfDefensiveMovement +
           duelParameters.chanceOfProbeMovement
       ) {
-        movementType = "probe";
+        movementType = 'probe';
       }
 
       // switch leading side movement
@@ -98,21 +89,21 @@ const calculateMovementTimings = (
 
         // winner
         if (chance < 0.5) {
-          movementType = "switchLeadingSide-winner";
-          if (winnerLeadingSide === "left") {
-            winnerLeadingSide = "right";
+          movementType = 'switchLeadingSide-winner';
+          if (winnerLeadingSide === 'left') {
+            winnerLeadingSide = 'right';
           } else {
-            winnerLeadingSide = "left";
+            winnerLeadingSide = 'left';
           }
         }
 
         // loser
         else {
-          movementType = "switchLeadingSide-loser";
-          if (loserLeadingSide === "left") {
-            loserLeadingSide = "right";
+          movementType = 'switchLeadingSide-loser';
+          if (loserLeadingSide === 'left') {
+            loserLeadingSide = 'right';
           } else {
-            loserLeadingSide = "left";
+            loserLeadingSide = 'left';
           }
         }
       }
@@ -129,8 +120,7 @@ const calculateMovementTimings = (
       });
 
       // update current time with value big enough for the movement
-      const randomMultiplier =
-        Math.random() * duelParameters.attackRestDurationCoefficient;
+      const randomMultiplier = Math.random() * duelParameters.attackRestDurationCoefficient;
       time += duelParameters.movementDuration * (1.0 + randomMultiplier);
     }
   });
@@ -138,7 +128,7 @@ const calculateMovementTimings = (
   // making sure the last offense is by winner
   movementTimings.push({
     startTime: time,
-    winnerMovementType: "offensive",
+    winnerMovementType: 'offensive',
     winnerLeadingSide,
     loserLeadingSide,
     winnerMiss: false,

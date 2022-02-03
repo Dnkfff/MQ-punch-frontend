@@ -1,9 +1,9 @@
 /** @module containers/Game/services/classes/DuelContoller/duelAlgorithms */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
-import boxerParameters from "../../constants/boxerParameters";
-import { specialAnimationNames } from "../../constants/boxerAnimations";
+import boxerParameters from '../../constants/boxerParameters';
+import { specialAnimationNames } from '../../constants/boxerAnimations';
 
 /**
   @summary Switches given boxer leading side if it requests the appropriate animation
@@ -11,9 +11,7 @@ import { specialAnimationNames } from "../../constants/boxerAnimations";
   @param boxerMovement requested animation name
 */
 export const switchBoxerLeadingSide = (boxer, boxerMovement) => {
-  if (
-    boxerMovement.movement.whole === specialAnimationNames.switchLeadingSide
-  ) {
+  if (boxerMovement.movement.whole === specialAnimationNames.switchLeadingSide) {
     boxer.switchLeadingSide();
   }
 };
@@ -43,26 +41,19 @@ export const moveBoxer = (boxer, opponent, boxerMovement) => {
   }
 
   // movement backward
-  else if (
-    boxerMovement.movement.lower === specialAnimationNames.movementBackward
-  ) {
+  else if (boxerMovement.movement.lower === specialAnimationNames.movementBackward) {
     movementDirection = new Vector3(0.0, 0.0, -1.0);
-    stepCoefficient =
-      (boxerParameters.scale * boxerParameters.idealDistance) / distance;
+    stepCoefficient = (boxerParameters.scale * boxerParameters.idealDistance) / distance;
   }
 
   // movement to the left
-  else if (
-    boxerMovement.movement.lower === specialAnimationNames.movementLeft
-  ) {
+  else if (boxerMovement.movement.lower === specialAnimationNames.movementLeft) {
     movementDirection = new Vector3(-1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
   }
 
   // movement to the right
-  else if (
-    boxerMovement.movement.lower === specialAnimationNames.movementRight
-  ) {
+  else if (boxerMovement.movement.lower === specialAnimationNames.movementRight) {
     movementDirection = new Vector3(1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
   }

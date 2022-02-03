@@ -1,14 +1,14 @@
 /** @module containers/Game/services/classes/CameraController/views/sideRightView */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 import {
   getLocationAttributesOfModelBoneByName,
   calculateCameraParameters,
-} from "../cameraAlgorithms";
+} from '../cameraAlgorithms';
 
-import boxerParameters from "../../../constants/boxerParameters";
-import { boxerModelBoneNames } from "../../../constants/viewNames";
+import boxerParameters from '../../../constants/boxerParameters';
+import { boxerModelBoneNames } from '../../../constants/viewNames';
 
 /**
   @summary View from the right function
@@ -20,14 +20,12 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
 */
 const sideRightView = (model) => {
   // getting bone position, rotationY and quaternion
-  const { position, rotationY, quaternion } =
-    getLocationAttributesOfModelBoneByName(model, boxerModelBoneNames["spine"]);
-
-  const positionOffset = new Vector3(
-    Math.sin(rotationY),
-    0.6,
-    Math.cos(rotationY)
+  const { position, rotationY, quaternion } = getLocationAttributesOfModelBoneByName(
+    model,
+    boxerModelBoneNames['spine']
   );
+
+  const positionOffset = new Vector3(Math.sin(rotationY), 0.6, Math.cos(rotationY));
   positionOffset.multiplyScalar(boxerParameters.scale * 5.0);
   position.add(positionOffset);
 

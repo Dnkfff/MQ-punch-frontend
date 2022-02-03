@@ -1,13 +1,13 @@
 /** @module containers/Game/services/classes/DuelContoller/DuelContoller */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
-import { switchBoxerLeadingSide, moveBoxer } from "./duelAlgorithms";
+import { switchBoxerLeadingSide, moveBoxer } from './duelAlgorithms';
 
-import duelParameters from "../../constants/duelParameters";
-import boxerParameters from "../../constants/boxerParameters";
-import ringParameters from "../../constants/ringParameters";
-import viewNames from "../../constants/viewNames";
+import duelParameters from '../../constants/duelParameters';
+import boxerParameters from '../../constants/boxerParameters';
+import ringParameters from '../../constants/ringParameters';
+import viewNames from '../../constants/viewNames';
 
 /**
   @summary The DuelContoller class
@@ -39,11 +39,11 @@ class DuelController {
     this.leftBoxerSlowMotionStartPosition = new Vector3();
     this.rightBoxerSlowMotionStartPosition = new Vector3();
 
-    this.leftBoxerSlowMotionStartLeadingSide = "";
-    this.rightBoxerSlowMotionStartLeadingSide = "";
+    this.leftBoxerSlowMotionStartLeadingSide = '';
+    this.rightBoxerSlowMotionStartLeadingSide = '';
 
     this.currentTime = 0.0;
-    this.mode = "stop";
+    this.mode = 'stop';
 
     this.cameraController = cameraController;
     this.currentCameraViewNumber = 0;
@@ -59,9 +59,9 @@ class DuelController {
   */
   act(deltaTime) {
     // if runs normally or in slow motion
-    if (this.mode !== "stop") {
+    if (this.mode !== 'stop') {
       // decreasing the speed if in slow motion
-      if (this.mod === "slowmotion") {
+      if (this.mod === 'slowmotion') {
         deltaTime *= duelParameters.slowMotionSpeedMultiplier;
       }
 
@@ -69,34 +69,21 @@ class DuelController {
       this.currentTime += deltaTime;
 
       // function to animate given boxer
-      const animateBoxer = (
-        boxer,
-        opponent,
-        boxerMovements,
-        finishedBoxerMovements
-      ) => {
+      const animateBoxer = (boxer, opponent, boxerMovements, finishedBoxerMovements) => {
         // if next movement has started
-        if (
-          boxerMovements.length > 0 &&
-          boxerMovements[0].startTime <= this.currentTime
-        ) {
+        if (boxerMovements.length > 0 && boxerMovements[0].startTime <= this.currentTime) {
           // getting the first movement from the list
           const boxerMovement = boxerMovements.shift();
 
           // if not in slow motion
-          if (this.mode === "run") {
+          if (this.mode === 'run') {
             // remembering positions and leading sides of boxers before slow motion
-            if (
-              boxerMovements.length + 1 <=
-              duelParameters.slowMotionMovementsNumber
-            ) {
+            if (boxerMovements.length + 1 <= duelParameters.slowMotionMovementsNumber) {
               if (boxer === this.leftBoxer) {
-                this.leftBoxerSlowMotionStartPosition =
-                  boxer.model.position.clone();
+                this.leftBoxerSlowMotionStartPosition = boxer.model.position.clone();
                 this.leftBoxerSlowMotionStartLeadingSide = boxer.leadingSide;
               } else {
-                this.rightBoxerSlowMotionStartPosition =
-                  boxer.model.position.clone();
+                this.rightBoxerSlowMotionStartPosition = boxer.model.position.clone();
                 this.rightBoxerSlowMotionStartLeadingSide = boxer.leadingSide;
               }
             }
@@ -108,7 +95,7 @@ class DuelController {
           // if the movement is for the whole body at once
           if (boxerMovement.movement.whole !== undefined) {
             // requesting the animation
-            boxer.requestAnimation(boxerMovement.movement.whole, "whole");
+            boxer.requestAnimation(boxerMovement.movement.whole, 'whole');
 
             // making the boxer switch his leading side if the movement requires it
             switchBoxerLeadingSide(boxer, boxerMovement);
@@ -117,16 +104,8 @@ class DuelController {
           // if the movement is for the lower and the upper body separately
           else {
             // requesting animations
-            boxer.requestAnimation(
-              boxerMovement.movement.lower,
-              "lower",
-              false
-            );
-            boxer.requestAnimation(
-              boxerMovement.movement.upper,
-              "upper",
-              boxerMovement.miss
-            );
+            boxer.requestAnimation(boxerMovement.movement.lower, 'lower', false);
+            boxer.requestAnimation(boxerMovement.movement.upper, 'upper', boxerMovement.miss);
 
             // making the boxer make a step if the movement requires it
             moveBoxer(boxer, opponent, boxerMovement);
@@ -137,10 +116,7 @@ class DuelController {
       const collideBoxersWithEachOther = () => {
         // calculating a vector from the left boxer to the right one
         const leftToRightDir = new Vector3();
-        leftToRightDir.subVectors(
-          this.rightBoxer.model.position,
-          this.leftBoxer.model.position
-        );
+        leftToRightDir.subVectors(this.rightBoxer.model.position, this.leftBoxer.model.position);
 
         // calculating a half of the distance needed to insert
         const deltaDistanceToInsert =
@@ -241,15 +217,9 @@ class DuelController {
       this.rightBoxer.face(this.leftBoxer);
 
       // if all the movements have ended
-      if (
-        this.leftBoxerMovements.length === 0 &&
-        this.rightBoxerMovements.length === 0
-      ) {
+      if (this.leftBoxerMovements.length === 0 && this.rightBoxerMovements.length === 0) {
         // preparing for slow motion after cooldown
-        setTimeout(
-          this.prepareSlowMotion(),
-          duelParameters.slowMotionCooldownDuration
-        );
+        setTimeout(this.prepareSlowMotion(), duelParameters.slowMotionCooldownDuration);
       }
     }
   }
@@ -260,7 +230,7 @@ class DuelController {
   */
   prepareSlowMotion() {
     // setting the mode to "slowmotion"
-    this.mode = "slowmotion";
+    this.mode = 'slowmotion';
 
     // setting boxers previously stored positions
     this.leftBoxer.model.position.set(
@@ -275,14 +245,10 @@ class DuelController {
     );
 
     // setting boxers previously stored leading sides
-    if (
-      this.leftBoxer.leadingSide !== this.leftBoxerSlowMotionStartLeadingSide
-    ) {
+    if (this.leftBoxer.leadingSide !== this.leftBoxerSlowMotionStartLeadingSide) {
       this.leftBoxer.switchLeadingSide();
     }
-    if (
-      this.rightBoxer.leadingSide !== this.rightBoxerSlowMotionStartLeadingSide
-    ) {
+    if (this.rightBoxer.leadingSide !== this.rightBoxerSlowMotionStartLeadingSide) {
       this.rightBoxer.switchLeadingSide();
     }
 
@@ -299,12 +265,10 @@ class DuelController {
     );
 
     // switching camera view
-    this.cameraController.setView(
-      viewNames[Math.floor(this.currentCameraViewNumber / 2)]
-    );
+    this.cameraController.setView(viewNames[Math.floor(this.currentCameraViewNumber / 2)]);
 
     const numberIsPair = this.currentCameraViewNumber % 2 === 0;
-    const leftBoxerIsWinner = this.winner === "left";
+    const leftBoxerIsWinner = this.winner === 'left';
 
     // if camera view number is pair NXOR left boxer is winne
     if (numberIsPair === leftBoxerIsWinner) {
@@ -324,7 +288,7 @@ class DuelController {
     // if all the views have ended
     if (this.currentCameraViewNumber === viewNames.length * 2) {
       this.currentCameraViewNumber = 0;
-      this.mode = "stop";
+      this.mode = 'stop';
     }
   }
 
@@ -333,7 +297,7 @@ class DuelController {
   */
   run() {
     // setting the mode to "run"
-    this.mode = "run";
+    this.mode = 'run';
 
     // making a pause before starting
     this.currentTime = -duelParameters.warmupDuration;

@@ -1,6 +1,6 @@
 /** @module containers/Game/services/classes/CameraController/cameraAlgorithms */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 /**
   @summary Gets location parameters of specified bone in specified model
@@ -28,11 +28,7 @@ export const getLocationAttributesOfModelBoneByName = (model, boneName) => {
   @param params.lookAtVector local look at position
   @returns an object with cameraPosition and cameraLookAt
 */
-export const calculateCameraParameters = ({
-  position,
-  positionOffsetVector,
-  lookAtVector,
-}) => {
+export const calculateCameraParameters = ({ position, positionOffsetVector, lookAtVector }) => {
   // cameraPosition (world) = position (world) + positionOffsetVector (local)
   const cameraPosition = position.clone();
   cameraPosition.add(positionOffsetVector);

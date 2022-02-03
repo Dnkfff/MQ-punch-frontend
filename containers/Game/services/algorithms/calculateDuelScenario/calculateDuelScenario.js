@@ -4,8 +4,8 @@ import {
   calculateChancesOfOffensiveMovements,
   calculateChancesOfDefensiveMovements,
   calculateChancesToWin,
-} from "./calculateChances";
-import calculateMovements from "./calculateMovements";
+} from './calculateChances';
+import calculateMovements from './calculateMovements';
 
 /**
   @summary Calculates the duel scenario
@@ -29,11 +29,13 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
   };
 
   // calculating chances of each boxer to win
-  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } =
-    calculateChancesToWin(leftBoxerStats, rightBoxerStats);
+  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(
+    leftBoxerStats,
+    rightBoxerStats
+  );
 
   // choosing the winner
-  const winner = Math.random() < chanceForLeftBoxerToWin ? "left" : "right";
+  const winner = Math.random() < chanceForLeftBoxerToWin ? 'left' : 'right';
 
   // packing leading sides of each boxer to an object
   const boxersLeadingSides = {
@@ -43,11 +45,7 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
 
   // calculating movements for each boxer
   // so they will be stored in one object
-  const duelScenario = calculateMovements(
-    boxersChancesOfMovements,
-    boxersLeadingSides,
-    winner
-  );
+  const duelScenario = calculateMovements(boxersChancesOfMovements, boxersLeadingSides, winner);
 
   return duelScenario;
 };

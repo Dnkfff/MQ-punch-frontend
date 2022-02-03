@@ -1,10 +1,10 @@
 /** @module containers/Game/services/setupScripts/setupWebGL */
 
-import * as THREE from "three";
-import { EffectComposer, RenderPass, UnrealBloomPass } from "three-stdlib";
+import * as THREE from 'three';
+import { EffectComposer, RenderPass, UnrealBloomPass } from 'three-stdlib';
 
-import webGLParameters from "../constants/webGLParameters";
-import cameraParameters from "../constants/cameraParameters";
+import webGLParameters from '../constants/webGLParameters';
+import cameraParameters from '../constants/cameraParameters';
 
 /**
   @summary Initializes a Three.js scene

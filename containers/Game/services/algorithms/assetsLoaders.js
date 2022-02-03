@@ -1,7 +1,7 @@
 /** @module containers/Game/services/algorithms/assetsLoaders */
 
-import { TextureLoader } from "three";
-import { FBXLoader } from "three-stdlib";
+import { TextureLoader } from 'three';
+import { FBXLoader } from 'three-stdlib';
 
 /**
   @summary Loads texture from specified url asynchronously

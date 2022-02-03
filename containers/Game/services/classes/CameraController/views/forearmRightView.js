@@ -1,14 +1,14 @@
 /** @module containers/Game/services/classes/CameraController/views/forearmRightView */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 import {
   getLocationAttributesOfModelBoneByName,
   calculateCameraParameters,
-} from "../cameraAlgorithms";
+} from '../cameraAlgorithms';
 
-import boxerParameters from "../../../constants/boxerParameters";
-import { boxerModelBoneNames } from "../../../constants/viewNames";
+import boxerParameters from '../../../constants/boxerParameters';
+import { boxerModelBoneNames } from '../../../constants/viewNames';
 
 /**
   @summary View from the right forearm function
@@ -20,17 +20,12 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
 */
 const forearmRightView = (model) => {
   // getting bone position, rotationY and quaternion
-  const { position, rotationY, quaternion } =
-    getLocationAttributesOfModelBoneByName(
-      model,
-      boxerModelBoneNames["forearm-right"]
-    );
-
-  const positionOffsetVector = new Vector3(
-    Math.sin(rotationY),
-    0.0,
-    Math.cos(rotationY)
+  const { position, rotationY, quaternion } = getLocationAttributesOfModelBoneByName(
+    model,
+    boxerModelBoneNames['forearm-right']
   );
+
+  const positionOffsetVector = new Vector3(Math.sin(rotationY), 0.0, Math.cos(rotationY));
   const lookAtVector = positionOffsetVector.clone();
 
   positionOffsetVector.applyQuaternion(quaternion);

@@ -1,9 +1,9 @@
 /** @module containers/Game/services/setupScripts/setupRing */
 
-import * as THREE from "three";
+import * as THREE from 'three';
 
-import webGLParameters from "../constants/webGLParameters";
-import ringParameters from "../constants/ringParameters";
+import webGLParameters from '../constants/webGLParameters';
+import ringParameters from '../constants/ringParameters';
 
 /**
   @summary Initializes ring canvas
@@ -142,11 +142,7 @@ export const setupRopes = (scene) => {
       switch (j) {
         case 0:
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(
-            0.0,
-            ropesStep * i,
-            ringParameters.canvas.width / 2.0
-          );
+          rope.position.set(0.0, ropesStep * i, ringParameters.canvas.width / 2.0);
           break;
         case 1:
           rope.rotateY(Math.PI / 2.0);
@@ -168,11 +164,7 @@ export const setupRopes = (scene) => {
         case 3:
           rope.rotateY(Math.PI / 2.0);
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(
-            ringParameters.canvas.width / 2.0,
-            ropesStep * i,
-            0.0
-          );
+          rope.position.set(ringParameters.canvas.width / 2.0, ropesStep * i, 0.0);
           break;
       }
 

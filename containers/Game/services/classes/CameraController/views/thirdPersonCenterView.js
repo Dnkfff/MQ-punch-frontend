@@ -1,14 +1,14 @@
 /** @module containers/Game/services/classes/CameraController/views/thirdPersonCenterView */
 
-import { Vector3 } from "three";
+import { Vector3 } from 'three';
 
 import {
   getLocationAttributesOfModelBoneByName,
   calculateCameraParameters,
-} from "../cameraAlgorithms";
+} from '../cameraAlgorithms';
 
-import boxerParameters from "../../../constants/boxerParameters";
-import { boxerModelBoneNames } from "../../../constants/viewNames";
+import boxerParameters from '../../../constants/boxerParameters';
+import { boxerModelBoneNames } from '../../../constants/viewNames';
 
 /**
   @summary View from the center of the third person function
@@ -20,8 +20,10 @@ import { boxerModelBoneNames } from "../../../constants/viewNames";
 */
 const thirdPersonCenterView = (model) => {
   // getting bone position, rotationY and quaternion
-  const { position, rotationY, quaternion } =
-    getLocationAttributesOfModelBoneByName(model, boxerModelBoneNames["neck"]);
+  const { position, rotationY, quaternion } = getLocationAttributesOfModelBoneByName(
+    model,
+    boxerModelBoneNames['neck']
+  );
 
   const positionOffsetVector = new Vector3(
     Math.sin(rotationY),

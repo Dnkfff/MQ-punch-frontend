@@ -1,9 +1,9 @@
 /** @module containers/Game/services/classes/Boxer/Boxer */
 
-import { Matrix4, Vector3 } from "three";
+import { Matrix4, Vector3 } from 'three';
 
-import boxerParameters from "../../constants/boxerParameters";
-import duelParameters from "../../constants/duelParameters";
+import boxerParameters from '../../constants/boxerParameters';
+import duelParameters from '../../constants/duelParameters';
 
 /**
   @summary The Boxer class
@@ -35,7 +35,7 @@ class Boxer {
     this.currentLowerBodyAnimationName = this.lowerBodyIdleAnimation;
     this.currentUpperBodyAnimationName = this.upperBodyIdleAnimation;
 
-    this.leadingSide = "right";
+    this.leadingSide = 'right';
 
     this.movingDirection = new Vector3(0.0, 0.0, 0.0);
     this.movingStage = 1.0;
@@ -58,14 +58,14 @@ class Boxer {
     const currentLowerBodyAnimationIsRunning =
       this.animationActions[this.currentLowerBodyAnimationName].isRunning();
     if (!currentLowerBodyAnimationIsRunning) {
-      this.requestAnimation(this.lowerBodyIdleAnimation, "lower");
+      this.requestAnimation(this.lowerBodyIdleAnimation, 'lower');
     }
 
     // setting the upper body animation if needed
     const currentUpperBodyAnimationIsRunning =
       this.animationActions[this.currentUpperBodyAnimationName].isRunning();
     if (!currentUpperBodyAnimationIsRunning) {
-      this.requestAnimation(this.upperBodyIdleAnimation, "upper", false);
+      this.requestAnimation(this.upperBodyIdleAnimation, 'upper', false);
     }
 
     // moving boxer according to current direction and moving stage
@@ -121,10 +121,8 @@ class Boxer {
   requestAnimation(name, type, miss) {
     // getting some variables
     const transitionDuration = boxerParameters.animationTransitionDuration;
-    const lowerBodyAnimationAction =
-      this.animationActions[this.currentLowerBodyAnimationName];
-    const upperBodyAnimationAction =
-      this.animationActions[this.currentUpperBodyAnimationName];
+    const lowerBodyAnimationAction = this.animationActions[this.currentLowerBodyAnimationName];
+    const upperBodyAnimationAction = this.animationActions[this.currentUpperBodyAnimationName];
 
     // if boxer has missed an offensive movement
     if (miss) {
@@ -138,7 +136,7 @@ class Boxer {
 
     // if the animation has changed
     // for the whole body
-    if (type === "whole" && this.currentLowerBodyAnimationName !== name) {
+    if (type === 'whole' && this.currentLowerBodyAnimationName !== name) {
       // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       lowerBodyAnimationAction.fadeOut(transitionDuration);
@@ -150,7 +148,7 @@ class Boxer {
     }
 
     // for the lower body
-    else if (type === "lower" && this.currentLowerBodyAnimationName !== name) {
+    else if (type === 'lower' && this.currentLowerBodyAnimationName !== name) {
       // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       lowerBodyAnimationAction.fadeOut(transitionDuration);
@@ -160,7 +158,7 @@ class Boxer {
     }
 
     // for the upper body
-    else if (type === "upper" && this.currentUpperBodyAnimationName !== name) {
+    else if (type === 'upper' && this.currentUpperBodyAnimationName !== name) {
       // making animation transition
       this.animationActions[name].fadeIn(transitionDuration);
       upperBodyAnimationAction.fadeOut(transitionDuration);
@@ -176,10 +174,10 @@ class Boxer {
   */
   switchLeadingSide() {
     // switching the leading side
-    if (this.leadingSide === "left") {
-      this.leadingSide = "right";
+    if (this.leadingSide === 'left') {
+      this.leadingSide = 'right';
     } else {
-      this.leadingSide = "left";
+      this.leadingSide = 'left';
     }
 
     // mirroring along the X-axis
@@ -201,9 +199,7 @@ class Boxer {
 
     // applying size coefficient to the given direction
     direction.normalize();
-    direction.multiplyScalar(
-      coefficient * boxerParameters.scale * boxerParameters.stepSize
-    );
+    direction.multiplyScalar(coefficient * boxerParameters.scale * boxerParameters.stepSize);
 
     // setting moving direction and stage
     this.movingDirection = direction;

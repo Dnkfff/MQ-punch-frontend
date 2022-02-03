@@ -1,6 +1,6 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateAttackIntervals */
 
-import duelParameters from "../../constants/duelParameters";
+import duelParameters from '../../constants/duelParameters';
 
 /**
   @summary Fits attack intervals in time
@@ -14,17 +14,14 @@ const fitAttackIntervalsInTime = (attackIntervals) => {
 
   // calculating delta time of the last movement
   // so the duel won't end before the last movement does
-  const reactionTime =
-    duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
+  const reactionTime = duelParameters.reactionTimeCoefficient * duelParameters.movementDuration;
   const lastMovementDeltaTime =
-    duelParameters.movementDuration *
-      (1.0 + duelParameters.probeRestDurationCoefficient) +
+    duelParameters.movementDuration * (1.0 + duelParameters.probeRestDurationCoefficient) +
     reactionTime;
 
   // calculating the final coefficient for reducing
   const fitCoefficient =
-    (duelParameters.duelDuration - lastMovementDeltaTime) /
-    currentDurationOfAttackIntervals;
+    (duelParameters.duelDuration - lastMovementDeltaTime) / currentDurationOfAttackIntervals;
 
   // fitting start time and duration
   attackIntervals.forEach((attackInterval) => {
@@ -44,8 +41,7 @@ const calculateAttackIntervals = () => {
 
   // make a little delay for the first attack interval to start
   randomMultiplier =
-    1.0 +
-    duelParameters.intervalDurationRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.intervalDurationRandomBooster * (Math.random() * 2.0 - 1.0);
   let previousAttackIntervalEndTime =
     duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
 
@@ -53,18 +49,14 @@ const calculateAttackIntervals = () => {
   for (let i = 0; i < duelParameters.numberOfAttackIntervals; i++) {
     // calculating start time of new attack interval
     randomMultiplier =
-      1.0 +
-      duelParameters.intervalDurationRandomBooster *
-        (Math.random() * 2.0 - 1.0);
+      1.0 + duelParameters.intervalDurationRandomBooster * (Math.random() * 2.0 - 1.0);
     const attackIntervalStartTime =
       previousAttackIntervalEndTime +
       duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
 
     // calculating duration of new attack interval
     randomMultiplier =
-      1.0 +
-      duelParameters.intervalDurationRandomBooster *
-        (Math.random() * 2.0 - 1.0);
+      1.0 + duelParameters.intervalDurationRandomBooster * (Math.random() * 2.0 - 1.0);
     const attackIntervalDuration =
       duelParameters.attackIntervalDurationCoefficient * randomMultiplier;
 
@@ -75,8 +67,7 @@ const calculateAttackIntervals = () => {
     });
 
     // update previous attack interval end time
-    previousAttackIntervalEndTime =
-      attackIntervalStartTime + attackIntervalDuration;
+    previousAttackIntervalEndTime = attackIntervalStartTime + attackIntervalDuration;
   }
 
   // fitting attack intervals int time

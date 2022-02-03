@@ -1,8 +1,8 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMovements */
 
-import calculateMovementTimings from "./calculateMovementTimings";
+import calculateMovementTimings from './calculateMovementTimings';
 
-import duelParameters from "../../constants/duelParameters";
+import duelParameters from '../../constants/duelParameters';
 import {
   probeAnimationNames,
   offensiveAnimationNames,
@@ -10,7 +10,7 @@ import {
   missAnimationNames,
   lowerAnimationNames,
   switchLeadingSideAnimationName,
-} from "../../constants/duelAnimationNames";
+} from '../../constants/duelAnimationNames';
 
 /**
   @summary Pushes specified movement into movements list with flag of miss
@@ -22,19 +22,11 @@ import {
   @param params.miss if the attack or defense is missed
   @param params.health loss of health
 */
-const pushTheMovement = ({
-  movements,
-  movement,
-  movementTimingStartTime,
-  miss,
-  health,
-}) => {
+const pushTheMovement = ({ movements, movement, movementTimingStartTime, miss, health }) => {
   // calculating reaction time with value big enough for the movement
   const randomMultiplier = Math.random() * 0.5 + 0.5;
   const reactionTime =
-    duelParameters.reactionTimeCoefficient *
-    duelParameters.movementDuration *
-    randomMultiplier;
+    duelParameters.reactionTimeCoefficient * duelParameters.movementDuration * randomMultiplier;
 
   // pushing new movement
   movements.push({
@@ -52,12 +44,12 @@ const pushTheMovement = ({
 */
 const applyLeadingSide = (upperBodyMovementName, leadingSide) => {
   // if the model is mirrored (normal is "right")
-  if (leadingSide === "left") {
+  if (leadingSide === 'left') {
     // swap "left" with "right" and vice versa if needed
-    if (upperBodyMovementName.includes("left")) {
-      upperBodyMovementName.replace("left", "right");
+    if (upperBodyMovementName.includes('left')) {
+      upperBodyMovementName.replace('left', 'right');
     } else {
-      upperBodyMovementName.replace("right", "left");
+      upperBodyMovementName.replace('right', 'left');
     }
   }
 };
@@ -70,11 +62,7 @@ const applyLeadingSide = (upperBodyMovementName, leadingSide) => {
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
 */
-const pushProbeMovement = ({
-  movements,
-  movementTimingStartTime,
-  leadingSide,
-}) => {
+const pushProbeMovement = ({ movements, movementTimingStartTime, leadingSide }) => {
   let lowerBodyMovementName, upperBodyMovementName;
 
   // getting random probe movement from the list
@@ -85,11 +73,8 @@ const pushProbeMovement = ({
 
   // getting random lower body movement from the list
   // according to the upper body movement
-  randomIndex = Math.floor(
-    Math.random() * lowerAnimationNames[upperBodyMovementName].length
-  );
-  lowerBodyMovementName =
-    lowerAnimationNames[upperBodyMovementName][randomIndex];
+  randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMovementName].length);
+  lowerBodyMovementName = lowerAnimationNames[upperBodyMovementName][randomIndex];
 
   // packing movements for different body parts into one object
   const movement = {
@@ -115,28 +100,19 @@ const pushProbeMovement = ({
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
 */
-const pushDeceptiveAttackMovement = ({
-  movements,
-  movementTimingStartTime,
-  leadingSide,
-}) => {
+const pushDeceptiveAttackMovement = ({ movements, movementTimingStartTime, leadingSide }) => {
   let lowerBodyMovementName, upperBodyMovementName;
 
   // getting random deceptive attack movement from the list
   // with leading side taken into account
-  let randomIndex = Math.floor(
-    Math.random() * offensiveAnimationNames.deceptiveAttack.length
-  );
+  let randomIndex = Math.floor(Math.random() * offensiveAnimationNames.deceptiveAttack.length);
   upperBodyMovementName = offensiveAnimationNames.deceptiveAttack[randomIndex];
   applyLeadingSide(upperBodyMovementName, leadingSide);
 
   // getting random lower body movement from the list
   // according to the upper body movement
-  randomIndex = Math.floor(
-    Math.random() * lowerAnimationNames[upperBodyMovementName].length
-  );
-  lowerBodyMovementName =
-    lowerAnimationNames[upperBodyMovementName][randomIndex];
+  randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMovementName].length);
+  lowerBodyMovementName = lowerAnimationNames[upperBodyMovementName][randomIndex];
 
   // pushing the movement
   // bypassing general pushTheMovement function
@@ -183,13 +159,10 @@ const pushOffensiveMovement = ({
   // brute force attack
   if (randomChance < chancesOfMovements.offensive.chanceOfBruteForceAttack) {
     // getting random brute force attack movement from the list
-    const randomIndex = Math.floor(
-      Math.random() * offensiveAnimationNames.bruteForceAttack.length
-    );
-    upperBodyMovementName =
-      offensiveAnimationNames.bruteForceAttack[randomIndex];
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.bruteForceAttack.length);
+    upperBodyMovementName = offensiveAnimationNames.bruteForceAttack[randomIndex];
 
-    type = "bruteForceAttack";
+    type = 'bruteForceAttack';
 
     health = duelParameters.bruteForceAttackHealthLoss;
   }
@@ -201,13 +174,10 @@ const pushOffensiveMovement = ({
       chancesOfMovements.offensive.chanceOfDeceptiveAttack
   ) {
     // getting random deceptive attack movement from the list
-    const randomIndex = Math.floor(
-      Math.random() * offensiveAnimationNames.deceptiveAttack.length
-    );
-    upperBodyMovementName =
-      offensiveAnimationNames.deceptiveAttack[randomIndex];
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.deceptiveAttack.length);
+    upperBodyMovementName = offensiveAnimationNames.deceptiveAttack[randomIndex];
 
-    type = "deceptiveAttack";
+    type = 'deceptiveAttack';
 
     health = duelParameters.deceptiveAttackHealthLoss;
 
@@ -224,12 +194,10 @@ const pushOffensiveMovement = ({
   // counter attack
   else {
     // getting random counter attack movement from the list
-    const randomIndex = Math.floor(
-      Math.random() * offensiveAnimationNames.counterAttack.length
-    );
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.counterAttack.length);
     upperBodyMovementName = offensiveAnimationNames.counterAttack[randomIndex];
 
-    type = "counterAttack";
+    type = 'counterAttack';
 
     health = duelParameters.counterAttackHealthLoss;
   }
@@ -239,11 +207,8 @@ const pushOffensiveMovement = ({
 
   // getting random lower body movement from the list
   // according to the upper body movement
-  const randomIndex = Math.floor(
-    Math.random() * lowerAnimationNames[upperBodyMovementName].length
-  );
-  lowerBodyMovementName =
-    lowerAnimationNames[upperBodyMovementName][randomIndex];
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMovementName].length);
+  lowerBodyMovementName = lowerAnimationNames[upperBodyMovementName][randomIndex];
 
   // packing movements for different body parts into one object
   const movement = {
@@ -295,22 +260,18 @@ const pushDeceptiveDefenseMovement = ({
   if (randomChance < chancesOfMovements.defensive.chanceOfBlock) {
     // getting random block defense movement from the list
     const randomIndex = Math.floor(
-      Math.random() *
-        defensiveAnimationNames[offensiveMovement.name].block.length
+      Math.random() * defensiveAnimationNames[offensiveMovement.name].block.length
     );
-    upperBodyMovementName =
-      defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
+    upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
   }
 
   // dodge
   else {
     // getting random dodge defense movement from the list
     const randomIndex = Math.floor(
-      Math.random() *
-        defensiveAnimationNames[offensiveMovement.name].dodge.length
+      Math.random() * defensiveAnimationNames[offensiveMovement.name].dodge.length
     );
-    upperBodyMovementName =
-      defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
+    upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
   }
 
   // taking into account leading side
@@ -318,11 +279,8 @@ const pushDeceptiveDefenseMovement = ({
 
   // getting random lower body movement from the list
   // according to the upper body movement
-  const randomIndex = Math.floor(
-    Math.random() * lowerAnimationNames[upperBodyMovementName].length
-  );
-  lowerBodyMovementName =
-    lowerAnimationNames[upperBodyMovementName][randomIndex];
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMovementName].length);
+  lowerBodyMovementName = lowerAnimationNames[upperBodyMovementName][randomIndex];
 
   // pushing the movement
   // bypassing general pushTheMovement function
@@ -362,7 +320,7 @@ const pushDefensiveMovement = ({
   let health;
 
   // brute force attack
-  if (offensiveMovement.type === "bruteForceAttack") {
+  if (offensiveMovement.type === 'bruteForceAttack') {
     // choosing the defense movement type
     const randomChance = Math.random();
 
@@ -370,11 +328,9 @@ const pushDefensiveMovement = ({
     if (randomChance < chancesOfMovements.defensive.chanceOfBlock) {
       // getting random block defense movement from the list
       const randomIndex = Math.floor(
-        Math.random() *
-          defensiveAnimationNames[offensiveMovement.name].block.length
+        Math.random() * defensiveAnimationNames[offensiveMovement.name].block.length
       );
-      upperBodyMovementName =
-        defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
+      upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
 
       // calculating health loss
       health = !miss
@@ -386,11 +342,9 @@ const pushDefensiveMovement = ({
     else {
       // getting random dodge defense movement from the list
       const randomIndex = Math.floor(
-        Math.random() *
-          defensiveAnimationNames[offensiveMovement.name].dodge.length
+        Math.random() * defensiveAnimationNames[offensiveMovement.name].dodge.length
       );
-      upperBodyMovementName =
-        defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
+      upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
 
       // calculating health loss
       health = !miss
@@ -400,7 +354,7 @@ const pushDefensiveMovement = ({
   }
 
   // deceptive attack
-  else if (offensiveMovement.type === "deceptiveAttack") {
+  else if (offensiveMovement.type === 'deceptiveAttack') {
     // generating and pushing a deceptive defense movement
     // bypassing general pushTheMovement function
     // so it will be placed between previous and actual current movement
@@ -419,11 +373,9 @@ const pushDefensiveMovement = ({
     if (randomChance < chancesOfMovements.defensive.chanceOfBlock) {
       // getting random block defense movement from the list
       const randomIndex = Math.floor(
-        Math.random() *
-          defensiveAnimationNames[offensiveMovement.name].block.length
+        Math.random() * defensiveAnimationNames[offensiveMovement.name].block.length
       );
-      upperBodyMovementName =
-        defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
+      upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].block[randomIndex];
 
       // calculating health loss
       health = !miss
@@ -435,11 +387,9 @@ const pushDefensiveMovement = ({
     else {
       // getting random dodge defense movement from the list
       const randomIndex = Math.floor(
-        Math.random() *
-          defensiveAnimationNames[offensiveMovement.name].dodge.length
+        Math.random() * defensiveAnimationNames[offensiveMovement.name].dodge.length
       );
-      upperBodyMovementName =
-        defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
+      upperBodyMovementName = defensiveAnimationNames[offensiveMovement.name].dodge[randomIndex];
 
       // calculating health loss
       health = !miss
@@ -454,11 +404,8 @@ const pushDefensiveMovement = ({
     // because when type of offender attack is counter attack defender must hit
     // so offender hits with "counter" attack
     // and defender "defenses" with brute force one
-    const randomIndex = Math.floor(
-      Math.random() * offensiveAnimationNames.bruteForceAttack.length
-    );
-    upperBodyMovementName =
-      offensiveAnimationNames.bruteForceAttack[randomIndex];
+    const randomIndex = Math.floor(Math.random() * offensiveAnimationNames.bruteForceAttack.length);
+    upperBodyMovementName = offensiveAnimationNames.bruteForceAttack[randomIndex];
 
     // calculating health loss
     health = !miss
@@ -480,11 +427,8 @@ const pushDefensiveMovement = ({
 
   // getting random lower body movement from the list
   // according to the upper body movement
-  const randomIndex = Math.floor(
-    Math.random() * lowerAnimationNames[upperBodyMovementName].length
-  );
-  lowerBodyMovementName =
-    lowerAnimationNames[upperBodyMovementName][randomIndex];
+  const randomIndex = Math.floor(Math.random() * lowerAnimationNames[upperBodyMovementName].length);
+  lowerBodyMovementName = lowerAnimationNames[upperBodyMovementName][randomIndex];
 
   // if offensive movement is missed there is no damage to defender
   if (offensiveMovement.miss) {
@@ -513,10 +457,7 @@ const pushDefensiveMovement = ({
   @param params.movements movements list
   @param params.movementTimingStartTime movement timing start time
 */
-const pushSwitchLeadingSideMovement = ({
-  movements,
-  movementTimingStartTime,
-}) => {
+const pushSwitchLeadingSideMovement = ({ movements, movementTimingStartTime }) => {
   // packing movement for the whole body into an object
   const movement = {
     whole: switchLeadingSideAnimationName,
@@ -569,14 +510,9 @@ const saturateHealthLevels = (winnerMovements, loserMovements) => {
   @param params.winner winner of the duel
   @returns an object with leftBoxerMovements, rightBoxerMovements and winner
 */
-const calculateMovements = (
-  boxersChancesOfMovements,
-  boxersLeadingSides,
-  winner
-) => {
+const calculateMovements = (boxersChancesOfMovements, boxersLeadingSides, winner) => {
   // unpacking chances of movements and leading sides
-  const { leftBoxerChancesOfMovements, rightBoxerChancesOfMovements } =
-    boxersChancesOfMovements;
+  const { leftBoxerChancesOfMovements, rightBoxerChancesOfMovements } = boxersChancesOfMovements;
   const { leftBoxerLeadingSide, rightBoxerLeadingSide } = boxersLeadingSides;
 
   let winnerMovements = [],
@@ -592,7 +528,7 @@ const calculateMovements = (
   // for each movement timing
   movementTimings.forEach((movementTiming) => {
     // probe movement
-    if (movementTiming.winnerMovementType === "probe") {
+    if (movementTiming.winnerMovementType === 'probe') {
       pushProbeMovement({
         movements: winnerMovements,
         movementTimingStartTime: movementTiming.startTime,
@@ -606,9 +542,9 @@ const calculateMovements = (
     }
 
     // offensive movement
-    else if (movementTiming.winnerMovementType === "offensive") {
+    else if (movementTiming.winnerMovementType === 'offensive') {
       // the winner is the left boxer
-      if (winner === "left") {
+      if (winner === 'left') {
         // generating and pushing an offensive movement for the winner (the left boxer)
         const offensiveMovement = pushOffensiveMovement({
           movements: winnerMovements,
@@ -653,9 +589,9 @@ const calculateMovements = (
     }
 
     // defensive movement
-    else if (movementTiming.winnerMovementType === "defensive") {
+    else if (movementTiming.winnerMovementType === 'defensive') {
       // the winner is the left boxer
-      if (winner === "left") {
+      if (winner === 'left') {
         // generating and pushing an offensive movement for the loser (the right boxer)
         const offensiveMovement = pushOffensiveMovement({
           movements: loserMovements,
@@ -702,7 +638,7 @@ const calculateMovements = (
     // switch leading side movement
     else {
       // winner is changing his leading side
-      if (movementTiming.winnerMovementType === "switchLeadingSide-winner") {
+      if (movementTiming.winnerMovementType === 'switchLeadingSide-winner') {
         // generating and pushing a switch leading side movement for the winner
         pushSwitchLeadingSideMovement({
           movements: winnerMovements,
@@ -741,10 +677,8 @@ const calculateMovements = (
   saturateHealthLevels(winnerMovements, loserMovements);
 
   // "translating" winner-loser to left-right
-  const leftBoxerMovements =
-    winner === "left" ? winnerMovements : loserMovements;
-  const rightBoxerMovements =
-    winner === "left" ? loserMovements : winnerMovements;
+  const leftBoxerMovements = winner === 'left' ? winnerMovements : loserMovements;
+  const rightBoxerMovements = winner === 'left' ? loserMovements : winnerMovements;
 
   return {
     leftBoxerMovements,

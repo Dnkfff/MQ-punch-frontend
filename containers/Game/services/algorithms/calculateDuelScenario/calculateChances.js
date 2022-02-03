@@ -1,7 +1,7 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateChances */
 
-import duelEconomics from "../../constants/duelEconomics";
-import duelParameters from "../../constants/duelParameters";
+import duelEconomics from '../../constants/duelEconomics';
+import duelParameters from '../../constants/duelParameters';
 
 /**
   @summary Calculates chances of offensive movements
@@ -17,36 +17,29 @@ export const calculateChancesOfOffensiveMovements = (boxerStats) => {
 
   // brute force attack (2 strength, 0 agility, 1 endurance)
   randomMultiplier =
-    1.0 +
-    duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
   const bruteForceAttackCoefficient =
     (boxerStats.strength * 2.0 + boxerStats.endurance * 1.0) * randomMultiplier;
 
   // deceptive attack (0 strength, 1 agility, 2 endurance)
   randomMultiplier =
-    1.0 +
-    duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
   const deceptiveAttackCoefficient =
     (boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) * randomMultiplier;
 
   // counter attack (1 strength, 2 agility, 0 endurance)
   randomMultiplier =
-    1.0 +
-    duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
   const counterAttackCoefficient =
     (boxerStats.agility * 2.0 + boxerStats.strength * 1.0) * randomMultiplier;
 
   // calculating sum of coefficients for further reducing
   const sumOfCoefficients =
-    bruteForceAttackCoefficient +
-    deceptiveAttackCoefficient +
-    counterAttackCoefficient;
+    bruteForceAttackCoefficient + deceptiveAttackCoefficient + counterAttackCoefficient;
 
   // sum of chances equals one
-  const chanceOfBruteForceAttack =
-    bruteForceAttackCoefficient / sumOfCoefficients;
-  const chanceOfDeceptiveAttack =
-    deceptiveAttackCoefficient / sumOfCoefficients;
+  const chanceOfBruteForceAttack = bruteForceAttackCoefficient / sumOfCoefficients;
+  const chanceOfDeceptiveAttack = deceptiveAttackCoefficient / sumOfCoefficients;
   const chanceOfCounterAttack = counterAttackCoefficient / sumOfCoefficients;
 
   return {
@@ -69,22 +62,16 @@ export const calculateChancesOfDefensiveMovements = (boxerStats) => {
 
   // block defense (3 strength, 1 agility, 2 endurance)
   randomMultiplier =
-    1.0 +
-    duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
   const blockCoefficient =
-    (boxerStats.strength * 3.0 +
-      boxerStats.endurance * 2.0 +
-      boxerStats.agility * 1.0) *
+    (boxerStats.strength * 3.0 + boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) *
     randomMultiplier;
 
   // dodge defense (1 strength, 3 agility, 2 endurance)
   randomMultiplier =
-    1.0 +
-    duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
+    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
   const dodgeCoefficient =
-    (boxerStats.agility * 3.0 +
-      boxerStats.endurance * 2.0 +
-      boxerStats.strength * 1.0) *
+    (boxerStats.agility * 3.0 + boxerStats.endurance * 2.0 + boxerStats.strength * 1.0) *
     randomMultiplier;
 
   // calculating sum of coefficients for further reducing
@@ -117,12 +104,9 @@ export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   let sumOfLeftBoxerStats = 0.0;
 
   // physique stats
-  randomMultiplier =
-    1.0 + duelEconomics.physiqueRandomBooster * (Math.random() * 2.0 - 1.0);
+  randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (Math.random() * 2.0 - 1.0);
   sumOfLeftBoxerStats +=
-    (leftBoxerStats.strength +
-      leftBoxerStats.agility +
-      leftBoxerStats.endurance) *
+    (leftBoxerStats.strength + leftBoxerStats.agility + leftBoxerStats.endurance) *
     randomMultiplier;
 
   // winning rate
@@ -132,23 +116,18 @@ export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   sumOfLeftBoxerStats += leftBoxerStats.rookie * duelEconomics.rookieWeight;
 
   // streaming
-  sumOfLeftBoxerStats +=
-    leftBoxerStats.streaming * duelEconomics.streamingWeight;
+  sumOfLeftBoxerStats += leftBoxerStats.streaming * duelEconomics.streamingWeight;
 
   // calculating sum of stats
   let sumOfRightBoxerStats = 0.0;
 
-  randomMultiplier =
-    1.0 + duelEconomics.physiqueRandomBooster * (Math.random() * 2.0 - 1.0);
+  randomMultiplier = 1.0 + duelEconomics.physiqueRandomBooster * (Math.random() * 2.0 - 1.0);
   sumOfRightBoxerStats +=
-    (rightBoxerStats.strength +
-      rightBoxerStats.agility +
-      rightBoxerStats.endurance) *
+    (rightBoxerStats.strength + rightBoxerStats.agility + rightBoxerStats.endurance) *
     randomMultiplier;
   sumOfRightBoxerStats += rightBoxerStats.winrate * duelEconomics.winrateWeight;
   sumOfRightBoxerStats += rightBoxerStats.rookie * duelEconomics.rookieWeight;
-  sumOfRightBoxerStats +=
-    rightBoxerStats.streaming * duelEconomics.streamingWeight;
+  sumOfRightBoxerStats += rightBoxerStats.streaming * duelEconomics.streamingWeight;
 
   // calculating sum of both boxers stats for further reducing
   const sumOfStats = sumOfLeftBoxerStats + sumOfRightBoxerStats;

@@ -4,13 +4,13 @@
   @brief The object of boxer probe animation names (for the upper body)
 */
 export const probeAnimationNames = [
-  "jab",
-  "slip-left",
-  "roll-left",
-  "dive-left",
-  "slip-right",
-  "roll-right",
-  "dive-right",
+  'jab',
+  'slip-left',
+  'roll-left',
+  'dive-left',
+  'slip-right',
+  'roll-right',
+  'dive-right',
 ];
 
 /**
@@ -23,42 +23,37 @@ export const probeAnimationNames = [
 */
 export const offensiveAnimationNames = {
   bruteForceAttack: [
-    "cross-up-left",
-    "cross-up-right",
-    "cross-down-left",
-    "cross-down-right",
-    "hook-up-left",
-    "hook-up-right",
-    "hook-down-left",
-    "hook-down-right",
-    "uppercut-up-left",
-    "uppercut-up-right",
-    "uppercut-down-left",
-    "uppercut-down-right",
-    "overhand-left",
-    "overhand-right",
+    'cross-up-left',
+    'cross-up-right',
+    'cross-down-left',
+    'cross-down-right',
+    'hook-up-left',
+    'hook-up-right',
+    'hook-down-left',
+    'hook-down-right',
+    'uppercut-up-left',
+    'uppercut-up-right',
+    'uppercut-down-left',
+    'uppercut-down-right',
+    'overhand-left',
+    'overhand-right',
   ],
   deceptiveAttack: [
-    "jab",
-    "cross-up-left",
-    "cross-up-right",
-    "cross-down-left",
-    "cross-down-right",
-    "hook-up-left",
-    "hook-up-right",
-    "hook-down-left",
-    "hook-down-right",
-    "uppercut-up-left",
-    "uppercut-up-right",
-    "uppercut-down-left",
-    "uppercut-down-right",
+    'jab',
+    'cross-up-left',
+    'cross-up-right',
+    'cross-down-left',
+    'cross-down-right',
+    'hook-up-left',
+    'hook-up-right',
+    'hook-down-left',
+    'hook-down-right',
+    'uppercut-up-left',
+    'uppercut-up-right',
+    'uppercut-down-left',
+    'uppercut-down-right',
   ],
-  counterAttack: [
-    "cross-up-left",
-    "cross-up-right",
-    "overhand-left",
-    "overhand-right",
-  ],
+  counterAttack: ['cross-up-left', 'cross-up-right', 'overhand-left', 'overhand-right'],
 };
 
 /**
@@ -68,64 +63,64 @@ export const offensiveAnimationNames = {
 */
 export const defensiveAnimationNames = {
   jab: {
-    block: ["block-front", "block-up-right"],
-    dodge: ["roll-left", "roll-right"],
+    block: ['block-front', 'block-up-right'],
+    dodge: ['roll-left', 'roll-right'],
   },
-  "cross-up-left": {
-    block: ["block-up-right"],
-    dodge: ["slip-right"],
+  'cross-up-left': {
+    block: ['block-up-right'],
+    dodge: ['slip-right'],
   },
-  "cross-up-right": {
-    block: ["block-up-left"],
-    dodge: ["slip-left"],
+  'cross-up-right': {
+    block: ['block-up-left'],
+    dodge: ['slip-left'],
   },
-  "cross-down-left": {
-    block: ["block-down-right"],
-    dodge: ["slip-right"],
+  'cross-down-left': {
+    block: ['block-down-right'],
+    dodge: ['slip-right'],
   },
-  "cross-down-right": {
-    block: ["block-down-left"],
-    dodge: ["slip-left"],
+  'cross-down-right': {
+    block: ['block-down-left'],
+    dodge: ['slip-left'],
   },
-  "hook-up-left": {
-    block: ["block-up-right"],
-    dodge: ["dive-right", "roll-left", "roll-right"],
+  'hook-up-left': {
+    block: ['block-up-right'],
+    dodge: ['dive-right', 'roll-left', 'roll-right'],
   },
-  "hook-up-right": {
-    block: ["block-up-left"],
-    dodge: ["dive-left", "roll-left", "roll-right"],
+  'hook-up-right': {
+    block: ['block-up-left'],
+    dodge: ['dive-left', 'roll-left', 'roll-right'],
   },
-  "hook-down-left": {
-    block: ["block-down-right"],
-    dodge: ["roll-left", "roll-right"],
+  'hook-down-left': {
+    block: ['block-down-right'],
+    dodge: ['roll-left', 'roll-right'],
   },
-  "hook-down-right": {
-    block: ["block-down-left"],
-    dodge: ["roll-left", "roll-right"],
+  'hook-down-right': {
+    block: ['block-down-left'],
+    dodge: ['roll-left', 'roll-right'],
   },
-  "uppercut-up-left": {
-    block: ["block-front", "block-up-right"],
-    dodge: ["slip-left", "roll-left", "roll-right"],
+  'uppercut-up-left': {
+    block: ['block-front', 'block-up-right'],
+    dodge: ['slip-left', 'roll-left', 'roll-right'],
   },
-  "uppercut-up-right": {
-    block: ["block-front", "block-up-left"],
-    dodge: ["slip-right", "roll-left", "roll-right"],
+  'uppercut-up-right': {
+    block: ['block-front', 'block-up-left'],
+    dodge: ['slip-right', 'roll-left', 'roll-right'],
   },
-  "uppercut-down-left": {
-    block: ["block-front", "block-down-right"],
-    dodge: ["slip-left"],
+  'uppercut-down-left': {
+    block: ['block-front', 'block-down-right'],
+    dodge: ['slip-left'],
   },
-  "uppercut-down-right": {
-    block: ["block-front", "block-down-left"],
-    dodge: ["slip-right"],
+  'uppercut-down-right': {
+    block: ['block-front', 'block-down-left'],
+    dodge: ['slip-right'],
   },
-  "overhand-left": {
-    block: ["block-up-right"],
-    dodge: ["slip-right", "roll-left", "roll-right"],
+  'overhand-left': {
+    block: ['block-up-right'],
+    dodge: ['slip-right', 'roll-left', 'roll-right'],
   },
-  "overhand-right": {
-    block: ["block-up-left"],
-    dodge: ["slip-left", "roll-left", "roll-right"],
+  'overhand-right': {
+    block: ['block-up-left'],
+    dodge: ['slip-left', 'roll-left', 'roll-right'],
   },
 };
 
@@ -135,17 +130,17 @@ export const defensiveAnimationNames = {
   and according upper body miss animations as values.
 */
 export const missAnimationNames = {
-  "block-up-left": "miss-up-left",
-  "block-up-right": "miss-up-right",
-  "block-down-left": "miss-down-left",
-  "block-down-right": "miss-down-right",
-  "block-front": "miss-front",
-  "slip-left": "miss-up-left",
-  "slip-right": "miss-up-right",
-  "roll-left": "miss-front",
-  "roll-right": "miss-front",
-  "dive-left": "miss-up-left",
-  "dive-right": "miss-up-right",
+  'block-up-left': 'miss-up-left',
+  'block-up-right': 'miss-up-right',
+  'block-down-left': 'miss-down-left',
+  'block-down-right': 'miss-down-right',
+  'block-front': 'miss-front',
+  'slip-left': 'miss-up-left',
+  'slip-right': 'miss-up-right',
+  'roll-left': 'miss-front',
+  'roll-right': 'miss-front',
+  'dive-left': 'miss-up-left',
+  'dive-right': 'miss-up-right',
 };
 
 /**
@@ -155,180 +150,164 @@ export const missAnimationNames = {
 */
 export const lowerAnimationNames = {
   jab: [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
   ],
-  "cross-up-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
+  'cross-up-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
   ],
-  "cross-up-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
+  'cross-up-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
   ],
-  "cross-down-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
+  'cross-down-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
   ],
-  "cross-down-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
+  'cross-down-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
   ],
-  "hook-up-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
+  'hook-up-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "hook-up-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
+  'hook-up-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "hook-down-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
+  'hook-down-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "hook-down-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
+  'hook-down-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "uppercut-up-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
+  'uppercut-up-left': ['fighting-idle-1-lower-body', 'fighting-idle-2-lower-body', 'step-forward'],
+  'uppercut-up-right': ['fighting-idle-1-lower-body', 'fighting-idle-2-lower-body', 'step-forward'],
+  'uppercut-down-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
   ],
-  "uppercut-up-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
+  'uppercut-down-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
   ],
-  "uppercut-down-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
+  'overhand-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-to-the-right',
   ],
-  "uppercut-down-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
+  'overhand-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-to-the-left',
   ],
-  "overhand-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-to-the-right",
+  'block-up-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "overhand-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-to-the-left",
+  'block-up-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "block-up-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
+  'block-down-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "block-up-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
+  'block-down-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "block-down-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
+  'block-front': ['fighting-idle-1-lower-body', 'fighting-idle-2-lower-body', 'step-backward'],
+  'slip-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-to-the-left',
   ],
-  "block-down-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
+  'slip-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-to-the-right',
   ],
-  "block-front": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-backward",
+  'roll-left': ['step-backward'],
+  'roll-right': ['step-backward'],
+  'dive-left': ['step-to-the-left'],
+  'dive-right': ['step-to-the-right'],
+  'miss-up-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "slip-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-to-the-left",
+  'miss-up-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "slip-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-to-the-right",
+  'miss-down-left': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-right',
   ],
-  "roll-left": ["step-backward"],
-  "roll-right": ["step-backward"],
-  "dive-left": ["step-to-the-left"],
-  "dive-right": ["step-to-the-right"],
-  "miss-up-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
+  'miss-down-right': [
+    'fighting-idle-1-lower-body',
+    'fighting-idle-2-lower-body',
+    'step-forward',
+    'step-backward',
+    'step-to-the-left',
   ],
-  "miss-up-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
-  ],
-  "miss-down-left": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-right",
-  ],
-  "miss-down-right": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-forward",
-    "step-backward",
-    "step-to-the-left",
-  ],
-  "miss-front": [
-    "fighting-idle-1-lower-body",
-    "fighting-idle-2-lower-body",
-    "step-backward",
-  ],
+  'miss-front': ['fighting-idle-1-lower-body', 'fighting-idle-2-lower-body', 'step-backward'],
 };
 
 /**
   @brief Special switch leading side animation name
 */
-export const switchLeadingSideAnimationName = "switch-leading-side";
+export const switchLeadingSideAnimationName = 'switch-leading-side';
