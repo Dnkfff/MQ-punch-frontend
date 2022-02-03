@@ -39,6 +39,9 @@ class Boxer {
 
     this.movingDirection = new Vector3(0.0, 0.0, 0.0);
     this.movingStage = 1.0;
+
+    this.rotationDelta = 0.0;
+    this.rotatingStage = 1.0;
   }
 
   /**
@@ -65,7 +68,7 @@ class Boxer {
       this.requestAnimation(this.upperBodyIdleAnimation, "upper", false);
     }
 
-    // moving boxer according to current direction
+    // moving boxer according to current direction and moving stage
     if (this.movingStage < 1.0) {
       // calculating delta stage of the movement
       const deltaStage = deltaTime / duelParameters.movementDuration;
@@ -80,6 +83,32 @@ class Boxer {
       // updating stage of the movement
       this.movingStage += deltaStage;
     }
+
+    // rotating boxer according to current rotating stage
+    if (this.rotatingStage < 1.0) {
+      // calculating delta stage of the rotation
+      const deltaStage = deltaTime / duelParameters.movementDuration;
+
+      // calculating delta rotation
+      let deltaRotation = duelParameters.missAngle * deltaStage;
+
+      // if it is the second half of rotation
+      // reverse delta rotation
+      if (this.rotatingStage >= 0.5) {
+        deltaRotation *= -1.0;
+      }
+
+      // rotating the model onto delta rotation
+      this.rotationDelta += deltaRotation;
+
+      // updating stage of the rotation
+      this.rotatingStage += deltaStage;
+    }
+
+    // making sure there is no residual delta rotation
+    else {
+      this.rotationDelta = 0.0;
+    }
   }
 
   /**
@@ -87,7 +116,7 @@ class Boxer {
     @description Fades out current animation and fades in the requested one.
     @param name requested animation name
     @param type for the lower, the upper or the whole body
-    @param miss if the boxer has missed attack or defence
+    @param miss if the boxer has missed attack or defense
   */
   requestAnimation(name, type, miss) {
     // getting some variables
@@ -97,10 +126,10 @@ class Boxer {
     const upperBodyAnimationAction =
       this.animationActions[this.currentUpperBodyAnimationName];
 
-    // if boxer has missed the hit
-    if (type === "upper" && miss) {
-      // adding to animation name "-miss" suffix
-      name += "-miss";
+    // if boxer has missed an offensive movement
+    if (miss) {
+      // rotating the boxer so he will miss the hit
+      this.rotatingStage = 0.0;
     }
 
     // starting animation
@@ -192,6 +221,10 @@ class Boxer {
 
     // calculating an angle between the direction and Z-axis
     let angleY = Math.atan2(dirToOpponent.x, dirToOpponent.z);
+
+    // adding rotation delta to rotate the boxer
+    // if he has missed offensive movement
+    angleY += this.rotationDelta;
 
     // setting the model Y-rotation angle
     this.model.rotation.y = angleY;

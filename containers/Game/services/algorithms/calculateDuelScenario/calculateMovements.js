@@ -7,6 +7,7 @@ import {
   probeAnimationNames,
   offensiveAnimationNames,
   defensiveAnimationNames,
+  missAnimationNames,
   lowerAnimationNames,
   switchLeadingSideAnimationName,
 } from "../../constants/duelAnimationNames";
@@ -18,7 +19,7 @@ import {
   @param params.movements movements list
   @param params.movement movement object
   @param params.movementTimingStartTime movement start time
-  @param params.miss if the attack or defence is missed
+  @param params.miss if the attack or defense is missed
   @param params.health loss of health
 */
 const pushTheMovement = ({
@@ -113,13 +114,11 @@ const pushProbeMovement = ({
   @param params.movements movements list
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
-  @param params.miss if the attack or defence is missed
 */
 const pushDeceptiveAttackMovement = ({
   movements,
   movementTimingStartTime,
   leadingSide,
-  miss,
 }) => {
   let lowerBodyMovementName, upperBodyMovementName;
 
@@ -148,7 +147,7 @@ const pushDeceptiveAttackMovement = ({
       lower: lowerBodyMovementName,
       upper: upperBodyMovementName,
     },
-    miss,
+    miss: false,
     health: 0.0,
   });
 
@@ -164,7 +163,7 @@ const pushDeceptiveAttackMovement = ({
   @param params.movements movements list
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
-  @param params.miss if the attack or defence is missed
+  @param params.miss if the attack or defense is missed
   @param params.chancesOfMovements an object with chances of each movement
 */
 const pushOffensiveMovement = ({
@@ -219,7 +218,6 @@ const pushOffensiveMovement = ({
       movements,
       movementTimingStartTime,
       leadingSide,
-      miss,
     });
   }
 
@@ -272,13 +270,12 @@ const pushOffensiveMovement = ({
 };
 
 /**
-  @summary Pushes deceptive defence movement into movements list
+  @summary Pushes deceptive defense movement into movements list
   based on chances and random
   @param params
   @param params.movements movements list
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
-  @param params.miss if the attack or defence is missed
   @param params.chancesOfMovements an object with chances of each movement
   @param params.offensiveMovement offensive movement name
 */
@@ -286,7 +283,6 @@ const pushDeceptiveDefenseMovement = ({
   movements,
   movementTimingStartTime,
   leadingSide,
-  miss,
   chancesOfMovements,
   offensiveMovement,
 }) => {
@@ -337,7 +333,7 @@ const pushDeceptiveDefenseMovement = ({
       lower: lowerBodyMovementName,
       upper: upperBodyMovementName,
     },
-    miss,
+    miss: false,
     health: 0.0,
   });
 };
@@ -349,7 +345,7 @@ const pushDeceptiveDefenseMovement = ({
   @param params.movements movements list
   @param params.movementTimingStartTime movement timing start time
   @param params.leadingSide boxer leading side
-  @param params.miss if the attack or defence is missed
+  @param params.miss if the attack or defense is missed
   @param params.chancesOfMovements an object with chances of each movement
   @param params.offensiveMovement offensive movement name
 */
@@ -412,7 +408,6 @@ const pushDefensiveMovement = ({
       movements,
       movementTimingStartTime,
       leadingSide,
-      miss,
       chancesOfMovements,
       offensiveMovement,
     });
@@ -469,6 +464,15 @@ const pushDefensiveMovement = ({
     health = !miss
       ? duelParameters.counterAttackDefenseSuccessHealthLoss
       : duelParameters.counterAttackDefenseFailHealthLoss;
+  }
+
+  // if defensive movement is missed
+  if (miss && missAnimationNames.hasOwnProperty(upperBodyMovementName)) {
+    // setting appropriate animation of missing the hit
+    upperBodyMovementName = missAnimationNames[upperBodyMovementName];
+
+    // setting miss to false so the boxer can not miss the miss
+    miss = false;
   }
 
   // taking into account leading side

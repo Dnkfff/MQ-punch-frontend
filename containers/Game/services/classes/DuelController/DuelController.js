@@ -68,6 +68,7 @@ class DuelController {
       // updating current time
       this.currentTime += deltaTime;
 
+      // function to animate given boxer
       const animateBoxer = (
         boxer,
         opponent,
@@ -116,7 +117,11 @@ class DuelController {
           // if the movement is for the lower and the upper body separately
           else {
             // requesting animations
-            boxer.requestAnimation(boxerMovement.movement.lower, "lower");
+            boxer.requestAnimation(
+              boxerMovement.movement.lower,
+              "lower",
+              false
+            );
             boxer.requestAnimation(
               boxerMovement.movement.upper,
               "upper",

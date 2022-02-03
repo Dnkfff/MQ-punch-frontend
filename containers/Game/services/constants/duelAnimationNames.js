@@ -130,7 +130,26 @@ export const defensiveAnimationNames = {
 };
 
 /**
-  @brief The object of boxer lower boyd animation names
+  @brief The object of boxer miss animation names
+  @description It contains defensive upper body animation names as keys
+  and according upper body miss animations as values.
+*/
+export const missAnimationNames = {
+  "block-up-left": "miss-up-left",
+  "block-up-right": "miss-up-right",
+  "block-down-left": "miss-down-left",
+  "block-down-right": "miss-down-right",
+  "block-front": "miss-front",
+  "slip-left": "miss-up-left",
+  "slip-right": "miss-up-right",
+  "roll-left": "miss-front",
+  "roll-right": "miss-front",
+  "dive-left": "miss-up-left",
+  "dive-right": "miss-up-right",
+};
+
+/**
+  @brief The object of boxer lower body animation names
   @description It contains upper body animation names as keys
   and lower body animations as values.
 */
@@ -274,6 +293,39 @@ export const lowerAnimationNames = {
   "roll-right": ["step-backward"],
   "dive-left": ["step-to-the-left"],
   "dive-right": ["step-to-the-right"],
+  "miss-up-left": [
+    "fighting-idle-1-lower-body",
+    "fighting-idle-2-lower-body",
+    "step-forward",
+    "step-backward",
+    "step-to-the-right",
+  ],
+  "miss-up-right": [
+    "fighting-idle-1-lower-body",
+    "fighting-idle-2-lower-body",
+    "step-forward",
+    "step-backward",
+    "step-to-the-left",
+  ],
+  "miss-down-left": [
+    "fighting-idle-1-lower-body",
+    "fighting-idle-2-lower-body",
+    "step-forward",
+    "step-backward",
+    "step-to-the-right",
+  ],
+  "miss-down-right": [
+    "fighting-idle-1-lower-body",
+    "fighting-idle-2-lower-body",
+    "step-forward",
+    "step-backward",
+    "step-to-the-left",
+  ],
+  "miss-front": [
+    "fighting-idle-1-lower-body",
+    "fighting-idle-2-lower-body",
+    "step-backward",
+  ],
 };
 
 /**
