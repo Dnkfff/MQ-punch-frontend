@@ -6,6 +6,7 @@ import { loadTexture } from '../algorithms/assetsLoaders';
 
 import webGLParameters from '../constants/webGLParameters';
 import cameraParameters from '../constants/cameraParameters';
+import assetsPaths from '../constants/assetsPaths';
 
 /**
   @summary Loads skybox texture and adds it to scene
@@ -16,7 +17,7 @@ const setupSkybox = async (scene) => {
   let texture;
 
   // loading skybox texture
-  const texturePromise = loadTexture('../../../../assets/textures/skybox/skybox.jpg')
+  const texturePromise = loadTexture(assetsPaths.texturesPath + 'skybox/skybox.jpg')
     .then((jpeg) => {
       texture = jpeg;
     })

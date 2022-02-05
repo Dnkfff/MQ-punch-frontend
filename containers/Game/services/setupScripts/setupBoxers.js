@@ -12,6 +12,7 @@ import boxerParameters from '../constants/boxerParameters';
 import ringParameters from '../constants/ringParameters';
 import modelNames from '../constants/modelNames';
 import boxerAnimations from '../constants/boxerAnimations';
+import assetsPaths from '../constants/assetsPaths';
 
 /**
   @summary Initializes two Boxer instances
@@ -26,7 +27,7 @@ const setupBoxers = async (scene) => {
     rightAnimationActions = {};
 
   // promise to load model
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + modelNames.boxer + '.fbx')
+  const modelsLoadingPromise = loadFBX(assetsPaths.modelsPath + modelNames.boxer + '.fbx')
     .then((model) => {
       // setting rendering layer of each model child to normal layer
       model.traverse((obj) => {
@@ -71,7 +72,7 @@ const setupBoxers = async (scene) => {
 
   // promises to load all animations
   const animationsLoadingPromises = boxerAnimations.map((boxerAnimation) =>
-    loadFBX('../../../../assets/animations/' + boxerAnimation.name + '.fbx')
+    loadFBX(assetsPaths.animationsPath + boxerAnimation.name + '.fbx')
       .then((animation) => {
         const name = boxerAnimation.name;
         const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;

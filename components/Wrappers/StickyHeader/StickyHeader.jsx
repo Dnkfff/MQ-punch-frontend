@@ -10,7 +10,7 @@ import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
 import {
   changeMobileMenuOpened,
   setGlobalModalData,
-} from '../../../redux/reducers/globalManager/slice';
+} from '../../../redux/reducers/GlobalManager/slice';
 import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
 
 // assets

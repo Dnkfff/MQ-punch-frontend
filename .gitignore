@@ -37,8 +37,7 @@ yarn-error.log*
 /docs/
 
 # game BLOBs
-/public/assets/models/
-/public/assets/animations/
+/public/assets/game/
 
 # VSCode
 .vscode
