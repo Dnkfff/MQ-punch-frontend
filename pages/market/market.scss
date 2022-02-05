@@ -105,7 +105,7 @@
 
     .puncher__nick,
     .puncher__price__value {
-      color: #000000;
+      color: $black;
       font-size: 16px;
       font-weight: 800;
     }
@@ -117,7 +117,7 @@
 
   .market__social__inner {
     padding: 65px 40px;
-    background-color: #000000;
+    background-color: $black;
   }
 
   .market__social__title {

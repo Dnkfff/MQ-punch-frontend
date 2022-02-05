@@ -191,7 +191,7 @@
 
         span {
           font-size: 15px;
-          color: #fff;
+          color: $white;
           font-weight: 500;
         }
 
@@ -222,7 +222,7 @@
           min-width: 200px;
           top: calc(100% + 5px);
           right: 0;
-          background-color: #fff;
+          background-color: $white;
           border-radius: 3px;
           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
           overflow: hidden;
@@ -237,7 +237,7 @@
 
         ul.profile-dropdown li {
           width: 100%;
-          border-bottom: 1px solid #aaa;
+          border-bottom: 1px solid $gray-100;
           padding: 10px;
           display: flex;
           align-items: center;
@@ -256,7 +256,7 @@
             justify-content: center;
             border-radius: 50%;
             i {
-              color: #333;
+              color: $text-dark;
             }
           }
         }

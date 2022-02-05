@@ -4,12 +4,12 @@
 
     .th {
       i {
-        color: #fff;
+        color: $white;
         margin-right: 10px;
         font-size: 20px;
       }
       span {
-        color: #fff;
+        color: $white;
         text-transform: uppercase;
         font-size: 18px;
       }
@@ -18,7 +18,7 @@
 
   .tbody {
     .tr {
-      background-color: #eee;
+      background-color: $gray;
     }
     .tr:nth-child(2n) {
       background-color: #e2e2e2;

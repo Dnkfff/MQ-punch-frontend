@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // components
-import EventsTab from './components/EventsTab';
+import EventsTab from './components/EventsTab/EventsTab';
 
 // constants
 import {
@@ -17,9 +17,12 @@ const MainEventsBlock = (props) => {
   const events = useSelector((state) =>
     state.tournaments[type] ? state.tournaments[type].searchResult : null
   );
+  const metaData = useSelector((state) =>
+    state.tournaments[type] ? state.tournaments[type].metaData : { totalRows: 0 }
+  );
 
   if (type === EVENTS_PAGE_LABEL) {
-    return <EventsTab loading={eventsLoading} events={events} />;
+    return <EventsTab loading={eventsLoading} events={events} metaData={metaData} />;
   }
 };
 

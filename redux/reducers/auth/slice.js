@@ -1,11 +1,11 @@
-import axios from "axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import store from "../../store";
-import { refreshTokenCoolDown } from "../../../inside-services/constants/constants";
+import store from '../../store';
+import { refreshTokenCoolDown } from '../../../inside-services/constants/constants';
 
-export const onLogIn = createAsyncThunk("auth/login", async ({ signature, metamaskAddress }) => {
-  const loginResult = await axios.post("http://localhost:8080/auth", {
+export const onLogIn = createAsyncThunk('auth/login', async ({ signature, metamaskAddress }) => {
+  const loginResult = await axios.post('https://stage.mq-punch.com/auth', {
     signedSignature: signature,
   });
 
@@ -33,7 +33,7 @@ const loginExtraReducer = {
       refreshToken: payload.refreshToken,
     };
     window.localStorage.setItem(
-      "user",
+      'user',
       JSON.stringify({
         metamaskAddress: payload.metamaskAddress,
         token: payload.token,
@@ -45,12 +45,12 @@ const loginExtraReducer = {
     state.authLoading = false;
     state.authError = true;
     state.user = null;
-    window.localStorage.removeItem("user");
+    window.localStorage.removeItem('user');
   },
 };
 
-export const onRefreshToken = createAsyncThunk("auth/refresh-token", async ({ refreshToken }) => {
-  const refreshResult = await axios.post("http://localhost:8080/auth/refresh", {
+export const onRefreshToken = createAsyncThunk('auth/refresh-token', async ({ refreshToken }) => {
+  const refreshResult = await axios.post('https://stage.mq-punch.com/auth/refresh', {
     refreshToken,
   });
 
@@ -78,22 +78,22 @@ const refreshTokenExtraReducer = {
       refreshToken: payload.refreshToken,
     };
     const newUserObject = {
-      ...JSON.parse(window.localStorage.getItem("user")),
+      ...JSON.parse(window.localStorage.getItem('user')),
       token: payload.token,
       refreshToken: payload.refreshToken,
     };
-    window.localStorage.setItem("user", JSON.stringify(newUserObject));
+    window.localStorage.setItem('user', JSON.stringify(newUserObject));
   },
   [onRefreshToken.rejected]: (state) => {
     state.authLoading = false;
     state.authError = true;
     state.user = null;
-    window.localStorage.removeItem("user");
+    window.localStorage.removeItem('user');
   },
 };
 
 const slice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     user: null,
     authLoading: false,
@@ -109,10 +109,10 @@ const slice = createSlice({
   reducers: {
     onLogOut: (state) => {
       state.user = null;
-      window.localStorage.removeItem("user");
+      window.localStorage.removeItem('user');
     },
     onResetUserInfo: (state) => {
-      state.user = JSON.parse(window.localStorage.getItem("user"));
+      state.user = JSON.parse(window.localStorage.getItem('user'));
     },
   },
 });

@@ -6,6 +6,7 @@ import {
   setLiveEvents,
   setLiveEventsLoading,
   setEventsLoading,
+  setEventsPaginationLoading,
 } from '../../redux/reducers/tournaments/slice';
 
 // constants
@@ -31,7 +32,7 @@ class EventsAPI {
   }
 
   static async getAllLiveEvents() {
-    const url = `${SERVER_URL}/event/all?status=live&page=0&size=10`;
+    const url = `${SERVER_URL}/event/all?status=future&status=live&size=10&sortField=startsAt&asc=true&page=0`;
 
     let response = null;
     store.dispatch(setLiveEventsLoading(true));
@@ -44,10 +45,10 @@ class EventsAPI {
       store.dispatch(setLiveEventsLoading(false));
     }
 
-    if (response && response.data && response.data.length !== 0) {
-      return store.dispatch(setLiveEvents(response.data));
+    if (response && response.data?.data && response.data?.data.length !== 0) {
+      return store.dispatch(setLiveEvents(response.data.data));
     }
-    return store.dispatch([]);
+    return store.dispatch(setLiveEvents([]));
   }
 
   setPageParameters(params) {
@@ -78,7 +79,12 @@ class EventsAPI {
 
     let response = null;
 
-    store.dispatch(setEventsLoading(true));
+    if (page === 0) {
+      store.dispatch(setEventsLoading(true));
+    } else {
+      store.dispatch(setEventsPaginationLoading(true));
+    }
+
     try {
       response = await axios.get(url);
     } catch (error) {
@@ -86,9 +92,10 @@ class EventsAPI {
       // TO DO
     } finally {
       store.dispatch(setEventsLoading(false));
+      store.dispatch(setEventsPaginationLoading(false));
     }
 
-    return response || [];
+    return response?.data || [];
   }
 }
 
