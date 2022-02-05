@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
 
 import { globalManager, Auth, Tournaments } from './reducers';
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     global_manager: globalManager,
     auth: Auth,
@@ -13,3 +14,9 @@ export default configureStore({
     serializableCheck: false,
   }),
 });
+
+type RootState = ReturnType<typeof store.getState>;
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+export default store;

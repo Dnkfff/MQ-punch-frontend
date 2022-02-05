@@ -6,7 +6,7 @@
   z-index: 100001;
   transition: width 0.3s ease;
   overflow: hidden;
-  background-color: #fff !important;
+  background-color: $white !important;
 
   .content {
     width: 100vw;
@@ -55,12 +55,12 @@
 
           svg.wallet-icon {
             width: 24px;
-            fill: #333;
+            fill: $text-dark;
           }
 
           span {
             font-size: 13px;
-            color: #333;
+            color: $text-dark;
             font-weight: 500;
           }
 
@@ -68,7 +68,7 @@
             position: absolute;
             top: calc(50% - 8px);
             right: 7px;
-            color: #333;
+            color: $text-dark;
           }
         }
 
@@ -91,7 +91,7 @@
             min-width: 200px;
             top: calc(100% + 5px);
             left: 0;
-            background-color: #fff;
+            background-color: $white;
             border-radius: 3px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
             overflow: hidden;
@@ -106,7 +106,7 @@
 
           ul.profile-dropdown li {
             width: 100%;
-            border-bottom: 1px solid #aaa;
+            border-bottom: 1px solid $gray-100;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -125,7 +125,7 @@
               justify-content: center;
               border-radius: 50%;
               i {
-                color: #333;
+                color: $text-dark;
               }
             }
           }

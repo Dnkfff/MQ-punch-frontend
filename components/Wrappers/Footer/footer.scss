@@ -21,7 +21,7 @@
       font-size: 18px;
       font-weight: 500;
       &:hover {
-        color: #000;
+        color: $black;
       }
     }
   }
@@ -51,7 +51,7 @@
       &:hover {
         background-color: rgb(206, 206, 206);
         i {
-          color: #333;
+          color: $text-dark;
         }
       }
     }
@@ -72,7 +72,7 @@
     bottom: 10px;
     left: calc(50% - 26px);
     span {
-      color: #aaa;
+      color: $gray-100;
     }
   }
 }

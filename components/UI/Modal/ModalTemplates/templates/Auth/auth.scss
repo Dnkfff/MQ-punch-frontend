@@ -67,7 +67,7 @@
     justify-content: center;
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: #eee;
+      background-color: $gray;
     }
 
     svg {
@@ -92,16 +92,16 @@
     .stick {
       width: 3px;
       height: 35px;
-      background-color: #333;
+      background-color: $text-dark;
       margin-right: 10px;
     }
   }
 
   .login-title {
     font-size: 32px;
-    color: #333;
+    color: $text-dark;
     text-transform: uppercase;
-    font-family: "Cairo", sans-serif;
+    font-family: 'Cairo', sans-serif;
     display: flex;
   }
 
@@ -111,7 +111,7 @@
     background-color: transparent;
     border: 2px solid rgb(106, 114, 122);
     border-radius: 5px;
-    color: #333;
+    color: $text-dark;
     font-weight: 500;
     font-size: 20px;
     letter-spacing: 0.8px;
@@ -120,19 +120,19 @@
 
     &:hover {
       background-color: rgb(221, 221, 221);
-      color: #000;
+      color: $black;
     }
   }
 
   .warning-message {
-    color: #c20000;
+    color: $light-red;
     font-weight: normal;
     margin-top: 5px;
     display: flex;
     align-items: center;
 
     i {
-      color: #c20000;
+      color: $light-red;
       margin-right: 5px;
       font-size: 20px;
     }
@@ -162,7 +162,7 @@
     margin-top: 30px;
     align-self: flex-start;
     font-size: 14px;
-    color: #333;
+    color: $text-dark;
     transition: color 0.3s ease;
     display: flex;
     align-items: center;
@@ -172,7 +172,7 @@
     }
 
     i {
-      color: #333;
+      color: $text-dark;
       transition: color 0.3s ease;
       margin-right: 5px;
       font-size: 20px;

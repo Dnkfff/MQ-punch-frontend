@@ -19,7 +19,7 @@ div.mq-punch-double-date-selector {
 
   input[type='text'] {
     font-size: 16px;
-    color: #333;
+    color: $text-dark;
     border-radius: 3px;
     outline: none;
     border: 1px solid #76767a;
@@ -29,7 +29,7 @@ div.mq-punch-double-date-selector {
   }
   input[type='text']:hover,
   input[type='text']:focus {
-    border: 1px solid #860000;
+    border: 1px solid $dark-red;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.651);
   }
