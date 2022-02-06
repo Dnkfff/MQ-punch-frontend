@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // components
-import { IconButton } from '../../components/UI/icon_buttons/IconButton/IconButton';
+import { IconButtonWithTooltip } from '../../components/UI/icon_buttons';
 
 const Profile: React.FC = () => {
   const [globalEditMode, setGlobalEditMode] = useState<boolean>(false);
@@ -11,21 +11,45 @@ const Profile: React.FC = () => {
       <section className='profile_info'>
         {globalEditMode && (
           <>
-            <IconButton onClick={() => setGlobalEditMode(false)}>
+            <IconButtonWithTooltip
+              className='profile-global-save-icon'
+              onClick={() => setGlobalEditMode(false)}
+              tooltip={{
+                content: 'Save',
+                place: 'top',
+                effect: 'solid',
+                type: 'light',
+              }}
+            >
               <i className='fas fa-save' />
-            </IconButton>
-            {/* <button className='profile-global-save-icon' onClick={() => setGlobalEditMode(false)}>
-              <i className='fas fa-save' />
-            </button> */}
-            <button className='profile-global-cancel-icon' onClick={() => setGlobalEditMode(false)}>
+            </IconButtonWithTooltip>
+            <IconButtonWithTooltip
+              className='profile-global-cancel-icon'
+              onClick={() => setGlobalEditMode(false)}
+              tooltip={{
+                content: 'Cancel',
+                place: 'top',
+                effect: 'solid',
+                type: 'light',
+              }}
+            >
               <i className='fas fa-times' />
-            </button>
+            </IconButtonWithTooltip>
           </>
         )}
         {!globalEditMode && (
-          <button className='profile-global-edit-icon' onClick={() => setGlobalEditMode(true)}>
+          <IconButtonWithTooltip
+            className='profile-global-edit-icon'
+            onClick={() => setGlobalEditMode(true)}
+            tooltip={{
+              content: 'Edit',
+              place: 'top',
+              effect: 'solid',
+              type: 'light',
+            }}
+          >
             <i className='fas fa-pen' />
-          </button>
+          </IconButtonWithTooltip>
         )}
       </section>
       <section className='boxers_info'>

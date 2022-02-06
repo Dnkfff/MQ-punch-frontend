@@ -7,7 +7,7 @@ export interface IIconButton extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children: React.ReactNode;
 }
 
-const IconButton: React.FC<IIconButton> = (props) => {
+export const IconButton: React.FC<IIconButton> = (props) => {
   const { style, className: propClassName, children, ...rest } = props;
 
   const className = cn('uk-icon-button', { [propClassName]: !!propClassName });
@@ -18,5 +18,3 @@ const IconButton: React.FC<IIconButton> = (props) => {
     </button>
   );
 };
-
-export { IconButton };
