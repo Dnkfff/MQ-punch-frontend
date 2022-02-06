@@ -17,11 +17,11 @@ import DuelController from './services/classes/DuelController/DuelController';
 import calculateDuelScenario from './services/algorithms/calculateDuelScenario/calculateDuelScenario';
 
 /**
-  @summary The Three.js Game function itself
-  @description Initializes Three.js scene, boxers, skybox, camera controller,
+  @summary The THREE.js Game function itself
+  @description Initializes THREE.js scene, boxers, skybox, camera controller,
   ring environment, runs the duel scenario calculation algorithm.
   Then starts duel controller and renders scene objects.
-  @returns div tag with controlled by Three.js canvas
+  @returns div tag with controlled by THREE.js canvas
 */
 const Game = () => {
   useEffect(() => {
@@ -57,7 +57,7 @@ const Game = () => {
 
       // creating and configuring camera controller
       cameraController = new CameraController(camera, skybox, leftBoxer.model);
-      cameraController.enableAutomaticMode(false); // TODO: to be deleted
+      cameraController.enableFreeMode(false); // TODO: to be deleted
       cameraController.setView('third-person-center'); // TODO: to be deleted
 
       // creating ring environment in the scene

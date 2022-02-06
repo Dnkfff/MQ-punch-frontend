@@ -23,29 +23,29 @@ class CameraController {
     this.skybox = skybox;
 
     this.target = target;
-    this.automaticModeEnabled = true;
+    this.freeModeEnabled = false;
     this.view = viewNames[0];
   }
 
   /**
     @summary Sets target
-    @param target
+    @param target target THREE.js object
   */
   setTarget(target) {
     this.target = target;
   }
 
   /**
-    @summary Sets automaticModeEnabled
-    @param enable
+    @summary Sets freeModeEnabled field
+    @param enable freeModeEnabled
   */
-  enableAutomaticMode(enable) {
-    this.automaticModeEnabled = enable;
+  enableFreeMode(enable) {
+    this.freeModeEnabled = enable;
   }
 
   /**
     @summary Sets view
-    @param view
+    @param view view name
   */
   setView(view) {
     this.view = view;
@@ -67,12 +67,11 @@ class CameraController {
 
   /**
     @summary Updates camera parameters and skybox position
-    @param deltaTime time in seconds passed since the last call
   */
-  update(deltaTime) {
-    // automatic view mode
-    if (this.automaticModeEnabled) {
-      // TODO: automatic mode
+  update() {
+    // free mode
+    if (this.freeModeEnabled) {
+      // TODO: free mode
     }
 
     // manual view mode

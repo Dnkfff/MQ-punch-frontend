@@ -264,7 +264,8 @@ class DuelController {
       this.finishedRightBoxerMovements[0].startTime
     );
 
-    // switching camera view
+    // setting camera mode to fixed and switching camera view
+    this.cameraController.enableFreeMode(false);
     this.cameraController.setView(viewNames[Math.floor(this.currentCameraViewNumber / 2)]);
 
     const numberIsPair = this.currentCameraViewNumber % 2 === 0;

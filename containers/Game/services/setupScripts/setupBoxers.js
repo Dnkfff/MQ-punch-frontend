@@ -17,7 +17,7 @@ import assetsPaths from '../constants/assetsPaths';
 /**
   @summary Initializes two Boxer instances
   @description Loads models and animations, creates two Boxer instances.
-  @param scene Three.js scene where the two boxers will render
+  @param scene THREE.js scene where the two boxers will render
   @returns an object of two Boxer instances
 */
 const setupBoxers = async (scene) => {
@@ -40,7 +40,7 @@ const setupBoxers = async (scene) => {
 
       // clonning the model and configuring the clone for the left boxer
       leftModel = SkeletonUtils.clone(model);
-      leftModel.rotation.y = Math.PI / 2.0;
+      leftModel.rotation.y = 0.0;
       leftModel.position.set(
         (ringParameters.canvas.width * 1.0) / 16.0,
         0.0,
@@ -49,7 +49,7 @@ const setupBoxers = async (scene) => {
 
       // clonning the model and configuring the clone for the right boxer
       rightModel = SkeletonUtils.clone(model);
-      rightModel.rotation.y = -Math.PI / 2.0;
+      rightModel.rotation.y = 0.0;
       rightModel.position.set(
         (ringParameters.canvas.width * 15.0) / 16.0,
         0.0,

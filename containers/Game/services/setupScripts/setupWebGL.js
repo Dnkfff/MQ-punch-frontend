@@ -7,7 +7,7 @@ import webGLParameters from '../constants/webGLParameters';
 import cameraParameters from '../constants/cameraParameters';
 
 /**
-  @summary Initializes a Three.js scene
+  @summary Initializes a THREE.js scene
   @returns THREE.Scene
 */
 export const setupScene = () => {
@@ -25,7 +25,7 @@ export const setupScene = () => {
 };
 
 /**
-  @summary Initializes a Three.js camera
+  @summary Initializes a THREE.js camera
   @param window HTML window
   @returns THREE.PerspectiveCamera
 */
@@ -65,11 +65,11 @@ export const setupRenderer = (container, window) => {
 };
 
 /**
-  @summary Initializes a Three.js effect composer
+  @summary Initializes a THREE.js effect composer
   @param window HTML window
-  @param scene Three.js scene
-  @param camera Three.js camera
-  @param renderer Three.js renderer
+  @param scene THREE.js scene
+  @param camera THREE.js camera
+  @param renderer THREE.js renderer
   @returns THREE.EffectComposer
 */
 export const setupComposer = (window, scene, camera, renderer) => {
@@ -100,7 +100,7 @@ export const setupComposer = (window, scene, camera, renderer) => {
 };
 
 /**
-  @summary Initializes WebGL and Three.js environment
+  @summary Initializes WebGL and THREE.js environment
   @description Initializes a scene, a camera, a renderer and an effect composer.
   @param params
   @param params.container HTML instance of container where the canvas will render
