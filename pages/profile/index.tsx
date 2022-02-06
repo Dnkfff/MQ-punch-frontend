@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 
-const Profile = () => {
-  const [globalEditMode, setGlobalEditMode] = useState(false);
+// components
+import { IconButton } from '../../components/UI/icon_buttons/IconButton/IconButton';
+
+const Profile: React.FC = () => {
+  const [globalEditMode, setGlobalEditMode] = useState<boolean>(false);
 
   return (
     <div className='global__profile'>
       <section className='profile_info'>
         {globalEditMode && (
           <>
-            <button className='profile-global-save-icon' onClick={() => setGlobalEditMode(false)}>
+            <IconButton onClick={() => setGlobalEditMode(false)}>
               <i className='fas fa-save' />
-            </button>
+            </IconButton>
+            {/* <button className='profile-global-save-icon' onClick={() => setGlobalEditMode(false)}>
+              <i className='fas fa-save' />
+            </button> */}
             <button className='profile-global-cancel-icon' onClick={() => setGlobalEditMode(false)}>
               <i className='fas fa-times' />
             </button>
