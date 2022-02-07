@@ -17,17 +17,13 @@ const setupSkybox = async (scene) => {
   let texture;
 
   // loading skybox texture
-  const texturePromise = loadTexture(assetsPaths.texturesPath + 'skybox/skybox.jpg')
-    .then((jpeg) => {
+  const texturePromise = loadTexture(assetsPaths.texturesPath + 'skybox/skybox.jpg').then(
+    (jpeg) => {
       texture = jpeg;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    }
+  );
 
-  await texturePromise.catch((error) => {
-    console.log(error);
-  });
+  await texturePromise;
 
   // creating a sphere geometry
   let geometry = new THREE.SphereGeometry(cameraParameters.farPlaneDistance, 32, 32);

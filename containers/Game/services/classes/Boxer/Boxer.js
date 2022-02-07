@@ -130,11 +130,11 @@ class Boxer {
       this.rotatingStage = 0.0;
     }
 
-    // starting animation
+    // starting the animation
     this.animationActions[name].reset();
     this.animationActions[name].play();
 
-    // if the animation has changed
+    // blend animations if the animation has changed
     // for the whole body
     if (type === 'whole' && this.currentLowerBodyAnimationName !== name) {
       // making animation transition

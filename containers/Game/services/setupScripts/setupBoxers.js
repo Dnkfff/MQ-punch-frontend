@@ -27,8 +27,8 @@ const setupBoxers = async (scene) => {
     rightAnimationActions = {};
 
   // promise to load model
-  const modelsLoadingPromise = loadFBX(assetsPaths.modelsPath + modelNames.boxer + '.fbx')
-    .then((model) => {
+  const modelsLoadingPromise = loadFBX(assetsPaths.modelsPath + modelNames.boxer + '.fbx').then(
+    (model) => {
       // setting rendering layer of each model child to normal layer
       model.traverse((obj) => {
         obj.layers.set(webGLParameters.layers.NORMAL);
@@ -62,36 +62,30 @@ const setupBoxers = async (scene) => {
       // creating animation mixers for both models
       leftAnimationMixer = new AnimationMixer(leftModel);
       rightAnimationMixer = new AnimationMixer(rightModel);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    }
+  );
 
   // waiting for the model loading promise
   await modelsLoadingPromise;
 
   // promises to load all animations
   const animationsLoadingPromises = boxerAnimations.map((boxerAnimation) =>
-    loadFBX(assetsPaths.animationsPath + boxerAnimation.name + '.fbx')
-      .then((animation) => {
-        const name = boxerAnimation.name;
-        const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;
+    loadFBX(assetsPaths.animationsPath + boxerAnimation.name + '.fbx').then((animation) => {
+      const name = boxerAnimation.name;
+      const loopMode = boxerAnimations.looped ? LoopRepeat : LoopOnce;
 
-        // creating, adding and configuring animation action
-        // for given animation for the left boxer
-        leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
-        leftAnimationActions[name].setLoop(loopMode);
-        leftAnimationActions[name].clampWhenFinished = true;
+      // creating, adding and configuring animation action
+      // for given animation for the left boxer
+      leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
+      leftAnimationActions[name].setLoop(loopMode);
+      leftAnimationActions[name].clampWhenFinished = true;
 
-        // creating, adding and configuring animation action
-        // for given animation for the right boxer
-        rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
-        rightAnimationActions[name].setLoop(loopMode);
-        rightAnimationActions[name].clampWhenFinished = true;
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      // creating, adding and configuring animation action
+      // for given animation for the right boxer
+      rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
+      rightAnimationActions[name].setLoop(loopMode);
+      rightAnimationActions[name].clampWhenFinished = true;
+    })
   );
 
   // waiting for all animation loading promises
