@@ -2,18 +2,6 @@
   padding: 0px 47px;
   box-sizing: border-box;
 
-  .market__container {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .market {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding-left: 10px;
-  }
 
   .market__item {
     width: calc((100% - 7 * 10px) / 7);
