@@ -1,38 +1,181 @@
 .global-market-page {
+  width: 100%;
+
+
   .opensea-banner {
-    padding: 20px 0;
-    color: $text-dark;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
     h2 {
       margin-bottom: 10px;
     }
+
     .banner {
-      width: 80%;
-      max-width: 1200px;
+      width: 100%;
       height: 300px;
       text-decoration: none;
+      font-size: 55px;
     }
+
+
     .banner-div {
       height: 100%;
       width: 100%;
-      background-color: $gray-100;
+      //   font-size: calc(100% - 5px);
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s ease;
+      display: inline-block;
       cursor: pointer;
-      span {
-        font-size: 40px;
-        color: $text-dark;
-        text-decoration: none;
+      background-image: url("../../../../assets/website/market-banner.jpg");
+      background-size: 900px;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 590px;
+        z-index: 3;
+        background: linear-gradient(89.81deg, #000000 56.83%, rgba(0, 0, 0, 0.74) 76.26%, rgba(0, 0, 0, 0) 97.57%);
+        left: 0px;
+        border-radius: 10px;
       }
+
+
+      &::after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 590px;
+        border-radius: 10px;
+        z-index: 3;
+        background: linear-gradient(89.81deg, #000000 56.83%, rgba(0, 0, 0, 0.74) 76.26%, rgba(0, 0, 0, 0) 97.57%);
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+        right: 0px;
+      }
+
+      span {
+        color: #fff;
+        //  font-weight: 500;
+        text-decoration: none;
+        position: relative;
+        width: 700px;
+        left: calc(50% - 350px);
+        top: 90px;
+      }
+
       &:hover {
-        background-color: rgb(155, 155, 155);
+        background-color: rgba(155, 155, 155, 0.3);
       }
     }
+
+    @media (max-width: 1500px) {
+
+      .banner-div {
+        left: 30px;
+        max-width: calc(100% - 55px);
+
+        &::before {
+          max-width: calc(90% - 700px);
+          min-width: 200px;
+        }
+
+        &::after {
+          max-width: calc(90% - 700px);
+          min-width: 200px;
+        }
+
+        span {
+          max-width: calc(100% - 600px);
+          font-size: 45px;
+          left: calc(50% - 250px);
+        }
+
+
+      }
+
+
+    }
+    @media (max-width: 1000px) {
+      height: 280px;
+      justify-content: center;
+      padding: 0;
+      .banner-div {
+        //    max-width: 100%;
+        background-size: 600px;
+        height: 200px;
+        justify-content: center;
+
+        &::before {
+          max-width: calc(90% - 500px);
+          min-width: 100px;
+        }
+
+        &::after {
+          max-width: calc(90% - 500px);
+          min-width: 100px;
+        }
+
+        span {
+
+          font-size: 30px;
+          left: calc(50% - 180px);
+          top: 50px;
+        }
+      }
+
+
+    }
+
+
+  }
+
+  @media (max-width: 650px) {
+    padding: 0;
+
+
+    .opensea-banner {
+      // padding: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+
+      margin: 0;
+      height: 200px;
+
+      h2 {
+        font-size: 15px;
+      }
+
+      .banner-div {
+        height: 150px;
+        left: 0px;
+        background-size: 650px; //calc(100% - 10px);
+        max-width: 100%;
+        border-radius: 0;
+
+        &::before {
+          display: none;
+        }
+
+        &::after {
+          display: none;
+        }
+
+        span {
+          top: 30px;
+          font-size: 25px;
+          left: calc(50% - 138px);
+        }
+      }
+    }
+
+
   }
 }

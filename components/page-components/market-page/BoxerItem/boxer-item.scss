@@ -1,0 +1,169 @@
+.global-market-page {
+  .market__item {
+    margin-right: 10px;
+    margin-bottom: 20px;
+    height: 300px;
+    color: #ffffff;
+    flex: 1 0 20%;
+    max-width: 250px;
+    min-width: 200px;
+    background-color: #252830;
+    border: 1px #a7a7a78c solid;
+    border-radius: 8px;
+    transition: box-shadow 0.2s linear;
+
+    .puncher__icons {
+      height: 20px;
+    }
+
+    .puncher__name {
+
+      margin-top: 5px;
+
+      .puncher__nick {
+        text-align: center;
+        font-size: 17px;
+        font-family: 'Roboto', sans-serif;
+        font-style: italic;
+        font-weight: 700;
+        color: #ffffff;
+      }
+    }
+
+
+    &:hover {
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.301);
+
+      .puncher__photo {
+        border-radius: 2px;
+
+      }
+
+      .puncher__bay {
+        display: block;
+
+      }
+
+    }
+
+
+    .puncher__photo {
+      display: flex;
+      justify-content: center;
+
+      padding: 10px;
+      height: 150px;
+      background: none;
+      border-radius: 0;
+      transition: background 0.2s linear, border-radius 0.2s linear;
+      position: relative;
+
+      img {
+        object-fit: scale-down;
+        width: 97%;
+        bottom: 0;
+        z-index: 1;
+
+      }
+    }
+
+    .div-hr {
+      width: 100%;
+      background-color: #F4F2F2;
+      height: 1.7px;
+    }
+
+    .puncher__bay {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      display: none;
+      z-index: 1000;
+
+    }
+
+
+    .puncher__info {
+      //justify-content: space-between;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      // padding: 12px;
+
+    }
+
+    .puncher__weight__div {
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 30px;
+
+
+      .puncher__weight {
+        width: 50%;
+        padding: 5px;
+        background-color: #AC4343;
+        height: 25px;
+        text-align: center;
+        font-size: 12px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+    }
+
+    .puncher__footer {
+      margin-top: 10px;
+      margin-bottom: 15px;
+      display: inline-block;
+      width: 100%;
+
+      .puncher__buy {
+        float: right;
+        position: relative;
+        width: 90px;
+
+
+        .market__bay__btn {
+          cursor: pointer;
+          width: 100%;
+          font-weight: 700;
+          font-family: 'Roboto', sans-serif;
+          color: #FFFDFD;
+          font-size: 16px;
+          background: #801C1C;
+          border: none;
+          border-radius: 9px;
+          transition: background-color 0.2s linear;
+          // transition: border 0.1s linear;
+
+          &:focus {
+            outline: none;
+
+          }
+
+          &:hover {
+            background: rgb(206, 13, 13);
+            // border: 2px solid rgb(206, 13, 13);
+          }
+        }
+      }
+
+
+      .puncher__price__value {
+        width: 90px;
+        float: left;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Roboto', sans-serif;
+        color: #FFFDFD;
+      }
+    }
+
+
+  }
+}
