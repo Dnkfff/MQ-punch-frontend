@@ -1,7 +1,7 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateMovements */
 
 import calculateMovementTimings from './calculateMovementTimings';
-import calculateHealthLevels from './calculateHealthLevels';
+import calculateConcentrationLevels from './calculateConcentrationLevels';
 
 import duelParameters from '../../constants/duelParameters';
 import {
@@ -132,7 +132,7 @@ const generateOffensiveMovements = ({
     upperBodyMovementName = offensiveAnimationNames.bruteForceAttack[0];
     type = 'bruteForce';
 
-    console.log("error: calculateMovements (1)");
+    console.log('error: calculateMovements (1)');
   }
 
   // taking into account leading side
@@ -230,7 +230,7 @@ const generateDefensiveMovements = ({
     upperBodyMovementName = defensiveAnimationNames.block[0];
     type = 'block';
 
-    console.log("error: calculateMovements (2)");
+    console.log('error: calculateMovements (2)');
   }
 
   // if defensive movement is missed
@@ -441,7 +441,7 @@ const calculateMovements = (boxersChancesOfMovements, boxersLeadingSides, winner
 
       // error
       else {
-        console.log("error: calculateMovements (3)");
+        console.log('error: calculateMovements (3)');
       }
 
       // returning new movements
@@ -562,8 +562,8 @@ const calculateMovements = (boxersChancesOfMovements, boxersLeadingSides, winner
     rightBoxerMovements.push(...newRightBoxerMovements);
   });
 
-  // calculating health levels
-  calculateHealthLevels(leftBoxerMovements, rightBoxerMovements);
+  // calculating concentration levels
+  calculateConcentrationLevels(leftBoxerMovements, rightBoxerMovements);
 
   return {
     leftBoxerMovements,

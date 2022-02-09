@@ -35,25 +35,25 @@ const setupBoxers = async (scene) => {
       });
 
       // scaling the model
-      const scaleCoefficient = boxerParameters.scale * 0.15;
+      const scaleCoefficient = boxerParameters.scale * boxerParameters.modelSize;
       model.scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
 
       // clonning the model and configuring the clone for the left boxer
       leftModel = SkeletonUtils.clone(model);
       leftModel.rotation.y = 0.0;
       leftModel.position.set(
-        (ringParameters.canvas.width * 1.0) / 16.0,
+        (ringParameters.scale * (ringParameters.canvas.width * 1.0)) / 16.0,
         0.0,
-        (ringParameters.canvas.width * 1.0) / 16.0
+        (ringParameters.scale * (ringParameters.canvas.width * 1.0)) / 16.0
       );
 
       // clonning the model and configuring the clone for the right boxer
       rightModel = SkeletonUtils.clone(model);
       rightModel.rotation.y = 0.0;
       rightModel.position.set(
-        (ringParameters.canvas.width * 15.0) / 16.0,
+        (ringParameters.scale * (ringParameters.canvas.width * 15.0)) / 16.0,
         0.0,
-        (ringParameters.canvas.width * 15.0) / 16.0
+        (ringParameters.scale * (ringParameters.canvas.width * 15.0)) / 16.0
       );
 
       // adding both models to the scene

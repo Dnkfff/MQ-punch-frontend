@@ -3,11 +3,13 @@
 /**
   @brief The object of ring parameters
   @description It contains objects of
+  scale (scale of all ring parts),
   canvas {width, height, color},
   pillars {radius, color},
   ropes {count, height, radius, color}.
 */
 const ringParameters = {
+  scale: 1.0,
   canvas: {
     width: 100.0,
     height: 20.0,

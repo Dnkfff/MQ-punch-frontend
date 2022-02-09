@@ -67,7 +67,7 @@ const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, w
         else {
           movementType = 'probe';
 
-          console.log("error: calculateMovementTimings (1)");
+          console.log('error: calculateMovementTimings (1)');
         }
 
         // returning movement type and leading side
@@ -134,7 +134,7 @@ const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, w
         else {
           movementType = 'defensive';
 
-          console.log("error: calculateMovementTimings (2)");
+          console.log('error: calculateMovementTimings (2)');
         }
 
         // returning movement type and leading side

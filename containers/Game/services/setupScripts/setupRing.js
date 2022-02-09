@@ -10,12 +10,12 @@ import ringParameters from '../constants/ringParameters';
   @param scene THREE.js scene
 */
 export const setupCanvas = (scene) => {
+  // calculating sizes
+  const canvasWidth = ringParameters.scale * ringParameters.canvas.width;
+  const canvasHeight = ringParameters.scale * ringParameters.canvas.height;
+
   // creating a box geometry
-  const geometry = new THREE.BoxGeometry(
-    ringParameters.canvas.width,
-    ringParameters.canvas.height,
-    ringParameters.canvas.width
-  );
+  const geometry = new THREE.BoxGeometry(canvasWidth, canvasHeight, canvasWidth);
 
   // creating a basic material
   const material = new THREE.MeshBasicMaterial({
@@ -26,11 +26,7 @@ export const setupCanvas = (scene) => {
   const canvas = new THREE.Mesh(geometry, material);
 
   // setting canvas positing
-  canvas.position.set(
-    ringParameters.canvas.width / 2.0,
-    -ringParameters.canvas.height / 2.0,
-    ringParameters.canvas.width / 2.0
-  );
+  canvas.position.set(canvasWidth / 2.0, -canvasHeight / 2.0, canvasWidth / 2.0);
 
   // setting canvas rendering layer to normal layer
   canvas.layers.set(webGLParameters.layers.NORMAL);
@@ -44,11 +40,17 @@ export const setupCanvas = (scene) => {
   @param scene THREE.js scene
 */
 export const setupPillars = (scene) => {
+  // calculating sizes
+  const canvasWidth = ringParameters.scale * ringParameters.canvas.width;
+  const canvasHeight = ringParameters.scale * ringParameters.canvas.height;
+  const pillarsRadius = ringParameters.scale * ringParameters.pillars.radius;
+  const ropesHeight = ringParameters.scale * ringParameters.ropes.height;
+
   // creating a cylinder geometry
   const geometry = new THREE.CylinderGeometry(
-    ringParameters.pillars.radius,
-    ringParameters.pillars.radius,
-    ringParameters.canvas.height + ringParameters.ropes.height,
+    pillarsRadius,
+    pillarsRadius,
+    canvasHeight + ropesHeight,
     32
   );
 
@@ -65,32 +67,16 @@ export const setupPillars = (scene) => {
     // setting pillar position according to corner
     switch (i) {
       case 0:
-        pillar.position.set(
-          0.0,
-          (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0,
-          ringParameters.canvas.width
-        );
+        pillar.position.set(0.0, (canvasHeight - ropesHeight) / 2.0, canvasWidth);
         break;
       case 1:
-        pillar.position.set(
-          ringParameters.canvas.width,
-          (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0,
-          ringParameters.canvas.width
-        );
+        pillar.position.set(canvasWidth, (canvasHeight - ropesHeight) / 2.0, canvasWidth);
         break;
       case 2:
-        pillar.position.set(
-          ringParameters.canvas.width,
-          (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0,
-          0.0
-        );
+        pillar.position.set(canvasWidth, (canvasHeight - ropesHeight) / 2.0, 0.0);
         break;
       case 3:
-        pillar.position.set(
-          0.0,
-          (ringParameters.canvas.height - ringParameters.ropes.height) / 2.0,
-          0.0
-        );
+        pillar.position.set(0.0, (canvasHeight - ropesHeight) / 2.0, 0.0);
         break;
     }
 
@@ -116,13 +102,13 @@ export const setupPillars = (scene) => {
   @param scene THREE.js scene
 */
 export const setupRopes = (scene) => {
+  // calculating sizes
+  const canvasWidth = ringParameters.scale * ringParameters.canvas.width;
+  const ropesRadius = ringParameters.scale * ringParameters.ropes.radius;
+  const ropesHeight = ringParameters.scale * ringParameters.ropes.height;
+
   // creating a cylinder geometry
-  const geometry = new THREE.CylinderGeometry(
-    ringParameters.ropes.radius,
-    ringParameters.ropes.radius,
-    ringParameters.canvas.width,
-    32
-  );
+  const geometry = new THREE.CylinderGeometry(ropesRadius, ropesRadius, canvasWidth, 32);
 
   // creating a basic material
   const material = new THREE.MeshBasicMaterial({
@@ -130,7 +116,7 @@ export const setupRopes = (scene) => {
   });
 
   // calculating rope height step
-  const ropesStep = ringParameters.ropes.height / ringParameters.ropes.count;
+  const ropesStep = ropesHeight / ringParameters.ropes.count;
 
   // for each rope height level
   for (let i = 0; i < ringParameters.ropes.count + 1; ++i) {
@@ -142,29 +128,21 @@ export const setupRopes = (scene) => {
       switch (j) {
         case 0:
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(0.0, ropesStep * i, ringParameters.canvas.width / 2.0);
+          rope.position.set(0.0, ropesStep * i, canvasWidth / 2.0);
           break;
         case 1:
           rope.rotateY(Math.PI / 2.0);
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(
-            ringParameters.canvas.width / 2.0,
-            ropesStep * i,
-            ringParameters.canvas.width
-          );
+          rope.position.set(canvasWidth / 2.0, ropesStep * i, canvasWidth);
           break;
         case 2:
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(
-            ringParameters.canvas.width,
-            ropesStep * i,
-            ringParameters.canvas.width / 2.0
-          );
+          rope.position.set(canvasWidth, ropesStep * i, canvasWidth / 2.0);
           break;
         case 3:
           rope.rotateY(Math.PI / 2.0);
           rope.rotateX(Math.PI / 2.0);
-          rope.position.set(ringParameters.canvas.width / 2.0, ropesStep * i, 0.0);
+          rope.position.set(canvasWidth / 2.0, ropesStep * i, 0.0);
           break;
       }
 
