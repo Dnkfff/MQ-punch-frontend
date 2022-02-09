@@ -220,7 +220,7 @@ class DuelController {
       this.rightBoxer.face(this.leftBoxer);
 
       // if all the movements have ended
-      if (this.leftBoxerMovements.length === 0) {
+      if (this.leftBoxerMovements.length === 0 && this.rightBoxerMovements.length === 0) {
         // preparing for slow motion after cooldown
         setTimeout(this.prepareSlowMotion(), duelControllerParameters.slowMotionCooldownDuration);
       }
