@@ -3,7 +3,6 @@
 import { Matrix4, Vector3 } from 'three';
 
 import boxerParameters from '../../constants/boxerParameters';
-import duelParameters from '../../constants/duelParameters';
 
 /**
   @summary The Boxer class
@@ -71,7 +70,9 @@ class Boxer {
     // moving boxer according to current direction and moving stage
     if (this.movingStage < 1.0) {
       // calculating delta stage of the movement
-      const deltaStage = deltaTime / duelParameters.movementDuration;
+      const movementDuration =
+        this.animationActions[this.currentUpperBodyAnimationName].getClip().duration;
+      const deltaStage = deltaTime / movementDuration;
 
       // calculating delta position
       const deltaPosition = this.movingDirection.clone();
@@ -87,10 +88,12 @@ class Boxer {
     // rotating boxer according to current rotating stage
     if (this.rotatingStage < 1.0) {
       // calculating delta stage of the rotation
-      const deltaStage = deltaTime / duelParameters.movementDuration;
+      const movementDuration =
+        this.animationActions[this.currentUpperBodyAnimationName].getClip().duration;
+      const deltaStage = deltaTime / movementDuration;
 
       // calculating delta rotation
-      let deltaRotation = duelParameters.missAngle * deltaStage;
+      let deltaRotation = boxerParameters.missAngle * deltaStage;
 
       // if it is the second half of rotation
       // reverse delta rotation

@@ -7,6 +7,7 @@
   modelSize (scale of boxer model),
   animationTransitionDuration (time for blending two consistent animations),
   stepSize (length of average step of boxer),
+  missAngle (in radians),
   idealDistance (ideal distance between two boxers),
   idealDistanceDeviation (maximal deviation of idealDistance).
 */
@@ -15,6 +16,7 @@ const boxerParameters = {
   modelSize: 0.15,
   animationTransitionDuration: 0.1,
   stepSize: 7.0,
+  missAngle: Math.PI / 6.0,
   idealDistance: 18.0,
   idealDistanceDeviation: 0.2,
 };

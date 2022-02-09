@@ -4,7 +4,7 @@ import { Vector3 } from 'three';
 
 import { switchBoxerLeadingSide, moveBoxer } from './duelAlgorithms';
 
-import duelParameters from '../../constants/duelParameters';
+import duelControllerParameters from '../../constants/duelControllerParameters';
 import boxerParameters from '../../constants/boxerParameters';
 import ringParameters from '../../constants/ringParameters';
 import viewNames from '../../constants/viewNames';
@@ -62,7 +62,7 @@ class DuelController {
     if (this.mode !== 'stop') {
       // decreasing the speed if in slow motion
       if (this.mod === 'slowmotion') {
-        deltaTime *= duelParameters.slowMotionSpeedMultiplier;
+        deltaTime *= duelControllerParameters.slowMotionSpeedMultiplier;
       }
 
       // updating current time
@@ -78,7 +78,7 @@ class DuelController {
           // if not in slow motion
           if (this.mode === 'run') {
             // remembering positions and leading sides of boxers before slow motion
-            if (boxerMovements.length + 1 <= duelParameters.slowMotionMovementsNumber) {
+            if (boxerMovements.length + 1 <= duelControllerParameters.slowMotionMovementsNumber) {
               if (boxer === this.leftBoxer) {
                 this.leftBoxerSlowMotionStartPosition = boxer.model.position.clone();
                 this.leftBoxerSlowMotionStartLeadingSide = boxer.leadingSide;
@@ -222,7 +222,7 @@ class DuelController {
       // if all the movements have ended
       if (this.leftBoxerMovements.length === 0) {
         // preparing for slow motion after cooldown
-        setTimeout(this.prepareSlowMotion(), duelParameters.slowMotionCooldownDuration);
+        setTimeout(this.prepareSlowMotion(), duelControllerParameters.slowMotionCooldownDuration);
       }
     }
   }
@@ -256,7 +256,7 @@ class DuelController {
     }
 
     // pushing specified amount of movements from the end to boxers movements
-    for (let i = 0; i < duelParameters.slowMotionMovementsNumber; ++i) {
+    for (let i = 0; i < duelControllerParameters.slowMotionMovementsNumber; ++i) {
       this.leftBoxerMovements.push(this.finishedLeftBoxerMovements[i]);
       this.rightBoxerMovements.push(this.finishedRightBoxerMovements[i]);
     }
@@ -304,7 +304,7 @@ class DuelController {
     this.mode = 'run';
 
     // making a pause before starting
-    this.currentTime = -duelParameters.warmupDuration;
+    this.currentTime = -duelControllerParameters.warmupDuration;
   }
 }
 

@@ -4,7 +4,6 @@
   @brief The object of duel economics
   @description It contains
   chanceOfMovementRandomBooster,
-  warmupDuration (in seconds),
   duelDuration (in seconds),
   numberOfAttackIntervals,
   intervalDurationRandomBooster,
@@ -19,7 +18,6 @@
   probeRestDurationCoefficient,
   reactionTimeCoefficient,
   chanceOfMiss,
-  missAngle (in radians),
   bruteForceAttackConcentrationLoss,
   deceptiveAttackConcentrationLoss,
   bruteForceAttackDefenseBlockSuccessConcentrationLoss,
@@ -27,14 +25,10 @@
   bruteForceAttackDefenseFailConcentrationLoss,
   deceptiveAttackDefenseBlockSuccessConcentrationLoss,
   deceptiveAttackDefenseDodgeSuccessConcentrationLoss,
-  deceptiveAttackDefenseFailConcentrationLoss,
-  slowMotionCooldownDuration (in seconds),
-  slowMotionMovementsNumber,
-  slowMotionSpeedMultiplier.
+  deceptiveAttackDefenseFailConcentrationLoss.
 */
 const duelParameters = {
   chanceOfMovementRandomBooster: 0.1,
-  warmupDuration: 3.0,
   duelDuration: 60.0,
   numberOfAttackIntervals: 12,
   intervalDurationRandomBooster: 0.1,
@@ -49,7 +43,6 @@ const duelParameters = {
   probeRestDurationCoefficient: 3.0,
   reactionTimeCoefficient: 0.35,
   chanceOfMiss: 0.5,
-  missAngle: Math.PI / 6.0,
   bruteForceAttackConcentrationLoss: 0.5,
   deceptiveAttackConcentrationLoss: 0.0,
   bruteForceAttackDefenseBlockSuccessConcentrationLoss: 1.5,
@@ -58,9 +51,6 @@ const duelParameters = {
   deceptiveAttackDefenseBlockSuccessConcentrationLoss: 0.5,
   deceptiveAttackDefenseDodgeSuccessConcentrationLoss: 0.0,
   deceptiveAttackDefenseFailConcentrationLoss: 10.0,
-  slowMotionCooldownDuration: 3.0,
-  slowMotionMovementsNumber: 5,
-  slowMotionSpeedMultiplier: 0.3,
 };
 
 export default duelParameters;
