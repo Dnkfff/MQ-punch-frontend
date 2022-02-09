@@ -46,7 +46,7 @@ const calculateAttackIntervals = () => {
     duelParameters.probeIntervalDurationCoefficient * randomMultiplier;
 
   // for each attack interval
-  for (let i = 0; i < duelParameters.numberOfAttackIntervals; i++) {
+  for (let i = 0; i < duelParameters.numberOfAttackIntervals; ++i) {
     // calculating start time of new attack interval
     randomMultiplier =
       1.0 + duelParameters.intervalDurationRandomBooster * (Math.random() * 2.0 - 1.0);

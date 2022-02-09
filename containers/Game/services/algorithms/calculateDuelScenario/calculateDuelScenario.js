@@ -1,5 +1,6 @@
 /** @module containers/Game/services/algorithms/calculateDuelScenario/calculateDuelScenario */
 
+import duelParameters from '../../constants/duelParameters';
 import {
   calculateChancesOfOffensiveMovements,
   calculateChancesOfDefensiveMovements,
@@ -29,10 +30,7 @@ const calculateDuelScenario = (leftBoxerStats, rightBoxerStats) => {
   };
 
   // calculating chances of each boxer to win
-  const { chanceForLeftBoxerToWin, chanceForRightBoxerToWin } = calculateChancesToWin(
-    leftBoxerStats,
-    rightBoxerStats
-  );
+  const { left: chanceForLeftBoxerToWin } = calculateChancesToWin(leftBoxerStats, rightBoxerStats);
 
   // choosing the winner
   const winner = Math.random() < chanceForLeftBoxerToWin ? 'left' : 'right';

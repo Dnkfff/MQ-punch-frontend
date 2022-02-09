@@ -9,17 +9,11 @@ import duelParameters from '../../constants/duelParameters';
   @param leftBoxerLeadingSide left boxer leading side
   @param rightBoxerLeadingSide right boxer leading side
   @param winner winner (left or right)
-  @returns the list of objects that contains startTime, winnerMovementType,
-  winnerLeadingSide, loserLeadingSide, winnerMiss and loserMiss
+  @returns the list of objects that contains startTime, leftBoxer
+  and rightBoxer {movementType, leadingSide, miss}.
 */
 const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, winner) => {
-  // movement timings are for winner only
-  // so loser movements are generated as opposite ones
   let movementTimings = [];
-
-  // "translating" left-right to winner-loser
-  let winnerLeadingSide = winner === 'left' ? leftBoxerLeadingSide : rightBoxerLeadingSide;
-  let loserLeadingSide = winner === 'left' ? rightBoxerLeadingSide : leftBoxerLeadingSide;
 
   // calculating attack intervals
   // so there will be probe movements between them
@@ -33,14 +27,76 @@ const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, w
   attackIntervals.forEach((attackInterval) => {
     // until current attack interval began
     while (time < attackInterval.startTime) {
-      // add probe movement
+      // function for choosing movement type
+      const chooseMovementType = (leadingSide) => {
+        let movementType;
+
+        let chance = Math.random();
+
+        // probe movement
+        if (chance < duelParameters.chanceOfProbeMovement) {
+          movementType = 'probe';
+        }
+
+        // switch leading side movement
+        else if (
+          chance <
+          duelParameters.chanceOfProbeMovement + duelParameters.chanceOfSwitchLeadingSideMovement
+        ) {
+          // additional check for switching leading side
+          // so the boxers won't switch them simultaneously
+          chance = Math.random();
+
+          // pushing switch leading side movement
+          if (chance < 0.5) {
+            // setting movementType
+            movementType = 'switchLeadingSide';
+
+            // updating leadingSide
+            leadingSide = leadingSide === 'left' ? 'right' : 'left';
+          }
+
+          // pushing probe movement
+          else {
+            // setting movementType
+            movementType = 'probe';
+          }
+        }
+
+        // error
+        else {
+          movementType = 'probe';
+
+          console.log("error: calculateMovementTimings (1)");
+        }
+
+        // returning movement type and leading side
+        return {
+          movementType,
+          leadingSide,
+        };
+      };
+
+      // choosing movement types
+      const { movementType: leftBoxerMovementType, leadingSide: leftBoxerLeadingSide } =
+        chooseMovementType(leftBoxerLeadingSide);
+      const { movementType: rightBoxerMovementType, leadingSide: rightBoxerLeadingSide } =
+        chooseMovementType(rightBoxerLeadingSide);
+
+      // pushing new movement timing
+      // calculating chances of missing for each boxer
       movementTimings.push({
         startTime: time,
-        winnerMovementType: 'probe',
-        winnerLeadingSide,
-        loserLeadingSide,
-        winnerMiss: true,
-        loserMiss: true,
+        leftBoxer: {
+          movementType: leftBoxerMovementType,
+          leadingSide: leftBoxerLeadingSide,
+          miss: true,
+        },
+        rightBoxer: {
+          movementType: rightBoxerMovementType,
+          leadingSide: rightBoxerLeadingSide,
+          miss: true,
+        },
       });
 
       // update current time with value big enough for the movement
@@ -55,68 +111,59 @@ const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, w
 
     // until current interval ended
     while (time + reactionTime <= endTime) {
-      let movementType;
+      // function for choosing movement type
+      const chooseMovementType = (leadingSide) => {
+        let movementType;
 
-      let chance = Math.random();
+        let chance = Math.random();
 
-      // offensive movement
-      if (chance < duelParameters.chanceOfOffensiveMovement) {
-        movementType = 'offensive';
-      }
-
-      // defensive movement
-      else if (
-        chance <
-        duelParameters.chanceOfOffensiveMovement + duelParameters.chanceOfDefensiveMovement
-      ) {
-        movementType = 'defensive';
-      }
-
-      // probe movement
-      else if (
-        chance <
-        duelParameters.chanceOfOffensiveMovement +
-          duelParameters.chanceOfDefensiveMovement +
-          duelParameters.chanceOfProbeMovement
-      ) {
-        movementType = 'probe';
-      }
-
-      // switch leading side movement
-      else {
-        // choosing who will change his leading side
-        chance = Math.random();
-
-        // winner
-        if (chance < 0.5) {
-          movementType = 'switchLeadingSide-winner';
-          if (winnerLeadingSide === 'left') {
-            winnerLeadingSide = 'right';
-          } else {
-            winnerLeadingSide = 'left';
-          }
+        // offensive movement
+        if (chance < duelParameters.chanceOfOffensiveMovement) {
+          movementType = 'offensive';
         }
 
-        // loser
+        // defensive movement
+        else if (
+          chance <
+          duelParameters.chanceOfOffensiveMovement + duelParameters.chanceOfDefensiveMovement
+        ) {
+          movementType = 'defensive';
+        }
+
+        // error
         else {
-          movementType = 'switchLeadingSide-loser';
-          if (loserLeadingSide === 'left') {
-            loserLeadingSide = 'right';
-          } else {
-            loserLeadingSide = 'left';
-          }
+          movementType = 'defensive';
+
+          console.log("error: calculateMovementTimings (2)");
         }
-      }
+
+        // returning movement type and leading side
+        return {
+          movementType,
+          leadingSide,
+        };
+      };
+
+      // choosing movement types
+      const { movementType: leftBoxerMovementType, leadingSide: leftBoxerLeadingSide } =
+        chooseMovementType(leftBoxerLeadingSide);
+      const { movementType: rightBoxerMovementType, leadingSide: rightBoxerLeadingSide } =
+        chooseMovementType(rightBoxerLeadingSide);
 
       // pushing new movement timing
       // calculating chances of missing for each boxer
       movementTimings.push({
         startTime: time,
-        winnerMovementType: movementType,
-        winnerLeadingSide,
-        loserLeadingSide,
-        winnerMiss: Math.random() < duelParameters.chanceOfMiss,
-        loserMiss: Math.random() < duelParameters.chanceOfMiss,
+        leftBoxer: {
+          movementType: leftBoxerMovementType,
+          leadingSide: leftBoxerLeadingSide,
+          miss: Math.random() < duelParameters.chanceOfMiss,
+        },
+        rightBoxer: {
+          movementType: rightBoxerMovementType,
+          leadingSide: rightBoxerLeadingSide,
+          miss: Math.random() < duelParameters.chanceOfMiss,
+        },
       });
 
       // update current time with value big enough for the movement
@@ -128,11 +175,16 @@ const calculateMovementTimings = (leftBoxerLeadingSide, rightBoxerLeadingSide, w
   // making sure the last offense is by winner
   movementTimings.push({
     startTime: time,
-    winnerMovementType: 'offensive',
-    winnerLeadingSide,
-    loserLeadingSide,
-    winnerMiss: false,
-    loserMiss: true,
+    leftBoxer: {
+      movementType: winner === 'left' ? 'offensive' : 'defensive',
+      leadingSide: leftBoxerLeadingSide,
+      miss: winner === 'left' ? false : true,
+    },
+    rightBoxer: {
+      movementType: winner === 'left' ? 'defensive' : 'offensive',
+      leadingSide: rightBoxerLeadingSide,
+      miss: winner === 'left' ? true : false,
+    },
   });
 
   return movementTimings;

@@ -11,7 +11,7 @@ import { specialAnimationNames } from '../../constants/boxerAnimations';
   @param boxerMovement requested animation name
 */
 export const switchBoxerLeadingSide = (boxer, boxerMovement) => {
-  if (boxerMovement.movement.whole === specialAnimationNames.switchLeadingSide) {
+  if (boxerMovement.name.whole === specialAnimationNames.switchLeadingSide) {
     boxer.switchLeadingSide();
   }
 };
@@ -32,7 +32,7 @@ export const moveBoxer = (boxer, opponent, boxerMovement) => {
   const distance = boxer.distanceTo(opponent);
 
   // movement forward
-  if (boxerMovement.movement.lower === specialAnimationNames.movementForward) {
+  if (boxerMovement.name.lower === specialAnimationNames.movementForward) {
     movementDirection = new Vector3(0.0, 0.0, 1.0);
     stepCoefficient = Math.min(
       distance / (boxerParameters.scale * boxerParameters.idealDistance),
@@ -41,19 +41,19 @@ export const moveBoxer = (boxer, opponent, boxerMovement) => {
   }
 
   // movement backward
-  else if (boxerMovement.movement.lower === specialAnimationNames.movementBackward) {
+  else if (boxerMovement.name.lower === specialAnimationNames.movementBackward) {
     movementDirection = new Vector3(0.0, 0.0, -1.0);
     stepCoefficient = (boxerParameters.scale * boxerParameters.idealDistance) / distance;
   }
 
   // movement to the left
-  else if (boxerMovement.movement.lower === specialAnimationNames.movementLeft) {
+  else if (boxerMovement.name.lower === specialAnimationNames.movementLeft) {
     movementDirection = new Vector3(-1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
   }
 
   // movement to the right
-  else if (boxerMovement.movement.lower === specialAnimationNames.movementRight) {
+  else if (boxerMovement.name.lower === specialAnimationNames.movementRight) {
     movementDirection = new Vector3(1.0, 0.0, 0.0);
     stepCoefficient = 1.0;
   }

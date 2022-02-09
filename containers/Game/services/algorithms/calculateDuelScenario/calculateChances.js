@@ -8,44 +8,36 @@ import duelParameters from '../../constants/duelParameters';
   based on given boxer stats and random
   @param boxerStats an object with boxer strength, agility, endurance,
   rookie, winrate and coefficients streaming and leadingSide
-  @returns an object with chanceOfBruteForceAttack,
-  chanceOfDeceptiveAttack and chanceOfCounterAttack
+  @returns an object with chance of brute force and chance of deceptive attack
 */
 export const calculateChancesOfOffensiveMovements = (boxerStats) => {
   // random multiplier that is unique for each coefficient
   let randomMultiplier;
 
-  // brute force attack (2 strength, 0 agility, 1 endurance)
+  // brute force attack (3 strength, 1 agility, 2 endurance)
   randomMultiplier =
     1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
-  const bruteForceAttackCoefficient =
-    (boxerStats.strength * 2.0 + boxerStats.endurance * 1.0) * randomMultiplier;
+  const bruteForceCoefficient =
+    (boxerStats.strength * 3.0 + boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) *
+    randomMultiplier;
 
-  // deceptive attack (0 strength, 1 agility, 2 endurance)
+  // deceptive attack (1 strength, 3 agility, 2 endurance)
   randomMultiplier =
     1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
-  const deceptiveAttackCoefficient =
-    (boxerStats.endurance * 2.0 + boxerStats.agility * 1.0) * randomMultiplier;
-
-  // counter attack (1 strength, 2 agility, 0 endurance)
-  randomMultiplier =
-    1.0 + duelParameters.chanceOfMovementRandomBooster * (Math.random() * 2.0 - 1.0);
-  const counterAttackCoefficient =
-    (boxerStats.agility * 2.0 + boxerStats.strength * 1.0) * randomMultiplier;
+  const deceptiveCoefficient =
+    (boxerStats.agility * 3.0 + boxerStats.endurance * 2.0 + boxerStats.strength * 1.0) *
+    randomMultiplier;
 
   // calculating sum of coefficients for further reducing
-  const sumOfCoefficients =
-    bruteForceAttackCoefficient + deceptiveAttackCoefficient + counterAttackCoefficient;
+  const sumOfCoefficients = bruteForceCoefficient + deceptiveCoefficient;
 
   // sum of chances equals one
-  const chanceOfBruteForceAttack = bruteForceAttackCoefficient / sumOfCoefficients;
-  const chanceOfDeceptiveAttack = deceptiveAttackCoefficient / sumOfCoefficients;
-  const chanceOfCounterAttack = counterAttackCoefficient / sumOfCoefficients;
+  const chanceOfBruteForce = bruteForceCoefficient / sumOfCoefficients;
+  const chanceOfDeceptive = deceptiveCoefficient / sumOfCoefficients;
 
   return {
-    chanceOfBruteForceAttack,
-    chanceOfDeceptiveAttack,
-    chanceOfCounterAttack,
+    bruteForce: chanceOfBruteForce,
+    deceptive: chanceOfDeceptive,
   };
 };
 
@@ -54,7 +46,7 @@ export const calculateChancesOfOffensiveMovements = (boxerStats) => {
   based on given boxer stats and random
   @param boxerStats an object with boxer strength, agility, endurance,
   rookie, winrate and coefficients streaming and leadingSide
-  @returns an object with chanceOfBlock and chanceOfDodge
+  @returns an object with chance of block and chance of dodge defense
 */
 export const calculateChancesOfDefensiveMovements = (boxerStats) => {
   // random multiplier that is unique for each coefficient
@@ -82,8 +74,8 @@ export const calculateChancesOfDefensiveMovements = (boxerStats) => {
   const chanceOfDodge = dodgeCoefficient / sumOfCoefficients;
 
   return {
-    chanceOfBlock,
-    chanceOfDodge,
+    block: chanceOfBlock,
+    dodge: chanceOfDodge,
   };
 };
 
@@ -94,7 +86,7 @@ export const calculateChancesOfDefensiveMovements = (boxerStats) => {
   rookie, winrate and coefficients streaming and leadingSide
   @param rightBoxerStats an object with right boxer strength, agility, endurance,
   rookie, winrate and coefficients streaming and leadingSide
-  @returns an object with chanceForLeftBoxerToWin and chanceForRightBoxerToWin
+  @returns an object with chance for left boxer to win and chance for right boxer to win
 */
 export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   // random multiplier that is unique for each boxer
@@ -137,7 +129,7 @@ export const calculateChancesToWin = (leftBoxerStats, rightBoxerStats) => {
   const chanceForRightBoxerToWin = sumOfRightBoxerStats / sumOfStats;
 
   return {
-    chanceForLeftBoxerToWin,
-    chanceForRightBoxerToWin,
+    left: chanceForLeftBoxerToWin,
+    right: chanceForRightBoxerToWin,
   };
 };

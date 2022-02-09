@@ -93,9 +93,9 @@ class DuelController {
           }
 
           // if the movement is for the whole body at once
-          if (boxerMovement.movement.whole !== undefined) {
+          if (boxerMovement.name.whole !== undefined) {
             // requesting the animation
-            boxer.requestAnimation(boxerMovement.movement.whole, 'whole');
+            boxer.requestAnimation(boxerMovement.name.whole, 'whole', false);
 
             // making the boxer switch his leading side if the movement requires it
             switchBoxerLeadingSide(boxer, boxerMovement);
@@ -104,8 +104,11 @@ class DuelController {
           // if the movement is for the lower and the upper body separately
           else {
             // requesting animations
-            boxer.requestAnimation(boxerMovement.movement.lower, 'lower', false);
-            boxer.requestAnimation(boxerMovement.movement.upper, 'upper', boxerMovement.miss);
+            const missOffensiveMovement =
+              boxerMovement.miss &&
+              (boxerMovement.type === 'bruteForce' || boxerMovement.type === 'deveptive');
+            boxer.requestAnimation(boxerMovement.name.lower, 'lower', false);
+            boxer.requestAnimation(boxerMovement.name.upper, 'upper', missOffensiveMovement);
 
             // making the boxer make a step if the movement requires it
             moveBoxer(boxer, opponent, boxerMovement);
@@ -217,7 +220,7 @@ class DuelController {
       this.rightBoxer.face(this.leftBoxer);
 
       // if all the movements have ended
-      if (this.leftBoxerMovements.length === 0 && this.rightBoxerMovements.length === 0) {
+      if (this.leftBoxerMovements.length === 0) {
         // preparing for slow motion after cooldown
         setTimeout(this.prepareSlowMotion(), duelParameters.slowMotionCooldownDuration);
       }
@@ -253,7 +256,7 @@ class DuelController {
     }
 
     // pushing specified amount of movements from the end to boxers movements
-    for (let i = 0; i < duelParameters.slowMotionMovementsNumber; i++) {
+    for (let i = 0; i < duelParameters.slowMotionMovementsNumber; ++i) {
       this.leftBoxerMovements.push(this.finishedLeftBoxerMovements[i]);
       this.rightBoxerMovements.push(this.finishedRightBoxerMovements[i]);
     }

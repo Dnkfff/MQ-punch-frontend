@@ -16,9 +16,8 @@ export const probeAnimationNames = [
 /**
   @brief The object of boxer offensive animation names (for the upper body)
   @description It contains
-  bruteForceAttack,
-  deceptiveAttack and
-  counterAttack
+  bruteForceAttack and
+  deceptiveAttack
   objects of appropriate animation names.
 */
 export const offensiveAnimationNames = {
@@ -53,7 +52,6 @@ export const offensiveAnimationNames = {
     'uppercut-down-left',
     'uppercut-down-right',
   ],
-  counterAttack: ['cross-up-left', 'cross-up-right', 'overhand-left', 'overhand-right'],
 };
 
 /**

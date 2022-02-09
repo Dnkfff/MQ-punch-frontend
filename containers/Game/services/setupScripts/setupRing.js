@@ -58,7 +58,7 @@ export const setupPillars = (scene) => {
   });
 
   // for each pillar
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 4; ++i) {
     // creating a pillar
     const pillar = new THREE.Mesh(geometry, material);
 
@@ -133,7 +133,7 @@ export const setupRopes = (scene) => {
   const ropesStep = ringParameters.ropes.height / ringParameters.ropes.count;
 
   // for each rope height level
-  for (let i = 0; i < ringParameters.ropes.count + 1; i++) {
+  for (let i = 0; i < ringParameters.ropes.count + 1; ++i) {
     for (let j = 0; j < 4; j++) {
       // creating a rope
       const rope = new THREE.Mesh(geometry, material);
