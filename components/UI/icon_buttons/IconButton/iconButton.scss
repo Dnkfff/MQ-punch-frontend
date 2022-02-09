@@ -1,0 +1,24 @@
+.uk-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+
+  * {
+    flex-shrink: 0;
+    color: $test-dark-100;
+  }
+
+  &:hover {
+    background-color: #fbfbfb;
+  }
+
+  &:focus {
+    outline: 2px solid $test-dark-100;
+  }
+}
