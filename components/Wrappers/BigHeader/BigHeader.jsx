@@ -11,7 +11,7 @@ import {
   changeHeaderHeight,
   changeMobileMenuOpened,
   setGlobalModalData,
-} from '../../../redux/reducers/globalManager/slice';
+} from '../../../redux/reducers/GlobalManager/slice';
 import { onLogOut } from '../../../redux/reducers/auth/slice';
 
 import mainBigLogoPath from '../../../assets/website/logos/mq-rect-punch-logo-white.png';

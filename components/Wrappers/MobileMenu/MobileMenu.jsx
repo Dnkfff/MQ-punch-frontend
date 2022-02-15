@@ -9,7 +9,7 @@ import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants
 import {
   changeMobileMenuOpened,
   setGlobalModalData,
-} from '../../../redux/reducers/globalManager/slice';
+} from '../../../redux/reducers/GlobalManager/slice';
 import { onLogOut } from '../../../redux/reducers/auth/slice';
 import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
 

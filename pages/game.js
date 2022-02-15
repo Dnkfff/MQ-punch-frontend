@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Game from '../src/Game/Game';
+import Game from '../containers/Game/Game';
 
 const GameApp = () => {
   return <Game />;
