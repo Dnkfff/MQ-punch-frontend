@@ -7,54 +7,6 @@
   flex-wrap: nowrap;
   column-gap: 20px;
 
-  .profile_info {
-    width: 500px;
-    flex-shrink: 0;
-    height: 500px;
-    background-color: #252830;
-    border-radius: 3px;
-    position: relative;
-
-    button.profile-global-save-icon,
-    button.profile-global-edit-icon,
-    button.profile-global-cancel-icon {
-      cursor: pointer;
-      position: absolute;
-      top: 5px;
-      width: 35px;
-      height: 35px;
-      border: none;
-      background-color: transparent;
-      border-radius: 50%;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease;
-      &:hover {
-        background-color: #1a1d24;
-      }
-      &:focus {
-        outline: 2px solid #000;
-      }
-      color: #fff;
-    }
-
-    button.profile-global-cancel-icon {
-      right: 10px;
-      color: #8f1d1d;
-    }
-
-    button.profile-global-save-icon {
-      right: 50px;
-    }
-
-    button.profile-global-edit-icon {
-      right: 10px;
-      font-size: 13px;
-    }
-  }
-
   .boxers_info {
     width: 100%;
   }

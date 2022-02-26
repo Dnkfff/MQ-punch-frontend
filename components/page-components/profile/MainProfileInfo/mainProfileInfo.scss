@@ -1,0 +1,148 @@
+.global__profile .profile_info {
+  width: 500px;
+  flex-shrink: 0;
+  padding-top: 40px;
+  background-color: #252830;
+  border-radius: 3px;
+  position: relative;
+
+  button.profile-global-save-icon,
+  button.profile-global-edit-icon,
+  button.profile-global-cancel-icon {
+    position: absolute;
+    top: 5px;
+    width: 35px;
+    height: 35px;
+    > i {
+      color: #fff;
+    }
+    &:hover {
+      background-color: #1a1d24;
+    }
+    &:focus {
+      outline: 2px solid #1a1d24;
+    }
+  }
+
+  button.profile-global-cancel-icon {
+    right: 10px;
+    color: #8f1d1d;
+  }
+
+  button.profile-global-save-icon {
+    right: 50px;
+  }
+
+  button.profile-global-edit-icon {
+    right: 10px;
+    font-size: 13px;
+  }
+
+  .profile_info_content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile_info_content__header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 10px;
+    padding: 0 10px;
+
+    .image-container {
+      width: 100px;
+      height: 100px;
+      background-color: #333741;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nickname-wallet {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nickname {
+      color: #fff;
+      font-size: 35px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 500;
+    }
+
+    .wallet {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      column-gap: 5px;
+    }
+
+    .balance {
+      width: calc(50% - 2.5px);
+      padding: 5px 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: #1c1e24;
+      border-radius: 5px;
+    }
+
+    .label {
+      color: #b4b4b4;
+      font-weight: 700;
+      font-family: 'Cairo', sans-serif;
+      font-size: 18px;
+    }
+
+    .value {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #fff;
+    }
+  }
+
+  .profile_info_content__inputs {
+    width: 100%;
+    margin-top: 20px;
+    padding: 0 20px;
+
+    .profile-input-item {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .profile-input-item label {
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .profile-input-item input {
+      border: none;
+      border-radius: 3px;
+      padding: 5px 10px;
+      width: 100%;
+      background-color: #333741;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      transition: outline 0.3s ease 0;
+      &:focus {
+        outline: 3px solid #0e111a;
+      }
+    }
+  }
+}

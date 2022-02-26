@@ -33,6 +33,7 @@
 @import '../components/UI/Spinner/spinner.scss';
 // --- icon-buttons
 @import '../components/UI/icon_buttons/IconButton/iconButton.scss';
+@import '../components/UI/icon_buttons/IconButtonWithTooltip/iconButtonWithTooltip.scss';
 
 // Form
 @import '../components/form/Input/input.scss';
@@ -59,6 +60,7 @@
 
 // profile
 @import '../pages/profile/index.scss';
+@import '../components/page-components/profile/MainProfileInfo/mainProfileInfo.scss';
 
 // gym
 @import '../pages/gym/index.scss';
