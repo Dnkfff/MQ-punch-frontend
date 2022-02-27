@@ -21,6 +21,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const handlingReLogin = async () => {
+    const userInfo = window.localStorage.getItem('user');
+    if (!userInfo) return;
+
     const localStorageUserInfo = JSON.parse(window.localStorage.getItem('user'));
 
     const addressIsEqual =
@@ -46,10 +49,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const tryResetUserProfile = () => {
-    const profileExist = localStorage.getItem('profile');
+    const profileExist = window.localStorage.getItem('profile');
     if (!profileExist) return;
 
-    const previousProfileInfo = JSON.parse(localStorage.getItem('profile'));
+    const previousProfileInfo = JSON.parse(window.localStorage.getItem('profile'));
     dispatch(resetUserProfile(previousProfileInfo));
   };
 

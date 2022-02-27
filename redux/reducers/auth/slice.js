@@ -18,7 +18,6 @@ export const onLogIn = createAsyncThunk(
         thunkAPI.dispatch(onRefreshToken({ refreshToken: loginResult.data.refreshToken }));
       }, refreshTokenCoolDown);
     }
-
     window.localStorage.setItem(
       'user',
       JSON.stringify({

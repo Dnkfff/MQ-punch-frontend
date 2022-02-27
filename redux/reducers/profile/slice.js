@@ -6,12 +6,13 @@ import { onLogOut, setAuthLoading } from '../auth/slice';
 import { SERVER_URL } from '../../../inside-services/constants/constants';
 
 export const getUserProfile = createAsyncThunk('profile/get-profile', async (_, thunkAPI) => {
+  const axios = axiosAuth();
   const url = `${SERVER_URL}/user/me`;
 
   thunkAPI.dispatch(setAuthLoading(true));
 
   try {
-    const profileResult = await axiosAuth.get(url);
+    const profileResult = await axios.get(url);
     thunkAPI.dispatch(setAuthLoading(false));
     return profileResult.data?.me;
   } catch (error) {
@@ -26,8 +27,10 @@ const getUserProfileExtraReducer = {
     state.edit_mode = false;
   },
   [getUserProfile.fulfilled]: (state, { payload }) => {
-    state.profile = payload;
-    localStorage.setItem('profile', JSON.stringify(payload));
+    if (payload) {
+      state.profile = payload;
+      window.localStorage.setItem('profile', JSON.stringify(payload));
+    }
     state.profileLoading = false;
   },
   [getUserProfile.rejected]: (state) => {

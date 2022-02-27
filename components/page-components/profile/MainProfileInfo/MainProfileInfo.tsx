@@ -29,10 +29,10 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
     placeholder: 'Enter your email address',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
-      const regex1 = /^.{0,10}$/;
+      const regex1 = /^.{0,30}$/;
       const regex2 = /^$/;
 
-      if (!regex1.test(newVal) && newVal !== '') return oldVal;
+      if (!regex1.test(newVal) && !regex2.test(newVal) && newVal !== '') return oldVal;
 
       return newVal;
     },
@@ -44,10 +44,10 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
     placeholder: 'Enter new nickname',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
-      const regex1 = /^.{0,10}$/;
+      const regex1 = /^.{0,30}$/;
       const regex2 = /^$/;
 
-      if (!regex1.test(newVal) && newVal !== '') return oldVal;
+      if (!regex1.test(newVal) && !regex2.test(newVal) && newVal !== '') return oldVal;
 
       return newVal;
     },
@@ -58,10 +58,10 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
     placeholder: 'Enter your discord nickname',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
-      const regex1 = /^.{0,10}$/;
+      const regex1 = /^.{0,30}$/;
       const regex2 = /^$/;
 
-      if (!regex1.test(newVal) && newVal !== '') return oldVal;
+      if (!regex1.test(newVal) && !regex2.test(newVal) && newVal !== '') return oldVal;
 
       return newVal;
     },
@@ -72,7 +72,9 @@ const MainProfileInfo: React.FC = () => {
   const dispatch = useDispatch();
   const editMode = useTypedSelector((state) => state.profile.edit_mode);
   const profileInfoFromRedux = useTypedSelector((state) => state.profile.profile);
-  const [editForm, setEditForm] = useState<null | IEditForm>();
+  const [editForm, setEditForm] = useState<null | IEditForm>(
+    DEFAULT_EDIT_FORM_FROM_REDUX(profileInfoFromRedux)
+  );
 
   const ethBalance: string =
     profileInfoFromRedux && typeof profileInfoFromRedux.ethBalance === 'number'
@@ -85,13 +87,23 @@ const MainProfileInfo: React.FC = () => {
         profileInfoFromRedux.ethAccountId.slice(-3)
       : '';
 
+  const onChangeFormItem = ({ value, field }: { value: string; field: string }) => {
+    let newValue = value;
+    if (editForm && editForm[field].formatFunction) {
+      newValue = editForm[field].formatFunction({ newVal: value, oldVal: editForm[field].value });
+    }
+    setEditForm({ ...editForm, [field]: { ...editForm[field], value: newValue } });
+  };
+
   return (
     <section className='profile_info'>
       {editMode && (
         <>
           <IconButtonWithTooltip
             className='profile-global-save-icon'
-            onClick={() => dispatch(setEditMode(false))}
+            onClick={() => {
+              dispatch(setEditMode(false));
+            }}
             tooltip={{
               content: 'Save',
               place: 'top',
@@ -103,7 +115,9 @@ const MainProfileInfo: React.FC = () => {
           </IconButtonWithTooltip>
           <IconButtonWithTooltip
             className='profile-global-cancel-icon'
-            onClick={() => dispatch(setEditMode(false))}
+            onClick={() => {
+              dispatch(setEditMode(false));
+            }}
             tooltip={{
               content: 'Cancel',
               place: 'top',
@@ -118,7 +132,10 @@ const MainProfileInfo: React.FC = () => {
       {!editMode && (
         <IconButtonWithTooltip
           className='profile-global-edit-icon'
-          onClick={() => dispatch(setEditMode(true))}
+          onClick={() => {
+            dispatch(setEditMode(true));
+            setEditForm(DEFAULT_EDIT_FORM_FROM_REDUX(profileInfoFromRedux));
+          }}
           tooltip={{
             content: 'Edit',
             place: 'top',
@@ -141,9 +158,9 @@ const MainProfileInfo: React.FC = () => {
             {editMode && (
               <input
                 className='nickname-input'
-                value={''}
-                onChange={() => {}}
-                placeholder='Nickname'
+                value={editForm.username.value}
+                onChange={(e) => onChangeFormItem({ value: e.target.value, field: 'username' })}
+                placeholder={editForm.username.placeholder}
               />
             )}
             <div className='wallet'>
@@ -162,21 +179,23 @@ const MainProfileInfo: React.FC = () => {
           <div className='profile-input-item'>
             <label htmlFor='email'>Email:</label>
             <input
-              type='text'
-              placeholder='enter your email address'
+              type={editForm.email.type}
               id='email'
               disabled={!editMode}
-              value={!editMode ? profileInfoFromRedux.email || '' : 'To do'}
+              onChange={(e) => onChangeFormItem({ value: e.target.value, field: 'email' })}
+              placeholder={editForm.email.placeholder}
+              value={!editMode ? profileInfoFromRedux.email || '' : editForm.email.value}
             />
           </div>
           <div className='profile-input-item'>
             <label htmlFor='discord'>Discord:</label>
             <input
-              type='text'
-              placeholder='enter your discord nickname'
+              type={editForm.discord.type}
+              placeholder={editForm.discord.placeholder}
               id='discord'
               disabled={!editMode}
-              value={!editMode ? profileInfoFromRedux.discord || '' : 'To do'}
+              onChange={(e) => onChangeFormItem({ value: e.target.value, field: 'discord' })}
+              value={!editMode ? profileInfoFromRedux.discord || '' : editForm.discord.value}
             />
           </div>
         </div>
