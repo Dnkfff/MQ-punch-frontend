@@ -1,26 +1,27 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 // functions
-import { onLogOut, onRefreshToken } from "../../redux/reducers/auth/slice";
+import { onLogOut, onRefreshToken, resetUser } from '../../redux/reducers/auth/slice';
+import { resetUserProfile } from '../../redux/reducers/profile/slice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const handlingLogout = () => {
-    window.ethereum.on("accountsChanged", (accounts) => {
+    window.ethereum.on('accountsChanged', (accounts) => {
       const accountNotValid = !accounts || accounts.length === 0;
 
       if (accountNotValid) return dispatch(onLogOut());
     });
 
-    window.ethereum.on("disconnect", () => {
+    window.ethereum.on('disconnect', () => {
       dispatch(onLogOut());
     });
   };
 
   const handlingReLogin = async () => {
-    const localStorageUserInfo = JSON.parse(window.localStorage.getItem("user"));
+    const localStorageUserInfo = JSON.parse(window.localStorage.getItem('user'));
 
     const addressIsEqual =
       window.localStorage.user &&
@@ -30,6 +31,7 @@ const AuthProvider = ({ children }) => {
 
     // handle relogin with same account
     if (window.ethereum.selectedAddress && addressIsEqual) {
+      dispatch(resetUser(localStorageUserInfo));
       return dispatch(
         onRefreshToken({
           refreshToken: localStorageUserInfo.refreshToken,
@@ -43,9 +45,18 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const tryResetUserProfile = () => {
+    const profileExist = localStorage.getItem('profile');
+    if (!profileExist) return;
+
+    const previousProfileInfo = JSON.parse(localStorage.getItem('profile'));
+    dispatch(resetUserProfile(previousProfileInfo));
+  };
+
   useEffect(() => {
     if (window.ethereum) {
       handlingReLogin();
+      tryResetUserProfile();
       handlingLogout();
     }
   }, []);

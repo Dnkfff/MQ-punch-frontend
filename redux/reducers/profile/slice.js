@@ -13,7 +13,7 @@ export const getUserProfile = createAsyncThunk('profile/get-profile', async (_, 
   try {
     const profileResult = await axiosAuth.get(url);
     thunkAPI.dispatch(setAuthLoading(false));
-    return profileResult;
+    return profileResult.data?.me;
   } catch (error) {
     thunkAPI.dispatch(setAuthLoading(false));
     thunkAPI.dispatch(onLogOut());
@@ -26,7 +26,8 @@ const getUserProfileExtraReducer = {
     state.edit_mode = false;
   },
   [getUserProfile.fulfilled]: (state, { payload }) => {
-    console.log(payload);
+    state.profile = payload;
+    localStorage.setItem('profile', JSON.stringify(payload));
     state.profileLoading = false;
   },
   [getUserProfile.rejected]: (state) => {
@@ -50,9 +51,12 @@ export const slice = createSlice({
     setEditMode: (state, action) => {
       state.edit_mode = action.payload;
     },
+    resetUserProfile: (state, action) => {
+      state.profile = action.payload;
+    },
   },
 });
 
-export const { setEditMode } = slice.actions;
+export const { setEditMode, resetUserProfile } = slice.actions;
 
 export default slice.reducer;

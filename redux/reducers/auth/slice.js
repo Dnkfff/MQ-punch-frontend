@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import store from '../../store';
-
 import { getUserProfile } from '../profile/slice';
 
 import { refreshTokenCoolDown, SERVER_URL } from '../../../inside-services/constants/constants';
@@ -58,20 +56,23 @@ const loginExtraReducer = {
   },
 };
 
-export const onRefreshToken = createAsyncThunk('auth/refresh-token', async ({ refreshToken }) => {
-  const url = `${SERVER_URL}/auth/refresh`;
-  const refreshResult = await axios.post(url, {
-    refreshToken,
-  });
+export const onRefreshToken = createAsyncThunk(
+  'auth/refresh-token',
+  async ({ refreshToken }, thunkAPI) => {
+    const url = `${SERVER_URL}/auth/refresh`;
+    const refreshResult = await axios.post(url, {
+      refreshToken,
+    });
 
-  if (refreshResult?.data?.refreshToken) {
-    setTimeout(() => {
-      store.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
-    }, refreshTokenCoolDown);
+    if (refreshResult?.data?.refreshToken) {
+      setTimeout(() => {
+        thunkAPI.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
+      }, refreshTokenCoolDown);
+    }
+
+    return { ...refreshResult.data };
   }
-
-  return { ...refreshResult.data };
-});
+);
 
 const refreshTokenExtraReducer = {
   [onRefreshToken.pending]: (state) => {
@@ -127,9 +128,12 @@ const slice = createSlice({
     setAuthLoading: (state, action) => {
       state.authLoading = action.payload;
     },
+    resetUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { onLogOut, onResetUserInfo, setAuthLoading } = slice.actions;
+export const { onLogOut, onResetUserInfo, setAuthLoading, resetUser } = slice.actions;
 
 export default slice.reducer;
