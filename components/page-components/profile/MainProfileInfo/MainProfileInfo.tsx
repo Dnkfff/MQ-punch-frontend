@@ -11,6 +11,7 @@ import { setEditMode } from '../../../../redux/reducers/profile/slice';
 
 // assets
 import ImageContainer from '../../../../assets/website/profile/image-container.svg';
+import SettingsIcon from '../../../../assets/website/profile/settings.svg';
 
 const MainProfileInfo: React.FC = () => {
   const dispatch = useDispatch();
@@ -82,12 +83,28 @@ const MainProfileInfo: React.FC = () => {
         <div className='profile_info_content__inputs'>
           <div className='profile-input-item'>
             <label htmlFor='email'>Email:</label>
-            <input type='text' placeholder='enter your email address' id='email' />
+            <input
+              type='text'
+              placeholder='enter your email address'
+              id='email'
+              disabled={!editMode}
+            />
           </div>
           <div className='profile-input-item'>
             <label htmlFor='discord'>Discord:</label>
-            <input type='text' placeholder='enter your discord nickname' id='discord' />
+            <input
+              type='text'
+              placeholder='enter your discord nickname'
+              id='discord'
+              disabled={!editMode}
+            />
           </div>
+        </div>
+        <div className='profile_info_content__settings'>
+          <button className='notifications-button'>
+            <SettingsIcon />
+            <span>Notifications</span>
+          </button>
         </div>
       </div>
     </section>

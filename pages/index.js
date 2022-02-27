@@ -14,7 +14,7 @@ const App = () => {
     <div className='global-main-page'>
       <div className='boxers-picture-container'>
         {!userIsAuth && <WelcomeBlock />}
-        <StreamArea />
+        {/* <StreamArea /> */}
       </div>
       <LiveEvents />
       <div className='leaderboard-container'>

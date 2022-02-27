@@ -2,21 +2,38 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import store from '../../store';
-import { refreshTokenCoolDown } from '../../../inside-services/constants/constants';
 
-export const onLogIn = createAsyncThunk('auth/login', async ({ signature, metamaskAddress }) => {
-  const loginResult = await axios.post('https://stage.mq-punch.com/auth', {
-    signedSignature: signature,
-  });
+import { getUserProfile } from '../profile/slice';
 
-  if (loginResult?.data?.refreshToken) {
-    setTimeout(() => {
-      store.dispatch(onRefreshToken({ refreshToken: loginResult.data.refreshToken }));
-    }, refreshTokenCoolDown);
+import { refreshTokenCoolDown, SERVER_URL } from '../../../inside-services/constants/constants';
+
+export const onLogIn = createAsyncThunk(
+  'auth/login',
+  async ({ signature, metamaskAddress }, thunkAPI) => {
+    const url = `${SERVER_URL}/auth`;
+    const loginResult = await axios.post(url, {
+      signedSignature: signature,
+    });
+
+    if (loginResult?.data?.refreshToken) {
+      setTimeout(() => {
+        thunkAPI.dispatch(onRefreshToken({ refreshToken: loginResult.data.refreshToken }));
+      }, refreshTokenCoolDown);
+    }
+
+    window.localStorage.setItem(
+      'user',
+      JSON.stringify({
+        metamaskAddress: metamaskAddress,
+        token: loginResult.data.token,
+        refreshToken: loginResult.data.refreshToken,
+      })
+    );
+    thunkAPI.dispatch(getUserProfile());
+
+    return { ...loginResult.data, metamaskAddress };
   }
-
-  return { ...loginResult.data, metamaskAddress };
-});
+);
 
 const loginExtraReducer = {
   [onLogIn.pending]: (state) => {
@@ -32,14 +49,6 @@ const loginExtraReducer = {
       token: payload.token,
       refreshToken: payload.refreshToken,
     };
-    window.localStorage.setItem(
-      'user',
-      JSON.stringify({
-        metamaskAddress: payload.metamaskAddress,
-        token: payload.token,
-        refreshToken: payload.refreshToken,
-      })
-    );
   },
   [onLogIn.rejected]: (state) => {
     state.authLoading = false;
@@ -50,7 +59,8 @@ const loginExtraReducer = {
 };
 
 export const onRefreshToken = createAsyncThunk('auth/refresh-token', async ({ refreshToken }) => {
-  const refreshResult = await axios.post('https://stage.mq-punch.com/auth/refresh', {
+  const url = `${SERVER_URL}/auth/refresh`;
+  const refreshResult = await axios.post(url, {
     refreshToken,
   });
 
@@ -114,9 +124,12 @@ const slice = createSlice({
     onResetUserInfo: (state) => {
       state.user = JSON.parse(window.localStorage.getItem('user'));
     },
+    setAuthLoading: (state, action) => {
+      state.authLoading = action.payload;
+    },
   },
 });
 
-export const { onLogOut, onResetUserInfo } = slice.actions;
+export const { onLogOut, onResetUserInfo, setAuthLoading } = slice.actions;
 
 export default slice.reducer;
