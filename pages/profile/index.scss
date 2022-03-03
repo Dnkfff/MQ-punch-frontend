@@ -6,28 +6,9 @@
   align-items: stretch;
   flex-wrap: nowrap;
   column-gap: 20px;
+  min-height: 600px;
 
   .boxers_info {
     width: 100%;
-  }
-
-  .boxers_info_total_bar {
-    width: 100%;
-    height: 100px;
-    background-color: #252830;
-    border-radius: 3px;
-  }
-
-  .boxers_list {
-    width: 100%;
-    height: 380px;
-    margin-top: 20px;
-    background-color: red;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    column-gap: 10px;
-    row-gap: 10px;
   }
 }

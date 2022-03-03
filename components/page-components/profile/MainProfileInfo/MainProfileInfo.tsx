@@ -71,20 +71,20 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
 const MainProfileInfo: React.FC = () => {
   const dispatch = useDispatch();
   const editMode = useTypedSelector((state) => state.profile.edit_mode);
-  const profileInfoFromRedux = useTypedSelector((state) => state.profile.profile);
+  const userInfoFromRedux = useTypedSelector((state) => state.profile.user);
   const [editForm, setEditForm] = useState<null | IEditForm>(
-    DEFAULT_EDIT_FORM_FROM_REDUX(profileInfoFromRedux)
+    DEFAULT_EDIT_FORM_FROM_REDUX(userInfoFromRedux)
   );
 
   const ethBalance: string =
-    profileInfoFromRedux && typeof profileInfoFromRedux.ethBalance === 'number'
-      ? profileInfoFromRedux.ethBalance.toFixed(4)
+    userInfoFromRedux && typeof userInfoFromRedux.ethBalance === 'number'
+      ? userInfoFromRedux.ethBalance.toFixed(4)
       : '';
   const walletAddress: string =
-    profileInfoFromRedux && profileInfoFromRedux.ethAccountId
-      ? profileInfoFromRedux.ethAccountId.slice(0, 4) +
+    userInfoFromRedux && userInfoFromRedux.ethAccountId
+      ? userInfoFromRedux.ethAccountId.slice(0, 4) +
         '...' +
-        profileInfoFromRedux.ethAccountId.slice(-3)
+        userInfoFromRedux.ethAccountId.slice(-3)
       : '';
 
   const onChangeFormItem = ({ value, field }: { value: string; field: string }) => {
@@ -134,7 +134,7 @@ const MainProfileInfo: React.FC = () => {
           className='profile-global-edit-icon'
           onClick={() => {
             dispatch(setEditMode(true));
-            setEditForm(DEFAULT_EDIT_FORM_FROM_REDUX(profileInfoFromRedux));
+            setEditForm(DEFAULT_EDIT_FORM_FROM_REDUX(userInfoFromRedux));
           }}
           tooltip={{
             content: 'Edit',
@@ -152,9 +152,7 @@ const MainProfileInfo: React.FC = () => {
             <ImageContainer />
           </div>
           <div className='nickname-wallet'>
-            {!editMode && (
-              <h3 className='nickname'>{profileInfoFromRedux?.username || '17etro'}</h3>
-            )}
+            {!editMode && <h3 className='nickname'>{userInfoFromRedux?.username || '17etro'}</h3>}
             {editMode && (
               <input
                 className='nickname-input'
@@ -184,7 +182,7 @@ const MainProfileInfo: React.FC = () => {
               disabled={!editMode}
               onChange={(e) => onChangeFormItem({ value: e.target.value, field: 'email' })}
               placeholder={editForm.email.placeholder}
-              value={!editMode ? profileInfoFromRedux.email || '' : editForm.email.value}
+              value={!editMode ? userInfoFromRedux?.email || '' : editForm.email.value}
             />
           </div>
           <div className='profile-input-item'>
@@ -195,7 +193,7 @@ const MainProfileInfo: React.FC = () => {
               id='discord'
               disabled={!editMode}
               onChange={(e) => onChangeFormItem({ value: e.target.value, field: 'discord' })}
-              value={!editMode ? profileInfoFromRedux.discord || '' : editForm.discord.value}
+              value={!editMode ? userInfoFromRedux?.discord || '' : editForm.discord.value}
             />
           </div>
         </div>

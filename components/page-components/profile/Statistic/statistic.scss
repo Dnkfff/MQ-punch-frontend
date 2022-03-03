@@ -1,0 +1,28 @@
+.global__profile .boxers_info .boxers_info_total_bar {
+  width: 100%;
+  background-color: #252830;
+  border-radius: 3px;
+  padding: 15px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  .statistic-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+  }
+
+  .statistic-icon {
+    svg {
+      width: 50px;
+    }
+  }
+
+  .statistic-text {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}

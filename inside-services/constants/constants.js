@@ -6,6 +6,7 @@ export const SERVER_URL = 'https://stage.mq-punch.com';
 
 // in miliseconds ( one hour )
 export const refreshTokenCoolDown = 60 * 60 * 1000;
+export const userProfileExpirationTime = 15 * 60 * 1000;
 
 export const START_PERIOD_YEAR = 2021;
 export const YEARS_RANGE = 10;

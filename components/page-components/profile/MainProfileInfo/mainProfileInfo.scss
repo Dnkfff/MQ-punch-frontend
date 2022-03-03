@@ -80,6 +80,17 @@
       text-overflow: ellipsis;
     }
 
+    input.nickname-input {
+      color: #fff;
+      font-size: 35px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 500;
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      outline: none !important;
+    }
+
     .wallet {
       width: 100%;
       display: flex;

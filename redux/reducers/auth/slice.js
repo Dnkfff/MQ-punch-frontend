@@ -1,17 +1,19 @@
-import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { getUserProfile } from '../profile/slice';
+import User from '../../../api/user/user';
+import { getUserProfile, localStorageClearProfile } from '../profile/slice';
 
-import { refreshTokenCoolDown, SERVER_URL } from '../../../inside-services/constants/constants';
+import { refreshTokenCoolDown } from '../../../inside-services/constants/constants';
+
+export const localStorageClearAuth = () => {
+  window.localStorage.removeItem('user');
+};
 
 export const onLogIn = createAsyncThunk(
   'auth/login',
   async ({ signature, metamaskAddress }, thunkAPI) => {
-    const url = `${SERVER_URL}/auth`;
-    const loginResult = await axios.post(url, {
-      signedSignature: signature,
-    });
+    const loginResult = await User.logIn({ signedSignature: signature });
+    console.log(loginResult);
 
     if (loginResult?.data?.refreshToken) {
       setTimeout(() => {
@@ -58,18 +60,19 @@ const loginExtraReducer = {
 export const onRefreshToken = createAsyncThunk(
   'auth/refresh-token',
   async ({ refreshToken }, thunkAPI) => {
-    const url = `${SERVER_URL}/auth/refresh`;
-    const refreshResult = await axios.post(url, {
-      refreshToken,
-    });
+    try {
+      const refreshResult = await User.refreshToken({ refreshToken });
 
-    if (refreshResult?.data?.refreshToken) {
-      setTimeout(() => {
-        thunkAPI.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
-      }, refreshTokenCoolDown);
+      if (refreshResult?.data?.refreshToken) {
+        setTimeout(() => {
+          thunkAPI.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
+        }, refreshTokenCoolDown);
+      }
+
+      return { ...refreshResult.data };
+    } catch (error) {
+      console.log(error);
     }
-
-    return { ...refreshResult.data };
   }
 );
 
@@ -119,7 +122,8 @@ const slice = createSlice({
   reducers: {
     onLogOut: (state) => {
       state.user = null;
-      window.localStorage.removeItem('user');
+      localStorageClearAuth();
+      localStorageClearProfile();
     },
     onResetUserInfo: (state) => {
       state.user = JSON.parse(window.localStorage.getItem('user'));

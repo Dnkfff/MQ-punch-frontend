@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+// constants
+import { userProfileExpirationTime } from '../../inside-services/constants/constants';
+
 // functions
 import { onLogOut, onRefreshToken, resetUser } from '../../redux/reducers/auth/slice';
-import { resetUserProfile } from '../../redux/reducers/profile/slice';
+import { resetProfileUser, getUserProfile } from '../../redux/reducers/profile/slice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -27,7 +30,9 @@ const AuthProvider = ({ children }) => {
     const localStorageUserInfo = JSON.parse(window.localStorage.getItem('user'));
 
     const addressIsEqual =
-      window.localStorage.user &&
+      localStorageUserInfo &&
+      localStorageUserInfo.metamaskAddress &&
+      window.ethereum &&
       window.ethereum.selectedAddress &&
       window.ethereum.selectedAddress.toUpperCase() ===
         localStorageUserInfo.metamaskAddress.toUpperCase();
@@ -49,19 +54,31 @@ const AuthProvider = ({ children }) => {
   };
 
   const tryResetUserProfile = () => {
-    const profileExist = window.localStorage.getItem('profile');
-    if (!profileExist) return;
+    const userExist = window.localStorage.getItem('profile_user');
+    const timeExpires =
+      window.localStorage.getItem('last_user_update') &&
+      Math.abs(+window.localStorage.getItem('last_user_update') - Date.now()) >=
+        userProfileExpirationTime;
 
-    const previousProfileInfo = JSON.parse(window.localStorage.getItem('profile'));
-    dispatch(resetUserProfile(previousProfileInfo));
+    if (!userExist) {
+      dispatch(onLogOut());
+    }
+    if (timeExpires) {
+      return dispatch(getUserProfile());
+    }
+
+    const previousProfileInfo = JSON.parse(window.localStorage.getItem('profile_user'));
+    dispatch(resetProfileUser(previousProfileInfo));
   };
 
   useEffect(() => {
-    if (window.ethereum) {
-      handlingReLogin();
-      tryResetUserProfile();
-      handlingLogout();
-    }
+    (async function () {
+      if (window.ethereum) {
+        await handlingReLogin();
+        tryResetUserProfile();
+        handlingLogout();
+      }
+    })();
   }, []);
 
   return children;
