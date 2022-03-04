@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { userProfileExpirationTime } from '../../inside-services/constants/constants';
 
 // functions
-import { onLogOut, onRefreshToken, resetUser } from '../../redux/reducers/auth/slice';
+import { onLogOut, onRefreshToken, onResetUserInfo } from '../../redux/reducers/auth/slice';
 import {
   resetProfileUser,
   getUserProfile,
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
 
     // handle relogin with same account
     if (window.ethereum.selectedAddress && addressIsEqual) {
-      dispatch(resetUser(localStorageUserInfo));
+      dispatch(onResetUserInfo());
       return dispatch(
         onRefreshToken({
           refreshToken: localStorageUserInfo.refreshToken,

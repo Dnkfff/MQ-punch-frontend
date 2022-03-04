@@ -15,6 +15,10 @@ const RouterGuard: React.FC<IRouterGuard> = ({ children }) => {
 
   const checkUrl = () => {
     const url = router.asPath;
+    if (window.localStorage.getItem('user')) {
+      return setAllowRendering(true);
+    }
+
     if (!isUserLoggedIn) {
       const isUrlPrivate = !!PRIVATE_ROUTES.find((route) => url.startsWith(route));
       setAllowRendering(isUrlPrivate ? false : true);

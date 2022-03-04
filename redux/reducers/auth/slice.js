@@ -80,7 +80,6 @@ const refreshTokenExtraReducer = {
   [onRefreshToken.pending]: (state) => {
     state.authLoading = true;
     state.authError = false;
-    state.user = null;
   },
   [onRefreshToken.fulfilled]: (state, { payload }) => {
     state.authLoading = false;
