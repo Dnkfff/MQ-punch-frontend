@@ -3,6 +3,7 @@ import { getUUID } from '../get-uuid/get-uuid';
 import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from './events';
 
 export const SERVER_URL = 'https://stage.mq-punch.com';
+export const ICONS_STORAGE_URL = 'https://cdn-mq.fra1.digitaloceanspaces.com/site/';
 
 // in miliseconds ( one hour )
 export const refreshTokenCoolDown = 60 * 60 * 1000;

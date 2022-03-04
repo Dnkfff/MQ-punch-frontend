@@ -6,7 +6,11 @@ import { userProfileExpirationTime } from '../../inside-services/constants/const
 
 // functions
 import { onLogOut, onRefreshToken, resetUser } from '../../redux/reducers/auth/slice';
-import { resetProfileUser, getUserProfile } from '../../redux/reducers/profile/slice';
+import {
+  resetProfileUser,
+  getUserProfile,
+  getUserBoxers,
+} from '../../redux/reducers/profile/slice';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
@@ -64,7 +68,8 @@ const AuthProvider = ({ children }) => {
       dispatch(onLogOut());
     }
     if (timeExpires) {
-      return dispatch(getUserProfile());
+      dispatch(getUserProfile());
+      dispatch(getUserBoxers());
     }
 
     const previousProfileInfo = JSON.parse(window.localStorage.getItem('profile_user'));

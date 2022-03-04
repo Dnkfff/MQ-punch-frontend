@@ -33,6 +33,12 @@
     right: 50px;
   }
 
+  button.profile-global-save-icon.disabled {
+    > i {
+      color: rgb(138, 138, 138) !important;
+    }
+  }
+
   button.profile-global-edit-icon {
     right: 10px;
     font-size: 13px;

@@ -10,7 +10,7 @@ import { IconButtonWithTooltip } from '../../../UI/icon_buttons/IconButtonWithTo
 import { IInputItem } from '../../../../inside-services/types/form/form';
 
 // redux
-import { setEditMode } from '../../../../redux/reducers/profile/slice';
+import { setEditMode, updateUserProfile } from '../../../../redux/reducers/profile/slice';
 
 // assets
 import ImageContainer from '../../../../assets/website/profile/image-container.svg';
@@ -22,10 +22,11 @@ interface IEditForm {
   discord: IInputItem;
 }
 
-const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
+const DEFAULT_EDIT_FORM_FROM_REDUX = (userInfoFromRedux: any) => ({
   email: {
-    value: profileInfoFromRedux && profileInfoFromRedux.email ? profileInfoFromRedux.email : '',
+    value: userInfoFromRedux && userInfoFromRedux.email ? userInfoFromRedux.email : '',
     required: true,
+    isValid: userInfoFromRedux && userInfoFromRedux.email ? userInfoFromRedux.email !== '' : false,
     placeholder: 'Enter your email address',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
@@ -38,9 +39,10 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
     },
   },
   username: {
-    value:
-      profileInfoFromRedux && profileInfoFromRedux.username ? profileInfoFromRedux.username : '',
+    value: userInfoFromRedux && userInfoFromRedux.username ? userInfoFromRedux.username : '',
     required: true,
+    isValid:
+      userInfoFromRedux && userInfoFromRedux.username ? userInfoFromRedux.username !== '' : false,
     placeholder: 'Enter new nickname',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
@@ -53,8 +55,10 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (profileInfoFromRedux: any) => ({
     },
   },
   discord: {
-    value: profileInfoFromRedux && profileInfoFromRedux.discord ? profileInfoFromRedux.discord : '',
+    value: userInfoFromRedux && userInfoFromRedux.discord ? userInfoFromRedux.discord : '',
     required: true,
+    isValid:
+      userInfoFromRedux && userInfoFromRedux.discord ? userInfoFromRedux.discord !== '' : false,
     placeholder: 'Enter your discord nickname',
     type: 'text',
     formatFunction: ({ newVal, oldVal }) => {
@@ -92,18 +96,33 @@ const MainProfileInfo: React.FC = () => {
     if (editForm && editForm[field].formatFunction) {
       newValue = editForm[field].formatFunction({ newVal: value, oldVal: editForm[field].value });
     }
-    setEditForm({ ...editForm, [field]: { ...editForm[field], value: newValue } });
+    setEditForm({
+      ...editForm,
+      [field]: { ...editForm[field], value: newValue, isValid: newValue !== '' },
+    });
   };
+
+  const saveProfileDisabled =
+    !editForm.username.isValid || !editForm.discord.isValid || !editForm.email.isValid;
 
   return (
     <section className='profile_info'>
       {editMode && (
         <>
           <IconButtonWithTooltip
-            className='profile-global-save-icon'
-            onClick={() => {
-              dispatch(setEditMode(false));
-            }}
+            className={cn('profile-global-save-icon', { disabled: saveProfileDisabled })}
+            onClick={
+              !saveProfileDisabled
+                ? () =>
+                    dispatch(
+                      updateUserProfile({
+                        email: editForm.email.value,
+                        discord: editForm.discord.value,
+                        username: editForm.username.value,
+                      })
+                    )
+                : () => {}
+            }
             tooltip={{
               content: 'Save',
               place: 'top',

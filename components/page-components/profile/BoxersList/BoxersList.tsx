@@ -9,6 +9,10 @@ const BoxersList: React.FC = () => {
         <span className='market-text'>
           Visit <Link href={'/market'}>MQ Punch Market</Link> to get your first fighter
         </span>
+        <span className='info-msg'>
+          If you have already bought fighter and have it in your wallet please relogin to see
+          updates
+        </span>
       </div>
     </div>
   );
