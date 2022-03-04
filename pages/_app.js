@@ -7,6 +7,7 @@ import store from '../redux/store';
 import Layout from '../components/Wrappers/Layout/Layout';
 import AuthProvider from '../containers/AuthProvider/AuthProvider';
 import TooltipsProvider from '../containers/TooltipsProvider/TooltipsProvider';
+import RouterGuard from '../containers/RouterGuard/RouterGuard';
 
 import '../styles/index.scss';
 
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }) {
       <AuthProvider>
         <TooltipsProvider>
           <Layout>
-            <Component {...pageProps} />
+            <RouterGuard>
+              <Component {...pageProps} />
+            </RouterGuard>
           </Layout>
         </TooltipsProvider>
       </AuthProvider>

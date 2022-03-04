@@ -87,7 +87,6 @@ const MobileMenu = () => {
                   </li>
                   <li
                     onClick={() => {
-                      router.push('/');
                       onCloseMobileMenu();
                       dispatch(onLogOut());
                     }}

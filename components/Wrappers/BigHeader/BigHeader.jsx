@@ -113,12 +113,7 @@ const BigHeader = (props) => {
                   </div>
                   <span>Settings</span>
                 </li>
-                <li
-                  onClick={() => {
-                    router.push('/');
-                    dispatch(onLogOut());
-                  }}
-                >
+                <li onClick={() => dispatch(onLogOut())}>
                   <div className='icon'>
                     <i className='fas fa-sign-out' />
                   </div>

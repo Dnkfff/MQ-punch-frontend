@@ -11,6 +11,8 @@ export const userProfileExpirationTime = 15 * 60 * 1000;
 export const START_PERIOD_YEAR = 2021;
 export const YEARS_RANGE = 10;
 
+export const PRIVATE_ROUTES = ['/profile'];
+
 export const MONTHS = [
   'January',
   'February',
