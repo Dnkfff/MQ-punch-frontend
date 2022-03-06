@@ -12,6 +12,35 @@
   border-radius: 3px;
   position: relative;
 
+  .settings {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    column-gap: 10px;
+
+    button {
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #252830;
+      width: 35px;
+      height: 35px;
+      color: #fff;
+      font-weight: 500;
+      border-radius: 3px;
+      padding: 8px;
+    }
+  }
+
+  &:hover {
+    .settings {
+      display: flex;
+    }
+  }
+
   .boxer-preview {
     width: 100%;
     display: flex;

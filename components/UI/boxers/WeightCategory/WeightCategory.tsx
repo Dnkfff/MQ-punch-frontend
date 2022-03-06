@@ -1,9 +1,9 @@
 import React from 'react';
 
-const WeightCategory = () => {
+const WeightCategory = ({ category }: { category: string }) => {
   return (
     <div className='mq-punch-boxer-weight-category'>
-      <span className='weight-category-label'>HEAVYWEIGHT</span>
+      <span className='weight-category-label'>{category}</span>
     </div>
   );
 };

@@ -5,6 +5,9 @@ import { useTypedSelector } from '../../../../redux/store';
 // components
 import Boxer from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 
+// interface
+import { IProfileBoxer } from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
+
 const BoxersList: React.FC = () => {
   const boxers = useTypedSelector((state) => state.profile.boxers);
   console.log(boxers);
@@ -15,8 +18,8 @@ const BoxersList: React.FC = () => {
         <>
           <h4 className='boxers-list-title'>YOUR BOXERS</h4>
           <div className='row'>
-            {boxers.map((boxer) => (
-              <Boxer />
+            {boxers.map((boxer: IProfileBoxer) => (
+              <Boxer key={boxer.id} boxer={boxer} />
             ))}
           </div>
         </>
