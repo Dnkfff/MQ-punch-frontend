@@ -25,11 +25,17 @@ class User {
     });
   }
 
-  static async getProfile() {
+  static async getProfile({ userId }) {
     const aAxios = axiosAuth();
-    const url = `${SERVER_URL}/user/me`;
+    const urlParams = new URLSearchParams('');
+    if (userId) {
+      urlParams.append('userId', userId);
+    }
+    const url = urlParams.toString();
 
-    return aAxios.get(url);
+    return aAxios.get(
+      `${SERVER_URL}/user/me` + (url.toString() !== '' ? '?' + url.toString() : '')
+    );
   }
 
   static async saveUserProfile({ username, email, discord }) {

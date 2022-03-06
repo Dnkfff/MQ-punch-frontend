@@ -22,7 +22,7 @@ export const getUserProfile = createAsyncThunk('profile/get-profile', async (_, 
   thunkAPI.dispatch(setAuthLoading(true));
 
   try {
-    const profileResult = await User.getProfile();
+    const profileResult = await User.getProfile({ userId: null });
     thunkAPI.dispatch(setAuthLoading(false));
     if (!profileResult || !profileResult.data || !profileResult.data.me) {
       thunkAPI.dispatch(onLogOut());
@@ -74,10 +74,15 @@ export const getUserBoxers = createAsyncThunk('profile/get-boxers', async (_, th
   try {
     const userId = JSON.parse(window.localStorage.getItem('profile_user')).id;
     const boxersResult = await User.getBoxersInWallet({ userId });
-    console.log(boxersResult);
     thunkAPI.dispatch(setAuthLoading(false));
+
+    if (!boxersResult || !boxersResult.data || !boxersResult.data.boxers) {
+      return [];
+    }
+    return boxersResult.data.boxers;
   } catch (error) {
     console.log(error);
+    toast.errorMessage('Server error while trying to get boxers');
     thunkAPI.dispatch(setAuthLoading(false));
   }
 });
@@ -119,6 +124,10 @@ export const slice = createSlice({
           discord: payload.discord,
         };
       }
+    });
+    // get boxers
+    builder.addCase(getUserBoxers.fulfilled, (state, { payload }) => {
+      state.boxers = payload;
     });
   },
   reducers: {

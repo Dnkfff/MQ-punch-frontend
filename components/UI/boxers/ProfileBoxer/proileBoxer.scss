@@ -1,0 +1,109 @@
+.mq-punch-boxer_profile {
+  width: calc(33% - 30px);
+  min-width: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.21);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.21);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.21);
+  background-color: #fff;
+  border-radius: 3px;
+  position: relative;
+
+  .boxer-preview {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .boxer-text {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  span.name {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    color: #000;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  span.owner {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #949494;
+    font-size: 14px;
+    text-transform: uppercase;
+
+    a {
+      color: inherit;
+    }
+  }
+
+  .boxers-stats {
+    margin-top: 5px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    row-gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  span.stats-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #000;
+    font-size: 19px;
+    margin: 10px 0;
+  }
+
+  .boxer-stat {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .boxer-stat__title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #000;
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .boxer-state__value-extended {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+
+    img {
+      width: 28px;
+    }
+  }
+
+  .boxer-stat__value {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #000;
+    font-size: 16px;
+  }
+
+  .boxer-stat__value-secondary {
+    color: #949494;
+    font-size: 14px;
+  }
+}

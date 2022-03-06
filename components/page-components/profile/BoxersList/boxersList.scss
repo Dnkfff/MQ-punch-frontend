@@ -1,6 +1,25 @@
 .global__profile .boxers_info .boxers_list {
   width: 100%;
 
+  .boxers-list-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 30px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .row {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    row-gap: 40px;
+    column-gap: 40px;
+    flex-wrap: wrap;
+  }
+
   .visit-market {
     width: 100%;
     margin-top: 20px;

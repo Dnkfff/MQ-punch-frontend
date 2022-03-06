@@ -13,7 +13,6 @@ export const onLogIn = createAsyncThunk(
   'auth/login',
   async ({ signature, metamaskAddress }, thunkAPI) => {
     const loginResult = await User.logIn({ signedSignature: signature });
-    console.log(loginResult);
 
     if (loginResult?.data?.refreshToken) {
       setTimeout(() => {
@@ -44,9 +43,9 @@ const loginExtraReducer = {
     state.authLoading = false;
     state.authError = false;
     state.user = {
-      metamaskAccount: payload.metamaskAddress,
-      token: payload.token,
-      refreshToken: payload.refreshToken,
+      metamaskAccount: payload?.metamaskAddress,
+      token: payload?.token,
+      refreshToken: payload?.refreshToken,
     };
   },
   [onLogIn.rejected]: (state) => {
@@ -67,11 +66,14 @@ export const onRefreshToken = createAsyncThunk(
         setTimeout(() => {
           thunkAPI.dispatch(onRefreshToken({ refreshToken: refreshResult.data.refreshToken }));
         }, refreshTokenCoolDown);
+      } else {
+        thunkAPI.dispatch(onLogOut());
       }
 
       return { ...refreshResult.data };
     } catch (error) {
       console.log(error);
+      thunkAPI.dispatch(onLogOut());
     }
   }
 );
@@ -85,14 +87,14 @@ const refreshTokenExtraReducer = {
     state.authLoading = false;
     state.authError = false;
     state.user = {
-      metamaskAccount: payload.metamaskAddress,
-      token: payload.token,
-      refreshToken: payload.refreshToken,
+      metamaskAccount: payload?.metamaskAddress,
+      token: payload?.token,
+      refreshToken: payload?.refreshToken,
     };
     const newUserObject = {
       ...JSON.parse(window.localStorage.getItem('user')),
-      token: payload.token,
-      refreshToken: payload.refreshToken,
+      token: payload?.token,
+      refreshToken: payload?.refreshToken,
     };
     window.localStorage.setItem('user', JSON.stringify(newUserObject));
   },
