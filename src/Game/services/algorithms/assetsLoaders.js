@@ -1,5 +1,5 @@
 import { TextureLoader } from 'three';
-import { FBXLoader } from 'three-stdlib';
+import { FBXLoader, GLTFLoader, DRACOLoader } from 'three-stdlib';
 
 
 export const loadTexture = (url) => {
@@ -15,3 +15,13 @@ export const loadFBX = (url) => {
     fbxLoader.load(url, resolve);
   });
 };
+
+export const loadGLB = (url) => {
+  return new Promise((resolve) => {
+    const glbLoader = new GLTFLoader();
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('/node_modules/examples/js/libs/draco/')
+    glbLoader.setDRACOLoader(dracoLoader);
+    glbLoader.load(url, resolve);
+  });
+}

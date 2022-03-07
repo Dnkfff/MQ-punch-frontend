@@ -2,7 +2,7 @@ import { getUUID } from '../get-uuid/get-uuid';
 
 import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from './events';
 
-export const SERVER_URL = 'https://stage.mq-punch.com';
+export const SERVER_URL = 'http://localhost:8080';
 
 // in miliseconds ( one hour )
 export const refreshTokenCoolDown = 60 * 60 * 1000;

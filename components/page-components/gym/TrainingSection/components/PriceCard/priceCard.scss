@@ -1,0 +1,28 @@
+.price-container {
+    background-color: #EE0304;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    padding: 6px 16px;
+
+    span {
+        color: #fff;
+        font-size: 16px;
+    }   
+}
+
+.price-container:hover {
+    background-color: #860000;
+}
+
+.disabled {
+    background-color: #860000;
+    cursor: not-allowed;
+}

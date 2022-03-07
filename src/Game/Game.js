@@ -26,10 +26,14 @@ const Game = () => {
       let camera;
       ({ scene, camera, renderer, composer } = setupWebGL({ container, window }));
 
-      ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
+      await setupBoxers(scene);
+
+      // ({ leftBoxer, rightBoxer } = await setupBoxers(scene));
+
+      const model = await setupBoxers(scene);
 
       const skybox = await setupSkybox(scene);
-      cameraController = new CameraController(camera, skybox, leftBoxer.model);
+      cameraController = new CameraController(camera, skybox, model);
 
       setupRing(scene);
 
@@ -44,10 +48,10 @@ const Game = () => {
       updateCanvasSize();
 
       deltaTime = clock.getDelta();
-      if (deltaTime > 0) {
-        leftBoxer.animate(deltaTime);
-        rightBoxer.animate(deltaTime);
-      }
+      // if (deltaTime > 0) {
+      //   leftBoxer.animate(deltaTime);
+      //   rightBoxer.animate(deltaTime);
+      // }
 
       cameraController.update(deltaTime);
 

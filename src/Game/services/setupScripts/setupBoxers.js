@@ -1,7 +1,7 @@
 import { AnimationMixer, LoopOnce, LoopRepeat } from 'three';
 import { SkeletonUtils } from 'three-stdlib';
 
-import { loadFBX } from '../algorithms/assetsLoaders';
+import { loadFBX, loadGLB } from '../algorithms/assetsLoaders';
 
 import webGLParameters from '../constants/webGLParameters';
 import boxerParameters from '../constants/boxerParameters';
@@ -11,7 +11,7 @@ import animationsNames, { loopedAnimationsNames } from '../constants/animationsN
 import Boxer from '../classes/Boxer/Boxer';
 
 
-const MODEL_NAME = 'ybot';
+const MODEL_NAME = 'boxer';
 
 
 const setupBoxers = async (scene) => {
@@ -19,8 +19,40 @@ const setupBoxers = async (scene) => {
   let leftAnimationMixer, rightAnimationMixer;
   const leftAnimationActions = {}, rightAnimationActions = {};
 
-  const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx')
-  .then((model) => {
+  // const modelsLoadingPromise = loadFBX('../../../../assets/models/' + MODEL_NAME + '.fbx')
+  //   .then((model) => {
+  //     console.log('FBX', model);
+  //     model.traverse((obj) => {
+  //       obj.layers.set(webGLParameters.layers.NORMAL);
+  //     });
+
+  //     const scaleCoefficient = boxerParameters.scale * 0.15;
+  //     model.scale.set(scaleCoefficient, scaleCoefficient, scaleCoefficient);
+
+  //     leftModel = SkeletonUtils.clone(model);
+  //     leftModel.rotation.y = Math.PI / 2;
+  //     leftModel.position.set(ringParameters.canvas.width / 4, 0, ringParameters.canvas.width / 2);
+
+  //     rightModel = SkeletonUtils.clone(model);
+  //     rightModel.rotation.y = -Math.PI / 2;
+  //     rightModel.position.set(
+  //       (ringParameters.canvas.width * 3) / 4,
+  //       0,
+  //       ringParameters.canvas.width / 2
+  //     );
+
+  //     scene.add(leftModel, rightModel);
+
+  //     leftAnimationMixer = new AnimationMixer(leftModel);
+  //     rightAnimationMixer = new AnimationMixer(rightModel);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+  loadGLB('../../../../assets/models/' + '2' + '.glb').then((glb) => {
+    console.log('GLB', glb);
+    const model = glb.scene;
     model.traverse((obj) => {
       obj.layers.set(webGLParameters.layers.NORMAL);
     });
@@ -31,36 +63,28 @@ const setupBoxers = async (scene) => {
     leftModel = SkeletonUtils.clone(model);
     leftModel.rotation.y = Math.PI / 2;
     leftModel.position.set(ringParameters.canvas.width / 4, 0, ringParameters.canvas.width / 2);
-
-    rightModel = SkeletonUtils.clone(model);
-    rightModel.rotation.y = -Math.PI / 2;
-    rightModel.position.set(ringParameters.canvas.width * 3 / 4, 0, ringParameters.canvas.width / 2);
-
-    scene.add(leftModel, rightModel);
-
-    leftAnimationMixer = new AnimationMixer(leftModel);
-    rightAnimationMixer = new AnimationMixer(rightModel);
-  }).catch((error) => {
-    console.log(error);
+    scene.add(leftModel);
   });
+  
+  // await modelsLoadingPromise;
 
-  await modelsLoadingPromise;
+  // const animationsLoadingPromises =
+  //   animationsNames.map((name) => loadFBX('../../../../assets/animations/' + name + '.fbx')
+  //   .then((animation) => {
+  //     leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
+  //     leftAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+  //     leftAnimationActions[name].clampWhenFinished = true;
+  //     rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
+  //     rightAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
+  //     rightAnimationActions[name].clampWhenFinished = true;
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   })
+  // );
 
-  const animationsLoadingPromises =
-    animationsNames.map((name) => loadFBX('../../../../assets/animations/' + name + '.fbx')
-    .then((animation) => {
-      leftAnimationActions[name] = leftAnimationMixer.clipAction(animation.animations[0]);
-      leftAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
-      leftAnimationActions[name].clampWhenFinished = true;
-      rightAnimationActions[name] = rightAnimationMixer.clipAction(animation.animations[0]);
-      rightAnimationActions[name].setLoop(loopedAnimationsNames.includes(name) ? LoopRepeat : LoopOnce);
-      rightAnimationActions[name].clampWhenFinished = true;
-    }).catch((error) => {
-      console.log(error);
-    })
-  );
+  // await Promise.all(animationsLoadingPromises);
 
-  await Promise.all(animationsLoadingPromises);
+  return leftModel;
 
   return {
     leftBoxer: new Boxer(leftModel, leftAnimationMixer, leftAnimationActions),

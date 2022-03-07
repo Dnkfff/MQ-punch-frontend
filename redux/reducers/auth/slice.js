@@ -31,6 +31,7 @@ const loginExtraReducer = {
       metamaskAccount: payload.metamaskAddress,
       token: payload.token,
       refreshToken: payload.refreshToken,
+      id: '9b45fa0e-be9f-4a29-954e-8558ba19e72a',
     };
     window.localStorage.setItem(
       'user',
@@ -38,6 +39,7 @@ const loginExtraReducer = {
         metamaskAddress: payload.metamaskAddress,
         token: payload.token,
         refreshToken: payload.refreshToken,
+        id: '9b45fa0e-be9f-4a29-954e-8558ba19e72a',
       })
     );
   },
@@ -76,6 +78,7 @@ const refreshTokenExtraReducer = {
       metamaskAccount: payload.metamaskAddress,
       token: payload.token,
       refreshToken: payload.refreshToken,
+      id: '9b45fa0e-be9f-4a29-954e-8558ba19e72a',
     };
     const newUserObject = {
       ...JSON.parse(window.localStorage.getItem('user')),
