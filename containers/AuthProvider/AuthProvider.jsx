@@ -67,8 +67,7 @@ const AuthProvider = ({ children }) => {
       dispatch(getUserProfile());
     }
 
-    const previousProfileInfo = JSON.parse(window.localStorage.getItem('profile_user'));
-    dispatch(resetProfileUser(previousProfileInfo));
+    dispatch(resetProfileUser());
   };
 
   useEffect(() => {

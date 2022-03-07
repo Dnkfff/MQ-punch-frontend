@@ -11,4 +11,11 @@
   .boxers_info {
     width: 100%;
   }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    row-gap: 20px;
+    column-gap: 0px;
+    min-height: auto;
+  }
 }

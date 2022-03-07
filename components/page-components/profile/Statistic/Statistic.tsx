@@ -31,9 +31,12 @@ const Statistic: React.FC = () => {
         <div className='statistic-icon'>
           <ChartDiagramIcon />
         </div>
-        <span className='statistic-text'>
-          {winratePercent}% ({winsCount}-{lossesCount})
-        </span>
+        <div className='statistic-winrate'>
+          <span className='statistic-text'>{winratePercent}%</span>
+          <span className='statistic-text'>
+            ({winsCount}-{lossesCount})
+          </span>
+        </div>
       </div>
       <div className='statistic-item'>
         <div className='statistic-icon'>

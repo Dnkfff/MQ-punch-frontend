@@ -20,6 +20,16 @@
     flex-wrap: wrap;
   }
 
+  .slider-container {
+    width: 100%;
+    margin-top: 10px;
+
+    div.mq-punch-boxer_profile {
+      margin: 0 auto;
+      margin-bottom: 5px;
+    }
+  }
+
   .visit-market {
     width: 100%;
     margin-top: 20px;
@@ -51,6 +61,25 @@
     .info-msg {
       font-size: 14px;
       margin-top: 40px;
+    }
+
+    @media screen and (max-width: 600px) {
+      padding: 20px;
+      padding-bottom: 10px;
+
+      h3 {
+        text-align: center;
+        font-size: 22px;
+      }
+      .market-text {
+        text-align: center;
+        font-size: 18px;
+      }
+      .info-msg {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+      }
     }
   }
 }

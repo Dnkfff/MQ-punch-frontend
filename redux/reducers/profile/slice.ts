@@ -127,6 +127,7 @@ export const slice = createSlice({
     });
     // get boxers
     builder.addCase(getUserBoxers.fulfilled, (state, { payload }) => {
+      window.localStorage.setItem('profile-boxers', JSON.stringify(payload));
       state.boxers = payload;
     });
   },
@@ -134,8 +135,12 @@ export const slice = createSlice({
     setEditMode: (state, action) => {
       state.edit_mode = action.payload;
     },
-    resetProfileUser: (state, action) => {
-      state.user = action.payload;
+    resetProfileUser: (state) => {
+      state.user = JSON.parse(window.localStorage.getItem('profile-user'));
+      state.avgRating = JSON.parse(window.localStorage.getItem('avgRating'));
+      state.earnings = JSON.parse(window.localStorage.getItem('earnings'));
+      state.winrate = JSON.parse(window.localStorage.getItem('winrate'));
+      state.boxers = JSON.parse(window.localStorage.getItem('profile-boxers'));
     },
     resetEarnings: (state, action) => {
       state.earnings = action.payload;
