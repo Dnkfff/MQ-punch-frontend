@@ -13,8 +13,13 @@
   position: relative;
 
   @media screen and (max-width: 600px) {
-    width: 300px;
-    min-width: 300px;
+    width: 290px;
+    min-width: 290px;
+  }
+
+  @media screen and (max-width: 330px) {
+    width: 280px;
+    min-width: 280px;
   }
 
   .settings {

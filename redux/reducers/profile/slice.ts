@@ -136,7 +136,7 @@ export const slice = createSlice({
       state.edit_mode = action.payload;
     },
     resetProfileUser: (state) => {
-      state.user = JSON.parse(window.localStorage.getItem('profile-user'));
+      state.user = JSON.parse(window.localStorage.getItem('profile_user'));
       state.avgRating = JSON.parse(window.localStorage.getItem('avgRating'));
       state.earnings = JSON.parse(window.localStorage.getItem('earnings'));
       state.winrate = JSON.parse(window.localStorage.getItem('winrate'));
