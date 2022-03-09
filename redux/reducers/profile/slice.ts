@@ -87,6 +87,26 @@ export const getUserBoxers = createAsyncThunk('profile/get-boxers', async (_, th
   }
 });
 
+export const getAnotherUserProfileInfo = createAsyncThunk<any, any, { rejectValue: any }>(
+  'profile/get-another-user-profile',
+  async ({ userId }, thunkAPI) => {
+    thunkAPI.dispatch(setAuthLoading(true));
+
+    try {
+      const profileResult = await User.getProfile({ userId });
+      const boxersResult = await User.getBoxersInWallet({ userId });
+      thunkAPI.dispatch(setAuthLoading(false));
+
+      return { profile: profileResult?.data?.me || null, boxers: boxersResult?.data?.boxers || [] };
+    } catch (error) {
+      console.log(error);
+      toast.errorMessage('Server error while trying to get profile');
+      thunkAPI.dispatch(setAuthLoading(false));
+      return { profile: null, boxers: [] };
+    }
+  }
+);
+
 export const slice = createSlice({
   name: 'profile',
   initialState: {
@@ -96,6 +116,11 @@ export const slice = createSlice({
     earnings: null,
     winrate: null,
     boxers: null,
+    another_user_profile: null,
+    another_user_avgRating: null,
+    another_user_earnings: null,
+    another_user_winrate: null,
+    another_user_boxers: null,
   },
   extraReducers: (builder) => {
     // get profile
@@ -129,6 +154,21 @@ export const slice = createSlice({
     builder.addCase(getUserBoxers.fulfilled, (state, { payload }) => {
       window.localStorage.setItem('profile-boxers', JSON.stringify(payload));
       state.boxers = payload;
+    });
+    // get another user
+    builder.addCase(getAnotherUserProfileInfo.pending, (state) => {
+      state.edit_mode = false;
+      state.another_user_boxers = null;
+      state.another_user_profile = null;
+    });
+    builder.addCase(getAnotherUserProfileInfo.fulfilled, (state, { payload }) => {
+      state.another_user_boxers = payload.boxers;
+      if (payload.profile) {
+        state.another_user_profile = payload.profile.user;
+        state.another_user_avgRating = payload.profile.avgRating;
+        state.another_user_earnings = payload.profile.earnings;
+        state.another_user_winrate = payload.profile.winrate;
+      }
     });
   },
   reducers: {

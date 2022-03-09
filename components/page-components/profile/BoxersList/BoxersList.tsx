@@ -9,6 +9,10 @@ import Boxer from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 // interface
 import { IProfileBoxer } from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 
+interface IBoxersList {
+  isAnother: boolean;
+}
+
 const MOBILE_SLIDER_SETTINGS = {
   dots: true,
   infinite: true,
@@ -18,7 +22,7 @@ const MOBILE_SLIDER_SETTINGS = {
   intialSlide: 0,
 };
 
-const BoxerListWrapper = ({ mobileVersion, boxers }) => {
+const BoxerListWrapper = ({ mobileVersion, isAnother, boxers }) => {
   if (mobileVersion) {
     return (
       <>
@@ -38,7 +42,7 @@ const BoxerListWrapper = ({ mobileVersion, boxers }) => {
         <h4 className='boxers-list-title'>YOUR BOXERS</h4>
         <div className='row'>
           {boxers.map((boxer: IProfileBoxer) => (
-            <Boxer key={boxer.id} boxer={boxer} />
+            <Boxer key={boxer.id} boxer={boxer} disabledGym={!!isAnother} />
           ))}
         </div>
       </>
@@ -46,16 +50,21 @@ const BoxerListWrapper = ({ mobileVersion, boxers }) => {
   }
 };
 
-const BoxersList: React.FC = () => {
-  const boxers = useTypedSelector((state) => state.profile.boxers);
+const BoxersList: React.FC<IBoxersList> = ({ isAnother }) => {
+  const boxersLabel = isAnother ? 'another_user_boxers' : 'boxers';
+  const boxers = useTypedSelector((state) => state.profile[boxersLabel]);
   const screenWidth = useTypedSelector((state) => state.global_manager.screen_width);
 
   return (
     <div className='boxers_list'>
       {boxers && boxers.length !== 0 && (
-        <BoxerListWrapper mobileVersion={screenWidth && screenWidth < 600} boxers={boxers} />
+        <BoxerListWrapper
+          mobileVersion={screenWidth && screenWidth < 600}
+          isAnother={isAnother}
+          boxers={boxers}
+        />
       )}
-      {!boxers && (
+      {((boxers && boxers.length === 0) || !boxers) && (
         <div className='visit-market'>
           <h3>You don't have any boxers yet.</h3>
           <span className='market-text'>

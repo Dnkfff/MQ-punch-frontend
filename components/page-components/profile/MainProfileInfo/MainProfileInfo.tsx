@@ -22,6 +22,10 @@ interface IEditForm {
   discord: IInputItem;
 }
 
+interface IMainProfileInfo {
+  isAnother: boolean;
+}
+
 const DEFAULT_EDIT_FORM_FROM_REDUX = (userInfoFromRedux: any) => ({
   email: {
     value: userInfoFromRedux && userInfoFromRedux.email ? userInfoFromRedux.email : '',
@@ -72,10 +76,11 @@ const DEFAULT_EDIT_FORM_FROM_REDUX = (userInfoFromRedux: any) => ({
   },
 });
 
-const MainProfileInfo: React.FC = () => {
+const MainProfileInfo: React.FC<IMainProfileInfo> = ({ isAnother }) => {
   const dispatch = useDispatch();
   const editMode = useTypedSelector((state) => state.profile.edit_mode);
-  const userInfoFromRedux = useTypedSelector((state) => state.profile.user);
+  const userInfoFromReduxLabel = isAnother ? 'another_user_profile' : 'user';
+  const userInfoFromRedux = useTypedSelector((state) => state.profile[userInfoFromReduxLabel]);
   const [editForm, setEditForm] = useState<null | IEditForm>(
     DEFAULT_EDIT_FORM_FROM_REDUX(userInfoFromRedux)
   );
@@ -107,7 +112,7 @@ const MainProfileInfo: React.FC = () => {
 
   return (
     <section className='profile_info'>
-      {editMode && (
+      {editMode && !isAnother && (
         <>
           <IconButtonWithTooltip
             className={cn('profile-global-save-icon', { disabled: saveProfileDisabled })}
@@ -148,7 +153,7 @@ const MainProfileInfo: React.FC = () => {
           </IconButtonWithTooltip>
         </>
       )}
-      {!editMode && (
+      {!editMode && !isAnother && (
         <IconButtonWithTooltip
           className='profile-global-edit-icon'
           onClick={() => {
@@ -171,7 +176,7 @@ const MainProfileInfo: React.FC = () => {
             <ImageContainer />
           </div>
           <div className='nickname-wallet'>
-            {!editMode && <h3 className='nickname'>{userInfoFromRedux?.username || '17etro'}</h3>}
+            {!editMode && <h3 className='nickname'>{userInfoFromRedux?.username || '-'}</h3>}
             {editMode && (
               <input
                 className='nickname-input'
@@ -216,12 +221,14 @@ const MainProfileInfo: React.FC = () => {
             />
           </div>
         </div>
-        <div className='profile_info_content__settings'>
-          <button className='notifications-button'>
-            <SettingsIcon />
-            <span>Notifications</span>
-          </button>
-        </div>
+        {!isAnother && (
+          <div className='profile_info_content__settings'>
+            <button className='notifications-button'>
+              <SettingsIcon />
+              <span>Notifications</span>
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

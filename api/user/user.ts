@@ -33,9 +33,7 @@ class User {
     }
     const url = urlParams.toString();
 
-    return aAxios.get(
-      `${SERVER_URL}/user/me` + (url.toString() !== '' ? '?' + url.toString() : '')
-    );
+    return aAxios.get(`${SERVER_URL}/user/me` + (url !== '' ? '?' + url : ''));
   }
 
   static async saveUserProfile({ username, email, discord }) {

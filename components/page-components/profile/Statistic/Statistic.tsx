@@ -6,10 +6,17 @@ import ChartDiagramIcon from '../../../../assets/website/profile/chart-diagram.s
 import ChartIcon from '../../../../assets/website/profile/chart.svg';
 import TrophiesIcon from '../../../../assets/website/profile/trophies.svg';
 
-const Statistic: React.FC = () => {
-  const avgRating = useTypedSelector((state) => state.profile.avgRating);
-  const earnings = useTypedSelector((state) => state.profile.earnings);
-  const winrate = useTypedSelector((state) => state.profile.winrate);
+interface IStatistic {
+  isAnother: boolean;
+}
+
+const Statistic: React.FC<IStatistic> = ({ isAnother }) => {
+  const avgRatingLabel = isAnother ? 'another_user_avgRating' : 'avgRating';
+  const earningsLabel = isAnother ? 'another_user_earnings' : 'earnings';
+  const winrateLabel = isAnother ? 'another_user_winrate' : 'winrate';
+  const avgRating = useTypedSelector((state) => state.profile[avgRatingLabel]);
+  const earnings = useTypedSelector((state) => state.profile[earningsLabel]);
+  const winrate = useTypedSelector((state) => state.profile[winrateLabel]);
 
   const earningsString = earnings ? (+earnings).toFixed(4) : '0';
   const lossesCount =

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useTypedSelector } from '../../../../redux/store';
 
 // components
 import WeightCategory from '../WeightCategory/WeightCategory';
@@ -43,7 +44,10 @@ export interface IProfileBoxer {
   weightClass: string;
 }
 
-const Boxer: React.FC<{ boxer: IProfileBoxer }> = ({ boxer }) => {
+const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props) => {
+  const { boxer, disabledGym } = props;
+  const user = useTypedSelector((state) => state.profile.user);
+
   const lossesCount =
     boxer.numberOfWins !== null && boxer.numberOfFights !== null
       ? +boxer.numberOfFights - +boxer.numberOfWins
@@ -54,12 +58,19 @@ const Boxer: React.FC<{ boxer: IProfileBoxer }> = ({ boxer }) => {
       ? (+boxer.numberOfWins / +boxer.numberOfFights).toFixed(0)
       : 0;
 
+  let profileLink = `/profile/${boxer.ownerId}`;
+  if (user && user.id === boxer.ownerId) {
+    profileLink = '/profile';
+  }
+
   return (
     <div className='mq-punch-boxer_profile'>
       <div className='settings'>
-        <button>
-          <i className='fas fa-dumbbell' />
-        </button>
+        {!disabledGym && (
+          <button>
+            <i className='fas fa-dumbbell' />
+          </button>
+        )}
         <button>3D</button>
       </div>
       <div className='boxer-preview'>
@@ -68,7 +79,7 @@ const Boxer: React.FC<{ boxer: IProfileBoxer }> = ({ boxer }) => {
       <div className='boxer-text'>
         <span className='name'>{boxer.name}</span>
         <span className='owner'>
-          owned by <Link href={'/profile'}>{boxer.owner.nickname}</Link>
+          owned by <Link href={profileLink}>{boxer.owner.nickname}</Link>
         </span>
       </div>
       <div className='boxers-stats'>
@@ -84,7 +95,7 @@ const Boxer: React.FC<{ boxer: IProfileBoxer }> = ({ boxer }) => {
           <WeightCategory category={WEIGHT_CATEGORY_TO_LABEL_MATCH[boxer.weightClass]} />
         </div>
         <div className='boxer-stat'>
-          <span className='boxer-stat__title'>boxer</span>
+          <span className='boxer-stat__title'>WINRATE</span>
           <span className='boxer-stat__value'>
             {winratePercent}%{' '}
             <span className='boxer-stat__value-secondary'>
