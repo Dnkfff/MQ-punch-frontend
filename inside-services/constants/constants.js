@@ -3,6 +3,7 @@ import { getUUID } from '../get-uuid/get-uuid';
 import { DEFAULT_TOURNAMENTS_SCREEN_ROUTE } from './events';
 
 export const SERVER_URL = 'https://stage.mq-punch.com';
+export const GUIDE_URL = 'https://guide.mq-punch.com/';
 export const ICONS_STORAGE_URL = 'https://cdn-mq.fra1.digitaloceanspaces.com/site/';
 
 // in miliseconds ( one hour )
@@ -26,21 +27,21 @@ export const MONTHS = [
   'September',
   'October',
   'November',
-  'December',
+  'December'
 ];
 
 export const bigHeaderMenuLinks = [
-  { label: 'Market', id: getUUID(), pathname: '/market' },
+  //{ label: 'Market', id: getUUID(), pathname: '/market' },
   {
     label: 'Tournaments',
     id: getUUID(),
-    pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE,
+    pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE
   },
   { label: 'Gym', id: getUUID(), pathname: '/gym' },
   {
     label: 'Leaderboard',
     id: getUUID(),
-    pathname: '/leaderboard',
+    pathname: '/leaderboard'
   },
-  { label: 'Learn', id: getUUID(), pathname: '/learn' },
+  { label: 'Learn', id: getUUID(), pathname: '/learn' }
 ];
