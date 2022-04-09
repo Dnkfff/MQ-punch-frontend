@@ -1,15 +1,26 @@
 .training-card {
     background-color: #000;
-    height: 250px;
     position: relative;
-    width: 70%;
+    width: calc(100% - 20px);
     margin: 0 auto;
     max-width: 1200px;
-    background-image: url('../../../../../../assets/website/gym/agility.svg');
+    border-radius: 5px;
+    overflow: hidden;
 
-    .price-container {
+    span.training_not_avaliable {
+        color: #aaa;
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+        padding: 6px 16px;
+        font-size: 20px;
+    }
+
+    .training-button {
+        outline: none;
+        border: none;
         background-color: #EE0304;
-        border-radius: 9px;
+        border-radius: 5px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -27,7 +38,7 @@
         }   
     }
 
-    .price-container:hover {
+    .training-button:hover {
         background-color: #860000;
     }
 
@@ -38,20 +49,20 @@
 
     .info-container {
         position: absolute;
-        top: 20%;
-        left: 8%;
+        top: 30px;
+        left: 50px;
         display: flex;
         flex-direction: column;
         
         .title {
             color: #fff;
-            font-size: 22px;
+            font-size: 40px;
         }  
         
         .description {
             color: #fff;
             font-size: 18px;
-            margin-top: 8px;
+            font-weight: 400;
         }
     }
 }

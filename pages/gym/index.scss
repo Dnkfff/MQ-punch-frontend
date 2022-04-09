@@ -1,8 +1,21 @@
-.global-leaderboard-page {
+.global__gym {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 20px;
-  justify-content: center;
+
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 32px;
+    color: $text-dark;
+    margin-top: 15px;
+  }
+
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: $text-dark;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
 }

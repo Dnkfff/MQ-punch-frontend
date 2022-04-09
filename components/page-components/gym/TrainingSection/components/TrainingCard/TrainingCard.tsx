@@ -1,9 +1,10 @@
 import React from 'react';
+import cn from 'classnames';
 
 interface TrainingCardProps {
   title: string;
   description: string;
-  imageSrc: string;
+  imageSrc: StaticImageData;
   pointsPerTraining: number;
   price: number;
   isMaxed: boolean;
@@ -22,19 +23,17 @@ const TrainingCard = ({
   return (
     <div className='training-card'>
       <div className='info-container'>
-        <span className='title'>{title}</span>
-        <span className='description'>{description}</span>
+        <h3 className='title'>{title}</h3>
+        <h4 className='description'>{description}</h4>
       </div>
-      <div className={`price-container ${isMaxed ? 'disabled' : ''}`} onClick={startTraining}>
-        {isMaxed ? (
-          <span className='text'>{`Training limit exceeded`}</span>
-        ) : (
-          <>
-            <span className='text'>{`${pointsPerTraining.toFixed(1)} point/hour`}</span>
-            <span className='text'>{`${price}$`}</span>
-          </>
-        )}
-      </div>
+      {isMaxed && <span className='training_not_avaliable'>Training limit exceeded</span>}
+      {!isMaxed && (
+        <button className={'training-button'} onClick={startTraining}>
+          <span className='text'>{`${pointsPerTraining.toFixed(1)} point/hour`}</span>
+          <span className='text'>{price}$</span>
+        </button>
+      )}
+      <img className='training-card__background' src={imageSrc.src} />
     </div>
   );
 };

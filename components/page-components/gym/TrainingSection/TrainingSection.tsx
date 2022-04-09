@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-import BoxersAPI from '../../../../api/boxers/boxers';
+import React from 'react';
 import TrainingAPI from '../../../../api/trainings/trainings';
 import { TrainingState, TrainingTypes } from '../../../../inside-services/types/boxers';
 import { TrainingCard } from './components';
 import ActiveTraining from './components/ActiveTraining/ActiveTraining';
+
+// assets
+import strengthBanner from 'assets/website/gym/banners/bench_press.png';
+import agilityBanner from 'assets/website/gym/banners/agility.png';
+import staminaBanner from 'assets/website/gym/banners/stamina.png';
 
 interface TrainingSectionProps {
   trainingState: TrainingState;
@@ -16,21 +20,21 @@ const staticTrainingPropsMap = {
     infoCardProps: {
       title: 'Bench press',
       description: 'improves your strength',
-      imageSrc: '',
+      imageSrc: strengthBanner,
     },
   },
   [TrainingTypes.STAMINA]: {
     infoCardProps: {
       title: 'Jogging',
       description: 'improves your stamina',
-      imageSrc: '',
+      imageSrc: agilityBanner,
     },
   },
   [TrainingTypes.AGILITY]: {
     infoCardProps: {
       title: 'Jump rope',
       description: 'improves your agility',
-      imageSrc: '',
+      imageSrc: staminaBanner,
     },
   },
 };
@@ -51,8 +55,7 @@ const TrainingSection = ({ trainingState, boxerId, refetch }: TrainingSectionPro
   };
 
   // TODO: need to discuss if we want to show some animations
-
-  console.log({ trainingState })
+  console.log({ trainingState });
 
   if (trainingState.isInProgress) {
     return (

@@ -86,8 +86,15 @@ const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props)
         <div className='boxer-stat'>
           <span className='boxer-stat__title'>DIVISION</span>
           <div className='boxer-state__value-extended'>
-            <span className='boxer-stat__value'>{boxer.boxerRating[0].rating}</span>
-            <img src={`${ICONS_STORAGE_URL}${boxer.boxerRating[0].division}.svg`} alt='' />
+            <span className='boxer-stat__value'>
+              {boxer.boxerRating[0] ? boxer.boxerRating[0].rating : 0}
+            </span>
+            <img
+              src={`${ICONS_STORAGE_URL}${
+                boxer.boxerRating[0] ? boxer.boxerRating[0].division : 'BRONZE'
+              }.svg`}
+              alt=''
+            />
           </div>
         </div>
         <div className='boxer-stat'>

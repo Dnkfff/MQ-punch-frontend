@@ -9,7 +9,8 @@ import SocialTradeBanner from '../../components/page-components/market-page/Soci
 const Market = () => {
   return (
     <div className='global-market-page'>
-      <OpenSeaBanner />
+      <h2>coming soon...</h2>
+      {/* <OpenSeaBanner />
       <BoxersList />
 
       <div className='maklet__social'>
@@ -26,7 +27,7 @@ const Market = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

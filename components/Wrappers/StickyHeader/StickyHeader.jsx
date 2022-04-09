@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
@@ -21,6 +22,7 @@ import { HiMenuAlt2 } from 'react-icons/hi';
 
 const StickyHeader = (props) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { showStickyHeader } = props;
   const profileDropDownRef = useRef(getUUID());
 
