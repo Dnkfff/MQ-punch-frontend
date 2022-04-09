@@ -33,6 +33,8 @@
 @import '../components/UI/GlobalLoader/globalLoader.scss';
 @import '../components/UI/PortalModal/portalModal.scss';
 @import '../components/UI/Spinner/spinner.scss';
+@import '../components/UI/Slider/slider.scss';
+
 // --- icon-buttons
 @import '../components/UI/icon_buttons/IconButton/iconButton.scss';
 @import '../components/UI/icon_buttons/IconButtonWithTooltip/iconButtonWithTooltip.scss';
@@ -72,6 +74,10 @@
 // gym
 @import '../pages/gym/index.scss';
 @import '../components/page-components/gym/BoxerPreview/boxerPreview.scss';
+@import '../components/page-components/gym/TrainingSection/trainingSection.scss';
+@import '../components/page-components/gym/TrainingSection/components/InfoCard/infoCard.scss';
+@import '../components/page-components/gym/TrainingSection/components/PriceCard/priceCard.scss';
+@import '../components/page-components/gym/TrainingSection/components/TrainingCard/trainingCard.scss';
 
 // market
 @import '../pages/market/market.scss';

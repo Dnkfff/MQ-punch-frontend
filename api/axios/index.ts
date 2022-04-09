@@ -23,7 +23,7 @@ const axiosFromInstance = (axiosInstance: AxiosInstance) => ({
     }),
 });
 
-export const calculateAxiosAuth = () => {
+const axiosAuth = () => {
   let token = null;
   if (typeof window !== 'undefined' && window?.localStorage.getItem('user')) {
     token = JSON.parse(window?.localStorage.getItem('user'))?.token;
@@ -39,6 +39,5 @@ export const calculateAxiosAuth = () => {
 };
 
 const axios = axiosFromInstance(aAxios);
-const axiosAuth = calculateAxiosAuth();
 
 export { axios, axiosAuth };

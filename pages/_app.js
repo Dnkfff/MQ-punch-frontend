@@ -11,6 +11,8 @@ import RouterGuard from '../containers/RouterGuard/RouterGuard';
 import ErrorBoundary from '../containers/ErrorBoundary/ErrorBoundary';
 
 import '../styles/index.scss';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function MyApp({ Component, pageProps }) {
   return (
