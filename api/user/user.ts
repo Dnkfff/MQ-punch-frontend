@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { axiosAuth } from '..';
+import { axiosAuth, axios } from 'api/axios';
 
-import { SERVER_URL } from '../../inside-services/constants/constants';
+import { SERVER_URL } from 'inside-services/constants/constants';
 
 interface IUpdateUserProfile {
   email: string;
@@ -17,37 +16,33 @@ class User {
   }
 
   static async refreshToken({ refreshToken }) {
-    const aAxios = axiosAuth();
     const url = `${SERVER_URL}/auth/refresh`;
 
-    return aAxios.post(url, {
+    return axiosAuth.post(url, {
       refreshToken,
     });
   }
 
   static async getProfile({ userId }) {
-    const aAxios = axiosAuth();
     const urlParams = new URLSearchParams('');
     if (userId) {
       urlParams.append('userId', userId);
     }
     const url = urlParams.toString();
 
-    return aAxios.get(`${SERVER_URL}/user/me` + (url !== '' ? '?' + url : ''));
+    return axiosAuth.get(`${SERVER_URL}/user/me` + (url !== '' ? '?' + url : ''));
   }
 
   static async saveUserProfile({ username, email, discord }) {
-    const aAxios = axiosAuth();
     const url = `${SERVER_URL}/user`;
 
-    return aAxios.patch(url, { username, email, discord });
+    return axiosAuth.patch(url, { username, email, discord });
   }
 
   static async getBoxersInWallet({ userId }) {
-    const aAxios = axiosAuth();
     const url = `${SERVER_URL}/boxer/all?ownerId=${userId}`;
 
-    return aAxios.get(url);
+    return axiosAuth.get(url);
   }
 }
 
