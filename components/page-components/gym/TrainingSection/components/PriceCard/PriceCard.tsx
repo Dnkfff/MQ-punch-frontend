@@ -1,14 +1,16 @@
 import React from 'react';
+import { Training } from '../../../../../../inside-services/types/boxers';
 
 interface PriceCardProps {
   pointsPerTraining: number;
   price: number;
-  isDisabled: boolean;
+  isMaxed: boolean;
+  startTraining: () => Promise<void>
 }
 
-const PriceCard = ({ pointsPerTraining, price, isDisabled }: PriceCardProps) => {
+const PriceCard = ({ pointsPerTraining, price, isMaxed, startTraining }: PriceCardProps) => {
   return (
-    <div className={`price-container ${isDisabled ? 'disabled' : ''}`}>
+    <div className={`price-container ${isMaxed ? 'disabled' : ''}`} onClick={startTraining}>
       <span className='text'>{`${pointsPerTraining.toFixed(1)} point/hour`}</span>
       <span className='text'>{`${price}$`}</span>
     </div>
