@@ -1,52 +1,40 @@
 import React from 'react';
-import { InfoCard, PriceCard } from '..';
 
-type TrainingType = 'strength' | 'stamina' | 'agility';
 interface TrainingCardProps {
   title: string;
   description: string;
   imageSrc: string;
   pointsPerTraining: number;
   price: number;
-  isActionDisabled: boolean;
+  isMaxed: boolean;
+  startTraining: () => Promise<void>;
 }
 
 const TrainingCard = ({
   title,
   description,
+  imageSrc,
   pointsPerTraining,
   price,
-  isActionDisabled,
+  isMaxed,
+  startTraining,
 }: TrainingCardProps) => {
-  const trainingPropsMap = {
-    strength: {
-      infoCardProps: {
-        title: 'Bench press',
-        description: 'improves your strength',
-      },
-    },
-    stamina: {
-      infoCardProps: {
-        title: 'Jogging',
-        description: 'improves your stamina',
-      },
-    },
-    agility: {
-      infoCardProps: {
-        title: 'Jump rope',
-        description: 'improves your agility',
-      },
-    },
-  };
-
   return (
     <div className='training-card'>
-      <InfoCard title={title} description={description} />
-      <PriceCard
-        pointsPerTraining={pointsPerTraining}
-        price={price}
-        isDisabled={isActionDisabled}
-      />
+      <div className='info-container'>
+        <span className='title'>{title}</span>
+        <span className='description'>{description}</span>
+      </div>
+      <div className={`price-container ${isMaxed ? 'disabled' : ''}`} onClick={startTraining}>
+        {isMaxed ? (
+          <span className='text'>{`Training limit exceeded`}</span>
+        ) : (
+          <>
+            <span className='text'>{`${pointsPerTraining.toFixed(1)} point/hour`}</span>
+            <span className='text'>{`${price}$`}</span>
+          </>
+        )}
+      </div>
     </div>
   );
 };

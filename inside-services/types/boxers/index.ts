@@ -14,33 +14,54 @@ export enum BoxerWeightClass {
   SUPERHEAVYWEIGHT = 'SUPERHEAVYWEIGHT',
 }
 
-export type OpenseaMetadata = {
-  id: string;
-  tokenAddress: string;
-  initialSellPrice: number;
-}
-
 export type Stats = {
   strength: number;
   agility: number;
   stamina: number;
 };
 
-export type TrainingType = 'STRENGTH' | 'AGILITY' | 'STAMINA';
-export interface NextTrainingAttributeInfo {
-  boost: number | null;
+
+export enum TrainingTypes {
+  STRENGTH = 'STRENGTH',
+  AGILITY = 'AGILITY',
+  STAMINA = 'STAMINA',
+}
+
+export enum TrainingStatus {
+  IN_PROGRESS = 'IN_PROGRESS',
+  FINISHED = 'FINISHED',
+  CANCELED = 'CANCELED',
+}
+
+export type Training = {
+  id: string;
+  price: number;
+  amountGained: number;
+  type: TrainingTypes;
+  status: TrainingStatus;
+  startedAt: Date;
+  boxerId: string;
+};
+
+
+export type NextTrainingInfo = {
+  price: number;
+  boost: number;
+};
+export interface AttributeNextTrainingState {
   isMaxed: boolean;
-  trainingDuration: number;
-  trainingPrice: number;
+  nextTrainingInfo: NextTrainingInfo | null;
 }
 
-export type NextTrainingInfo = Record<TrainingType, NextTrainingAttributeInfo>;
+export type NextTrainings = Record<TrainingTypes, AttributeNextTrainingState>;
 
-export type TrainingInfo = {
-  nextTraining: NextTrainingInfo,
+export type TrainingState = {
+  nextTrainings: NextTrainings | null;
   isInProgress: boolean;
-  trainingFinishesAt: string | null;
-}
+  activeTraining: Training | null;
+  trainingDuration: number;
+};
+
 
 export type Boxer = {
   id: string;
@@ -54,6 +75,5 @@ export type Boxer = {
   ownerId: string;
   statsId: string;
   stats: Stats;
-  openseaMetadata?: OpenseaMetadata;
-  trainingInfo?: TrainingInfo;
+  trainingState?: TrainingState;
 };

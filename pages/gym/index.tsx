@@ -9,47 +9,67 @@ import SliderComponent from '../../components/UI/Slider/Slider';
 import { getUUID } from '../../inside-services/get-uuid/get-uuid';
 import { Boxer, BoxerWeightClass } from '../../inside-services/types/boxers';
 
-const getMockBoxer: () => Boxer = () => ({
-  id: getUUID(),
-  name: 'Mike Tyson',
-  modelLink: './',
-  numberOfFights: 10,
-  numberOfWins: 7,
-  points: 5000,
-  weightClass: BoxerWeightClass.HEAVYWEIGHT,
-  stats: {
-    strength: 20,
-    stamina: 11,
-    agility: 13,
-  },
-  statsId: getUUID(),
-  ownerId: getUUID(),
-  logo: './',
-  trainingInfo: {
-    nextTraining: {
-      AGILITY: {
-        boost: 2,
-        isMaxed: false,
-        trainingDuration: 2,
-        trainingPrice: 2,
+type GetBoxerFn = (trainingInProgress?: boolean) => Boxer;
+
+const getMockBoxer: GetBoxerFn = (trainingInProgress = false) => {
+  const boxerId = getUUID();
+  return {
+    id: boxerId,
+    name: 'Mike Tyson',
+    modelLink: './',
+    numberOfFights: 10,
+    numberOfWins: 7,
+    points: 5000,
+    weightClass: BoxerWeightClass.HEAVYWEIGHT,
+    stats: {
+      strength: 20,
+      stamina: 11,
+      agility: 13,
+    },
+    statsId: getUUID(),
+    ownerId: getUUID(),
+    logo: './',
+    trainingState: {
+      nextTrainings: {
+        AGILITY: {
+          nextTrainingInfo: {
+            price: 10,
+            boost: 10,
+          },
+          isMaxed: false,
+        },
+        STAMINA: {
+          nextTrainingInfo: {
+            price: 10,
+            boost: 10,
+          },
+          isMaxed: false,
+        },
+        STRENGTH: {
+          nextTrainingInfo: {
+            price: 10,
+            boost: 10,
+          },
+          isMaxed: true,
+        },
       },
-      STAMINA: {
-        boost: 2,
-        isMaxed: false,
-        trainingDuration: 2,
-        trainingPrice: 2,
-      },
-      STRENGTH: {
-        boost: 2,
-        isMaxed: false,
-        trainingDuration: 2,
-        trainingPrice: 2,
+      isInProgress: trainingInProgress,
+      trainingDuration: 100000,
+      activeTraining: {
+        id: getUUID(),
+        price: 10,
+        amountGained: 20,
+        type: 'STAMINA',
+        status: 'IN_PROGRESS',
+        startedAt: Date.now(),
+        boxerId,
       },
     },
-    isInProgress: false,
-    trainingFinishesAt: null,
-  },
-});
+  };
+};
+
+
+const baseUrl = 'https://reqres.in/api/products/';
 
 const Gym = (props) => {
   // TODO: redux typing
@@ -64,12 +84,18 @@ const Gym = (props) => {
   };
 
   const updateBoxers = async () => {
-    if (!userId) return;
+    // if (!userId) return;
     // const response = await BoxersAPI.getBoxersByUserId({ userId });
     // TODO: connect real boxers
-    const [boxer1, boxer2] = [getMockBoxer(), getMockBoxer()];
-    setBoxers([boxer1, boxer2]);
-    setActiveBoxer(boxer1);
+    const boxers = [getMockBoxer(), getMockBoxer(true)];
+    boxers[0].trainingState.nextTrainings.AGILITY.nextTrainingInfo.boost = 99;
+    boxers[0].trainingState.nextTrainings.AGILITY.nextTrainingInfo.price = 99;
+    setBoxers(boxers);
+    const lastActiveBoxerId = activeBoxer?.id;
+    // in case length of boxers gets changed while refetching remember last id
+    const lastBoxer = boxers.find((boxer) => boxer.id === lastActiveBoxerId);
+    console.log(lastBoxer, boxers[0]);
+    setActiveBoxer(lastBoxer || boxers[0]);
     // setBoxers(response.data.boxers || []);
     // setActiveBoxer(response.data.boxers?.[0]);
   };
@@ -90,7 +116,13 @@ const Gym = (props) => {
           return <BoxerPreview key={boxer.id} boxer={boxer} />;
         })}
       </SliderComponent>
-      {activeBoxer && <TrainingSection trainingInfo={activeBoxer.trainingInfo} />}
+      {activeBoxer && (
+        <TrainingSection
+          boxerId={activeBoxer.id}
+          trainingState={activeBoxer.trainingState}
+          refetch={updateBoxers}
+        />
+      )}
     </div>
   );
 };
