@@ -1,0 +1,20 @@
+.global-modal-window-content.preview-3d-modal {
+  width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  top: 10%;
+  left: calc(50% - 250px);
+  margin: 0 auto;
+  background-color: rgb(240, 240, 240);
+  border-radius: 5px;
+  transition: height 0.2s ease;
+  overflow-y: auto;
+  color: $text-dark;
+  
+  & .preview-3d-modal-content {
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+  }
+}

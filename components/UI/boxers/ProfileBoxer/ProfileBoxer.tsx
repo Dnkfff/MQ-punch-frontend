@@ -1,13 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
-import { useTypedSelector } from '../../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from 'redux/store';
 
 // components
 import WeightCategory from '../WeightCategory/WeightCategory';
 
+// functions
+import { setGlobalModalData } from 'redux/reducers/GlobalManager/slice';
+
 // assets
-import BoxerImg from '../../../../assets/website/boxer/dummy-picture.svg';
+import BoxerImg from 'assets/website/boxer/dummy-picture.svg';
 
 // constants
 import { ICONS_STORAGE_URL, GYM_ROUTE } from 'services/constants/constants';
@@ -47,6 +51,7 @@ export interface IProfileBoxer {
 
 const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props) => {
   const { boxer, disabledGym } = props;
+  const dispatch = useDispatch();
   const user = useTypedSelector((state) => state.profile.user);
 
   const redirectToGym = (): void => {
@@ -54,6 +59,15 @@ const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props)
       pathname: GYM_ROUTE,
       query: { boxerId: boxer.id },
     });
+  };
+
+  const open3DPreview = (): void => {
+    dispatch(
+      setGlobalModalData({
+        template: 'preview-3d-modal',
+        onClose: () => dispatch(setGlobalModalData(null)),
+      })
+    );
   };
 
   const lossesCount =
@@ -79,7 +93,7 @@ const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props)
             <i className='fas fa-dumbbell' />
           </button>
         )}
-        <button>3D</button>
+        <button onClick={open3DPreview}>3D</button>
       </div>
       <div className='boxer-preview'>
         <BoxerImg />
