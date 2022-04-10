@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Router from 'next/router';
 import { useTypedSelector } from '../../../../redux/store';
 
 // components
@@ -9,8 +10,8 @@ import WeightCategory from '../WeightCategory/WeightCategory';
 import BoxerImg from '../../../../assets/website/boxer/dummy-picture.svg';
 
 // constants
-import { ICONS_STORAGE_URL } from '../../../../inside-services/constants/constants';
-import { WEIGHT_CATEGORY_TO_LABEL_MATCH } from '../../../../inside-services/constants/rating';
+import { ICONS_STORAGE_URL, GYM_ROUTE } from 'services/constants/constants';
+import { WEIGHT_CATEGORY_TO_LABEL_MATCH } from 'services/constants/rating';
 
 export interface IStats {
   agility: string | number;
@@ -48,6 +49,13 @@ const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props)
   const { boxer, disabledGym } = props;
   const user = useTypedSelector((state) => state.profile.user);
 
+  const redirectToGym = (): void => {
+    Router.push({
+      pathname: GYM_ROUTE,
+      query: { boxerId: boxer.id },
+    });
+  };
+
   const lossesCount =
     boxer.numberOfWins !== null && boxer.numberOfFights !== null
       ? +boxer.numberOfFights - +boxer.numberOfWins
@@ -67,7 +75,7 @@ const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props)
     <div className='mq-punch-boxer_profile'>
       <div className='settings'>
         {!disabledGym && (
-          <button>
+          <button onClick={redirectToGym}>
             <i className='fas fa-dumbbell' />
           </button>
         )}

@@ -7,7 +7,7 @@ import LiveEvents from '../../../components/page-components/main-page/LiveEvents
 import EventsTable from '../../../components/page-components/tournaments-page/EventsTable/EventsTable';
 
 // types
-import { EVENTS_PAGE_LABEL } from '../../../inside-services/constants/events';
+import { EVENTS_PAGE_LABEL } from 'services/constants/events';
 
 const TournamentsEvents = () => {
   const eventsLoading = useSelector((state) => state.tournaments.events_loading);

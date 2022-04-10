@@ -1,6 +1,6 @@
 import React from 'react';
 import TrainingAPI from '../../../../api/trainings/trainings';
-import { TrainingState, TrainingTypes } from '../../../../inside-services/types/boxers';
+import { TrainingState, TrainingTypes } from 'services/types/boxers';
 import { TrainingCard } from './components';
 import ActiveTraining from './components/ActiveTraining/ActiveTraining';
 

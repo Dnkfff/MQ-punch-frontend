@@ -10,8 +10,8 @@ import {
 } from '../../redux/reducers/tournaments/slice';
 
 // constants
-import { SERVER_URL } from '../../inside-services/constants/constants';
-import { RECORDS_FOR_PAGE } from '../../inside-services/constants/events';
+import { SERVER_URL } from 'services/constants/constants';
+import { RECORDS_FOR_PAGE } from 'services/constants/events';
 
 class BoxersAPI {
   static getBoxersByUserId({ userId }) {
@@ -22,7 +22,7 @@ class BoxersAPI {
   static getBoxerTrainingInfo({ boxerId, abortController }) {
     const url = `${SERVER_URL}/boxer/${boxerId}/training`;
     return axios.get(url, {
-      signal: abortController ? abortController.signal: undefined,
+      signal: abortController ? abortController.signal : undefined,
     });
   }
 }

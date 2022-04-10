@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTypedSelector } from '../../redux/store';
 
-import { PRIVATE_ROUTES } from '../../inside-services/constants/constants';
+import { PRIVATE_ROUTES } from 'services/constants/constants';
 
 interface IRouterGuard {
   children: React.ReactNode;

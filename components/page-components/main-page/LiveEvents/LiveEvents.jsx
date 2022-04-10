@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import LiveEventItem from '../LiveEventItem/LiveEventItem';
 
 // functions & constants
-import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 
 const LiveEvents = () => {
   const liveEventsLoading = useSelector((state) => state.tournaments.live_events_loading);

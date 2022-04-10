@@ -10,15 +10,15 @@ import {
 } from '../../redux/reducers/tournaments/slice';
 
 // constants
-import { SERVER_URL } from '../../inside-services/constants/constants';
+import { SERVER_URL } from 'services/constants/constants';
 
 class TrainingAPI {
   static startTraining({ boxerId, type, isFree }) {
     const url = `${SERVER_URL}/training`;
-      return axios.post(url, {
-        boxerId,
-        type,
-        isFree: Boolean(isFree),
+    return axios.post(url, {
+      boxerId,
+      type,
+      isFree: Boolean(isFree),
     });
   }
 }

@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
 
 // functions and constants
-import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
+import { bigHeaderMenuLinks } from 'services/constants/constants';
 import {
   changeMobileMenuOpened,
   setGlobalModalData,
 } from '../../../redux/reducers/GlobalManager/slice';
 import { onLogOut } from '../../../redux/reducers/auth/slice';
-import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 
 import CreditCardSVG from '../../../assets/website/icons/credit_card_black.svg';
 import ProfileIconSVG from '../../../assets/website/icons/profile_icon_black.svg';

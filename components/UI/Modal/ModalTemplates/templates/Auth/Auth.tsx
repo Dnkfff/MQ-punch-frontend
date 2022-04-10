@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Web3 from 'web3';
-
-// functions & constants
-import { onLogIn } from '../../../../../../redux/reducers/auth/slice';
-
-// assets
-import MetamaskIcon from '../../../../../../assets/website/icons/metamask.svg';
 import { GrClose } from 'react-icons/gr';
 
-const AuthModal = ({ data }) => {
+// functions & constants
+import { onLogIn } from 'redux/reducers/auth/slice';
+
+// assets
+import MetamaskIcon from 'assets/website/icons/metamask.svg';
+
+interface IAuthModal {
+  data: {
+    onClose: () => void;
+  };
+}
+
+const AuthModal: React.FC<IAuthModal> = ({ data }) => {
   const { onClose } = data;
   const dispatch = useDispatch();
 
-  const [warningMessage, setWarningMessage] = useState(null);
-  const [metamaskDoesntExist, setMetamaskDoenstExist] = useState(null);
+  const [warningMessage, setWarningMessage] = useState<null | string>(null);
+  const [metamaskDoesntExist, setMetamaskDoenstExist] = useState<null | { text: string }>(null);
 
   const logIn = async () => {
     try {

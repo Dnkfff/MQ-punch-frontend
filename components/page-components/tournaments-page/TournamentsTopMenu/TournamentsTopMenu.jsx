@@ -11,7 +11,7 @@ import {
   tournamentsTopMenuLinks,
   pageMatchEventStatus,
   PAGES_WHERE_RENDER_LIVE_EVENTS,
-} from '../../../../inside-services/constants/events';
+} from 'services/constants/events';
 
 // functions
 import {

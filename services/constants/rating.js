@@ -1,4 +1,4 @@
-import { getUUID } from '../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 
 // assets
 import WoodDivisionIcon from '../../assets/website/division_icons/dummy/wood.svg';

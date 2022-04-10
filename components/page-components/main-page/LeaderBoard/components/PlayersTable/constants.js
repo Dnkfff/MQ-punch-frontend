@@ -1,43 +1,43 @@
-import { getUUID } from "../../../../../../inside-services/get-uuid/get-uuid";
+import { getUUID } from 'services/get-uuid/get-uuid';
 
 export const playersTableHead = [
   {
-    caption: "PLACEMENT",
+    caption: 'PLACEMENT',
     id: getUUID(),
-    style: { width: "15%", padding: "20px 20px" },
-    field: "number",
-    className: "number",
+    style: { width: '15%', padding: '20px 20px' },
+    field: 'number',
+    className: 'number',
   },
   {
-    caption: "NAME",
+    caption: 'NAME',
     id: getUUID(),
-    style: { width: "40%", padding: "20px 20px" },
-    field: "name",
-    className: "name",
+    style: { width: '40%', padding: '20px 20px' },
+    field: 'name',
+    className: 'name',
   },
   {
-    caption: "WINRATE",
+    caption: 'WINRATE',
     id: getUUID(),
-    style: { width: "20%", padding: "20px 20px" },
-    field: "winrate",
-    className: "winrate",
-    icon: <i className="fad fa-angle-double-up" />,
+    style: { width: '20%', padding: '20px 20px' },
+    field: 'winrate',
+    className: 'winrate',
+    icon: <i className='fad fa-angle-double-up' />,
   },
   {
-    caption: "TROPHIES",
+    caption: 'TROPHIES',
     id: getUUID(),
-    style: { width: "20%", padding: "20px 20px" },
-    field: "trophies",
-    className: "trophies",
-    icon: <i className="fad fa-trophy-alt" />,
+    style: { width: '20%', padding: '20px 20px' },
+    field: 'trophies',
+    className: 'trophies',
+    icon: <i className='fad fa-trophy-alt' />,
   },
   {
-    caption: "PRIZE",
+    caption: 'PRIZE',
     id: getUUID(),
-    style: { width: "20%", padding: "20px 20px" },
-    field: "prize",
-    className: "prize",
-    icon: <i className="fad fa-usd-circle" />,
+    style: { width: '20%', padding: '20px 20px' },
+    field: 'prize',
+    className: 'prize',
+    icon: <i className='fad fa-usd-circle' />,
   },
 ];
 
@@ -45,73 +45,73 @@ export const playersTableBody = [
   {
     id: getUUID(),
     number: {
-      caption: "1",
+      caption: '1',
     },
     name: {
-      caption: "Дамочка №3547 Дамочка №3547",
+      caption: 'Дамочка №3547 Дамочка №3547',
     },
     winrate: {
-      caption: "100%",
+      caption: '100%',
     },
     trophies: {
-      caption: "1499",
+      caption: '1499',
     },
     prize: {
-      caption: "1000$",
+      caption: '1000$',
     },
   },
   {
     id: getUUID(),
     number: {
-      caption: "1",
+      caption: '1',
     },
     name: {
-      caption: "Дамочка №3547",
+      caption: 'Дамочка №3547',
     },
     winrate: {
-      caption: "100%",
+      caption: '100%',
     },
     trophies: {
-      caption: "1499",
+      caption: '1499',
     },
     prize: {
-      caption: "1000$",
+      caption: '1000$',
     },
   },
   {
     id: getUUID(),
     number: {
-      caption: "1",
+      caption: '1',
     },
     name: {
-      caption: "Дамочка №3547",
+      caption: 'Дамочка №3547',
     },
     winrate: {
-      caption: "100%",
+      caption: '100%',
     },
     trophies: {
-      caption: "1499",
+      caption: '1499',
     },
     prize: {
-      caption: "1000$",
+      caption: '1000$',
     },
   },
   {
     id: getUUID(),
     number: {
-      caption: "1",
+      caption: '1',
     },
     name: {
-      caption: "Дамочка №3547",
+      caption: 'Дамочка №3547',
     },
     winrate: {
-      caption: "100%",
+      caption: '100%',
     },
     trophies: {
-      caption: "1499",
+      caption: '1499',
     },
     prize: {
-      caption: "1000$",
+      caption: '1000$',
     },
   },
 ];

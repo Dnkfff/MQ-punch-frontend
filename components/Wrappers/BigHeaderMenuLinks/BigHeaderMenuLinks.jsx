@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { bigHeaderMenuLinks } from '../../../inside-services/constants/constants';
+import { bigHeaderMenuLinks } from 'services/constants/constants';
 
 const BigHeaderMenuLinks = () => {
   const router = useRouter();

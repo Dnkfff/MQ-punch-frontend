@@ -6,8 +6,14 @@ import ReactTooltip from 'react-tooltip';
 import MqPunchCard from './components/MQPunchCard';
 import MetamaskCard from './components/MetamaskCard';
 
-const Balance = ({ data }) => {
-  const [mode, setMode] = useState(null);
+interface IBalance {
+  data: {
+    onClose: () => void;
+  };
+}
+
+const Balance: React.FC<IBalance> = ({ data }) => {
+  const [mode, setMode] = useState<'withdraw' | 'deposit' | null>(null);
 
   return (
     <>

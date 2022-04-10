@@ -9,7 +9,7 @@ import {
   EVENTS_PAGE_LABEL,
   RESULTS_PAGE_LABEL,
   YOUR_TOURNAMENTS_PAGE_LABEL,
-} from '../../../../inside-services/constants/events';
+} from 'services/constants/events';
 
 const MainEventsBlock = (props) => {
   const { type } = props;

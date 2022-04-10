@@ -6,7 +6,7 @@ import PortalModal from '../../UI/PortalModal/PortalModal';
 import SelectDivisionItems from './SelectDivisionItems/SelectDivisionItems';
 
 // constants
-import { DIVISION_SELECTOR_TYPE } from '../../../inside-services/constants/constants';
+import { DIVISION_SELECTOR_TYPE } from 'services/constants/constants';
 
 const PADDING_FROM_WINDOW_BORDER = 20;
 

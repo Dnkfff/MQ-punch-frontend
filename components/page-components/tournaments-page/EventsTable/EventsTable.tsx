@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import Spinner from '../../../UI/Spinner/Spinner';
 
 // function
-import { getUUID } from '../../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 import { setPageSearchResult } from '../../../../redux/reducers/tournaments/slice';
 
 // service
@@ -15,13 +15,10 @@ import { EventsMapper } from './EventsMapper/EventsMapper';
 // api
 import EventsAPI from '../../../../api/events/events';
 // constants
-import {
-  pageMatchEventStatus,
-  EVENTS_PAGE_LABEL,
-} from '../../../../inside-services/constants/events';
+import { pageMatchEventStatus, EVENTS_PAGE_LABEL } from 'services/constants/events';
 
 // types
-import { FutureEventType } from '../../../../inside-services/types/events/events';
+import { FutureEventType } from 'services/types/events/events';
 
 interface EventsTabProps {
   eventsLoading: boolean;

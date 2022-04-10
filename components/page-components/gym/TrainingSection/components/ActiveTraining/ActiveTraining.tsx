@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Training } from '../../../../../../inside-services/types/boxers';
+import { Training } from 'services/types/boxers';
 import ProgressBar from '../../../../../UI/ProgressBar/ProgressBar';
 
 interface ActiveTrainingProps {
@@ -8,9 +8,8 @@ interface ActiveTrainingProps {
 }
 
 const ActiveTraining = ({ trainingDuration, training }: ActiveTrainingProps) => {
-
   // todo: normal timer
-  const [progress, setProgress] = useState<number>(40);  
+  const [progress, setProgress] = useState<number>(40);
   //const endsAt = +training.startedAt + trainingDuration
   // const now = Date.now();
 

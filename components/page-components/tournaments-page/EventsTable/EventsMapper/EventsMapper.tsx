@@ -1,8 +1,8 @@
 import cn from 'classnames';
 
 // types
-import { FutureEventType } from '../../../../../inside-services/types/events/events';
-import { DIVISION_TO_ICON_MATCH } from '../../../../../inside-services/constants/rating';
+import { FutureEventType } from 'services/types/events/events';
+import { DIVISION_TO_ICON_MATCH } from 'services/constants/rating';
 
 // components
 import { OpenedEventPreview } from '../OpenedEventPreview/OpenedEventPreview';

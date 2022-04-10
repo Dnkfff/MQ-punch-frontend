@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 // constants
-import { userProfileExpirationTime } from '../../inside-services/constants/constants';
+import { userProfileExpirationTime } from 'services/constants/constants';
 
 // functions
 import { onLogOut, onRefreshToken, onResetUserInfo } from '../../redux/reducers/auth/slice';

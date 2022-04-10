@@ -4,10 +4,10 @@ import { useTypedSelector } from '../../../../redux/store';
 import { useDispatch } from 'react-redux';
 
 // components
-import { IconButtonWithTooltip } from '../../../UI/icon_buttons/IconButtonWithTooltip/IconButtonWithTooltip';
+import { IconButtonWithTooltip } from '../../../UI/IconButtons/IconButtonWithTooltip/IconButtonWithTooltip';
 
 // constants
-import { IInputItem } from '../../../../inside-services/types/form/form';
+import { IInputItem } from 'services/types/form/form';
 
 // redux
 import { setEditMode, updateUserProfile } from '../../../../redux/reducers/profile/slice';

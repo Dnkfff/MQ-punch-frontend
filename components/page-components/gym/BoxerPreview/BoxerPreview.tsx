@@ -2,7 +2,7 @@ import React from 'react';
 
 // assets
 import BoxerImage from '../../../../assets/website/tyson.svg';
-import { Boxer } from '../../../../inside-services/types/boxers';
+import { Boxer } from 'services/types/boxers';
 import ThreeDIcon from '../../../../assets/website/icons/3d.svg';
 
 interface BoxerPreviewProps {

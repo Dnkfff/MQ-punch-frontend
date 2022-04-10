@@ -15,9 +15,9 @@ import {
   INPUT_TYPE,
   DOUBLE_DATE_SELECTOR_TYPE,
   DIVISION_SELECTOR_TYPE,
-} from '../../../../inside-services/constants/form';
-import { pageMatchEventStatus } from '../../../../inside-services/constants/events';
-import { SELECT_DIVISION_ITEMS } from '../../../../inside-services/constants/rating';
+} from 'services/constants/form';
+import { pageMatchEventStatus } from 'services/constants/events';
+import { SELECT_DIVISION_ITEMS } from 'services/constants/rating';
 
 // api
 import EventsAPI from '../../../../api/events/events';

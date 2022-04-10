@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useTypedSelector as useSelector } from '../../../../../redux/store';
 
 // types
-import { PlayerType } from '../../../../../inside-services/types/events/events';
+import { PlayerType } from 'services/types/events/events';
 
 interface OpenedEventPreviewInterface {
   openedEvent: any;

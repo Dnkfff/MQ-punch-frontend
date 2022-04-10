@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import cn from 'classnames';
 
 // functions & constants
-import { LEADERBOARD_SLIDES } from '../../../../../../inside-services/constants/rating';
+import { LEADERBOARD_SLIDES } from 'services/constants/rating';
 
 // css for slider
 import 'slick-carousel/slick/slick.css';

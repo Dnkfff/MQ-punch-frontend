@@ -1,11 +1,11 @@
 import React from 'react';
-import { Training } from '../../../../../../inside-services/types/boxers';
+import { Training } from 'services/types/boxers';
 
 interface PriceCardProps {
   pointsPerTraining: number;
   price: number;
   isMaxed: boolean;
-  startTraining: () => Promise<void>
+  startTraining: () => Promise<void>;
 }
 
 const PriceCard = ({ pointsPerTraining, price, isMaxed, startTraining }: PriceCardProps) => {

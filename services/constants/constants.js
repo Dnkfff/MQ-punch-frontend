@@ -30,18 +30,23 @@ export const MONTHS = [
   'December',
 ];
 
+export const MARKET_ROUTE = '/market';
+export const GYM_ROUTE = '/gym';
+export const LEADERBOARD_ROUTE = '/leaderboard';
+export const LEARN_ROUTE = '/learn';
+
 export const bigHeaderMenuLinks = [
-  //{ label: 'Market', id: getUUID(), pathname: '/market' },
+  //{ label: 'Market', id: getUUID(), pathname: MARKET_ROUTE },
   {
     label: 'Tournaments',
     id: getUUID(),
     pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE,
   },
-  { label: 'Gym', id: getUUID(), pathname: '/gym' },
+  { label: 'Gym', id: getUUID(), pathname: GYM_ROUTE },
   {
     label: 'Leaderboard',
     id: getUUID(),
-    pathname: '/leaderboard',
+    pathname: LEADERBOARD_ROUTE,
   },
-  { label: 'Learn', id: getUUID(), pathname: '/learn' },
+  { label: 'Learn', id: getUUID(), pathname: LEARN_ROUTE },
 ];

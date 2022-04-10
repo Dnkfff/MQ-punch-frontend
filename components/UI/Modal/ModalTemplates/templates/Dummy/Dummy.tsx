@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Dummy = (props) => {
+const Dummy: React.FC = () => {
   return (
     <div style={{ backgroundColor: 'white', width: '100px', height: '100px' }}>
       <span>Current modal doesn`t exist</span>

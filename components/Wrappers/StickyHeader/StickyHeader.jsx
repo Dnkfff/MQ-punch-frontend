@@ -12,7 +12,7 @@ import {
   changeMobileMenuOpened,
   setGlobalModalData,
 } from '../../../redux/reducers/GlobalManager/slice';
-import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 
 // assets
 import logotype from '../../../assets/website/logos/mq-punch-logo-small.png';

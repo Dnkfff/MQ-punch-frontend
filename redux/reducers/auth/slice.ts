@@ -3,13 +3,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import User from '../../../api/user/user';
 import { getUserProfile, localStorageClearProfile } from '../profile/slice';
 
-import { refreshTokenCoolDown } from '../../../inside-services/constants/constants';
+import { refreshTokenCoolDown } from 'services/constants/constants';
 
 export const localStorageClearAuth = () => {
   window.localStorage.removeItem('user');
 };
 
-export const onLogIn = createAsyncThunk(
+export const onLogIn = createAsyncThunk<any, any, any>(
   'auth/login',
   async ({ signature, metamaskAddress }, thunkAPI) => {
     const loginResult = await User.logIn({ signedSignature: signature });
@@ -33,30 +33,7 @@ export const onLogIn = createAsyncThunk(
   }
 );
 
-const loginExtraReducer = {
-  [onLogIn.pending]: (state) => {
-    state.authLoading = true;
-    state.authError = false;
-    state.user = null;
-  },
-  [onLogIn.fulfilled]: (state, { payload }) => {
-    state.authLoading = false;
-    state.authError = false;
-    state.user = {
-      metamaskAccount: payload?.metamaskAddress,
-      token: payload?.token,
-      refreshToken: payload?.refreshToken,
-    };
-  },
-  [onLogIn.rejected]: (state) => {
-    state.authLoading = false;
-    state.authError = true;
-    state.user = null;
-    window.localStorage.removeItem('user');
-  },
-};
-
-export const onRefreshToken = createAsyncThunk(
+export const onRefreshToken = createAsyncThunk<any, any, any>(
   'auth/refresh-token',
   async ({ refreshToken }, thunkAPI) => {
     try {
@@ -78,34 +55,6 @@ export const onRefreshToken = createAsyncThunk(
   }
 );
 
-const refreshTokenExtraReducer = {
-  [onRefreshToken.pending]: (state) => {
-    state.authLoading = true;
-    state.authError = false;
-  },
-  [onRefreshToken.fulfilled]: (state, { payload }) => {
-    state.authLoading = false;
-    state.authError = false;
-    state.user = {
-      metamaskAccount: payload?.metamaskAddress,
-      token: payload?.token,
-      refreshToken: payload?.refreshToken,
-    };
-    const newUserObject = {
-      ...JSON.parse(window.localStorage.getItem('user')),
-      token: payload?.token,
-      refreshToken: payload?.refreshToken,
-    };
-    window.localStorage.setItem('user', JSON.stringify(newUserObject));
-  },
-  [onRefreshToken.rejected]: (state) => {
-    state.authLoading = false;
-    state.authError = true;
-    state.user = null;
-    window.localStorage.removeItem('user');
-  },
-};
-
 const slice = createSlice({
   name: 'auth',
   initialState: {
@@ -113,12 +62,55 @@ const slice = createSlice({
     authLoading: false,
     authError: false,
   },
-  extraReducers: {
+  extraReducers: (builder) => {
     // login
-    ...loginExtraReducer,
+    builder.addCase(onLogIn.pending, (state) => {
+      state.authLoading = true;
+      state.authError = false;
+      state.user = null;
+    });
+    builder.addCase(onLogIn.fulfilled, (state, { payload }) => {
+      state.authLoading = false;
+      state.authError = false;
+      state.user = {
+        metamaskAccount: payload?.metamaskAddress,
+        token: payload?.token,
+        refreshToken: payload?.refreshToken,
+      };
+    });
+    builder.addCase(onLogIn.rejected, (state) => {
+      state.authLoading = false;
+      state.authError = true;
+      state.user = null;
+      window.localStorage.removeItem('user');
+    });
 
     // refresh
-    ...refreshTokenExtraReducer,
+    builder.addCase(onRefreshToken.pending, (state) => {
+      state.authLoading = true;
+      state.authError = false;
+    });
+    builder.addCase(onRefreshToken.fulfilled, (state, { payload }) => {
+      state.authLoading = false;
+      state.authError = false;
+      state.user = {
+        metamaskAccount: payload?.metamaskAddress,
+        token: payload?.token,
+        refreshToken: payload?.refreshToken,
+      };
+      const newUserObject = {
+        ...JSON.parse(window.localStorage.getItem('user')),
+        token: payload?.token,
+        refreshToken: payload?.refreshToken,
+      };
+      window.localStorage.setItem('user', JSON.stringify(newUserObject));
+    });
+    builder.addCase(onRefreshToken.rejected, (state) => {
+      state.authLoading = false;
+      state.authError = true;
+      state.user = null;
+      window.localStorage.removeItem('user');
+    });
   },
   reducers: {
     onLogOut: (state) => {

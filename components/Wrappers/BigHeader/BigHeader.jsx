@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import BigHeaderMenuLinks from '../BigHeaderMenuLinks/BigHeaderMenuLinks';
 
-import { getUUID } from '../../../inside-services/get-uuid/get-uuid';
+import { getUUID } from 'services/get-uuid/get-uuid';
 import {
   changeHeaderHeight,
   changeMobileMenuOpened,

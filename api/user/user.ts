@@ -1,6 +1,8 @@
 import { axiosAuth, axios } from 'api/axios';
+import { IBase, IResponse } from 'services/types/api';
 
-import { SERVER_URL } from 'inside-services/constants/constants';
+import { SERVER_URL } from 'services/constants/constants';
+import { ILogin } from './models';
 
 interface IUpdateUserProfile {
   email: string;
@@ -9,16 +11,16 @@ interface IUpdateUserProfile {
 }
 
 class User {
-  static async logIn({ signedSignature }) {
+  static async logIn({ signedSignature }: { signedSignature: string }): Promise<IResponse<ILogin>> {
     const url = `${SERVER_URL}/auth`;
 
-    return axios.post(url, { signedSignature });
+    return axios.post<IBase<ILogin>>(url, { signedSignature });
   }
 
   static async refreshToken({ refreshToken }) {
     const url = `${SERVER_URL}/auth/refresh`;
 
-    return axiosAuth().post(url, {
+    return axiosAuth.post(url, {
       refreshToken,
     });
   }
@@ -30,19 +32,19 @@ class User {
     }
     const url = urlParams.toString();
 
-    return axiosAuth().get(`${SERVER_URL}/user/me` + (url !== '' ? '?' + url : ''));
+    return axiosAuth.get(`${SERVER_URL}/user/me` + (url !== '' ? '?' + url : ''));
   }
 
   static async saveUserProfile({ username, email, discord }) {
     const url = `${SERVER_URL}/user`;
 
-    return axiosAuth().patch(url, { username, email, discord });
+    return axiosAuth.patch(url, { username, email, discord });
   }
 
   static async getBoxersInWallet({ userId }) {
     const url = `${SERVER_URL}/boxer/all?ownerId=${userId}`;
 
-    return axiosAuth().get(url);
+    return axiosAuth.get(url);
   }
 }
 

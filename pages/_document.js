@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-// import importSvgMin from '../inside-services/import-svg-min/import-svg-min';
+// import importSvgMin from 'services/import-svg-min/import-svg-min';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {

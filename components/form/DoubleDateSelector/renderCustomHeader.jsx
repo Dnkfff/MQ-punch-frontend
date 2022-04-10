@@ -2,11 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 // constants
-import {
-  START_PERIOD_YEAR,
-  YEARS_RANGE,
-  MONTHS,
-} from '../../../inside-services/constants/constants';
+import { START_PERIOD_YEAR, YEARS_RANGE, MONTHS } from 'services/constants/constants';
 
 export const renderCustomHeader = ({
   date,

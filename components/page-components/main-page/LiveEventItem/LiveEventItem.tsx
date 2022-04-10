@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 // types
-import { LiveEventType } from '../../../../inside-services/types/events/events';
+import { LiveEventType } from 'services/types/events/events';
 
 // assets
 import goldenCup from '../../../../assets/website/division_icons/preview_first/golden.png';

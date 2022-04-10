@@ -5,8 +5,8 @@ import { useTypedSelector } from 'redux/store';
 import BoxerPreview from '../../components/page-components/gym/BoxerPreview/BoxerPreview';
 import TrainingSection from '../../components/page-components/gym/TrainingSection/TrainingSection';
 import SliderComponent from '../../components/UI/Slider/Slider';
-import { getUUID } from '../../inside-services/get-uuid/get-uuid';
-import { Boxer, BoxerWeightClass } from '../../inside-services/types/boxers';
+import { getUUID } from 'services/get-uuid/get-uuid';
+import { Boxer, BoxerWeightClass } from 'services/types/boxers';
 
 type GetBoxerFn = (trainingInProgress?: boolean) => Boxer;
 
