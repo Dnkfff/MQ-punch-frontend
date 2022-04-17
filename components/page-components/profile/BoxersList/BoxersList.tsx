@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { useTypedSelector } from '../../../../redux/store';
 import Slider from 'react-slick';
 
@@ -8,6 +7,7 @@ import Boxer from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 
 // interface
 import { IProfileBoxer } from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
+import { VisitMarket } from 'components/page-components/market-page/VisitMarket/VisitMarket';
 
 interface IBoxersList {
   isAnother: boolean;
@@ -64,18 +64,7 @@ const BoxersList: React.FC<IBoxersList> = ({ isAnother }) => {
           boxers={boxers}
         />
       )}
-      {((boxers && boxers.length === 0) || !boxers) && (
-        <div className='visit-market'>
-          <h3>You don't have any boxers yet.</h3>
-          <span className='market-text'>
-            Visit <Link href={'/market'}>MQ Punch Market</Link> to get your first fighter
-          </span>
-          <span className='info-msg'>
-            If you have already bought fighter and have it in your wallet please relogin to see
-            updates
-          </span>
-        </div>
-      )}
+      {((boxers && boxers.length === 0) || !boxers) && <VisitMarket />}
     </div>
   );
 };

@@ -34,7 +34,6 @@
 @import '../components/UI/GlobalLoader/globalLoader.scss';
 @import '../components/UI/PortalModal/portalModal.scss';
 @import '../components/UI/Spinner/spinner.scss';
-@import '../components/UI/Slider/slider.scss';
 
 // --- icon-buttons
 @import '../components/UI/IconButtons/IconButton/iconButton.scss';
@@ -74,7 +73,6 @@
 
 // gym
 @import '../pages/gym/index.scss';
-@import '../components/page-components/gym/BoxerPreview/boxerPreview.scss';
 @import '../components/page-components/gym/TrainingSection/trainingSection.scss';
 @import '../components/page-components/gym/TrainingSection/components/InfoCard/infoCard.scss';
 @import '../components/page-components/gym/TrainingSection/components/PriceCard/priceCard.scss';
@@ -86,6 +84,7 @@
 @import '../components/page-components/market-page/BoxersList/boxers-list.scss';
 @import '../components/page-components/market-page/OpenSeaBanner/open-sea-banner.scss';
 @import '../components/page-components/market-page/SocialsTradeBanner/social-trade-banner.scss';
+@import '../components/page-components/market-page/VisitMarket/visitMarket.scss';
 
 // tournaments
 @import '../pages/tournaments/tournaments.scss';

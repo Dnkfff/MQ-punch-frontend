@@ -55,7 +55,6 @@ const TrainingSection = ({ trainingState, boxerId, refetch }: TrainingSectionPro
   };
 
   // TODO: need to discuss if we want to show some animations
-  console.log({ trainingState });
 
   if (trainingState.isInProgress) {
     return (

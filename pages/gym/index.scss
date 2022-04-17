@@ -17,5 +17,19 @@
     color: $text-dark;
     margin-top: 5px;
     margin-bottom: 15px;
+
+    a {
+      color: inherit;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
+
+  div.gym-boxer-container {
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
   }
 }

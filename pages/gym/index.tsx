@@ -1,77 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { useTypedSelector } from 'redux/store';
+import Slider, { Settings } from 'react-slick';
 
 // components
-import BoxerPreview from '../../components/page-components/gym/BoxerPreview/BoxerPreview';
-import TrainingSection from '../../components/page-components/gym/TrainingSection/TrainingSection';
-import SliderComponent from '../../components/UI/Slider/Slider';
-import { getUUID } from 'services/get-uuid/get-uuid';
-import { Boxer, BoxerWeightClass } from 'services/types/boxers';
+import ProfileBoxer from 'components/UI/boxers/ProfileBoxer/ProfileBoxer';
+import TrainingSection from 'components/page-components/gym/TrainingSection/TrainingSection';
+import { VisitMarket } from 'components/page-components/market-page/VisitMarket/VisitMarket';
+import { Boxer } from 'services/types/boxers';
 
-type GetBoxerFn = (trainingInProgress?: boolean) => Boxer;
+import { GUIDE_URL } from 'services/constants/constants';
 
-// const getMockBoxer: GetBoxerFn = (trainingInProgress = false) => {
-//   const boxerId = getUUID();
-//   return {
-//     id: boxerId,
-//     name: 'Mike Tyson',
-//     modelLink: './',
-//     numberOfFights: 10,
-//     numberOfWins: 7,
-//     points: 5000,
-//     weightClass: BoxerWeightClass.HEAVYWEIGHT,
-//     stats: {
-//       strength: 20,
-//       stamina: 11,
-//       agility: 13,
-//     },
-//     statsId: getUUID(),
-//     ownerId: getUUID(),
-//     logo: './',
-//     trainingState: {
-//       nextTrainings: {
-//         AGILITY: {
-//           nextTrainingInfo: {
-//             price: 10,
-//             boost: 10,
-//           },
-//           isMaxed: false,
-//         },
-//         STAMINA: {
-//           nextTrainingInfo: {
-//             price: 10,
-//             boost: 10,
-//           },
-//           isMaxed: false,
-//         },
-//         STRENGTH: {
-//           nextTrainingInfo: {
-//             price: 10,
-//             boost: 10,
-//           },
-//           isMaxed: true,
-//         },
-//       },
-//       isInProgress: trainingInProgress,
-//       trainingDuration: 100000,
-//       activeTraining: {
-//         id: getUUID(),
-//         price: 10,
-//         amountGained: 20,
-//         type: 'STAMINA',
-//         status: 'IN_PROGRESS',
-//         startedAt: Date.now(),
-//         boxerId,
-//       },
-//     },
-//   };
-// };
+const SLIDER_SETTINGS: Settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  initialSlide: 0,
+  className: 'mq-punch-slider',
+};
 
 const Gym = () => {
   const userId = useTypedSelector((state: any) => state.auth.user?.id);
-  const boxers = useTypedSelector((state) => state.profile.boxers || []);
+  const boxers = useTypedSelector((state) => state.profile.boxers) || [];
+  const router = useRouter();
 
-  const [activeBoxer, setActiveBoxer] = useState<Boxer>(null);
+  let sliderRef;
+  const [activeBoxer, setActiveBoxer] = useState<Boxer>(boxers[0]);
 
   const handleSlide = (_currentIndex: number, nextIndex: number) => {
     if (boxers[nextIndex]) setActiveBoxer(boxers[nextIndex]);
@@ -95,26 +51,59 @@ const Gym = () => {
   };
 
   useEffect(() => {
+    if (router.query && router.query.boxerId) {
+      const newActiveBoxer = boxers.find((boxer) => boxer.id === router.query.boxerId) || null;
+      if (newActiveBoxer) {
+        setActiveBoxer(newActiveBoxer);
+        sliderRef.slickGoTo(boxers.indexOf(newActiveBoxer));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (boxers && boxers.length !== 0) {
+      setActiveBoxer(boxers[0]);
+      sliderRef.slickGoTo(0);
+    }
+  }, [boxers]);
+
+  useEffect(() => {
     updateBoxers();
   }, [userId]);
 
   return (
     <div className='global__gym'>
       <h1>Training center</h1>
-      <h2>You need to train your boxer to improve some stats</h2>
-
-      <SliderComponent onChange={handleSlide}>
-        {boxers.map((boxer) => {
-          return <BoxerPreview key={boxer.id} boxer={boxer} />;
-        })}
-      </SliderComponent>
-
-      {activeBoxer && (
-        <TrainingSection
-          boxerId={activeBoxer.id}
-          trainingState={activeBoxer.trainingState}
-          refetch={updateBoxers}
-        />
+      <h2>
+        You need to train your boxer to improve some stats
+        <a href={GUIDE_URL} target={'_blank'}>
+          <i className='fas fa-info-circle' />
+        </a>
+      </h2>
+      {boxers.length === 0 && <VisitMarket />}
+      {boxers.length !== 0 && (
+        <>
+          <Slider
+            ref={(slider) => (sliderRef = slider)}
+            beforeChange={handleSlide}
+            {...SLIDER_SETTINGS}
+          >
+            {boxers.map((boxer) => {
+              return (
+                <div className='gym-boxer-container' key={boxer.id}>
+                  <ProfileBoxer boxer={boxer} disabledGym />
+                </div>
+              );
+            })}
+          </Slider>
+          {activeBoxer && (
+            <TrainingSection
+              boxerId={activeBoxer.id}
+              trainingState={activeBoxer.trainingState}
+              refetch={updateBoxers}
+            />
+          )}
+        </>
       )}
     </div>
   );
