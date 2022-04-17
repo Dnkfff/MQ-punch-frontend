@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mq-punch-front
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: mq-punch-front
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mq-punch-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mq-punch-front
+  template:
+    metadata:
+      labels:
+        app: mq-punch-front
+    spec:
+      containers:
+        - name: mq-punch-front
+          image: <IMAGE>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: stage-mq-punch
