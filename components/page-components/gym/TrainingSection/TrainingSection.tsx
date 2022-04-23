@@ -12,7 +12,6 @@ import staminaBanner from 'assets/website/gym/banners/stamina.png';
 interface TrainingSectionProps {
   trainingState: TrainingState;
   boxerId: string;
-  refetch: () => Promise<void>;
 }
 
 const staticTrainingPropsMap = {
@@ -39,11 +38,10 @@ const staticTrainingPropsMap = {
   },
 };
 
-const TrainingSection = ({ trainingState, boxerId, refetch }: TrainingSectionProps) => {
+const TrainingSection = ({ trainingState, boxerId }: TrainingSectionProps) => {
   const buildTrainingCardProps = (trainingType: TrainingTypes) => {
     const startTraining = async () => {
       await TrainingAPI.startTraining({ boxerId, type: trainingType, isFree: false });
-      await refetch();
     };
     return {
       pointsPerTraining: trainingState.nextTrainings[trainingType].nextTrainingInfo?.boost || 0,

@@ -22,32 +22,14 @@ const SLIDER_SETTINGS: Settings = {
 };
 
 const Gym = () => {
-  const userId = useTypedSelector((state: any) => state.auth.user?.id);
   const boxers = useTypedSelector((state) => state.profile.boxers) || [];
   const router = useRouter();
-
   let sliderRef;
+
   const [activeBoxer, setActiveBoxer] = useState<Boxer>(boxers[0]);
 
   const handleSlide = (_currentIndex: number, nextIndex: number) => {
     if (boxers[nextIndex]) setActiveBoxer(boxers[nextIndex]);
-  };
-
-  const updateBoxers = async () => {
-    // if (!userId) return;
-    // const response = await BoxersAPI.getBoxersByUserId({ userId });
-    // TODO: connect real boxers
-    // const boxers = [getMockBoxer(), getMockBoxer(true)];
-    // boxers[0].trainingState.nextTrainings.AGILITY.nextTrainingInfo.boost = 99;
-    // boxers[0].trainingState.nextTrainings.AGILITY.nextTrainingInfo.price = 99;
-    // setBoxers(boxers);
-    // const lastActiveBoxerId = activeBoxer?.id;
-    // // in case length of boxers gets changed while refetching remember last id
-    // const lastBoxer = boxers.find((boxer) => boxer.id === lastActiveBoxerId);
-    // console.log(lastBoxer, boxers[0]);
-    // setActiveBoxer(lastBoxer || boxers[0]);
-    // setBoxers(response.data.boxers || []);
-    // setActiveBoxer(response.data.boxers?.[0]);
   };
 
   useEffect(() => {
@@ -67,10 +49,6 @@ const Gym = () => {
     }
   }, [boxers]);
 
-  useEffect(() => {
-    updateBoxers();
-  }, [userId]);
-
   return (
     <div className='global__gym'>
       <h1>Training center</h1>
@@ -83,25 +61,23 @@ const Gym = () => {
       {boxers.length === 0 && <VisitMarket />}
       {boxers.length !== 0 && (
         <>
-          <Slider
-            ref={(slider) => (sliderRef = slider)}
-            beforeChange={handleSlide}
-            {...SLIDER_SETTINGS}
-          >
-            {boxers.map((boxer) => {
-              return (
-                <div className='gym-boxer-container' key={boxer.id}>
-                  <ProfileBoxer boxer={boxer} disabledGym />
-                </div>
-              );
-            })}
-          </Slider>
+          <div className='slider-container'>
+            <Slider
+              ref={(slider) => (sliderRef = slider)}
+              beforeChange={handleSlide}
+              {...SLIDER_SETTINGS}
+            >
+              {boxers.map((boxer) => {
+                return (
+                  <div className='gym-boxer-container' key={boxer.id}>
+                    <ProfileBoxer boxer={boxer} disabledGym />
+                  </div>
+                );
+              })}
+            </Slider>
+          </div>
           {activeBoxer && (
-            <TrainingSection
-              boxerId={activeBoxer.id}
-              trainingState={activeBoxer.trainingState}
-              refetch={updateBoxers}
-            />
+            <TrainingSection boxerId={activeBoxer.id} trainingState={activeBoxer.trainingState} />
           )}
         </>
       )}

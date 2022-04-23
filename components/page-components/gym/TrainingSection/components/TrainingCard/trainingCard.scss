@@ -7,6 +7,10 @@
     border-radius: 5px;
     overflow: hidden;
 
+    @media screen and (max-width: 800px) {
+        width: 100%;
+    }
+
     span.training_not_avaliable {
         color: #aaa;
         position: absolute;
@@ -19,7 +23,7 @@
     .training-button {
         outline: none;
         border: none;
-        background-color: #EE0304;
+        background-color: #860000;
         border-radius: 5px;
         display: flex;
         flex-direction: column;
@@ -36,15 +40,6 @@
             color: #fff;
             font-size: 16px;
         }   
-    }
-
-    .training-button:hover {
-        background-color: #860000;
-    }
-
-    .disabled {
-        background-color: #860000;
-        cursor: not-allowed;
     }
 
     .info-container {
@@ -64,5 +59,51 @@
             font-size: 18px;
             font-weight: 400;
         }
+
+        @media screen and (max-width: 800px) {
+            top: 0px;
+            left: 10px;
+
+            .title {
+                font-size: 20px;
+            } 
+
+            .description {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+.mobile-training-card-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    align-items: flex-end;
+
+    .training-button {
+        outline: none;
+        border: none;
+        background-color: #860000;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        padding: 3px 5px;
+
+        span {
+            color: #fff;
+            font-size: 11px;
+            line-height: 14px;
+        }   
+    }
+
+    span.training_not_avaliable {
+        color: #aaa;
+        padding: 3px 5px;
+        font-size: 12px;
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+import { useTypedSelector } from 'redux/store';
 
 interface TrainingCardProps {
   title: string;
@@ -20,20 +20,45 @@ const TrainingCard = ({
   isMaxed,
   startTraining,
 }: TrainingCardProps) => {
+  const screenWidth = useTypedSelector((state) => state.global_manager.screen_width);
+
+  const mobileView = screenWidth && screenWidth < 600;
+
+  if (!mobileView) {
+    return (
+      <div className='training-card'>
+        <div className='info-container'>
+          <h3 className='title'>{title}</h3>
+          <h4 className='description'>{description}</h4>
+        </div>
+        {isMaxed && <span className='training_not_avaliable'>Training limit exceeded</span>}
+        {!isMaxed && (
+          <button className='training-button' onClick={startTraining}>
+            <span className='text'>{`${pointsPerTraining.toFixed(1)} p. / hour`}</span>
+            <span className='text'>{price}$</span>
+          </button>
+        )}
+        <img className='training-card__background' src={imageSrc.src} />
+      </div>
+    );
+  }
+
   return (
-    <div className='training-card'>
-      <div className='info-container'>
-        <h3 className='title'>{title}</h3>
-        <h4 className='description'>{description}</h4>
+    <div className='mobile-training-card-container'>
+      <div className='training-card'>
+        <div className='info-container'>
+          <h3 className='title'>{title}</h3>
+          <h4 className='description'>{description}</h4>
+        </div>
+        <img className='training-card__background' src={imageSrc.src} />
       </div>
       {isMaxed && <span className='training_not_avaliable'>Training limit exceeded</span>}
       {!isMaxed && (
-        <button className={'training-button'} onClick={startTraining}>
-          <span className='text'>{`${pointsPerTraining.toFixed(1)} point/hour`}</span>
+        <button className='training-button' onClick={startTraining}>
+          <span className='text'>{`${pointsPerTraining.toFixed(1)} p. / hour`}</span>
           <span className='text'>{price}$</span>
         </button>
       )}
-      <img className='training-card__background' src={imageSrc.src} />
     </div>
   );
 };
