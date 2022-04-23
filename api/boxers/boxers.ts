@@ -1,29 +1,22 @@
-import axios from 'axios';
+import { axiosAuth } from 'api/axios';
+import { IBase } from 'services/types/api';
 
-// redux
-import store from '../../redux/store';
-import {
-  setLiveEvents,
-  setLiveEventsLoading,
-  setEventsLoading,
-  setEventsPaginationLoading,
-} from '../../redux/reducers/tournaments/slice';
+// types
+import { IPersonalBoxer } from './models';
 
 // constants
 import { SERVER_URL } from 'services/constants/constants';
-import { RECORDS_FOR_PAGE } from 'services/constants/events';
 
 class BoxersAPI {
-  static getBoxersByUserId({ userId }) {
-    const url = `${SERVER_URL}/user/${userId}/boxers`;
-    return axios.get(url);
+  static getBoxerTrainingInfo({ boxerId }) {
+    const url = `${SERVER_URL}/boxer/${boxerId}/training`;
+    return axiosAuth.get(url);
   }
 
-  static getBoxerTrainingInfo({ boxerId, abortController }) {
-    const url = `${SERVER_URL}/boxer/${boxerId}/training`;
-    return axios.get(url, {
-      signal: abortController ? abortController.signal : undefined,
-    });
+  static async getBoxersByUserId({ userId }: { userId: string }) {
+    const url: string = `${SERVER_URL}/boxer/all?ownerId=${userId}`;
+
+    return axiosAuth.get<IBase<{ boxers: IPersonalBoxer[] }>>(url);
   }
 }
 

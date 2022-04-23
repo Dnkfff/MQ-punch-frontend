@@ -17,39 +17,10 @@ import BoxerImg from 'assets/website/boxer/dummy-picture.svg';
 import { ICONS_STORAGE_URL, GYM_ROUTE } from 'services/constants/constants';
 import { WEIGHT_CATEGORY_TO_LABEL_MATCH } from 'services/constants/rating';
 
-export interface IStats {
-  agility: string | number;
-  strength: string | number;
-  stamina: string | number;
-}
+// types
+import { IPersonalBoxer } from 'api/boxers/models';
 
-export interface IBoxerRating {
-  division: string;
-  rating: string | number;
-}
-
-export interface IOwner {
-  id: string;
-  nickname: string;
-}
-
-export interface IProfileBoxer {
-  boxerRating: IBoxerRating[];
-  id: string;
-  logo: string;
-  mainStat: string;
-  modelLink: string;
-  name: string;
-  numberOfFights: number;
-  numberOfWins: number;
-  owner: IOwner;
-  ownerId: string;
-  stats: IStats;
-  statsId: string;
-  weightClass: string;
-}
-
-const Boxer: React.FC<{ boxer: IProfileBoxer; disabledGym?: boolean }> = (props) => {
+const Boxer: React.FC<{ boxer: IPersonalBoxer; disabledGym?: boolean }> = (props) => {
   const { boxer, disabledGym } = props;
   const dispatch = useDispatch();
   const user = useTypedSelector((state) => state.profile.user);

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import User from '../../../api/user/user';
+import User from 'api/user/user';
+import Boxers from 'api/boxers/boxers';
 import { onLogOut, setAuthLoading } from '../auth/slice';
 import { toast } from '../../../containers/TooltipsProvider/TooltipsProvider';
 
@@ -73,7 +74,7 @@ export const getUserBoxers = createAsyncThunk('profile/get-boxers', async (_, th
 
   try {
     const userId = JSON.parse(window.localStorage.getItem('profile_user')).id;
-    const boxersResult = await User.getBoxersInWallet({ userId });
+    const boxersResult = await Boxers.getBoxersByUserId({ userId });
     thunkAPI.dispatch(setAuthLoading(false));
 
     if (!boxersResult || !boxersResult.data || !boxersResult.data.boxers) {
@@ -94,7 +95,7 @@ export const getAnotherUserProfileInfo = createAsyncThunk<any, any, { rejectValu
 
     try {
       const profileResult = await User.getProfile({ userId });
-      const boxersResult = await User.getBoxersInWallet({ userId });
+      const boxersResult = await Boxers.getBoxersByUserId({ userId });
       thunkAPI.dispatch(setAuthLoading(false));
 
       return { profile: profileResult?.data?.me || null, boxers: boxersResult?.data?.boxers || [] };
