@@ -1,0 +1,61 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the development branch
+  push:
+    branches: [ main ]
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - name: Checkout dev
+        uses: actions/checkout@main
+
+      - name: Update SHA
+        run: echo $GITHUB_SHA > $GITHUB_WORKSPACE/_meta
+
+      # Install doctl.
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      # Build a Docker image of your application in your registry and tag the image with the $GITHUB_SHA.
+      - name: Build container image
+        run: docker build -t ${{ secrets.REGISTRY_NAME }}/mq-punch-front:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1200
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push ${{ secrets.REGISTRY_NAME }}/mq-punch-front:$(echo $GITHUB_SHA | head -c7)
+
+      # Deploy to DigitalOCcean Kubernetes.
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|${{ secrets.REGISTRY_NAME }}/mq-punch-front:'${TAG}'|' $GITHUB_WORKSPACE/kube.yml
+
+      - name: Replace Environment Variables
+        uses: danielr1996/envsubst-action@1.0.0
+        with:
+          input: kube.yml
+          output: deploy.yml
+
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ secrets.CLUSTER_NAME }}
+
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl apply -f $GITHUB_WORKSPACE/deploy.yml
+
+      - name: Verify deployment
+        run: kubectl rollout status deployment/mq-punch-front
