@@ -6,7 +6,6 @@ import Slider from 'react-slick';
 import Boxer from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 
 // interface
-import { IProfileBoxer } from '../../../UI/boxers/ProfileBoxer/ProfileBoxer';
 import { VisitMarket } from 'components/page-components/market-page/VisitMarket/VisitMarket';
 
 interface IBoxersList {
@@ -19,7 +18,7 @@ const MOBILE_SLIDER_SETTINGS = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  intialSlide: 0,
+  intialSlide: 0
 };
 
 const BoxerListWrapper = ({ mobileVersion, isAnother, boxers }) => {
@@ -29,7 +28,7 @@ const BoxerListWrapper = ({ mobileVersion, isAnother, boxers }) => {
         <h4 className='boxers-list-title'>YOUR BOXERS</h4>
         <div className='slider-container'>
           <Slider {...MOBILE_SLIDER_SETTINGS}>
-            {boxers.map((boxer: IProfileBoxer) => (
+            {boxers.map((boxer) => (
               <Boxer key={boxer.id} boxer={boxer} />
             ))}
           </Slider>
@@ -41,7 +40,7 @@ const BoxerListWrapper = ({ mobileVersion, isAnother, boxers }) => {
       <>
         <h4 className='boxers-list-title'>YOUR BOXERS</h4>
         <div className='row'>
-          {boxers.map((boxer: IProfileBoxer) => (
+          {boxers.map((boxer) => (
             <Boxer key={boxer.id} boxer={boxer} disabledGym={!!isAnother} />
           ))}
         </div>

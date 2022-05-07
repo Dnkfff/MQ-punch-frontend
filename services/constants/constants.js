@@ -27,7 +27,7 @@ export const MONTHS = [
   'September',
   'October',
   'November',
-  'December',
+  'December'
 ];
 
 export const MARKET_ROUTE = '/market';
@@ -40,13 +40,13 @@ export const bigHeaderMenuLinks = [
   {
     label: 'Tournaments',
     id: getUUID(),
-    pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE,
+    pathname: DEFAULT_TOURNAMENTS_SCREEN_ROUTE
   },
   { label: 'Gym', id: getUUID(), pathname: GYM_ROUTE },
   {
-    label: 'Leaderboard',
+    label: 'Market',
     id: getUUID(),
-    pathname: LEADERBOARD_ROUTE,
+    pathname: MARKET_ROUTE
   },
-  { label: 'Learn', id: getUUID(), pathname: LEARN_ROUTE },
+  { label: 'Learn', id: getUUID(), pathname: LEARN_ROUTE }
 ];

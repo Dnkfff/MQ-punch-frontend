@@ -9,25 +9,22 @@ import SocialTradeBanner from '../../components/page-components/market-page/Soci
 const Market = () => {
   return (
     <div className='global-market-page'>
-      <h2>coming soon...</h2>
-      {/* <OpenSeaBanner />
-      <BoxersList />
-
+      <OpenSeaBanner />
+      {/*<BoxersList />*/}
       <div className='maklet__social'>
         <div className='market__container'>
           <div className='market__social__inner'>
-            <div className='market__social__title'>Join our discord and telegram for trade</div>
+            <div className='market__social__title'>Join our discord for trade</div>
             <div className='market__social__btn'>
-              <button className='market__btn' type='button'>
-                Discord
-              </button>
-              <button className='market__btn' type='button'>
-                Telegram
-              </button>
+              <a href={'https://discord.com/invite/ZUZjGTp9KN'}>
+                <button className='market__btn' type='button'>
+                  Discord
+                </button>
+              </a>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
