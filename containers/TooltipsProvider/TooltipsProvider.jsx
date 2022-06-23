@@ -11,11 +11,62 @@ import Modal from '../../components/UI/Modal/Modal';
 import { setScreenWidth } from '../../redux/reducers/GlobalManager/slice';
 
 import 'react-toastify/dist/ReactToastify.css';
+import ReactDOMServer from 'react-dom/server';
+import reactHtmlRender from 'react-render-html';
+
+const Msg = ({ message }) => {
+  return reactHtmlRender(ReactDOMServer.renderToString(message));
+};
+
+const errorMsg = (message) => {
+
+  const messy = (
+    <div>
+      <div className={'toast-title'}>{message?.title || 'ERROR'}</div>
+      <div
+        className={'toast-content'}>{message?.content || 'It is not working'}
+      </div>
+    </div>);
+
+  toastCall.error(<Msg message={messy} />, {
+    style: { backgroundColor: '#8f1d1d' },
+    theme: 'dark',
+    position: 'bottom-right',
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined
+  });
+};
+const infoMsg = (message) => {
+
+  const messy = (
+    <div>
+      <div className={'toast-title'}>{message.title || 'Error'}</div>
+      <div
+        className={'toast-content'}>{message?.content || 'It is not working'}
+      </div>
+    </div>);
+//{/* <a style={{ textDecoration: 'none' }} href={'google.com'}>zxcasd</a>*/}
+  toastCall(<Msg message={messy} />, {
+    style: { backgroundColor: '#252830' },
+    theme: 'dark',
+    position: 'bottom-right',
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined
+  });
+};
 
 export const toast = {
-  errorMessage: (message) => toastCall.error(message),
+  errorMessage: (message) => errorMsg(message),
   successMessage: (message) => toastCall.success(message),
-  infoMessage: (message) => toastCall.info(message),
+  infoMessage: (message) => infoMsg(message)
 };
 
 const TooltipsProvider = ({ children }) => {
